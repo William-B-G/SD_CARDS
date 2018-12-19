@@ -1,0 +1,17 @@
+DRC Rules Export File for PCB: R:\WorkSpace\GALX4-0047N\GALX4-0047N_PCB-1109N_REV-A.PcbDoc
+RuleKind=Width|RuleName=Width_120|Scope=Board|Minimum=25.00
+RuleKind=Clearance|RuleName=MCU_PAD|Scope=Board|Minimum=4.00
+RuleKind=Clearance|RuleName=Clearance_PadToPad|Scope=Board|Minimum=15.00
+RuleKind=Clearance|RuleName=Clearance_PadToLine|Scope=Board|Minimum=8.00
+RuleKind=Clearance|RuleName=Clearance_LineToLine|Scope=Board|Minimum=8.00
+RuleKind=Clearance|RuleName=Clearance_ViaToPad|Scope=Board|Minimum=15.00
+RuleKind=Clearance|RuleName=Clearance_ViaToLine|Scope=Board|Minimum=8.00
+RuleKind=Clearance|RuleName=Clearance_ViaToVia|Scope=Board|Minimum=15.00
+RuleKind=Clearance|RuleName=Clearance_Design_HoleToHole|Scope=Board|Minimum=13.00
+RuleKind=SolderMaskExpansion|RuleName=SolderMaskExpansion|Scope=Board|Minimum=4.00
+RuleKind=Width|RuleName=Width|Scope=Board|Minimum=8.00
+RuleKind=Clearance|RuleName=Clearance|Scope=Board|Minimum=10.00
+RuleKind=ShortCircuit|RuleName=ShortCircuit|Scope=Board|Allowed=0
+RuleKind=Clearance|RuleName=120VAC|Scope=Board|Minimum=16.00
+RuleKind=Width|RuleName=Width_L-POWER|Scope=Board|Minimum=10.00
+RuleKind=Clearance|RuleName=Clearance_POLY|Scope=Board|Minimum=18.00

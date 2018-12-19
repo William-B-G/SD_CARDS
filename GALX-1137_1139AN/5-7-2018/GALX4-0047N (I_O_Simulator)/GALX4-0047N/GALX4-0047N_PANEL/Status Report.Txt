@@ -1,0 +1,13 @@
+Output: NC Drill Files
+Type  : NC Drill
+From  : Project [GALX4-0047N_PCB-1109N_REV-A.PrjPcb]
+   Generated File[GALX4-0047N_PCB-1109N_REV-A_Panel-Plated.TXT]
+   Generated File[GALX4-0047N_PCB-1109N_REV-A_Panel-NonPlated.TXT]
+   Generated File[GALX4-0047N_PCB-1109N_REV-A_Panel.LDP]
+   Generated File[GALX4-0047N_PCB-1109N_REV-A_Panel.DRR]
+
+
+Files Generated   : 4
+Documents Printed : 0
+
+Finished Output Generation At 9:49:16 AM On 3/24/2016

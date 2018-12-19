@@ -1,0 +1,24 @@
+extern void clroutp(void *ptr);
+extern void clrinp(void *ptr);
+//lint -esym(534,rdinp)
+extern uint8 rdinp(void *ptr);
+extern uint8 rdoutp(void *ptr);
+extern void setoutp(void *ptr);
+extern void setinp(void *ptr);
+extern uint8 rdinp_fm(void *ptr, void *ptrf);
+extern uint8 rdoutp_fm(void *ptr, void *ptrf);
+extern uint8 g_rdcoutp(uint16 car, void *ptr);
+extern uint8 g_rdcinp(uint16 car, void *ptr);
+extern void rdport(uint16 addr, uint16 array);
+extern void read_ports (void);
+extern void setoutp(void *ptr);
+extern void setginp(void *ptr);
+extern void clrginp(void *ptr);
+extern uint8 rdginp(void *ptr);
+extern void setgoutp(void *ptr);
+extern void clrgoutp(void *ptr);
+extern void clr_both_outps(void *ptr1, void *ptr2);
+extern void set_both_outps(void *ptr1, void *ptr2);
+extern uint8 rd_both_inps(void * ptr1, void *ptr2);
+extern void clr_both_inps(void *ptr1, void *ptr2);
+extern void set_both_inps(void *ptr1, void *ptr2);

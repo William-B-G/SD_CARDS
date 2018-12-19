@@ -1,0 +1,88 @@
+// varaibales for the LCD Display
+extern char LCD_Display[4][26];
+extern int16 LCD_Cur_Pos;
+extern int16 LCD_Line;
+extern int16 LCD_Mode;
+extern int16 LCD_Pointer;
+extern int16 LCD_UP_PB;
+extern int16 LCD_DN_PB;
+extern int16 LCD_Mode_PB;
+extern int16 LCD_Enter_PB;
+extern int16 LCD_Flash;
+extern int16 LCD_Old_Flash;
+extern int8 LCD_Month;
+extern int16 LCD_Year;
+extern int8 LCD_Day;
+extern int8 LCD_Minute;
+extern int8 LCD_Hour;
+extern char LCD_String[30];
+extern char LCD_Time_Date[24];
+extern char LCD_Flash_TMP[6];
+extern int16 LCD_Sub_Point;
+extern int16 LCD_Sub2_Point;
+extern int16 LCD_Dig_Point;
+extern int16 LCD_Dig_Loc;
+extern int16 LCD_firef;
+extern int16 LCD_rfiref;
+extern int16 LCD_fault;
+extern int16 LCD_position;
+extern int16 LCD_hsf;
+extern int16 LCD_UL;
+extern int16 LCD_DL;
+extern int16 LCD_servf;
+extern int16 LCD_vel;
+extern int16 LCD_enc_vel;
+extern int16 LCD_ver;
+extern int16 LCD_rev;
+
+extern int16 Menu_level;
+extern int16 Up_Date_LCD;
+
+extern const char LCD_Servf[][25];
+extern const char LCD_Firef[][25];
+extern const char LCD_Procf[][25];
+extern const char LCD_SS_Status[][25];
+extern const char LCD_Statusf[][25];
+extern const char LCD_Statusf2[][25];
+extern const char LCD_Doorf[][25];
+extern const char LCD_Rdoorf[][25];
+extern const char LCD_Fault[][25];
+extern const char LCD_Field_Variables[][25];
+extern const char LCD_Field_Vars[][25];
+extern const char LCD_Main_Menu[][25];
+extern const char LCD_Input_Output[3][25];
+
+extern unsigned char lcd_data[3];
+extern const int16 bittbl[16];
+
+extern int16 set_adj_digit (int32 max,int16 digit);
+extern void adjust_variable (int16 *varptr, int16 max, int16 min, int16 inc, int16 digit);
+extern void adjust_variable_32 (int32 *varptr, int32 max, int32 min, int32 inc, int16 digit);
+
+extern int16 get_io_status(int16 brdnmb, int16 ix);
+extern void init_LCD(void);
+extern void Refresh_LCD(void);
+extern int16 rdLCDio(int16 bitloc);
+extern void display_variable(int16 row, int16 col, int16 digit, int16 LCD_Par, int16 flash);
+extern void display_variable_11_digits(int16 row, int16 col, int16 digit, int32 LCD_Par, int16 flash);
+extern void flash_digit (char dchar, int16 row, int16 col, int16 enable);
+extern void write_display(char *s, int16 row, int16 col);
+
+#define Car_Motion 0
+#define Car_Brake 1
+#define Car_Mod_Motion 2
+#define Car_Timers 3
+#define Car_Options 4
+#define Service_Options 5
+#define Fire_Options 6
+#define Grp_Dispatch 7
+#define Grp_Option 8
+#define CC_COP_PB_Lights 9
+#define HC_IR_PB_Lights 10
+#define CB_VIP_SEC_PB_Lights 11
+#define System_Options 12
+#define Num_Fvars_Menus 13
+extern uint16 grp_fvars_chksum[Num_Fvars_Menus];
+extern unsigned char const last_var [Num_Fvars_Menus];
+#define Fvars_Per_Menu 60
+extern uint16 const var_ix[Num_Fvars_Menus][Fvars_Per_Menu];

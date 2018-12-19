@@ -1,0 +1,10 @@
+Output: Generates pick and place files
+Type  : Pick Place
+From  : Variant [[No Variations]] of Project [GALX4-0047N_PCB-1109N_REV-A.PrjPcb]
+   Generated File[Pick Place for GALX4-0047N_PCB-1109N_REV-A.csv]
+
+
+Files Generated   : 1
+Documents Printed : 0
+
+Finished Output Generation At 11:21:54 AM On 3/24/2016

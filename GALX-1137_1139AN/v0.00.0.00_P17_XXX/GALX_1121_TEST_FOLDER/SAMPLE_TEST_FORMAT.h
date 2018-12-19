@@ -1,0 +1,1 @@
+extern int16 SAMPLE_IO_TEST(int16 Operation);

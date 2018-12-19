@@ -1,0 +1,53 @@
+
+uint32 All_inputs = 0x-[7]-[6]-[5]-[4]-[3]-[2]-[1]-[0]
+
+[0]
+    i_RLS_COPi0_enum,
+    i_CSS_COPi1_enum,
+    i_CTS_COPi2_enum,
+    i_DET_COPi3_enum,
+
+[1]    
+    i_CTA_enum,
+    i_INS_enum,     // 5
+    i_IEN_enum,
+    i_IU_enum,
+ 
+[2]   
+    i_ID_enum,
+    i_FANST_enum,
+    i_LIGST_enum,   // 10
+    i_CDL_T_enum,
+    
+[3]    
+    i_CUL_T_enum,
+    i_CTS_T_enum,
+    i_FFSWT_enum,
+    i_CST_T_enum,   // 15
+    
+[4]    
+    i_ICC_T_enum,
+    i_ICA_T_enum,
+    i_ICI_T_enum,
+    i_ACC_T_enum,
+    
+[5]    
+    i_L15_enum,     // 20
+    i_L25_enum,
+    i_C24_T_enum,
+    
+    
+ [0] =  [ i_DET_COPi3_enum, i_CTS_COPi2_enum, i_CSS_COPi1_enum, i_RLS_COPi0_enum ]  
+ 
+ [1] =  [ i_IU_enum, i_IEN_enum, i_INS_enum, i_CTA_enum ] 
+ 
+ [2] =  [ i_CDL_T_enum, i_LIGST_enum, i_FANST_enum, i_ID_enum ] 
+ 
+ [3] =  [ i_CST_T_enum, i_FFSWT_enum, i_CTS_T_enum, i_CUL_T_enum ] 
+ 
+ [4] =  [ i_ACC_T_enum, i_ICI_T_enum, i_ICA_T_enum, i_ICC_T_enum ] 
+ 
+ [5] =  [ 0, i_C24_T_enum, i_L25_enum, i_L15_enum ]  
+ 
+ 
+  

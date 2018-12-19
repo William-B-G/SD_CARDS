@@ -1,0 +1,696 @@
+// This file contains the user access to load and store program files
+#define d_LOADSTORE 1
+#include "global.h"
+
+#include "fat_filelib.h"
+
+extern int print_com1(const char* ctrl1, ... );
+
+uint16 Load_Store_Program(uint16 cmd);
+
+uint8 test_blk[514];
+int16 file_car_nmb = 0;
+int16 file_car_speed = 0;
+int16 file_nmb_cars = 0;
+int16 file_bottom_fl = 0;
+int16 file_top_fl = 0;
+int16 file_grp_top_fl = 0;
+int16 file_last_fvar = 0;
+
+char file_string[61];
+char datbuf[181];
+
+
+int16 fvarstoSD(int16 command);
+char Field_Vars_Unused[25] =   {
+	"Unused Variable=        "	// Unused variable
+};
+
+void put_car_data (FL_FILE *fp1)
+{
+
+	sprintf(file_string,"Car Data ");
+	fl_fputs(file_string,fp1);
+	fl_fputc(CR,fp1);
+	fl_fputc(LF,fp1);
+	
+	sprintf(file_string,"%06d // Car Nunber ",cons[carnmb]);
+	fl_fputs(file_string,fp1);
+	fl_fputc(CR,fp1);
+	fl_fputc(LF,fp1);
+	sprintf(file_string,"%06d // Car Speed ",cons[speed]);
+	fl_fputs(file_string,fp1);
+	fl_fputc(CR,fp1);
+	fl_fputc(LF,fp1);
+	sprintf(file_string,"%06d // Number of Cars ",cons[nmbcars]);
+	fl_fputs(file_string,fp1);
+	fl_fputc(CR,fp1);
+	fl_fputc(LF,fp1);
+	sprintf(file_string,"%06d // Bottom Floor ",cons[bottomf]);
+	fl_fputs(file_string,fp1);
+	fl_fputc(CR,fp1);
+	fl_fputc(LF,fp1);
+	sprintf(file_string,"%06d // Top Floor ",cons[topf]);
+	fl_fputs(file_string,fp1);
+	fl_fputc(CR,fp1);
+	fl_fputc(LF,fp1);
+	sprintf(file_string,"%06d // Group Top Floor ",cons[grtopf]);
+	fl_fputs(file_string,fp1);
+	fl_fputc(CR,fp1);
+	fl_fputc(LF,fp1);
+}
+
+int16 get_car_data (FL_FILE *fp1)
+{
+	if (strstr(datbuf,"Car Data ") != 0)	
+	{		// Get file Car Data
+	   	fl_fgets(datbuf,180,fp1);				// Car Number
+		file_car_nmb = (int16)atoi(datbuf);
+	   	fl_fgets(datbuf,180,fp1);				// Car Speed
+		file_car_speed = (int16)atoi(datbuf);
+	   	fl_fgets(datbuf,180,fp1);				// Number of Cars
+		file_nmb_cars = (int16)atoi(datbuf);
+	   	fl_fgets(datbuf,180,fp1);				// Bottom Floor
+		file_bottom_fl = (int16)atoi(datbuf);
+	   	fl_fgets(datbuf,180,fp1);				// Top Floor
+		file_top_fl = (int16)atoi(datbuf);
+	   	fl_fgets(datbuf,180,fp1);				// Group Top Floor
+		file_grp_top_fl = (int16)atoi(datbuf);
+		return 1;
+	}
+	else
+		return 0;
+}
+
+int16 fvarstoSD(int16 command)
+{
+	char ix_str[4]; 					// index string
+
+	int16 i;
+	int16 j;
+	static int16 value;
+	static int16 index;
+	int16 sd_error = 0;
+
+	FL_FILE *fp1 = NULL;
+
+	if (sd_init == 0)
+	{
+		sd_error = sd_initialization();
+		// Initialise File IO Library
+		if (sd_error == 0)
+		{
+			fl_init();
+			// Attach media access functions to library
+			if (fl_attach_media(media_read, media_write) != FAT_INIT_OK)
+			{
+				print_com1("ERROR: Media attach failed\n");
+				sd_error = 0x55; 
+			}
+		}
+	}
+
+	disable_dog();
+		
+	switch(command)
+	{	
+		case 0:
+			fp1 = fl_fopen("/fvars.txt","w");
+			put_car_data(fp1);
+			
+			// Read Field Variables
+			sprintf(file_string,"Field Variables ");
+			fl_fputs(file_string,fp1);
+			fl_fputc(CR,fp1);
+			fl_fputc(LF,fp1);
+
+			sprintf(file_string,"%06d // Last Field Variable ",lastfvar);
+			fl_fputs(file_string,fp1);
+			fl_fputc(CR,fp1);
+			fl_fputc(LF,fp1);
+
+			//FIELD VARIABLES
+			for(i=0; i < nmbfvar; i++)
+			{
+				sprintf(file_string,"%06d ",fvars[i]);
+				file_string[7] = '/';
+				file_string[8] = '/';
+				sprintf(&file_string[9]," %03d ",i);
+				
+				for (j = 0; j <= 14; j++)
+				{
+					if (i > lastfvar)
+						file_string[14+j] = Field_Vars_Unused[j];
+					else				
+						file_string[14+j] = LCD_Field_Vars[i][j];
+				}
+				fl_fputs(file_string,fp1);
+				fl_fputc(CR,fp1);
+				fl_fputc(LF,fp1);
+
+			}
+			break;
+
+		case 1:		// Read Variables from file
+
+			fp1 = fl_fopen("/fvars.txt","r");
+			if (fp1 != NULL)
+			{
+				
+				if (get_car_data(fp1) == 1)	
+				{		// Valid Car Data
+
+					if ((file_car_nmb <= 8) && (file_car_speed >= 25) && (file_car_speed <= 2000) && 
+						(file_bottom_fl > 0) &&	(file_bottom_fl < file_top_fl) &&
+						(file_top_fl <= file_grp_top_fl))
+					{
+						if (strstr(datbuf,"Field Variables ") != 0)	
+						{		// Get file Field Variables
+
+					      	fl_fgets(datbuf,180,fp1);				// Last field variable
+							file_last_fvar = (int16)atoi(datbuf);
+							
+							// READ FIELD VARIABLES FROM FILE
+
+							for(i =0; i <= file_last_fvar; i++)
+							{			// only load valid variables
+								fl_fgets(datbuf,180,fp1);
+								fvars[i] = (int16)atoi(datbuf);
+							}
+							wrfvar(cpu_Z6);
+						}
+					}
+				}
+			}
+			break;
+			
+		case 2:		// Setup Data
+		
+			fp1 = fl_fopen("/setup.txt","w");
+			put_car_data(fp1);
+
+			// SPEED CLAMPS			
+			fl_fputs("Speed Clamps",fp1);
+			fl_fputc(CR,fp1);
+			fl_fputc(LF,fp1);
+
+		    for(i=0; i<=8; i++)
+		    {
+				sprintf(file_string,"%06d // Speed Clamp %02d ",speed_clamp[i],i);
+				fl_fputs(file_string,fp1);
+				fl_fputc(CR,fp1);
+				fl_fputc(LF,fp1);
+
+		    }
+
+			//LOAD WEIGHER DATA
+			fl_fputs("Load Weigher",fp1);
+			fl_fputc(CR,fp1);
+			fl_fputc(LF,fp1);
+			for(i=cons[bottomf]; i<=cons[topf]; i++)
+			{
+				sprintf(file_string,"%06d // Empty Car flr %02d ",lw_empty[i],i);
+				fl_fputs(file_string,fp1);
+				fl_fputc(CR,fp1);
+				fl_fputc(LF,fp1);
+			}
+			for(i=cons[bottomf]; i<=cons[topf]; i++)
+			{
+				sprintf(file_string,"%06d //  Full Car flr %02d ",lw_full[i],i);
+				fl_fputs(file_string,fp1);
+				fl_fputc(CR,fp1);
+				fl_fputc(LF,fp1);
+			}
+
+			break;
+			
+		case 3: 		// Get Setup Data
+				
+			fp1 = fl_fopen("/setup.txt","r");
+			if (fp1 != NULL)
+			{
+				if (get_car_data(fp1) == 1)	
+				{		// Valid Car Data
+				
+					if ((file_car_nmb <= 8) && (file_car_speed >= 25) && (file_car_speed <= 2000) && 
+						(file_bottom_fl > 0) &&	(file_bottom_fl < file_top_fl) &&
+						(file_top_fl <= file_grp_top_fl))
+					{
+		   				fl_fgets(datbuf,180,fp1);				
+						// SPEED CLAMPS			
+						if (strstr(datbuf,"Speed Clamps") != 0)	
+						{		// Get file Field Variables
+							
+						    for(i=0; i<=8; i++)
+						    {
+			   					fl_fgets(datbuf,180,fp1);				 
+								speed_clamp[i] = atoi(datbuf);
+						    }
+							wrfvar(cpu_Z6);
+						}
+						
+						
+
+		   				fl_fgets(datbuf,180,fp1);				 
+						//LOAD WEIGHER DATA
+						if (strstr(datbuf,"Load Weigher") != 0)
+						{
+							for(i=file_bottom_fl; i<=file_top_fl; i++)
+							{				// Empty Car 
+		   						fl_fgets(datbuf,180,fp1);				 
+								lw_empty[i] = atoi(datbuf);
+							}
+							for(i=file_bottom_fl; i<=file_top_fl; i++)
+							{				// Full Car
+		   						fl_fgets(datbuf,180,fp1);				 
+								lw_full[i] = atoi(datbuf);
+							}
+							wrlwvar(cpu_Z6);
+						}
+					}
+				}
+
+			}
+			break;
+			
+		case 4:		// Hoistway Data
+		
+			fp1 = fl_fopen("/hoistway.txt","w");
+			put_car_data(fp1);
+			//HOISTWAY TABLES AND DATA
+			sprintf(file_string,"Hoistway Table");
+			fl_fputs(file_string,fp1);
+			fl_fputc(CR,fp1);
+			fl_fputc(LF,fp1);
+		  	for(i= 1; i<= cons[topf]; i++)
+		  	{
+				sprintf(file_string,"%010d // Floor Position Count ",DPP_Floor_Pos[i],i);
+				fl_fputs(file_string,fp1);
+				fl_fputc(CR,fp1);
+				fl_fputc(LF,fp1);
+		  	}
+			sprintf(file_string,"%010d // DN Count ",DPP_DN);
+			fl_fputs(file_string,fp1);
+			fl_fputc(CR,fp1);
+			fl_fputc(LF,fp1);
+			sprintf(file_string,"%010d // DTS Count",DPP_DTS);
+			fl_fputs(file_string,fp1);
+			fl_fputc(CR,fp1);
+			fl_fputc(LF,fp1);
+ 		 	for(i = 0; i <= 6; i++)
+			{
+				sprintf(file_string,"%010d // DT%1d Count ",DPP_DT[i],i);
+				fl_fputs(file_string,fp1);
+				fl_fputc(CR,fp1);
+				fl_fputc(LF,fp1);				
+			}
+ 		 	for(i = 0; i <= 6; i++)
+			{
+				sprintf(file_string,"%010d // UT%1d Count ",DPP_UT[i],i);
+				fl_fputs(file_string,fp1);
+				fl_fputc(CR,fp1);
+				fl_fputc(LF,fp1);				
+			}
+			sprintf(file_string,"%010d // UTS Count ",DPP_UTS);
+			fl_fputs(file_string,fp1);
+			fl_fputc(CR,fp1);
+			fl_fputc(LF,fp1);
+			sprintf(file_string,"%010d // UN Count ",DPP_UN);
+			fl_fputs(file_string,fp1);
+			fl_fputc(CR,fp1);
+			fl_fputc(LF,fp1);
+			sprintf(file_string,"%010d // Selector Bottom ",SEL_Bottom_Count);
+			fl_fputs(file_string,fp1);
+			fl_fputc(CR,fp1);
+			fl_fputc(LF,fp1);
+			sprintf(file_string,"%010d // Selector Top ",SEL_Top_Count);
+			fl_fputs(file_string,fp1);
+			fl_fputc(CR,fp1);
+			fl_fputc(LF,fp1);
+			sprintf(file_string,"%010d // DZU Distance ",DZU_Dist);
+			fl_fputs(file_string,fp1);
+			fl_fputc(CR,fp1);
+			fl_fputc(LF,fp1);
+			sprintf(file_string,"%010d // DZD Distance ",DZD_Dist);
+			fl_fputs(file_string,fp1);
+			fl_fputc(CR,fp1);
+			fl_fputc(LF,fp1);
+			sprintf(file_string,"%010d // Up Fl Lev Dist ",Up_fl_level_dist);
+			fl_fputs(file_string,fp1);
+			fl_fputc(CR,fp1);
+			fl_fputc(LF,fp1);
+			sprintf(file_string,"%010d // Dn Fl Lev Dist ",Dn_fl_level_dist );
+			fl_fputs(file_string,fp1);
+			fl_fputc(CR,fp1);
+			fl_fputc(LF,fp1);
+			
+		  	for(i= 1; i<= cons[topf]; i++)
+		  	{
+				sprintf(file_string,"%010d // Floor %2d Offsets ",DPP_Fl_Offset[i],i);
+				fl_fputs(file_string,fp1);
+				fl_fputc(CR,fp1);
+				fl_fputc(LF,fp1);
+		  	}
+		  	
+		  	break;
+		  	
+		case 5:		// Hoistway Table
+			
+			fp1 = fl_fopen("/hoistway.txt","r");
+			if (fp1 != NULL)
+			{
+				if (get_car_data(fp1) == 1)	
+				{		// Valid Car Data
+				
+					if ((file_car_nmb <= 8) && (file_car_speed >= 25) && (file_car_speed <= 2000) && 
+						(file_bottom_fl > 0) &&	(file_bottom_fl < file_top_fl) && 
+						(cons[topf] == file_top_fl) && (cons[bottomf] == file_bottom_fl) && 
+						(file_top_fl <= file_grp_top_fl))
+					{
+		   				fl_fgets(datbuf,180,fp1);				
+						// Hoistway Table			
+						if (strstr(datbuf,"Hoistway Table") != 0)	
+						{		// Get hoistway data
+		
+						  	for(i= 1; i<= file_top_fl; i++)
+						  	{
+		   						fl_fgets(datbuf,180,fp1);				 
+								DPP_Floor_Pos[i] = atoi(datbuf);
+						  	}
+						  	
+	   						fl_fgets(datbuf,180,fp1);				 
+							DPP_DN = atoi(datbuf);
+						  	
+	   						fl_fgets(datbuf,180,fp1);				 
+							DPP_DTS = atoi(datbuf);
+
+				 		 	for(i = 0; i <= 6; i++)
+							{
+		   						fl_fgets(datbuf,180,fp1);				 
+								DPP_DT[i] = atoi(datbuf);
+							}
+				 		 	for(i = 0; i <= 6; i++)
+							{
+		   						fl_fgets(datbuf,180,fp1);				 
+								DPP_UT[i] = atoi(datbuf);
+							}
+							
+	   						fl_fgets(datbuf,180,fp1);				 
+							DPP_UTS = atoi(datbuf);
+
+	   						fl_fgets(datbuf,180,fp1);				 
+							DPP_UN = atoi(datbuf);
+
+	   						fl_fgets(datbuf,180,fp1);				 
+							SEL_Bottom_Count = atoi(datbuf);
+
+	   						fl_fgets(datbuf,180,fp1);				 
+							SEL_Top_Count = atoi(datbuf);
+
+	   						fl_fgets(datbuf,180,fp1);				 
+							DZU_Dist = atoi(datbuf);
+
+	   						fl_fgets(datbuf,180,fp1);				 
+							DZD_Dist = atoi(datbuf);
+
+	   						fl_fgets(datbuf,180,fp1);				 
+							Up_fl_level_dist = atoi(datbuf);
+
+	   						fl_fgets(datbuf,180,fp1);				 
+							Dn_fl_level_dist = atoi(datbuf);
+						
+						  	for(i= 1; i<= cons[topf]; i++)
+						  	{
+		   						fl_fgets(datbuf,180,fp1);				 
+								DPP_Fl_Offset[i] = atoi(datbuf);
+						  	}
+							Wrt_Hoistway(cpu_Z6);
+						}
+					}
+				}
+			}
+			break;
+
+		case 6:		// Write Service Timers
+		
+			fp1 = fl_fopen("/svctmr.txt","w");
+			put_car_data(fp1);
+			
+			fl_fputs("Service Timers",fp1);
+			fl_fputc(CR,fp1);
+			fl_fputc(LF,fp1);
+		  	
+			for(j = 0; j < 10; j++)
+			{
+				sprintf(file_string,"%05d // Service Timer #%2d Service ",svc_t[j].service,j);
+				fl_fputs(file_string,fp1);
+				fl_fputc(CR,fp1);
+				fl_fputc(LF,fp1);
+				sprintf(file_string,"%05d // Service Timer #%2d Status ",svc_t[j].status,j);
+				fl_fputs(file_string,fp1);
+				fl_fputc(CR,fp1);
+				fl_fputc(LF,fp1);
+				for (i=0;i<=2;i++)
+				{
+					sprintf(file_string,"%05d // Service Timer #%2d-%2d Month ",svc_t[j].month[i],j,i);
+					fl_fputs(file_string,fp1);
+					fl_fputc(CR,fp1);
+					fl_fputc(LF,fp1);
+					sprintf(file_string,"%05d // Service Timer #%2d-%2d Day ",svc_t[j].day[i],j,i);
+					fl_fputs(file_string,fp1);
+					fl_fputc(CR,fp1);
+					fl_fputc(LF,fp1);
+					sprintf(file_string,"%05d // Service Timer #%2d-%2d MD On Hr ",svc_t[j].md_on_hour[i],j,i);
+					fl_fputs(file_string,fp1);
+					fl_fputc(CR,fp1);
+					fl_fputc(LF,fp1);
+					sprintf(file_string,"%05d // Service Timer #%2d-%2d MD Off Hr ",svc_t[j].md_off_hour[i],j,i);
+					fl_fputs(file_string,fp1);
+					fl_fputc(CR,fp1);
+					fl_fputc(LF,fp1);
+					sprintf(file_string,"%05d // Service Timer #%2d-%2d MD On min ",svc_t[j].md_on_minute[i],j,i);
+					fl_fputs(file_string,fp1);
+					fl_fputc(CR,fp1);
+					fl_fputc(LF,fp1);
+					sprintf(file_string,"%05d // Service Timer #%2d-%2d MD Off min ",svc_t[j].md_off_minute[i],j,i);
+					fl_fputs(file_string,fp1);
+					fl_fputc(CR,fp1);
+					fl_fputc(LF,fp1);
+				}
+				for (i=0;i<=6;i++)
+				{
+					sprintf(file_string,"%05d // Service Timer #%2d-%2d DOW On Hr ",svc_t[j].on_hour[i],j,i);
+					fl_fputs(file_string,fp1);
+					fl_fputc(CR,fp1);
+					fl_fputc(LF,fp1);
+					sprintf(file_string,"%05d // Service Timer #%2d-%2d DOW Off Hr ",svc_t[j].off_hour[i],j,i);
+					fl_fputs(file_string,fp1);
+					fl_fputc(CR,fp1);
+					fl_fputc(LF,fp1);
+					sprintf(file_string,"%05d // Service Timer #%2d-%2d DOW On Min ",svc_t[j].on_minute[i],j,i);
+					fl_fputs(file_string,fp1);
+					fl_fputc(CR,fp1);
+					fl_fputc(LF,fp1);
+					sprintf(file_string,"%05d // Service Timer #%2d-%2d DOW Off Min ",svc_t[j].off_minute[i],j,i);
+					fl_fputs(file_string,fp1);
+					fl_fputc(CR,fp1);
+					fl_fputc(LF,fp1);
+
+				}
+
+			 }
+			 break;
+			 
+		case 7:		// Read Service Timers
+		
+			fp1 = fl_fopen("/svctmr.txt","r");
+			if (fp1 != NULL)
+			{
+				if (get_car_data(fp1) == 1)	
+				{		// Valid Car Data
+				
+					if ((file_car_nmb <= 8) && (file_car_speed >= 25) && (file_car_speed <= 2000) && 
+						(file_bottom_fl > 0) &&	(file_bottom_fl < file_top_fl) && 
+						(cons[topf] == file_top_fl) && (cons[bottomf] == file_bottom_fl) && 
+						(file_top_fl <= file_grp_top_fl))
+					{
+		   				fl_fgets(datbuf,180,fp1);				
+						// Service Timers			
+						if (strstr(datbuf,"Service Timers") != 0)	
+						{		// Get Service Timer data
+							for(j = 0; j < 10; j++)
+							{
+		   						fl_fgets(datbuf,180,fp1);				 
+								svc_t[j].service = atoi(datbuf);
+
+		   						fl_fgets(datbuf,180,fp1);				 
+								svc_t[j].status = atoi(datbuf);
+
+								for (i=0;i<=2;i++)
+								{
+			   						fl_fgets(datbuf,180,fp1);				 
+									svc_t[j].month[i] = atoi(datbuf);
+
+			   						fl_fgets(datbuf,180,fp1);				 
+									svc_t[j].day[i] = atoi(datbuf);
+
+			   						fl_fgets(datbuf,180,fp1);				 
+									svc_t[j].md_on_hour[i] = atoi(datbuf);
+
+			   						fl_fgets(datbuf,180,fp1);				 
+									svc_t[j].md_off_hour[i] = atoi(datbuf);
+
+			   						fl_fgets(datbuf,180,fp1);				 
+									svc_t[j].md_on_minute[i] = atoi(datbuf);
+
+			   						fl_fgets(datbuf,180,fp1);				 
+									svc_t[j].md_off_minute[i] = atoi(datbuf);
+								}
+								for (i=0;i<=6;i++)
+								{
+			   						fl_fgets(datbuf,180,fp1);				 
+									svc_t[j].on_hour[i] = atoi(datbuf);
+
+			   						fl_fgets(datbuf,180,fp1);				 
+									svc_t[j].off_hour[i] = atoi(datbuf);
+
+			   						fl_fgets(datbuf,180,fp1);				 
+									svc_t[j].on_minute[i] = atoi(datbuf);
+
+			   						fl_fgets(datbuf,180,fp1);				 
+									svc_t[j].off_minute[i] = atoi(datbuf);
+								}
+								Wrt_Grp_Svc_Timer (j,cpu_Z6);
+							}
+						}
+					}
+				}
+			 }
+			 break;
+			 
+			
+			
+		case 8:	// Write Security Data to file (include call mask)
+			break;
+		case 9:	// Read Security Data from file
+			break;
+		default:
+			break;
+	}
+	
+	delay(10000);
+	fl_fclose(fp1);
+	enable_dog();
+	petdog();
+	
+	return 1;
+
+}
+
+
+uint16 Load_Store_Program (uint16 cmd)
+{
+	uint16 sd_error = 0;
+	uint16 i;
+	unsigned char data[] = { '1', '2', '3', '4' };
+	char datbuf[61];
+	char datbuf1[61];
+	
+	FL_FILE *file;
+	
+	switch (cmd)
+	{
+		case 0:		// initiallize sd card
+			sd_error = sd_initialization();
+			// Initialise File IO Library
+			if (sd_error == 0)
+				fl_init();
+			break;
+			
+		case 1:		// read block (temporary)
+			sd_error = sd_read_block(25);
+			if (sd_error == 0)
+				do {}while( get_read_block_status() == 0);
+			break;
+			
+		case 2:		// write block (temporary)
+			// Attach media access functions to library
+			if (fl_attach_media(media_read, media_write) != FAT_INIT_OK)
+			{
+				print_com1("ERROR: Media attach failed\n");
+				return; 
+			}
+
+			// List root directory
+//			fl_listdirectory("/");
+
+			// Create File
+			file = fl_fopen("/file.txt", "w");
+			if (file)
+			{
+				// Write some data
+				if (fl_fwrite(data, 1, sizeof(data), file) != sizeof(data))
+					print_com1("ERROR: Write file failed\n");
+			}
+			else
+				print_com1("ERROR: Create file failed\n");
+			
+			fl_fputc(CR,file);
+			fl_fputc(LF,file);
+			fl_fputc('1',file);
+			fl_fputc('5',file);
+			fl_fputc(0,file);
+
+			// Close file
+			fl_fclose(file);
+
+
+			// Delete File
+
+			// List root directory
+//			fl_listdirectory("/");
+
+//			fl_shutdown();
+			
+//			for (i=0;i<512;i++)
+//				test_blk[i] = (uint8)i;
+//			copy_write_data_to_dma_buff(test_blk);
+//			sd_error = sd_write_block(25);
+//			if (sd_error == 0)
+//				do {}while( get_write_block_status() == 0);
+			break;
+				
+		case 3:		// read cons.dat file
+			for (i=0;i<60;i++)
+			{
+				datbuf[i] = 0;
+				datbuf1[i] = 0;
+			}
+			
+			file = fl_fopen("/file.txt", "r");
+			fl_fgets(datbuf,60,file);	// title on first line
+			fl_fgets(datbuf1,60,file);	// title on first line
+			fl_fclose(file);
+//			if (fl_remove("/file.txt") < 0)
+//				print_com1("ERROR: Delete file failed\n");
+//			if (fl_remove("/fvars.txt") < 0)
+//				print_com1("ERROR: Delete file failed\n");
+			break;
+			
+		case 4:		// write cons.dat file
+			for (i=0;i<512;i++)
+				test_blk[i] = 0;
+			copy_write_data_to_dma_buff(test_blk);
+			sd_error = sd_write_block(25);
+			if (sd_error == 0)
+				do {}while( get_write_block_status() == 0);
+			break;
+			
+		default:
+			break;
+	}
+	
+	return sd_error;
+}
+
+		

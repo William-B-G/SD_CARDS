@@ -1,0 +1,3 @@
+Layer Pairs Export File for PCB: R:\WorkSpace\GALX4-0047N\GALX4-0047N_PCB-1109N_REV-A.PcbDoc
+LayersSetName=Top_Bot_Plated_Thru_Holes|DrillFile=galx4-0047n_pcb-1109n_rev-a-plated.txt|LayerPairs=gtl,gbl
+LayersSetName=Top_Bot_NonPlated_Thru_Holes|DrillFile=galx4-0047n_pcb-1109n_rev-a-nonplated.txt|LayerPairs=gtl,gbl

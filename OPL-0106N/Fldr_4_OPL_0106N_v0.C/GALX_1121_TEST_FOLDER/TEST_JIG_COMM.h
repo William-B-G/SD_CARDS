@@ -1,0 +1,1 @@
+extern int16 TEST_JIG_COMM(int16 Operation);

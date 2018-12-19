@@ -1,0 +1,28 @@
+------------------------------------------------------------------------------------------
+Gerber File Extension Report For: GALX4-0047N_PCB-1109N_REV-A.GBR   3/23/2016  1:35:39 PM
+------------------------------------------------------------------------------------------
+
+
+------------------------------------------------------------------------------------------
+Layer Extension     Layer Description                      
+------------------------------------------------------------------------------------------
+.GTL                Top                                     
+.GBL                Bottom                                  
+.GPB                Bottom Pad Master                       
+.GPT                Top Pad Master                          
+.GTO                Top Silk                                
+.GTP                Top Paste                               
+.GTS                Top Mask                                
+.GBS                Bot Mask                                
+.GBP                Bot Paste                               
+.GBO                Bot Silk                                
+.GKO                Board                                   
+.GM1                Top Assy                                
+.GM2                Bot Assy                                
+.GM3                DXF1                                    
+.GM4                TITLE                                   
+.GM13               Mechanical 13                           
+.GM15               Mechanical 15                           
+.GD1                Drill Drawing                           
+.GG1                Drill Guide                             
+------------------------------------------------------------------------------------------

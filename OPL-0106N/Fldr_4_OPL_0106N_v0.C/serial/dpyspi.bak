@@ -1,0 +1,457 @@
+#define d_DPYSPI 1
+#include "global.h"
+
+/* Display SPI port
+*/
+
+void init_dpyspi (void);
+void init_DPYSPI_DMA(void);
+void dpyspi_start(void);
+void dpyspi_dma_rx_int(void);
+void dpyspi_control (void);
+void dpyspi_pack (uint8 msg);
+void dpyspi_unpack (void);
+
+
+#define DSPI_A_Port 0xFFF90000L
+#define DPYSPIdr DSPI_A_Port + 0x0034
+#define DPYSPIsr DSPI_A_Port + 0x0038
+#define DPYSPIdmaRxIntLoc eDMA_6_Int
+
+#define DPYSPIdmaChTx 5
+#define DPYSPIdmaChRx 6
+#define DPYSPIdmaTX 0x92
+#define DPYSPIdmaRX 0x93
+
+#define c_dpyspi_dma_buf_len 150
+uint32 dpyspi_tx_dma_buf[c_dpyspi_dma_buf_len];
+uint16 dpyspi_rx_dma_buf[c_dpyspi_dma_buf_len];
+
+uint8 dpyspi_transferred = 0;
+uint8 dpyspi_req = 0;
+
+#define c_DPYSPI_START 'S'
+
+
+void init_dpyspi (void)
+{
+	int16 i;
+	
+	DSPI_A.MCR.B.HALT = 1;		// Stop SPI from running
+	DSPI_A.MCR.B.MSTR = 1;		// Master Mode
+	DSPI_A.MCR.B.CONT_SCKE = 0;	// Continuous SCK disabled
+	DSPI_A.MCR.B.DCONF = 0;		// SPI mode
+	DSPI_A.MCR.B.FRZ = 0;		// Do not freeze SPI during debug
+	DSPI_A.MCR.B.MTFE = 0;		// No modified timing format
+	DSPI_A.MCR.B.PCSSE = 0;		// No Peripheral Chip Select Strobe 
+	DSPI_A.MCR.B.ROOE = 0; 		// Ignore overflow incomming data
+	DSPI_A.MCR.B.PCSIS0 = 1;	// Peripheral Chip select active low state
+	DSPI_A.MCR.B.PCSIS1 = 1;	// Peripheral Chip select active low state
+	DSPI_A.MCR.B.PCSIS2 = 1;	// Peripheral Chip select active low state
+	DSPI_A.MCR.B.PCSIS3 = 1;	// Peripheral Chip select active low state
+	DSPI_A.MCR.B.PCSIS4 = 1;	// Peripheral Chip select active low state
+	DSPI_A.MCR.B.PCSIS5 = 1;	// Peripheral Chip select active low state
+	DSPI_A.MCR.B.MDIS = 0;		// No Module disable
+	DSPI_A.MCR.B.DIS_TXF = 0;	// Allow Transmit Fifo
+	DSPI_A.MCR.B.DIS_RXF = 0;	// Allow Receive Fifo
+	DSPI_A.MCR.B.CLR_TXF = 1;	// Clear transmit fifo
+	DSPI_A.MCR.B.CLR_RXF = 1;	// Clear receive fifo
+	DSPI_A.MCR.B.SMPL_PT = 0;	// Sample point 0 - Not using modified timing format
+	
+	DSPI_A.TCR.B.SPI_TCNT = 0;	// Reset SPI transfer Count
+	
+	for (i=0;i<=7;i++)
+	{
+		DSPI_A.CTAR[i].B.FMSZ = 15;		// Transfer 16 bits
+		DSPI_A.CTAR[i].B.CPOL = 1;		// Clock polarity is low
+		DSPI_A.CTAR[i].B.CPHA = 1;		// Clock phase is leading edge of SCK
+		DSPI_A.CTAR[i].B.LSBFE = 0;		// MSB first 
+		
+		// PCS to SCK Delay tCSC = 1/fSYS x PCSSCK x CSSCK = 1/108.75 MHz x 1 x 1024 = 9.416 usec (use one clock width)
+		DSPI_A.CTAR[i].B.PCSSCK = 0;	// PCS to SCK Delay Prescaler = 1
+		DSPI_A.CTAR[i].B.CSSCK = 9;		// PCS to SCK  set to  1024  
+		
+		// After SCK Delay tASC = 1/fSYS x PASC x ASC = 1/108.75 MHz x 1 x 512 = 4.708 usec (use 1/2 clock width) 
+		DSPI_A.CTAR[i].B.PASC = 0;		// Prescaler = 1				
+		DSPI_A.CTAR[i].B.ASC = 8;		// After SCK delay set to 512 
+		
+		// Delay after Transfer tDT = 1/fSYS x PDT x DT = 1/108.75 MHz x 1 x 2048 = 18.832 usec (use 2 clock widths)
+		DSPI_A.CTAR[i].B.PDT = 0;		// Prescaler = 1
+		DSPI_A.CTAR[i].B._DT = 10;			// CS Delay Time  
+																				 
+		// Baud rate setting SCK baud = fSYS/PBR x (1+DBR)/BR = 108.75 MHz / 2 / 512 = 106.20117875 MHz
+		DSPI_A.CTAR[i].B.DBR = 0;		// No double baud rate
+		DSPI_A.CTAR[i].B.PBR = 0;		// Baud rate clock prescale (divide by 2)
+		DSPI_A.CTAR[i].B.BR = 9;		// Baud rate prescaler (divide by 32)
+	}
+	
+	// Clear the status register bits
+	DSPI_A.SR.B.TCF = 1;			// Clear transfer complete flag
+	DSPI_A.SR.B.TFUF = 1;			// Clear transmit underflow flag
+	DSPI_A.SR.B.TFFF = 1; 			// Clear transmit fifo fill flag
+	DSPI_A.SR.B.RFOF = 1;			// Clear receive fifo overflow flag
+	DSPI_A.SR.B.RFDF = 1;			// Clear receive fifo drain flag
+
+	
+	// Set up DMA request for RTC SPI
+	DSPI_A.RSER.B.TCF_RE = 0;		// Disable transmission request interrupt
+	DSPI_A.RSER.B.EOQF_RE = 0;		// Disable DSPI finished interrupt
+	DSPI_A.RSER.B.TFUF_RE = 0;		// Disable Transmit fifo underflow interrupt
+	DSPI_A.RSER.B.TFFF_RE = 1;		// Enable Transit Fifo Fill
+	DSPI_A.RSER.B.TFFF_DIRS = 1; 	// Set to generate DMA request for transmit fifo
+	DSPI_A.RSER.B.RFOF_RE = 0;		// Disable Receive Fifo Overflow interrupt
+	DSPI_A.RSER.B.RFDF_RE = 1;		// Enable Receive FIFO drain request
+	DSPI_A.RSER.B.RFDF_DIRS = 1;	// Set to generate DMA request for receive fifo
+	
+	
+	DSPI_A.MCR.B.HALT = 0;		// Allow SPI to run
+
+	init_DPYSPI_DMA();
+	
+	// preload the command word
+    for(i=0; i<c_dpyspi_dma_buf_len; i++)
+    {
+    	dpyspi_tx_dma_buf[i] = 0x00010000;
+    }
+
+}
+
+
+//*****************************************
+// DMA Initialization for Display SPI Port
+//*****************************************
+
+
+void init_DPYSPI_DMA(void) 
+{
+
+	// Initialize Transmit Comm DMA
+  
+  	EDMA.CERQR.R = DPYSPIdmaChTx;      	// Disable Display SPI transmit EDMA channel   
+
+
+  	EDMA.CPR[DPYSPIdmaChTx].R = 0x00;  		// Channel 1 priorites: group priority = 0, channel priority = 0  
+
+	DMAMUX.CHCONFIG[DPYSPIdmaChTx].R = DPYSPIdmaTX;					// Set Mux to drive port (0x82 for ESCI_A TX)
+
+    EDMA.TCD[DPYSPIdmaChTx].SADDR = (uint32) &dpyspi_tx_dma_buf[0];  	// Load address of source data 
+  	EDMA.TCD[DPYSPIdmaChTx].SSIZE = 2;                        		// Read 2**0 = 1 byte per transfer 
+  	EDMA.TCD[DPYSPIdmaChTx].SOFF = 4;                         		// After transfer, add 2 to src addr
+  	
+  	EDMA.TCD[DPYSPIdmaChTx].SLAST = - (c_dpyspi_dma_buf_len * 4);                      		// After major loop, reset src addr 
+  	EDMA.TCD[DPYSPIdmaChTx].SMOD = 0;                         		// Source modulo feature not used 
+
+  	EDMA.TCD[DPYSPIdmaChTx].DADDR =  DPYSPIdr; 						// Load address of destination register
+  	EDMA.TCD[DPYSPIdmaChTx].DSIZE = 1;                        		// Write 2**0 = 1 byte per transfer 
+  	EDMA.TCD[DPYSPIdmaChTx].DOFF = 0;                         		// Do not increment destination addr 
+  	EDMA.TCD[DPYSPIdmaChTx].DLAST_SGA = 0;                    		// After major loop, no dest addr change 
+  	EDMA.TCD[DPYSPIdmaChTx].DMOD = 0;                         		// Destination modulo feature not used 
+  
+  	EDMA.TCD[DPYSPIdmaChTx].NBYTES= 4;                    			// Transfer 1 byte per minor loop 
+  	EDMA.TCD[DPYSPIdmaChTx].BITER = c_dpyspi_dma_buf_len;                       		// 1 major loop iterations 
+  	EDMA.TCD[DPYSPIdmaChTx].CITER = c_dpyspi_dma_buf_len;                       		// Initialize current iteraction count 
+  	EDMA.TCD[DPYSPIdmaChTx].D_REQ = 1;                        		// Disable channel when major loop is done
+  	EDMA.TCD[DPYSPIdmaChTx].INT_HALF = 0;                     		// Interrupts are not used 
+  	EDMA.TCD[DPYSPIdmaChTx].INT_MAJ = 0;
+  	EDMA.TCD[DPYSPIdmaChTx].CITERE_LINK = 0;                  		// Linking is not used 									  
+  	EDMA.TCD[DPYSPIdmaChTx].BITERE_LINK = 0;
+  	EDMA.TCD[DPYSPIdmaChTx].MAJORE_LINK = 0;                  		// Dynamic program is not used
+  	EDMA.TCD[DPYSPIdmaChTx].MAJORLINKCH = 0;						// Major link channel 
+  	EDMA.TCD[DPYSPIdmaChTx].E_SG = 0; 
+  	EDMA.TCD[DPYSPIdmaChTx].BWC = 0;                          		// Default bandwidth control- no stalls 
+  	EDMA.TCD[DPYSPIdmaChTx].DONE = 0;
+  	EDMA.TCD[DPYSPIdmaChTx].ACTIVE = 0;
+  	EDMA.TCD[DPYSPIdmaChTx].START = 0;                        		// Initialize status flags 
+  
+  	EDMA.CEEIR.R = DPYSPIdmaChTx;     		// DMA Clear Enable Error Interrupt Register  
+  	EDMA.CIRQR.R = DPYSPIdmaChTx;         	// DMA Clear Interrupt Request Register 
+  	EDMA.CER.R = DPYSPIdmaChTx;           	// DMA Clear error Register 
+  
+  	
+  	// Initialize Receive Comm DMA
+
+ 	EDMA.CERQR.R = DPYSPIdmaChRx;      		// Disable group EDMA channel   
+  
+	INTC_InstallINTCInterruptHandler(dpyspi_dma_rx_int, DPYSPIdmaRxIntLoc, 1);  
+
+  	EDMA.CPR[DPYSPIdmaChRx].R = 0x00;  		// Channel 1 priorites: group priority = 0, channel priority = 0  
+
+	DMAMUX.CHCONFIG[DPYSPIdmaChRx].R = DPYSPIdmaRX;					// Set Mux to drive port (0x82 for ESCI_A TX)
+
+    EDMA.TCD[DPYSPIdmaChRx].SADDR = DPYSPIsr;  						// Load address of source register data 
+  	EDMA.TCD[DPYSPIdmaChRx].SSIZE = 1;                        		// Read 2**0 = 1 byte per transfer 
+  	EDMA.TCD[DPYSPIdmaChRx].SOFF = 0;                         		// Do not increment source address
+  	
+  	EDMA.TCD[DPYSPIdmaChRx].SLAST = 0;                      		// After major loop, reset src addr 
+  	EDMA.TCD[DPYSPIdmaChRx].SMOD = 0;                         		// Source modulo feature not used
+
+  	EDMA.TCD[DPYSPIdmaChRx].DADDR =  (uint32) &dpyspi_rx_dma_buf[0]; 						// Load address of destination 
+  	EDMA.TCD[DPYSPIdmaChRx].DSIZE = 1;                        		// Write 2**0 = 1 byte per transfer 
+  	EDMA.TCD[DPYSPIdmaChRx].DOFF = 2;                         		// Increment destination addr by 2 
+  	EDMA.TCD[DPYSPIdmaChRx].DLAST_SGA = - (c_dpyspi_dma_buf_len * 2);                    		// After major loop reset destination address
+  	EDMA.TCD[DPYSPIdmaChRx].DMOD = 0;                         		// Destination modulo feature : Circular buffer 512 bytes (2^9) 
+  
+  	EDMA.TCD[DPYSPIdmaChRx].NBYTES= 2;                    			// Transfer 1 byte per major loop 
+  	EDMA.TCD[DPYSPIdmaChRx].BITER = c_dpyspi_dma_buf_len;            // Major loop iterations 
+  	EDMA.TCD[DPYSPIdmaChRx].CITER = c_dpyspi_dma_buf_len;                       	// Initialize current iteraction count 
+  	EDMA.TCD[DPYSPIdmaChRx].D_REQ = 0;                        		// Do not Disable channel when major loop is done
+  	EDMA.TCD[DPYSPIdmaChRx].INT_HALF = 0;                     		
+  	EDMA.TCD[DPYSPIdmaChRx].INT_MAJ = 1;							// Interrupt after major loop
+  	EDMA.TCD[DPYSPIdmaChRx].CITERE_LINK = 0;                  		// Linking is not used 									  
+  	EDMA.TCD[DPYSPIdmaChRx].BITERE_LINK = 0;
+  	EDMA.TCD[DPYSPIdmaChRx].MAJORE_LINK = 0;                  		// Dynamic program is not used
+  	EDMA.TCD[DPYSPIdmaChRx].MAJORLINKCH = 0;						// Major link channel 
+  	EDMA.TCD[DPYSPIdmaChRx].E_SG = 0; 
+  	EDMA.TCD[DPYSPIdmaChRx].BWC = 0;                          		// Default bandwidth control- no stalls 
+  	EDMA.TCD[DPYSPIdmaChRx].DONE = 0;
+  	EDMA.TCD[DPYSPIdmaChRx].ACTIVE = 0;
+  	EDMA.TCD[DPYSPIdmaChRx].START = 0;                        		// Initialize status flags 
+  
+  	EDMA.CEEIR.R = DPYSPIdmaChRx;     		// DMA Clear Enable Error Interrupt Register  
+  	EDMA.CIRQR.R = DPYSPIdmaChRx;         	// DMA Clear Interrupt Request Register 
+  	EDMA.CER.R = DPYSPIdmaChRx;           	// DMA Clear error Register 
+  
+}
+
+//**************************************************
+// This is start the comm transmission on a COM Port
+//**************************************************
+
+void dpyspi_start(void)
+{
+	dpyspi_transferred = 0;
+	
+	_disable();	   
+	// Turn off the SPI transmit and receive fifo
+	DSPI_A.RSER.B.TFFF_RE = 0;		// Enable Transit Fifo Fill
+	DSPI_A.RSER.B.RFDF_RE = 0;		// Enable Receive FIFO drain request
+	
+	// Enable transmitter
+	EDMA.CER.R = DPYSPIdmaChTx;           	// DMA Clear error Register 
+	EDMA.CER.R = DPYSPIdmaChRx;           	// DMA Clear error Register 
+
+    EDMA.TCD[DPYSPIdmaChTx].SADDR = (uint32) &dpyspi_tx_dma_buf[0];  	// Load address of source data 
+  	EDMA.TCD[DPYSPIdmaChTx].BITER = c_dpyspi_dma_buf_len;                       		// 1 major loop iterations 
+  	EDMA.TCD[DPYSPIdmaChTx].CITER = c_dpyspi_dma_buf_len;                       		// Initialize current iteraction count 
+
+  	EDMA.TCD[DPYSPIdmaChRx].DADDR =  (uint32) &dpyspi_rx_dma_buf[0]; 						// Load address of destination 
+  	EDMA.TCD[DPYSPIdmaChRx].BITER = c_dpyspi_dma_buf_len;            // Major loop iterations 
+  	EDMA.TCD[DPYSPIdmaChRx].CITER = c_dpyspi_dma_buf_len;                       	// Initialize current iteraction count 
+
+  	EDMA.SERQR.R = DPYSPIdmaChTx;      	// Enable Display SPI EDMA channel 
+  	EDMA.SERQR.R = DPYSPIdmaChRx;      	// Enable Display SPI EDMA channel 
+  	  
+	DSPI_A.RSER.B.TFFF_RE = 1;		// Enable Transit Fifo Fill
+	DSPI_A.RSER.B.RFDF_RE = 1;		// Enable Receive FIFO drain request
+	_enable();
+}
+
+//*********************************************
+// Display SPI DMA transmit finished interrupt
+//*********************************************
+
+void dpyspi_dma_rx_int(void)
+{
+	
+  	EDMA.CIRQR.R = DPYSPIdmaChRx;      	// DMA Clear Interrupt Request Register 
+  	EDMA.CERQR.R = DPYSPIdmaChRx;      	// Disable Display SPI EDMA channel   
+	DSPI_A.RSER.B.TFFF_RE = 0;		// Enable Transit Fifo Fill
+	DSPI_A.RSER.B.RFDF_RE = 0;		// Enable Receive FIFO drain request
+	
+	dpyspi_transferred = 1;
+
+}
+
+void dpyspi_control (void)
+{
+	uint8 dpyspi_packet;
+	
+	if (dpyspi_timer > 3)		// ten msec timer
+	{
+		
+		if ((dpyspi_transferred == 1) || (dpyspi_timer > 10))
+		{
+			// Transmit to display again
+			dpyspi_timer = 0;
+			
+			dpyspi_unpack();
+			if (dpyspi_req != 0)
+				dpyspi_packet = dpyspi_req;
+			else
+				dpyspi_packet = 3;
+			dpyspi_pack(dpyspi_packet);
+		}
+	}
+}
+
+
+
+void dpyspi_pack (uint8 msg)
+{
+	uint16 ix;
+	int16 i;
+	uint8 valid_msg = 0;
+	int16 chksum;
+	
+	static union {
+			uint8 b[4];			// byte: char 0 - 3
+			uint16 w[2];		// word: short int
+			uint32 dw;			// double word: int
+	}uiu;					// unsigned integer union
+		
+	static union {
+			uint8 b[2];			// byte: char 0 - 1
+			uint16 w;			// word: short int
+	}uwu;					// unsigned word union
+
+	switch (msg)
+	{
+		case 3:			// Send Elevator Status Information
+			ix = 0;
+	      	uwu.b[lbw] = c_DPYSPI_START;		// start flag
+	      	uwu.b[hbw] = 3;						// packet number
+			dpyspi_tx_dma_buf[ix++] = uwu.w | 0x00010000; 
+			ix++;			// index of 1 is where length (ix) is stored
+	      	for(i=0; i<160; i+=2)
+	      	{
+	      		uwu.b[lbw] = iodata[1][i];
+	      		uwu.b[hbw] = iodata[1][i+1];
+	      		dpyspi_tx_dma_buf[ix++] = uwu.w | 0x00010000;
+	      	}
+	      	uwu.b[lbw] = (uint8)cons[carnmb];		// Car number
+	      	uwu.b[hbw] = 0;
+			dpyspi_tx_dma_buf[ix++] = uwu.w | 0x00010000; 
+
+	      	uwu.b[lbw] = (uint8)procf;
+	      	uwu.b[hbw] = (uint8)doorf;
+			dpyspi_tx_dma_buf[ix++] = uwu.w | 0x00010000; 
+			
+	      	uwu.b[lbw] = (uint8)empf;
+	      	uwu.b[hbw] = (uint8)firef;
+			dpyspi_tx_dma_buf[ix++] = uwu.w | 0x00010000; 
+	      	
+	      	uwu.b[lbw] = (uint8)servf;
+	      	uwu.b[hbw] = (uint8)rdoorf;
+			dpyspi_tx_dma_buf[ix++] = uwu.w | 0x00010000; 
+
+			uwu.b[lbw] = (uint8)position;
+			uwu.b[hbw] = (uint8)dirf;
+			dpyspi_tx_dma_buf[ix++] = uwu.w | 0x00010000; 
+			
+			uwu.b[lbw] = (uint8)dpref;		
+			uwu.b[hbw] = (uint8)power_status;
+			dpyspi_tx_dma_buf[ix++] = uwu.w | 0x00010000; 
+
+			uwu.b[lbw] = (uint8)ins_status;
+			uwu.b[hbw] = (uint8)fire_status;
+			dpyspi_tx_dma_buf[ix++] = uwu.w | 0x00010000; 
+
+			dpyspi_tx_dma_buf[ix++] = Current_Fault | 0x00010000; 
+			
+			uiu.dw = statusf;
+			dpyspi_tx_dma_buf[ix++] = uiu.w[lw] | 0x00010000; 
+			dpyspi_tx_dma_buf[ix++] = uiu.w[hw] | 0x00010000; 
+
+			uiu.dw = statusf2;
+			dpyspi_tx_dma_buf[ix++] = uiu.w[lw] | 0x00010000; 
+			dpyspi_tx_dma_buf[ix++] = uiu.w[hw] | 0x00010000; 
+
+			dpyspi_tx_dma_buf[ix++] = safety_string_status;
+
+	#if (Traction == 1)
+			uwu.b[lbw] = (uint8)Enc_dir;		
+			uwu.b[hbw] = 0;
+			dpyspi_tx_dma_buf[ix++] = uwu.w | 0x00010000; 
+			dpyspi_tx_dma_buf[ix++] = (uint16)(((Dmd_Velocity * 5.0)/(Pulses_per_Inch)) + 0.5) | 0x00010000;	// demand velocity
+			dpyspi_tx_dma_buf[ix++] = (uint16)(((Enc_vel * 5.0)/(Pulses_per_Inch)) + 0.5) | 0x00010000;		// encoder velocity
+			uiu.dw = DPP_Floor_Pos[position];
+			dpyspi_tx_dma_buf[ix++] = uiu.w[lw] | 0x00010000; 
+			dpyspi_tx_dma_buf[ix++] = uiu.w[hw] | 0x00010000; 
+			uiu.dw = DPP_Count;
+			dpyspi_tx_dma_buf[ix++] = uiu.w[lw] | 0x00010000; 
+			dpyspi_tx_dma_buf[ix++] = uiu.w[hw] | 0x00010000; 
+	#else			// no encoder, velocity or pulse count
+			dpyspi_tx_dma_buf[ix++] = 0x00010000;		// ENC_DIR
+			dpyspi_tx_dma_buf[ix++] = 0x00010000;		// Velocity
+			dpyspi_tx_dma_buf[ix++] = 0x00010000;		// Enc Velocity
+			dpyspi_tx_dma_buf[ix++] = 0x00010000;		// Dpp_Floor_Pos
+			dpyspi_tx_dma_buf[ix++] = 0x00010000;		// Dpp_Floor_Pos
+			dpyspi_tx_dma_buf[ix++] = 0x00010000;		// Dpp_Coount
+			dpyspi_tx_dma_buf[ix++] = 0x00010000;		// Dpp_Coount
+	#endif
+			dpyspi_tx_dma_buf[1] = ix | 0x00010000;			// len
+			valid_msg = 1;
+			break;
+			
+		default:
+			break;
+	}
+	
+	if (valid_msg == 1)
+	{
+		chksum = 0;
+		for (i=0;i<ix;i++)
+		{
+			chksum += dpyspi_rx_dma_buf[i];
+		}
+		dpyspi_tx_dma_buf[ix] = chksum | 0x00010000;
+		dpyspi_start();
+	}
+}
+
+void dpyspi_unpack (void)
+{
+	int16 chksum;
+	int16 len;
+	int16 i;
+	uint8 cmd;
+	uint8 start;
+	static union {
+			uint8 b[4];			// byte: char 0 - 3
+			uint16 w[2];		// word: short int
+			uint32 dw;			// double word: int
+	}uiu;					// unsigned integer union
+		
+	static union {
+			uint8 b[2];			// byte: char 0 - 1
+			uint16 w;			// word: short int
+	}uwu;					// unsigned word union
+
+	uwu.w = dpyspi_rx_dma_buf[0];
+	start = uwu.b[lbw];
+	cmd = uwu.b[hbw];
+	len = dpyspi_rx_dma_buf[1];
+	if ((start == c_DPYSPI_START) && (len != 0))
+	{
+		// Have a start and a non-zero length
+		chksum = 0;
+		for (i=0;i<len;i++)
+		{
+			chksum += dpyspi_rx_dma_buf[i];
+		}
+		if (chksum == dpyspi_rx_dma_buf[i])
+		{
+			switch (cmd)
+			{
+				
+				case 5:		 // Set car call for this car
+					uwu.w = dpyspi_rx_dma_buf[2];
+					set_carcall(cons[carnmb],(int16)(uwu.b[lbw] & 0xff));
+					break;
+
+				case 6:		  // Set up call
+					uwu.w = dpyspi_rx_dma_buf[2];
+					set_upcall((int16)(uwu.b[lbw] & 0xff));
+					break;
+
+				case 22:	// set down call
+					uwu.w = dpyspi_rx_dma_buf[2];
+					set_dncall((int16)(uwu.b[lbw]  & 0xff));
+					break;
+				
+				default:
+					break;
+			}
+		}
+	}
+}

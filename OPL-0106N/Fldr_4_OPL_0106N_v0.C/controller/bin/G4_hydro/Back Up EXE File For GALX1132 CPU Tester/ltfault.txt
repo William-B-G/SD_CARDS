@@ -1,0 +1,1928 @@
+Car Data
+000001 // Car Nunber 
+000150 // Car Speed 
+000001 // Number of Cars 
+000001 // Bottom Floor 
+000005 // Top Floor 
+000005 // Group Top Floor 
+Long Term Fault Log Car #1 
+
+  1 §Lx5ï8 255:255:255 255/255/  -1 Position =255 Occurrences = 255 
+srv=255, prc=255, drf=255, rdf=255, dpr=255, dir=255, emp=255, med=255
+cbl=255, equ=255, fir=255, rfi=255, hsf=255, stf=255, cal=255, esp=255 
+nst=255, rlv=255, ste=255, dfs=255, st0=255, ins=ffh, nds=255, dev=ffh
+pf1=ffh, pf2=ffh, dv2=ffh, io0=ffh, io1=ffh, io2=ffh, io3=ffh, io4=ffh
+io5=ffh, io6=ffh, io7=ffh, io8=ffh, io9=ffh, ioA=ffh, ioB=ffh, ioC=ffh
+ioD=ffh, ioE=ffh, ioF=ffh, ioG=ffh, ioH=ffh, ioI=ffh, ioJ=ffh, ioK=ffh
+ioL=ffh, ioM=ffh, ioN=ffh, ioO=ffh, ioP=ffh, ioQ=ffh
+ioR=ffh, ioS=ffh, ioT=ffh
+statusf=ffffffffh, statusf2=ffffffffh
+Flt Bits 1 = ffh, Flt Bits 2 = ffh, Flt Bits 3 = ffh, Flt Bits 4 = ffh
+SS Status=ffffffffh, PWR Status=ffffffffh, Run Status=ffffffffh
+Nudg Flags=ffh, Door Req=ffh, Call Flags=ffh
+Chk Run=ffh, Chk Start=ffh, Chk Level=ffh, Chk Door=ffh
+Front SD=ffffh, Rear SD=ffffh, Motion Tmr=65535
+PAL Vel=-0001, PAL Statusf=ffh, Inspect Svc=255
+Drive Command=ffffh, Drive Statusf=ffffh
+Torque Command=65535, Motor Torque=65535, Percent Load=6553
+
+  2 §Lx5ï8 255:255:255 255/255/  -1 Position =255 Occurrences = 255 
+srv=255, prc=255, drf=255, rdf=255, dpr=255, dir=255, emp=255, med=255
+cbl=255, equ=255, fir=255, rfi=255, hsf=255, stf=255, cal=255, esp=255 
+nst=255, rlv=255, ste=255, dfs=255, st0=255, ins=ffh, nds=255, dev=ffh
+pf1=ffh, pf2=ffh, dv2=ffh, io0=ffh, io1=ffh, io2=ffh, io3=ffh, io4=ffh
+io5=ffh, io6=ffh, io7=ffh, io8=ffh, io9=ffh, ioA=ffh, ioB=ffh, ioC=ffh
+ioD=ffh, ioE=ffh, ioF=ffh, ioG=ffh, ioH=ffh, ioI=ffh, ioJ=ffh, ioK=ffh
+ioL=ffh, ioM=ffh, ioN=ffh, ioO=ffh, ioP=ffh, ioQ=ffh
+ioR=ffh, ioS=ffh, ioT=ffh
+statusf=ffffffffh, statusf2=ffffffffh
+Flt Bits 1 = ffh, Flt Bits 2 = ffh, Flt Bits 3 = ffh, Flt Bits 4 = ffh
+SS Status=ffffffffh, PWR Status=ffffffffh, Run Status=ffffffffh
+Nudg Flags=ffh, Door Req=ffh, Call Flags=ffh
+Chk Run=ffh, Chk Start=ffh, Chk Level=ffh, Chk Door=ffh
+Front SD=ffffh, Rear SD=ffffh, Motion Tmr=65535
+PAL Vel=-0001, PAL Statusf=ffh, Inspect Svc=255
+Drive Command=ffffh, Drive Statusf=ffffh
+Torque Command=65535, Motor Torque=65535, Percent Load=6553
+
+  3 §Lx5ï8 255:255:255 255/255/  -1 Position =255 Occurrences = 255 
+srv=255, prc=255, drf=255, rdf=255, dpr=255, dir=255, emp=255, med=255
+cbl=255, equ=255, fir=255, rfi=255, hsf=255, stf=255, cal=255, esp=255 
+nst=255, rlv=255, ste=255, dfs=255, st0=255, ins=ffh, nds=255, dev=ffh
+pf1=ffh, pf2=ffh, dv2=ffh, io0=ffh, io1=ffh, io2=ffh, io3=ffh, io4=ffh
+io5=ffh, io6=ffh, io7=ffh, io8=ffh, io9=ffh, ioA=ffh, ioB=ffh, ioC=ffh
+ioD=ffh, ioE=ffh, ioF=ffh, ioG=ffh, ioH=ffh, ioI=ffh, ioJ=ffh, ioK=ffh
+ioL=ffh, ioM=ffh, ioN=ffh, ioO=ffh, ioP=ffh, ioQ=ffh
+ioR=ffh, ioS=ffh, ioT=ffh
+statusf=ffffffffh, statusf2=ffffffffh
+Flt Bits 1 = ffh, Flt Bits 2 = ffh, Flt Bits 3 = ffh, Flt Bits 4 = ffh
+SS Status=ffffffffh, PWR Status=ffffffffh, Run Status=ffffffffh
+Nudg Flags=ffh, Door Req=ffh, Call Flags=ffh
+Chk Run=ffh, Chk Start=ffh, Chk Level=ffh, Chk Door=ffh
+Front SD=ffffh, Rear SD=ffffh, Motion Tmr=65535
+PAL Vel=-0001, PAL Statusf=ffh, Inspect Svc=255
+Drive Command=ffffh, Drive Statusf=ffffh
+Torque Command=65535, Motor Torque=65535, Percent Load=6553
+
+  4 §Lx5ï8 255:255:255 255/255/  -1 Position =255 Occurrences = 255 
+srv=255, prc=255, drf=255, rdf=255, dpr=255, dir=255, emp=255, med=255
+cbl=255, equ=255, fir=255, rfi=255, hsf=255, stf=255, cal=255, esp=255 
+nst=255, rlv=255, ste=255, dfs=255, st0=255, ins=ffh, nds=255, dev=ffh
+pf1=ffh, pf2=ffh, dv2=ffh, io0=ffh, io1=ffh, io2=ffh, io3=ffh, io4=ffh
+io5=ffh, io6=ffh, io7=ffh, io8=ffh, io9=ffh, ioA=ffh, ioB=ffh, ioC=ffh
+ioD=ffh, ioE=ffh, ioF=ffh, ioG=ffh, ioH=ffh, ioI=ffh, ioJ=ffh, ioK=ffh
+ioL=ffh, ioM=ffh, ioN=ffh, ioO=ffh, ioP=ffh, ioQ=ffh
+ioR=ffh, ioS=ffh, ioT=ffh
+statusf=ffffffffh, statusf2=ffffffffh
+Flt Bits 1 = ffh, Flt Bits 2 = ffh, Flt Bits 3 = ffh, Flt Bits 4 = ffh
+SS Status=ffffffffh, PWR Status=ffffffffh, Run Status=ffffffffh
+Nudg Flags=ffh, Door Req=ffh, Call Flags=ffh
+Chk Run=ffh, Chk Start=ffh, Chk Level=ffh, Chk Door=ffh
+Front SD=ffffh, Rear SD=ffffh, Motion Tmr=65535
+PAL Vel=-0001, PAL Statusf=ffh, Inspect Svc=255
+Drive Command=ffffh, Drive Statusf=ffffh
+Torque Command=65535, Motor Torque=65535, Percent Load=6553
+
+  5 §Lx5ï8 255:255:255 255/255/  -1 Position =255 Occurrences = 255 
+srv=255, prc=255, drf=255, rdf=255, dpr=255, dir=255, emp=255, med=255
+cbl=255, equ=255, fir=255, rfi=255, hsf=255, stf=255, cal=255, esp=255 
+nst=255, rlv=255, ste=255, dfs=255, st0=255, ins=ffh, nds=255, dev=ffh
+pf1=ffh, pf2=ffh, dv2=ffh, io0=ffh, io1=ffh, io2=ffh, io3=ffh, io4=ffh
+io5=ffh, io6=ffh, io7=ffh, io8=ffh, io9=ffh, ioA=ffh, ioB=ffh, ioC=ffh
+ioD=ffh, ioE=ffh, ioF=ffh, ioG=ffh, ioH=ffh, ioI=ffh, ioJ=ffh, ioK=ffh
+ioL=ffh, ioM=ffh, ioN=ffh, ioO=ffh, ioP=ffh, ioQ=ffh
+ioR=ffh, ioS=ffh, ioT=ffh
+statusf=ffffffffh, statusf2=ffffffffh
+Flt Bits 1 = ffh, Flt Bits 2 = ffh, Flt Bits 3 = ffh, Flt Bits 4 = ffh
+SS Status=ffffffffh, PWR Status=ffffffffh, Run Status=ffffffffh
+Nudg Flags=ffh, Door Req=ffh, Call Flags=ffh
+Chk Run=ffh, Chk Start=ffh, Chk Level=ffh, Chk Door=ffh
+Front SD=ffffh, Rear SD=ffffh, Motion Tmr=65535
+PAL Vel=-0001, PAL Statusf=ffh, Inspect Svc=255
+Drive Command=ffffh, Drive Statusf=ffffh
+Torque Command=65535, Motor Torque=65535, Percent Load=6553
+
+  6 §Lx5ï8 255:255:255 255/255/  -1 Position =255 Occurrences = 255 
+srv=255, prc=255, drf=255, rdf=255, dpr=255, dir=255, emp=255, med=255
+cbl=255, equ=255, fir=255, rfi=255, hsf=255, stf=255, cal=255, esp=255 
+nst=255, rlv=255, ste=255, dfs=255, st0=255, ins=ffh, nds=255, dev=ffh
+pf1=ffh, pf2=ffh, dv2=ffh, io0=ffh, io1=ffh, io2=ffh, io3=ffh, io4=ffh
+io5=ffh, io6=ffh, io7=ffh, io8=ffh, io9=ffh, ioA=ffh, ioB=ffh, ioC=ffh
+ioD=ffh, ioE=ffh, ioF=ffh, ioG=ffh, ioH=ffh, ioI=ffh, ioJ=ffh, ioK=ffh
+ioL=ffh, ioM=ffh, ioN=ffh, ioO=ffh, ioP=ffh, ioQ=ffh
+ioR=ffh, ioS=ffh, ioT=ffh
+statusf=ffffffffh, statusf2=ffffffffh
+Flt Bits 1 = ffh, Flt Bits 2 = ffh, Flt Bits 3 = ffh, Flt Bits 4 = ffh
+SS Status=ffffffffh, PWR Status=ffffffffh, Run Status=ffffffffh
+Nudg Flags=ffh, Door Req=ffh, Call Flags=ffh
+Chk Run=ffh, Chk Start=ffh, Chk Level=ffh, Chk Door=ffh
+Front SD=ffffh, Rear SD=ffffh, Motion Tmr=65535
+PAL Vel=-0001, PAL Statusf=ffh, Inspect Svc=255
+Drive Command=ffffh, Drive Statusf=ffffh
+Torque Command=65535, Motor Torque=65535, Percent Load=6553
+
+  7 §Lx5ï8 255:255:255 255/255/  -1 Position =255 Occurrences = 255 
+srv=255, prc=255, drf=255, rdf=255, dpr=255, dir=255, emp=255, med=255
+cbl=255, equ=255, fir=255, rfi=255, hsf=255, stf=255, cal=255, esp=255 
+nst=255, rlv=255, ste=255, dfs=255, st0=255, ins=ffh, nds=255, dev=ffh
+pf1=ffh, pf2=ffh, dv2=ffh, io0=ffh, io1=ffh, io2=ffh, io3=ffh, io4=ffh
+io5=ffh, io6=ffh, io7=ffh, io8=ffh, io9=ffh, ioA=ffh, ioB=ffh, ioC=ffh
+ioD=ffh, ioE=ffh, ioF=ffh, ioG=ffh, ioH=ffh, ioI=ffh, ioJ=ffh, ioK=ffh
+ioL=ffh, ioM=ffh, ioN=ffh, ioO=ffh, ioP=ffh, ioQ=ffh
+ioR=ffh, ioS=ffh, ioT=ffh
+statusf=ffffffffh, statusf2=ffffffffh
+Flt Bits 1 = ffh, Flt Bits 2 = ffh, Flt Bits 3 = ffh, Flt Bits 4 = ffh
+SS Status=ffffffffh, PWR Status=ffffffffh, Run Status=ffffffffh
+Nudg Flags=ffh, Door Req=ffh, Call Flags=ffh
+Chk Run=ffh, Chk Start=ffh, Chk Level=ffh, Chk Door=ffh
+Front SD=ffffh, Rear SD=ffffh, Motion Tmr=65535
+PAL Vel=-0001, PAL Statusf=ffh, Inspect Svc=255
+Drive Command=ffffh, Drive Statusf=ffffh
+Torque Command=65535, Motor Torque=65535, Percent Load=6553
+
+  8 §Lx5ï8 255:255:255 255/255/  -1 Position =255 Occurrences = 255 
+srv=255, prc=255, drf=255, rdf=255, dpr=255, dir=255, emp=255, med=255
+cbl=255, equ=255, fir=255, rfi=255, hsf=255, stf=255, cal=255, esp=255 
+nst=255, rlv=255, ste=255, dfs=255, st0=255, ins=ffh, nds=255, dev=ffh
+pf1=ffh, pf2=ffh, dv2=ffh, io0=ffh, io1=ffh, io2=ffh, io3=ffh, io4=ffh
+io5=ffh, io6=ffh, io7=ffh, io8=ffh, io9=ffh, ioA=ffh, ioB=ffh, ioC=ffh
+ioD=ffh, ioE=ffh, ioF=ffh, ioG=ffh, ioH=ffh, ioI=ffh, ioJ=ffh, ioK=ffh
+ioL=ffh, ioM=ffh, ioN=ffh, ioO=ffh, ioP=ffh, ioQ=ffh
+ioR=ffh, ioS=ffh, ioT=ffh
+statusf=ffffffffh, statusf2=ffffffffh
+Flt Bits 1 = ffh, Flt Bits 2 = ffh, Flt Bits 3 = ffh, Flt Bits 4 = ffh
+SS Status=ffffffffh, PWR Status=ffffffffh, Run Status=ffffffffh
+Nudg Flags=ffh, Door Req=ffh, Call Flags=ffh
+Chk Run=ffh, Chk Start=ffh, Chk Level=ffh, Chk Door=ffh
+Front SD=ffffh, Rear SD=ffffh, Motion Tmr=65535
+PAL Vel=-0001, PAL Statusf=ffh, Inspect Svc=255
+Drive Command=ffffh, Drive Statusf=ffffh
+Torque Command=65535, Motor Torque=65535, Percent Load=6553
+
+  9 §Lx5ï8 255:255:255 255/255/  -1 Position =255 Occurrences = 255 
+srv=255, prc=255, drf=255, rdf=255, dpr=255, dir=255, emp=255, med=255
+cbl=255, equ=255, fir=255, rfi=255, hsf=255, stf=255, cal=255, esp=255 
+nst=255, rlv=255, ste=255, dfs=255, st0=255, ins=ffh, nds=255, dev=ffh
+pf1=ffh, pf2=ffh, dv2=ffh, io0=ffh, io1=ffh, io2=ffh, io3=ffh, io4=ffh
+io5=ffh, io6=ffh, io7=ffh, io8=ffh, io9=ffh, ioA=ffh, ioB=ffh, ioC=ffh
+ioD=ffh, ioE=ffh, ioF=ffh, ioG=ffh, ioH=ffh, ioI=ffh, ioJ=ffh, ioK=ffh
+ioL=ffh, ioM=ffh, ioN=ffh, ioO=ffh, ioP=ffh, ioQ=ffh
+ioR=ffh, ioS=ffh, ioT=ffh
+statusf=ffffffffh, statusf2=ffffffffh
+Flt Bits 1 = ffh, Flt Bits 2 = ffh, Flt Bits 3 = ffh, Flt Bits 4 = ffh
+SS Status=ffffffffh, PWR Status=ffffffffh, Run Status=ffffffffh
+Nudg Flags=ffh, Door Req=ffh, Call Flags=ffh
+Chk Run=ffh, Chk Start=ffh, Chk Level=ffh, Chk Door=ffh
+Front SD=ffffh, Rear SD=ffffh, Motion Tmr=65535
+PAL Vel=-0001, PAL Statusf=ffh, Inspect Svc=255
+Drive Command=ffffh, Drive Statusf=ffffh
+Torque Command=65535, Motor Torque=65535, Percent Load=6553
+
+ 10 §Lx5ï8 255:255:255 255/255/  -1 Position =255 Occurrences = 255 
+srv=255, prc=255, drf=255, rdf=255, dpr=255, dir=255, emp=255, med=255
+cbl=255, equ=255, fir=255, rfi=255, hsf=255, stf=255, cal=255, esp=255 
+nst=255, rlv=255, ste=255, dfs=255, st0=255, ins=ffh, nds=255, dev=ffh
+pf1=ffh, pf2=ffh, dv2=ffh, io0=ffh, io1=ffh, io2=ffh, io3=ffh, io4=ffh
+io5=ffh, io6=ffh, io7=ffh, io8=ffh, io9=ffh, ioA=ffh, ioB=ffh, ioC=ffh
+ioD=ffh, ioE=ffh, ioF=ffh, ioG=ffh, ioH=ffh, ioI=ffh, ioJ=ffh, ioK=ffh
+ioL=ffh, ioM=ffh, ioN=ffh, ioO=ffh, ioP=ffh, ioQ=ffh
+ioR=ffh, ioS=ffh, ioT=ffh
+statusf=ffffffffh, statusf2=ffffffffh
+Flt Bits 1 = ffh, Flt Bits 2 = ffh, Flt Bits 3 = ffh, Flt Bits 4 = ffh
+SS Status=ffffffffh, PWR Status=ffffffffh, Run Status=ffffffffh
+Nudg Flags=ffh, Door Req=ffh, Call Flags=ffh
+Chk Run=ffh, Chk Start=ffh, Chk Level=ffh, Chk Door=ffh
+Front SD=ffffh, Rear SD=ffffh, Motion Tmr=65535
+PAL Vel=-0001, PAL Statusf=ffh, Inspect Svc=255
+Drive Command=ffffh, Drive Statusf=ffffh
+Torque Command=65535, Motor Torque=65535, Percent Load=6553
+
+ 11 §Lx5ï8 255:255:255 255/255/  -1 Position =255 Occurrences = 255 
+srv=255, prc=255, drf=255, rdf=255, dpr=255, dir=255, emp=255, med=255
+cbl=255, equ=255, fir=255, rfi=255, hsf=255, stf=255, cal=255, esp=255 
+nst=255, rlv=255, ste=255, dfs=255, st0=255, ins=ffh, nds=255, dev=ffh
+pf1=ffh, pf2=ffh, dv2=ffh, io0=ffh, io1=ffh, io2=ffh, io3=ffh, io4=ffh
+io5=ffh, io6=ffh, io7=ffh, io8=ffh, io9=ffh, ioA=ffh, ioB=ffh, ioC=ffh
+ioD=ffh, ioE=ffh, ioF=ffh, ioG=ffh, ioH=ffh, ioI=ffh, ioJ=ffh, ioK=ffh
+ioL=ffh, ioM=ffh, ioN=ffh, ioO=ffh, ioP=ffh, ioQ=ffh
+ioR=ffh, ioS=ffh, ioT=ffh
+statusf=ffffffffh, statusf2=ffffffffh
+Flt Bits 1 = ffh, Flt Bits 2 = ffh, Flt Bits 3 = ffh, Flt Bits 4 = ffh
+SS Status=ffffffffh, PWR Status=ffffffffh, Run Status=ffffffffh
+Nudg Flags=ffh, Door Req=ffh, Call Flags=ffh
+Chk Run=ffh, Chk Start=ffh, Chk Level=ffh, Chk Door=ffh
+Front SD=ffffh, Rear SD=ffffh, Motion Tmr=65535
+PAL Vel=-0001, PAL Statusf=ffh, Inspect Svc=255
+Drive Command=ffffh, Drive Statusf=ffffh
+Torque Command=65535, Motor Torque=65535, Percent Load=6553
+
+ 12 §Lx5ï8 255:255:255 255/255/  -1 Position =255 Occurrences = 255 
+srv=255, prc=255, drf=255, rdf=255, dpr=255, dir=255, emp=255, med=255
+cbl=255, equ=255, fir=255, rfi=255, hsf=255, stf=255, cal=255, esp=255 
+nst=255, rlv=255, ste=255, dfs=255, st0=255, ins=ffh, nds=255, dev=ffh
+pf1=ffh, pf2=ffh, dv2=ffh, io0=ffh, io1=ffh, io2=ffh, io3=ffh, io4=ffh
+io5=ffh, io6=ffh, io7=ffh, io8=ffh, io9=ffh, ioA=ffh, ioB=ffh, ioC=ffh
+ioD=ffh, ioE=ffh, ioF=ffh, ioG=ffh, ioH=ffh, ioI=ffh, ioJ=ffh, ioK=ffh
+ioL=ffh, ioM=ffh, ioN=ffh, ioO=ffh, ioP=ffh, ioQ=ffh
+ioR=ffh, ioS=ffh, ioT=ffh
+statusf=ffffffffh, statusf2=ffffffffh
+Flt Bits 1 = ffh, Flt Bits 2 = ffh, Flt Bits 3 = ffh, Flt Bits 4 = ffh
+SS Status=ffffffffh, PWR Status=ffffffffh, Run Status=ffffffffh
+Nudg Flags=ffh, Door Req=ffh, Call Flags=ffh
+Chk Run=ffh, Chk Start=ffh, Chk Level=ffh, Chk Door=ffh
+Front SD=ffffh, Rear SD=ffffh, Motion Tmr=65535
+PAL Vel=-0001, PAL Statusf=ffh, Inspect Svc=255
+Drive Command=ffffh, Drive Statusf=ffffh
+Torque Command=65535, Motor Torque=65535, Percent Load=6553
+
+ 13 §Lx5ï8 255:255:255 255/255/  -1 Position =255 Occurrences = 255 
+srv=255, prc=255, drf=255, rdf=255, dpr=255, dir=255, emp=255, med=255
+cbl=255, equ=255, fir=255, rfi=255, hsf=255, stf=255, cal=255, esp=255 
+nst=255, rlv=255, ste=255, dfs=255, st0=255, ins=ffh, nds=255, dev=ffh
+pf1=ffh, pf2=ffh, dv2=ffh, io0=ffh, io1=ffh, io2=ffh, io3=ffh, io4=ffh
+io5=ffh, io6=ffh, io7=ffh, io8=ffh, io9=ffh, ioA=ffh, ioB=ffh, ioC=ffh
+ioD=ffh, ioE=ffh, ioF=ffh, ioG=ffh, ioH=ffh, ioI=ffh, ioJ=ffh, ioK=ffh
+ioL=ffh, ioM=ffh, ioN=ffh, ioO=ffh, ioP=ffh, ioQ=ffh
+ioR=ffh, ioS=ffh, ioT=ffh
+statusf=ffffffffh, statusf2=ffffffffh
+Flt Bits 1 = ffh, Flt Bits 2 = ffh, Flt Bits 3 = ffh, Flt Bits 4 = ffh
+SS Status=ffffffffh, PWR Status=ffffffffh, Run Status=ffffffffh
+Nudg Flags=ffh, Door Req=ffh, Call Flags=ffh
+Chk Run=ffh, Chk Start=ffh, Chk Level=ffh, Chk Door=ffh
+Front SD=ffffh, Rear SD=ffffh, Motion Tmr=65535
+PAL Vel=-0001, PAL Statusf=ffh, Inspect Svc=255
+Drive Command=ffffh, Drive Statusf=ffffh
+Torque Command=65535, Motor Torque=65535, Percent Load=6553
+
+ 14 §Lx5ï8 255:255:255 255/255/  -1 Position =255 Occurrences = 255 
+srv=255, prc=255, drf=255, rdf=255, dpr=255, dir=255, emp=255, med=255
+cbl=255, equ=255, fir=255, rfi=255, hsf=255, stf=255, cal=255, esp=255 
+nst=255, rlv=255, ste=255, dfs=255, st0=255, ins=ffh, nds=255, dev=ffh
+pf1=ffh, pf2=ffh, dv2=ffh, io0=ffh, io1=ffh, io2=ffh, io3=ffh, io4=ffh
+io5=ffh, io6=ffh, io7=ffh, io8=ffh, io9=ffh, ioA=ffh, ioB=ffh, ioC=ffh
+ioD=ffh, ioE=ffh, ioF=ffh, ioG=ffh, ioH=ffh, ioI=ffh, ioJ=ffh, ioK=ffh
+ioL=ffh, ioM=ffh, ioN=ffh, ioO=ffh, ioP=ffh, ioQ=ffh
+ioR=ffh, ioS=ffh, ioT=ffh
+statusf=ffffffffh, statusf2=ffffffffh
+Flt Bits 1 = ffh, Flt Bits 2 = ffh, Flt Bits 3 = ffh, Flt Bits 4 = ffh
+SS Status=ffffffffh, PWR Status=ffffffffh, Run Status=ffffffffh
+Nudg Flags=ffh, Door Req=ffh, Call Flags=ffh
+Chk Run=ffh, Chk Start=ffh, Chk Level=ffh, Chk Door=ffh
+Front SD=ffffh, Rear SD=ffffh, Motion Tmr=65535
+PAL Vel=-0001, PAL Statusf=ffh, Inspect Svc=255
+Drive Command=ffffh, Drive Statusf=ffffh
+Torque Command=65535, Motor Torque=65535, Percent Load=6553
+
+ 15 §Lx5ï8 255:255:255 255/255/  -1 Position =255 Occurrences = 255 
+srv=255, prc=255, drf=255, rdf=255, dpr=255, dir=255, emp=255, med=255
+cbl=255, equ=255, fir=255, rfi=255, hsf=255, stf=255, cal=255, esp=255 
+nst=255, rlv=255, ste=255, dfs=255, st0=255, ins=ffh, nds=255, dev=ffh
+pf1=ffh, pf2=ffh, dv2=ffh, io0=ffh, io1=ffh, io2=ffh, io3=ffh, io4=ffh
+io5=ffh, io6=ffh, io7=ffh, io8=ffh, io9=ffh, ioA=ffh, ioB=ffh, ioC=ffh
+ioD=ffh, ioE=ffh, ioF=ffh, ioG=ffh, ioH=ffh, ioI=ffh, ioJ=ffh, ioK=ffh
+ioL=ffh, ioM=ffh, ioN=ffh, ioO=ffh, ioP=ffh, ioQ=ffh
+ioR=ffh, ioS=ffh, ioT=ffh
+statusf=ffffffffh, statusf2=ffffffffh
+Flt Bits 1 = ffh, Flt Bits 2 = ffh, Flt Bits 3 = ffh, Flt Bits 4 = ffh
+SS Status=ffffffffh, PWR Status=ffffffffh, Run Status=ffffffffh
+Nudg Flags=ffh, Door Req=ffh, Call Flags=ffh
+Chk Run=ffh, Chk Start=ffh, Chk Level=ffh, Chk Door=ffh
+Front SD=ffffh, Rear SD=ffffh, Motion Tmr=65535
+PAL Vel=-0001, PAL Statusf=ffh, Inspect Svc=255
+Drive Command=ffffh, Drive Statusf=ffffh
+Torque Command=65535, Motor Torque=65535, Percent Load=6553
+
+ 16 §Lx5ï8 255:255:255 255/255/  -1 Position =255 Occurrences = 255 
+srv=255, prc=255, drf=255, rdf=255, dpr=255, dir=255, emp=255, med=255
+cbl=255, equ=255, fir=255, rfi=255, hsf=255, stf=255, cal=255, esp=255 
+nst=255, rlv=255, ste=255, dfs=255, st0=255, ins=ffh, nds=255, dev=ffh
+pf1=ffh, pf2=ffh, dv2=ffh, io0=ffh, io1=ffh, io2=ffh, io3=ffh, io4=ffh
+io5=ffh, io6=ffh, io7=ffh, io8=ffh, io9=ffh, ioA=ffh, ioB=ffh, ioC=ffh
+ioD=ffh, ioE=ffh, ioF=ffh, ioG=ffh, ioH=ffh, ioI=ffh, ioJ=ffh, ioK=ffh
+ioL=ffh, ioM=ffh, ioN=ffh, ioO=ffh, ioP=ffh, ioQ=ffh
+ioR=ffh, ioS=ffh, ioT=ffh
+statusf=ffffffffh, statusf2=ffffffffh
+Flt Bits 1 = ffh, Flt Bits 2 = ffh, Flt Bits 3 = ffh, Flt Bits 4 = ffh
+SS Status=ffffffffh, PWR Status=ffffffffh, Run Status=ffffffffh
+Nudg Flags=ffh, Door Req=ffh, Call Flags=ffh
+Chk Run=ffh, Chk Start=ffh, Chk Level=ffh, Chk Door=ffh
+Front SD=ffffh, Rear SD=ffffh, Motion Tmr=65535
+PAL Vel=-0001, PAL Statusf=ffh, Inspect Svc=255
+Drive Command=ffffh, Drive Statusf=ffffh
+Torque Command=65535, Motor Torque=65535, Percent Load=6553
+
+ 17 §Lx5ï8 255:255:255 255/255/  -1 Position =255 Occurrences = 255 
+srv=255, prc=255, drf=255, rdf=255, dpr=255, dir=255, emp=255, med=255
+cbl=255, equ=255, fir=255, rfi=255, hsf=255, stf=255, cal=255, esp=255 
+nst=255, rlv=255, ste=255, dfs=255, st0=255, ins=ffh, nds=255, dev=ffh
+pf1=ffh, pf2=ffh, dv2=ffh, io0=ffh, io1=ffh, io2=ffh, io3=ffh, io4=ffh
+io5=ffh, io6=ffh, io7=ffh, io8=ffh, io9=ffh, ioA=ffh, ioB=ffh, ioC=ffh
+ioD=ffh, ioE=ffh, ioF=ffh, ioG=ffh, ioH=ffh, ioI=ffh, ioJ=ffh, ioK=ffh
+ioL=ffh, ioM=ffh, ioN=ffh, ioO=ffh, ioP=ffh, ioQ=ffh
+ioR=ffh, ioS=ffh, ioT=ffh
+statusf=ffffffffh, statusf2=ffffffffh
+Flt Bits 1 = ffh, Flt Bits 2 = ffh, Flt Bits 3 = ffh, Flt Bits 4 = ffh
+SS Status=ffffffffh, PWR Status=ffffffffh, Run Status=ffffffffh
+Nudg Flags=ffh, Door Req=ffh, Call Flags=ffh
+Chk Run=ffh, Chk Start=ffh, Chk Level=ffh, Chk Door=ffh
+Front SD=ffffh, Rear SD=ffffh, Motion Tmr=65535
+PAL Vel=-0001, PAL Statusf=ffh, Inspect Svc=255
+Drive Command=ffffh, Drive Statusf=ffffh
+Torque Command=65535, Motor Torque=65535, Percent Load=6553
+
+ 18 §Lx5ï8 255:255:255 255/255/  -1 Position =255 Occurrences = 255 
+srv=255, prc=255, drf=255, rdf=255, dpr=255, dir=255, emp=255, med=255
+cbl=255, equ=255, fir=255, rfi=255, hsf=255, stf=255, cal=255, esp=255 
+nst=255, rlv=255, ste=255, dfs=255, st0=255, ins=ffh, nds=255, dev=ffh
+pf1=ffh, pf2=ffh, dv2=ffh, io0=ffh, io1=ffh, io2=ffh, io3=ffh, io4=ffh
+io5=ffh, io6=ffh, io7=ffh, io8=ffh, io9=ffh, ioA=ffh, ioB=ffh, ioC=ffh
+ioD=ffh, ioE=ffh, ioF=ffh, ioG=ffh, ioH=ffh, ioI=ffh, ioJ=ffh, ioK=ffh
+ioL=ffh, ioM=ffh, ioN=ffh, ioO=ffh, ioP=ffh, ioQ=ffh
+ioR=ffh, ioS=ffh, ioT=ffh
+statusf=ffffffffh, statusf2=ffffffffh
+Flt Bits 1 = ffh, Flt Bits 2 = ffh, Flt Bits 3 = ffh, Flt Bits 4 = ffh
+SS Status=ffffffffh, PWR Status=ffffffffh, Run Status=ffffffffh
+Nudg Flags=ffh, Door Req=ffh, Call Flags=ffh
+Chk Run=ffh, Chk Start=ffh, Chk Level=ffh, Chk Door=ffh
+Front SD=ffffh, Rear SD=ffffh, Motion Tmr=65535
+PAL Vel=-0001, PAL Statusf=ffh, Inspect Svc=255
+Drive Command=ffffh, Drive Statusf=ffffh
+Torque Command=65535, Motor Torque=65535, Percent Load=6553
+
+ 19 §Lx5ï8 255:255:255 255/255/  -1 Position =255 Occurrences = 255 
+srv=255, prc=255, drf=255, rdf=255, dpr=255, dir=255, emp=255, med=255
+cbl=255, equ=255, fir=255, rfi=255, hsf=255, stf=255, cal=255, esp=255 
+nst=255, rlv=255, ste=255, dfs=255, st0=255, ins=ffh, nds=255, dev=ffh
+pf1=ffh, pf2=ffh, dv2=ffh, io0=ffh, io1=ffh, io2=ffh, io3=ffh, io4=ffh
+io5=ffh, io6=ffh, io7=ffh, io8=ffh, io9=ffh, ioA=ffh, ioB=ffh, ioC=ffh
+ioD=ffh, ioE=ffh, ioF=ffh, ioG=ffh, ioH=ffh, ioI=ffh, ioJ=ffh, ioK=ffh
+ioL=ffh, ioM=ffh, ioN=ffh, ioO=ffh, ioP=ffh, ioQ=ffh
+ioR=ffh, ioS=ffh, ioT=ffh
+statusf=ffffffffh, statusf2=ffffffffh
+Flt Bits 1 = ffh, Flt Bits 2 = ffh, Flt Bits 3 = ffh, Flt Bits 4 = ffh
+SS Status=ffffffffh, PWR Status=ffffffffh, Run Status=ffffffffh
+Nudg Flags=ffh, Door Req=ffh, Call Flags=ffh
+Chk Run=ffh, Chk Start=ffh, Chk Level=ffh, Chk Door=ffh
+Front SD=ffffh, Rear SD=ffffh, Motion Tmr=65535
+PAL Vel=-0001, PAL Statusf=ffh, Inspect Svc=255
+Drive Command=ffffh, Drive Statusf=ffffh
+Torque Command=65535, Motor Torque=65535, Percent Load=6553
+
+ 20 §Lx5ï8 255:255:255 255/255/  -1 Position =255 Occurrences = 255 
+srv=255, prc=255, drf=255, rdf=255, dpr=255, dir=255, emp=255, med=255
+cbl=255, equ=255, fir=255, rfi=255, hsf=255, stf=255, cal=255, esp=255 
+nst=255, rlv=255, ste=255, dfs=255, st0=255, ins=ffh, nds=255, dev=ffh
+pf1=ffh, pf2=ffh, dv2=ffh, io0=ffh, io1=ffh, io2=ffh, io3=ffh, io4=ffh
+io5=ffh, io6=ffh, io7=ffh, io8=ffh, io9=ffh, ioA=ffh, ioB=ffh, ioC=ffh
+ioD=ffh, ioE=ffh, ioF=ffh, ioG=ffh, ioH=ffh, ioI=ffh, ioJ=ffh, ioK=ffh
+ioL=ffh, ioM=ffh, ioN=ffh, ioO=ffh, ioP=ffh, ioQ=ffh
+ioR=ffh, ioS=ffh, ioT=ffh
+statusf=ffffffffh, statusf2=ffffffffh
+Flt Bits 1 = ffh, Flt Bits 2 = ffh, Flt Bits 3 = ffh, Flt Bits 4 = ffh
+SS Status=ffffffffh, PWR Status=ffffffffh, Run Status=ffffffffh
+Nudg Flags=ffh, Door Req=ffh, Call Flags=ffh
+Chk Run=ffh, Chk Start=ffh, Chk Level=ffh, Chk Door=ffh
+Front SD=ffffh, Rear SD=ffffh, Motion Tmr=65535
+PAL Vel=-0001, PAL Statusf=ffh, Inspect Svc=255
+Drive Command=ffffh, Drive Statusf=ffffh
+Torque Command=65535, Motor Torque=65535, Percent Load=6553
+
+ 21 §Lx5ï8 255:255:255 255/255/  -1 Position =255 Occurrences = 255 
+srv=255, prc=255, drf=255, rdf=255, dpr=255, dir=255, emp=255, med=255
+cbl=255, equ=255, fir=255, rfi=255, hsf=255, stf=255, cal=255, esp=255 
+nst=255, rlv=255, ste=255, dfs=255, st0=255, ins=ffh, nds=255, dev=ffh
+pf1=ffh, pf2=ffh, dv2=ffh, io0=ffh, io1=ffh, io2=ffh, io3=ffh, io4=ffh
+io5=ffh, io6=ffh, io7=ffh, io8=ffh, io9=ffh, ioA=ffh, ioB=ffh, ioC=ffh
+ioD=ffh, ioE=ffh, ioF=ffh, ioG=ffh, ioH=ffh, ioI=ffh, ioJ=ffh, ioK=ffh
+ioL=ffh, ioM=ffh, ioN=ffh, ioO=ffh, ioP=ffh, ioQ=ffh
+ioR=ffh, ioS=ffh, ioT=ffh
+statusf=ffffffffh, statusf2=ffffffffh
+Flt Bits 1 = ffh, Flt Bits 2 = ffh, Flt Bits 3 = ffh, Flt Bits 4 = ffh
+SS Status=ffffffffh, PWR Status=ffffffffh, Run Status=ffffffffh
+Nudg Flags=ffh, Door Req=ffh, Call Flags=ffh
+Chk Run=ffh, Chk Start=ffh, Chk Level=ffh, Chk Door=ffh
+Front SD=ffffh, Rear SD=ffffh, Motion Tmr=65535
+PAL Vel=-0001, PAL Statusf=ffh, Inspect Svc=255
+Drive Command=ffffh, Drive Statusf=ffffh
+Torque Command=65535, Motor Torque=65535, Percent Load=6553
+
+ 22 §Lx5ï8 255:255:255 255/255/  -1 Position =255 Occurrences = 255 
+srv=255, prc=255, drf=255, rdf=255, dpr=255, dir=255, emp=255, med=255
+cbl=255, equ=255, fir=255, rfi=255, hsf=255, stf=255, cal=255, esp=255 
+nst=255, rlv=255, ste=255, dfs=255, st0=255, ins=ffh, nds=255, dev=ffh
+pf1=ffh, pf2=ffh, dv2=ffh, io0=ffh, io1=ffh, io2=ffh, io3=ffh, io4=ffh
+io5=ffh, io6=ffh, io7=ffh, io8=ffh, io9=ffh, ioA=ffh, ioB=ffh, ioC=ffh
+ioD=ffh, ioE=ffh, ioF=ffh, ioG=ffh, ioH=ffh, ioI=ffh, ioJ=ffh, ioK=ffh
+ioL=ffh, ioM=ffh, ioN=ffh, ioO=ffh, ioP=ffh, ioQ=ffh
+ioR=ffh, ioS=ffh, ioT=ffh
+statusf=ffffffffh, statusf2=ffffffffh
+Flt Bits 1 = ffh, Flt Bits 2 = ffh, Flt Bits 3 = ffh, Flt Bits 4 = ffh
+SS Status=ffffffffh, PWR Status=ffffffffh, Run Status=ffffffffh
+Nudg Flags=ffh, Door Req=ffh, Call Flags=ffh
+Chk Run=ffh, Chk Start=ffh, Chk Level=ffh, Chk Door=ffh
+Front SD=ffffh, Rear SD=ffffh, Motion Tmr=65535
+PAL Vel=-0001, PAL Statusf=ffh, Inspect Svc=255
+Drive Command=ffffh, Drive Statusf=ffffh
+Torque Command=65535, Motor Torque=65535, Percent Load=6553
+
+ 23 §Lx5ï8 255:255:255 255/255/  -1 Position =255 Occurrences = 255 
+srv=255, prc=255, drf=255, rdf=255, dpr=255, dir=255, emp=255, med=255
+cbl=255, equ=255, fir=255, rfi=255, hsf=255, stf=255, cal=255, esp=255 
+nst=255, rlv=255, ste=255, dfs=255, st0=255, ins=ffh, nds=255, dev=ffh
+pf1=ffh, pf2=ffh, dv2=ffh, io0=ffh, io1=ffh, io2=ffh, io3=ffh, io4=ffh
+io5=ffh, io6=ffh, io7=ffh, io8=ffh, io9=ffh, ioA=ffh, ioB=ffh, ioC=ffh
+ioD=ffh, ioE=ffh, ioF=ffh, ioG=ffh, ioH=ffh, ioI=ffh, ioJ=ffh, ioK=ffh
+ioL=ffh, ioM=ffh, ioN=ffh, ioO=ffh, ioP=ffh, ioQ=ffh
+ioR=ffh, ioS=ffh, ioT=ffh
+statusf=ffffffffh, statusf2=ffffffffh
+Flt Bits 1 = ffh, Flt Bits 2 = ffh, Flt Bits 3 = ffh, Flt Bits 4 = ffh
+SS Status=ffffffffh, PWR Status=ffffffffh, Run Status=ffffffffh
+Nudg Flags=ffh, Door Req=ffh, Call Flags=ffh
+Chk Run=ffh, Chk Start=ffh, Chk Level=ffh, Chk Door=ffh
+Front SD=ffffh, Rear SD=ffffh, Motion Tmr=65535
+PAL Vel=-0001, PAL Statusf=ffh, Inspect Svc=255
+Drive Command=ffffh, Drive Statusf=ffffh
+Torque Command=65535, Motor Torque=65535, Percent Load=6553
+
+ 24 §Lx5ï8 255:255:255 255/255/  -1 Position =255 Occurrences = 255 
+srv=255, prc=255, drf=255, rdf=255, dpr=255, dir=255, emp=255, med=255
+cbl=255, equ=255, fir=255, rfi=255, hsf=255, stf=255, cal=255, esp=255 
+nst=255, rlv=255, ste=255, dfs=255, st0=255, ins=ffh, nds=255, dev=ffh
+pf1=ffh, pf2=ffh, dv2=ffh, io0=ffh, io1=ffh, io2=ffh, io3=ffh, io4=ffh
+io5=ffh, io6=ffh, io7=ffh, io8=ffh, io9=ffh, ioA=ffh, ioB=ffh, ioC=ffh
+ioD=ffh, ioE=ffh, ioF=ffh, ioG=ffh, ioH=ffh, ioI=ffh, ioJ=ffh, ioK=ffh
+ioL=ffh, ioM=ffh, ioN=ffh, ioO=ffh, ioP=ffh, ioQ=ffh
+ioR=ffh, ioS=ffh, ioT=ffh
+statusf=ffffffffh, statusf2=ffffffffh
+Flt Bits 1 = ffh, Flt Bits 2 = ffh, Flt Bits 3 = ffh, Flt Bits 4 = ffh
+SS Status=ffffffffh, PWR Status=ffffffffh, Run Status=ffffffffh
+Nudg Flags=ffh, Door Req=ffh, Call Flags=ffh
+Chk Run=ffh, Chk Start=ffh, Chk Level=ffh, Chk Door=ffh
+Front SD=ffffh, Rear SD=ffffh, Motion Tmr=65535
+PAL Vel=-0001, PAL Statusf=ffh, Inspect Svc=255
+Drive Command=ffffh, Drive Statusf=ffffh
+Torque Command=65535, Motor Torque=65535, Percent Load=6553
+
+ 25 §Lx5ï8 255:255:255 255/255/  -1 Position =255 Occurrences = 255 
+srv=255, prc=255, drf=255, rdf=255, dpr=255, dir=255, emp=255, med=255
+cbl=255, equ=255, fir=255, rfi=255, hsf=255, stf=255, cal=255, esp=255 
+nst=255, rlv=255, ste=255, dfs=255, st0=255, ins=ffh, nds=255, dev=ffh
+pf1=ffh, pf2=ffh, dv2=ffh, io0=ffh, io1=ffh, io2=ffh, io3=ffh, io4=ffh
+io5=ffh, io6=ffh, io7=ffh, io8=ffh, io9=ffh, ioA=ffh, ioB=ffh, ioC=ffh
+ioD=ffh, ioE=ffh, ioF=ffh, ioG=ffh, ioH=ffh, ioI=ffh, ioJ=ffh, ioK=ffh
+ioL=ffh, ioM=ffh, ioN=ffh, ioO=ffh, ioP=ffh, ioQ=ffh
+ioR=ffh, ioS=ffh, ioT=ffh
+statusf=ffffffffh, statusf2=ffffffffh
+Flt Bits 1 = ffh, Flt Bits 2 = ffh, Flt Bits 3 = ffh, Flt Bits 4 = ffh
+SS Status=ffffffffh, PWR Status=ffffffffh, Run Status=ffffffffh
+Nudg Flags=ffh, Door Req=ffh, Call Flags=ffh
+Chk Run=ffh, Chk Start=ffh, Chk Level=ffh, Chk Door=ffh
+Front SD=ffffh, Rear SD=ffffh, Motion Tmr=65535
+PAL Vel=-0001, PAL Statusf=ffh, Inspect Svc=255
+Drive Command=ffffh, Drive Statusf=ffffh
+Torque Command=65535, Motor Torque=65535, Percent Load=6553
+
+ 26 §Lx5ï8 255:255:255 255/255/  -1 Position =255 Occurrences = 255 
+srv=255, prc=255, drf=255, rdf=255, dpr=255, dir=255, emp=255, med=255
+cbl=255, equ=255, fir=255, rfi=255, hsf=255, stf=255, cal=255, esp=255 
+nst=255, rlv=255, ste=255, dfs=255, st0=255, ins=ffh, nds=255, dev=ffh
+pf1=ffh, pf2=ffh, dv2=ffh, io0=ffh, io1=ffh, io2=ffh, io3=ffh, io4=ffh
+io5=ffh, io6=ffh, io7=ffh, io8=ffh, io9=ffh, ioA=ffh, ioB=ffh, ioC=ffh
+ioD=ffh, ioE=ffh, ioF=ffh, ioG=ffh, ioH=ffh, ioI=ffh, ioJ=ffh, ioK=ffh
+ioL=ffh, ioM=ffh, ioN=ffh, ioO=ffh, ioP=ffh, ioQ=ffh
+ioR=ffh, ioS=ffh, ioT=ffh
+statusf=ffffffffh, statusf2=ffffffffh
+Flt Bits 1 = ffh, Flt Bits 2 = ffh, Flt Bits 3 = ffh, Flt Bits 4 = ffh
+SS Status=ffffffffh, PWR Status=ffffffffh, Run Status=ffffffffh
+Nudg Flags=ffh, Door Req=ffh, Call Flags=ffh
+Chk Run=ffh, Chk Start=ffh, Chk Level=ffh, Chk Door=ffh
+Front SD=ffffh, Rear SD=ffffh, Motion Tmr=65535
+PAL Vel=-0001, PAL Statusf=ffh, Inspect Svc=255
+Drive Command=ffffh, Drive Statusf=ffffh
+Torque Command=65535, Motor Torque=65535, Percent Load=6553
+
+ 27 §Lx5ï8 255:255:255 255/255/  -1 Position =255 Occurrences = 255 
+srv=255, prc=255, drf=255, rdf=255, dpr=255, dir=255, emp=255, med=255
+cbl=255, equ=255, fir=255, rfi=255, hsf=255, stf=255, cal=255, esp=255 
+nst=255, rlv=255, ste=255, dfs=255, st0=255, ins=ffh, nds=255, dev=ffh
+pf1=ffh, pf2=ffh, dv2=ffh, io0=ffh, io1=ffh, io2=ffh, io3=ffh, io4=ffh
+io5=ffh, io6=ffh, io7=ffh, io8=ffh, io9=ffh, ioA=ffh, ioB=ffh, ioC=ffh
+ioD=ffh, ioE=ffh, ioF=ffh, ioG=ffh, ioH=ffh, ioI=ffh, ioJ=ffh, ioK=ffh
+ioL=ffh, ioM=ffh, ioN=ffh, ioO=ffh, ioP=ffh, ioQ=ffh
+ioR=ffh, ioS=ffh, ioT=ffh
+statusf=ffffffffh, statusf2=ffffffffh
+Flt Bits 1 = ffh, Flt Bits 2 = ffh, Flt Bits 3 = ffh, Flt Bits 4 = ffh
+SS Status=ffffffffh, PWR Status=ffffffffh, Run Status=ffffffffh
+Nudg Flags=ffh, Door Req=ffh, Call Flags=ffh
+Chk Run=ffh, Chk Start=ffh, Chk Level=ffh, Chk Door=ffh
+Front SD=ffffh, Rear SD=ffffh, Motion Tmr=65535
+PAL Vel=-0001, PAL Statusf=ffh, Inspect Svc=255
+Drive Command=ffffh, Drive Statusf=ffffh
+Torque Command=65535, Motor Torque=65535, Percent Load=6553
+
+ 28 §Lx5ï8 255:255:255 255/255/  -1 Position =255 Occurrences = 255 
+srv=255, prc=255, drf=255, rdf=255, dpr=255, dir=255, emp=255, med=255
+cbl=255, equ=255, fir=255, rfi=255, hsf=255, stf=255, cal=255, esp=255 
+nst=255, rlv=255, ste=255, dfs=255, st0=255, ins=ffh, nds=255, dev=ffh
+pf1=ffh, pf2=ffh, dv2=ffh, io0=ffh, io1=ffh, io2=ffh, io3=ffh, io4=ffh
+io5=ffh, io6=ffh, io7=ffh, io8=ffh, io9=ffh, ioA=ffh, ioB=ffh, ioC=ffh
+ioD=ffh, ioE=ffh, ioF=ffh, ioG=ffh, ioH=ffh, ioI=ffh, ioJ=ffh, ioK=ffh
+ioL=ffh, ioM=ffh, ioN=ffh, ioO=ffh, ioP=ffh, ioQ=ffh
+ioR=ffh, ioS=ffh, ioT=ffh
+statusf=ffffffffh, statusf2=ffffffffh
+Flt Bits 1 = ffh, Flt Bits 2 = ffh, Flt Bits 3 = ffh, Flt Bits 4 = ffh
+SS Status=ffffffffh, PWR Status=ffffffffh, Run Status=ffffffffh
+Nudg Flags=ffh, Door Req=ffh, Call Flags=ffh
+Chk Run=ffh, Chk Start=ffh, Chk Level=ffh, Chk Door=ffh
+Front SD=ffffh, Rear SD=ffffh, Motion Tmr=65535
+PAL Vel=-0001, PAL Statusf=ffh, Inspect Svc=255
+Drive Command=ffffh, Drive Statusf=ffffh
+Torque Command=65535, Motor Torque=65535, Percent Load=6553
+
+ 29 §Lx5ï8 255:255:255 255/255/  -1 Position =255 Occurrences = 255 
+srv=255, prc=255, drf=255, rdf=255, dpr=255, dir=255, emp=255, med=255
+cbl=255, equ=255, fir=255, rfi=255, hsf=255, stf=255, cal=255, esp=255 
+nst=255, rlv=255, ste=255, dfs=255, st0=255, ins=ffh, nds=255, dev=ffh
+pf1=ffh, pf2=ffh, dv2=ffh, io0=ffh, io1=ffh, io2=ffh, io3=ffh, io4=ffh
+io5=ffh, io6=ffh, io7=ffh, io8=ffh, io9=ffh, ioA=ffh, ioB=ffh, ioC=ffh
+ioD=ffh, ioE=ffh, ioF=ffh, ioG=ffh, ioH=ffh, ioI=ffh, ioJ=ffh, ioK=ffh
+ioL=ffh, ioM=ffh, ioN=ffh, ioO=ffh, ioP=ffh, ioQ=ffh
+ioR=ffh, ioS=ffh, ioT=ffh
+statusf=ffffffffh, statusf2=ffffffffh
+Flt Bits 1 = ffh, Flt Bits 2 = ffh, Flt Bits 3 = ffh, Flt Bits 4 = ffh
+SS Status=ffffffffh, PWR Status=ffffffffh, Run Status=ffffffffh
+Nudg Flags=ffh, Door Req=ffh, Call Flags=ffh
+Chk Run=ffh, Chk Start=ffh, Chk Level=ffh, Chk Door=ffh
+Front SD=ffffh, Rear SD=ffffh, Motion Tmr=65535
+PAL Vel=-0001, PAL Statusf=ffh, Inspect Svc=255
+Drive Command=ffffh, Drive Statusf=ffffh
+Torque Command=65535, Motor Torque=65535, Percent Load=6553
+
+ 30 §Lx5ï8 255:255:255 255/255/  -1 Position =255 Occurrences = 255 
+srv=255, prc=255, drf=255, rdf=255, dpr=255, dir=255, emp=255, med=255
+cbl=255, equ=255, fir=255, rfi=255, hsf=255, stf=255, cal=255, esp=255 
+nst=255, rlv=255, ste=255, dfs=255, st0=255, ins=ffh, nds=255, dev=ffh
+pf1=ffh, pf2=ffh, dv2=ffh, io0=ffh, io1=ffh, io2=ffh, io3=ffh, io4=ffh
+io5=ffh, io6=ffh, io7=ffh, io8=ffh, io9=ffh, ioA=ffh, ioB=ffh, ioC=ffh
+ioD=ffh, ioE=ffh, ioF=ffh, ioG=ffh, ioH=ffh, ioI=ffh, ioJ=ffh, ioK=ffh
+ioL=ffh, ioM=ffh, ioN=ffh, ioO=ffh, ioP=ffh, ioQ=ffh
+ioR=ffh, ioS=ffh, ioT=ffh
+statusf=ffffffffh, statusf2=ffffffffh
+Flt Bits 1 = ffh, Flt Bits 2 = ffh, Flt Bits 3 = ffh, Flt Bits 4 = ffh
+SS Status=ffffffffh, PWR Status=ffffffffh, Run Status=ffffffffh
+Nudg Flags=ffh, Door Req=ffh, Call Flags=ffh
+Chk Run=ffh, Chk Start=ffh, Chk Level=ffh, Chk Door=ffh
+Front SD=ffffh, Rear SD=ffffh, Motion Tmr=65535
+PAL Vel=-0001, PAL Statusf=ffh, Inspect Svc=255
+Drive Command=ffffh, Drive Statusf=ffffh
+Torque Command=65535, Motor Torque=65535, Percent Load=6553
+
+ 31 §Lx5ï8 255:255:255 255/255/  -1 Position =255 Occurrences = 255 
+srv=255, prc=255, drf=255, rdf=255, dpr=255, dir=255, emp=255, med=255
+cbl=255, equ=255, fir=255, rfi=255, hsf=255, stf=255, cal=255, esp=255 
+nst=255, rlv=255, ste=255, dfs=255, st0=255, ins=ffh, nds=255, dev=ffh
+pf1=ffh, pf2=ffh, dv2=ffh, io0=ffh, io1=ffh, io2=ffh, io3=ffh, io4=ffh
+io5=ffh, io6=ffh, io7=ffh, io8=ffh, io9=ffh, ioA=ffh, ioB=ffh, ioC=ffh
+ioD=ffh, ioE=ffh, ioF=ffh, ioG=ffh, ioH=ffh, ioI=ffh, ioJ=ffh, ioK=ffh
+ioL=ffh, ioM=ffh, ioN=ffh, ioO=ffh, ioP=ffh, ioQ=ffh
+ioR=ffh, ioS=ffh, ioT=ffh
+statusf=ffffffffh, statusf2=ffffffffh
+Flt Bits 1 = ffh, Flt Bits 2 = ffh, Flt Bits 3 = ffh, Flt Bits 4 = ffh
+SS Status=ffffffffh, PWR Status=ffffffffh, Run Status=ffffffffh
+Nudg Flags=ffh, Door Req=ffh, Call Flags=ffh
+Chk Run=ffh, Chk Start=ffh, Chk Level=ffh, Chk Door=ffh
+Front SD=ffffh, Rear SD=ffffh, Motion Tmr=65535
+PAL Vel=-0001, PAL Statusf=ffh, Inspect Svc=255
+Drive Command=ffffh, Drive Statusf=ffffh
+Torque Command=65535, Motor Torque=65535, Percent Load=6553
+
+ 32 §Lx5ï8 255:255:255 255/255/  -1 Position =255 Occurrences = 255 
+srv=255, prc=255, drf=255, rdf=255, dpr=255, dir=255, emp=255, med=255
+cbl=255, equ=255, fir=255, rfi=255, hsf=255, stf=255, cal=255, esp=255 
+nst=255, rlv=255, ste=255, dfs=255, st0=255, ins=ffh, nds=255, dev=ffh
+pf1=ffh, pf2=ffh, dv2=ffh, io0=ffh, io1=ffh, io2=ffh, io3=ffh, io4=ffh
+io5=ffh, io6=ffh, io7=ffh, io8=ffh, io9=ffh, ioA=ffh, ioB=ffh, ioC=ffh
+ioD=ffh, ioE=ffh, ioF=ffh, ioG=ffh, ioH=ffh, ioI=ffh, ioJ=ffh, ioK=ffh
+ioL=ffh, ioM=ffh, ioN=ffh, ioO=ffh, ioP=ffh, ioQ=ffh
+ioR=ffh, ioS=ffh, ioT=ffh
+statusf=ffffffffh, statusf2=ffffffffh
+Flt Bits 1 = ffh, Flt Bits 2 = ffh, Flt Bits 3 = ffh, Flt Bits 4 = ffh
+SS Status=ffffffffh, PWR Status=ffffffffh, Run Status=ffffffffh
+Nudg Flags=ffh, Door Req=ffh, Call Flags=ffh
+Chk Run=ffh, Chk Start=ffh, Chk Level=ffh, Chk Door=ffh
+Front SD=ffffh, Rear SD=ffffh, Motion Tmr=65535
+PAL Vel=-0001, PAL Statusf=ffh, Inspect Svc=255
+Drive Command=ffffh, Drive Statusf=ffffh
+Torque Command=65535, Motor Torque=65535, Percent Load=6553
+
+ 33 §Lx5ï8 255:255:255 255/255/  -1 Position =255 Occurrences = 255 
+srv=255, prc=255, drf=255, rdf=255, dpr=255, dir=255, emp=255, med=255
+cbl=255, equ=255, fir=255, rfi=255, hsf=255, stf=255, cal=255, esp=255 
+nst=255, rlv=255, ste=255, dfs=255, st0=255, ins=ffh, nds=255, dev=ffh
+pf1=ffh, pf2=ffh, dv2=ffh, io0=ffh, io1=ffh, io2=ffh, io3=ffh, io4=ffh
+io5=ffh, io6=ffh, io7=ffh, io8=ffh, io9=ffh, ioA=ffh, ioB=ffh, ioC=ffh
+ioD=ffh, ioE=ffh, ioF=ffh, ioG=ffh, ioH=ffh, ioI=ffh, ioJ=ffh, ioK=ffh
+ioL=ffh, ioM=ffh, ioN=ffh, ioO=ffh, ioP=ffh, ioQ=ffh
+ioR=ffh, ioS=ffh, ioT=ffh
+statusf=ffffffffh, statusf2=ffffffffh
+Flt Bits 1 = ffh, Flt Bits 2 = ffh, Flt Bits 3 = ffh, Flt Bits 4 = ffh
+SS Status=ffffffffh, PWR Status=ffffffffh, Run Status=ffffffffh
+Nudg Flags=ffh, Door Req=ffh, Call Flags=ffh
+Chk Run=ffh, Chk Start=ffh, Chk Level=ffh, Chk Door=ffh
+Front SD=ffffh, Rear SD=ffffh, Motion Tmr=65535
+PAL Vel=-0001, PAL Statusf=ffh, Inspect Svc=255
+Drive Command=ffffh, Drive Statusf=ffffh
+Torque Command=65535, Motor Torque=65535, Percent Load=6553
+
+ 34 §Lx5ï8 255:255:255 255/255/  -1 Position =255 Occurrences = 255 
+srv=255, prc=255, drf=255, rdf=255, dpr=255, dir=255, emp=255, med=255
+cbl=255, equ=255, fir=255, rfi=255, hsf=255, stf=255, cal=255, esp=255 
+nst=255, rlv=255, ste=255, dfs=255, st0=255, ins=ffh, nds=255, dev=ffh
+pf1=ffh, pf2=ffh, dv2=ffh, io0=ffh, io1=ffh, io2=ffh, io3=ffh, io4=ffh
+io5=ffh, io6=ffh, io7=ffh, io8=ffh, io9=ffh, ioA=ffh, ioB=ffh, ioC=ffh
+ioD=ffh, ioE=ffh, ioF=ffh, ioG=ffh, ioH=ffh, ioI=ffh, ioJ=ffh, ioK=ffh
+ioL=ffh, ioM=ffh, ioN=ffh, ioO=ffh, ioP=ffh, ioQ=ffh
+ioR=ffh, ioS=ffh, ioT=ffh
+statusf=ffffffffh, statusf2=ffffffffh
+Flt Bits 1 = ffh, Flt Bits 2 = ffh, Flt Bits 3 = ffh, Flt Bits 4 = ffh
+SS Status=ffffffffh, PWR Status=ffffffffh, Run Status=ffffffffh
+Nudg Flags=ffh, Door Req=ffh, Call Flags=ffh
+Chk Run=ffh, Chk Start=ffh, Chk Level=ffh, Chk Door=ffh
+Front SD=ffffh, Rear SD=ffffh, Motion Tmr=65535
+PAL Vel=-0001, PAL Statusf=ffh, Inspect Svc=255
+Drive Command=ffffh, Drive Statusf=ffffh
+Torque Command=65535, Motor Torque=65535, Percent Load=6553
+
+ 35 §Lx5ï8 255:255:255 255/255/  -1 Position =255 Occurrences = 255 
+srv=255, prc=255, drf=255, rdf=255, dpr=255, dir=255, emp=255, med=255
+cbl=255, equ=255, fir=255, rfi=255, hsf=255, stf=255, cal=255, esp=255 
+nst=255, rlv=255, ste=255, dfs=255, st0=255, ins=ffh, nds=255, dev=ffh
+pf1=ffh, pf2=ffh, dv2=ffh, io0=ffh, io1=ffh, io2=ffh, io3=ffh, io4=ffh
+io5=ffh, io6=ffh, io7=ffh, io8=ffh, io9=ffh, ioA=ffh, ioB=ffh, ioC=ffh
+ioD=ffh, ioE=ffh, ioF=ffh, ioG=ffh, ioH=ffh, ioI=ffh, ioJ=ffh, ioK=ffh
+ioL=ffh, ioM=ffh, ioN=ffh, ioO=ffh, ioP=ffh, ioQ=ffh
+ioR=ffh, ioS=ffh, ioT=ffh
+statusf=ffffffffh, statusf2=ffffffffh
+Flt Bits 1 = ffh, Flt Bits 2 = ffh, Flt Bits 3 = ffh, Flt Bits 4 = ffh
+SS Status=ffffffffh, PWR Status=ffffffffh, Run Status=ffffffffh
+Nudg Flags=ffh, Door Req=ffh, Call Flags=ffh
+Chk Run=ffh, Chk Start=ffh, Chk Level=ffh, Chk Door=ffh
+Front SD=ffffh, Rear SD=ffffh, Motion Tmr=65535
+PAL Vel=-0001, PAL Statusf=ffh, Inspect Svc=255
+Drive Command=ffffh, Drive Statusf=ffffh
+Torque Command=65535, Motor Torque=65535, Percent Load=6553
+
+ 36 §Lx5ï8 255:255:255 255/255/  -1 Position =255 Occurrences = 255 
+srv=255, prc=255, drf=255, rdf=255, dpr=255, dir=255, emp=255, med=255
+cbl=255, equ=255, fir=255, rfi=255, hsf=255, stf=255, cal=255, esp=255 
+nst=255, rlv=255, ste=255, dfs=255, st0=255, ins=ffh, nds=255, dev=ffh
+pf1=ffh, pf2=ffh, dv2=ffh, io0=ffh, io1=ffh, io2=ffh, io3=ffh, io4=ffh
+io5=ffh, io6=ffh, io7=ffh, io8=ffh, io9=ffh, ioA=ffh, ioB=ffh, ioC=ffh
+ioD=ffh, ioE=ffh, ioF=ffh, ioG=ffh, ioH=ffh, ioI=ffh, ioJ=ffh, ioK=ffh
+ioL=ffh, ioM=ffh, ioN=ffh, ioO=ffh, ioP=ffh, ioQ=ffh
+ioR=ffh, ioS=ffh, ioT=ffh
+statusf=ffffffffh, statusf2=ffffffffh
+Flt Bits 1 = ffh, Flt Bits 2 = ffh, Flt Bits 3 = ffh, Flt Bits 4 = ffh
+SS Status=ffffffffh, PWR Status=ffffffffh, Run Status=ffffffffh
+Nudg Flags=ffh, Door Req=ffh, Call Flags=ffh
+Chk Run=ffh, Chk Start=ffh, Chk Level=ffh, Chk Door=ffh
+Front SD=ffffh, Rear SD=ffffh, Motion Tmr=65535
+PAL Vel=-0001, PAL Statusf=ffh, Inspect Svc=255
+Drive Command=ffffh, Drive Statusf=ffffh
+Torque Command=65535, Motor Torque=65535, Percent Load=6553
+
+ 37 §Lx5ï8 255:255:255 255/255/  -1 Position =255 Occurrences = 255 
+srv=255, prc=255, drf=255, rdf=255, dpr=255, dir=255, emp=255, med=255
+cbl=255, equ=255, fir=255, rfi=255, hsf=255, stf=255, cal=255, esp=255 
+nst=255, rlv=255, ste=255, dfs=255, st0=255, ins=ffh, nds=255, dev=ffh
+pf1=ffh, pf2=ffh, dv2=ffh, io0=ffh, io1=ffh, io2=ffh, io3=ffh, io4=ffh
+io5=ffh, io6=ffh, io7=ffh, io8=ffh, io9=ffh, ioA=ffh, ioB=ffh, ioC=ffh
+ioD=ffh, ioE=ffh, ioF=ffh, ioG=ffh, ioH=ffh, ioI=ffh, ioJ=ffh, ioK=ffh
+ioL=ffh, ioM=ffh, ioN=ffh, ioO=ffh, ioP=ffh, ioQ=ffh
+ioR=ffh, ioS=ffh, ioT=ffh
+statusf=ffffffffh, statusf2=ffffffffh
+Flt Bits 1 = ffh, Flt Bits 2 = ffh, Flt Bits 3 = ffh, Flt Bits 4 = ffh
+SS Status=ffffffffh, PWR Status=ffffffffh, Run Status=ffffffffh
+Nudg Flags=ffh, Door Req=ffh, Call Flags=ffh
+Chk Run=ffh, Chk Start=ffh, Chk Level=ffh, Chk Door=ffh
+Front SD=ffffh, Rear SD=ffffh, Motion Tmr=65535
+PAL Vel=-0001, PAL Statusf=ffh, Inspect Svc=255
+Drive Command=ffffh, Drive Statusf=ffffh
+Torque Command=65535, Motor Torque=65535, Percent Load=6553
+
+ 38 §Lx5ï8 255:255:255 255/255/  -1 Position =255 Occurrences = 255 
+srv=255, prc=255, drf=255, rdf=255, dpr=255, dir=255, emp=255, med=255
+cbl=255, equ=255, fir=255, rfi=255, hsf=255, stf=255, cal=255, esp=255 
+nst=255, rlv=255, ste=255, dfs=255, st0=255, ins=ffh, nds=255, dev=ffh
+pf1=ffh, pf2=ffh, dv2=ffh, io0=ffh, io1=ffh, io2=ffh, io3=ffh, io4=ffh
+io5=ffh, io6=ffh, io7=ffh, io8=ffh, io9=ffh, ioA=ffh, ioB=ffh, ioC=ffh
+ioD=ffh, ioE=ffh, ioF=ffh, ioG=ffh, ioH=ffh, ioI=ffh, ioJ=ffh, ioK=ffh
+ioL=ffh, ioM=ffh, ioN=ffh, ioO=ffh, ioP=ffh, ioQ=ffh
+ioR=ffh, ioS=ffh, ioT=ffh
+statusf=ffffffffh, statusf2=ffffffffh
+Flt Bits 1 = ffh, Flt Bits 2 = ffh, Flt Bits 3 = ffh, Flt Bits 4 = ffh
+SS Status=ffffffffh, PWR Status=ffffffffh, Run Status=ffffffffh
+Nudg Flags=ffh, Door Req=ffh, Call Flags=ffh
+Chk Run=ffh, Chk Start=ffh, Chk Level=ffh, Chk Door=ffh
+Front SD=ffffh, Rear SD=ffffh, Motion Tmr=65535
+PAL Vel=-0001, PAL Statusf=ffh, Inspect Svc=255
+Drive Command=ffffh, Drive Statusf=ffffh
+Torque Command=65535, Motor Torque=65535, Percent Load=6553
+
+ 39 §Lx5ï8 255:255:255 255/255/  -1 Position =255 Occurrences = 255 
+srv=255, prc=255, drf=255, rdf=255, dpr=255, dir=255, emp=255, med=255
+cbl=255, equ=255, fir=255, rfi=255, hsf=255, stf=255, cal=255, esp=255 
+nst=255, rlv=255, ste=255, dfs=255, st0=255, ins=ffh, nds=255, dev=ffh
+pf1=ffh, pf2=ffh, dv2=ffh, io0=ffh, io1=ffh, io2=ffh, io3=ffh, io4=ffh
+io5=ffh, io6=ffh, io7=ffh, io8=ffh, io9=ffh, ioA=ffh, ioB=ffh, ioC=ffh
+ioD=ffh, ioE=ffh, ioF=ffh, ioG=ffh, ioH=ffh, ioI=ffh, ioJ=ffh, ioK=ffh
+ioL=ffh, ioM=ffh, ioN=ffh, ioO=ffh, ioP=ffh, ioQ=ffh
+ioR=ffh, ioS=ffh, ioT=ffh
+statusf=ffffffffh, statusf2=ffffffffh
+Flt Bits 1 = ffh, Flt Bits 2 = ffh, Flt Bits 3 = ffh, Flt Bits 4 = ffh
+SS Status=ffffffffh, PWR Status=ffffffffh, Run Status=ffffffffh
+Nudg Flags=ffh, Door Req=ffh, Call Flags=ffh
+Chk Run=ffh, Chk Start=ffh, Chk Level=ffh, Chk Door=ffh
+Front SD=ffffh, Rear SD=ffffh, Motion Tmr=65535
+PAL Vel=-0001, PAL Statusf=ffh, Inspect Svc=255
+Drive Command=ffffh, Drive Statusf=ffffh
+Torque Command=65535, Motor Torque=65535, Percent Load=6553
+
+ 40 §Lx5ï8 255:255:255 255/255/  -1 Position =255 Occurrences = 255 
+srv=255, prc=255, drf=255, rdf=255, dpr=255, dir=255, emp=255, med=255
+cbl=255, equ=255, fir=255, rfi=255, hsf=255, stf=255, cal=255, esp=255 
+nst=255, rlv=255, ste=255, dfs=255, st0=255, ins=ffh, nds=255, dev=ffh
+pf1=ffh, pf2=ffh, dv2=ffh, io0=ffh, io1=ffh, io2=ffh, io3=ffh, io4=ffh
+io5=ffh, io6=ffh, io7=ffh, io8=ffh, io9=ffh, ioA=ffh, ioB=ffh, ioC=ffh
+ioD=ffh, ioE=ffh, ioF=ffh, ioG=ffh, ioH=ffh, ioI=ffh, ioJ=ffh, ioK=ffh
+ioL=ffh, ioM=ffh, ioN=ffh, ioO=ffh, ioP=ffh, ioQ=ffh
+ioR=ffh, ioS=ffh, ioT=ffh
+statusf=ffffffffh, statusf2=ffffffffh
+Flt Bits 1 = ffh, Flt Bits 2 = ffh, Flt Bits 3 = ffh, Flt Bits 4 = ffh
+SS Status=ffffffffh, PWR Status=ffffffffh, Run Status=ffffffffh
+Nudg Flags=ffh, Door Req=ffh, Call Flags=ffh
+Chk Run=ffh, Chk Start=ffh, Chk Level=ffh, Chk Door=ffh
+Front SD=ffffh, Rear SD=ffffh, Motion Tmr=65535
+PAL Vel=-0001, PAL Statusf=ffh, Inspect Svc=255
+Drive Command=ffffh, Drive Statusf=ffffh
+Torque Command=65535, Motor Torque=65535, Percent Load=6553
+
+ 41 §Lx5ï8 255:255:255 255/255/  -1 Position =255 Occurrences = 255 
+srv=255, prc=255, drf=255, rdf=255, dpr=255, dir=255, emp=255, med=255
+cbl=255, equ=255, fir=255, rfi=255, hsf=255, stf=255, cal=255, esp=255 
+nst=255, rlv=255, ste=255, dfs=255, st0=255, ins=ffh, nds=255, dev=ffh
+pf1=ffh, pf2=ffh, dv2=ffh, io0=ffh, io1=ffh, io2=ffh, io3=ffh, io4=ffh
+io5=ffh, io6=ffh, io7=ffh, io8=ffh, io9=ffh, ioA=ffh, ioB=ffh, ioC=ffh
+ioD=ffh, ioE=ffh, ioF=ffh, ioG=ffh, ioH=ffh, ioI=ffh, ioJ=ffh, ioK=ffh
+ioL=ffh, ioM=ffh, ioN=ffh, ioO=ffh, ioP=ffh, ioQ=ffh
+ioR=ffh, ioS=ffh, ioT=ffh
+statusf=ffffffffh, statusf2=ffffffffh
+Flt Bits 1 = ffh, Flt Bits 2 = ffh, Flt Bits 3 = ffh, Flt Bits 4 = ffh
+SS Status=ffffffffh, PWR Status=ffffffffh, Run Status=ffffffffh
+Nudg Flags=ffh, Door Req=ffh, Call Flags=ffh
+Chk Run=ffh, Chk Start=ffh, Chk Level=ffh, Chk Door=ffh
+Front SD=ffffh, Rear SD=ffffh, Motion Tmr=65535
+PAL Vel=-0001, PAL Statusf=ffh, Inspect Svc=255
+Drive Command=ffffh, Drive Statusf=ffffh
+Torque Command=65535, Motor Torque=65535, Percent Load=6553
+
+ 42 §Lx5ï8 255:255:255 255/255/  -1 Position =255 Occurrences = 255 
+srv=255, prc=255, drf=255, rdf=255, dpr=255, dir=255, emp=255, med=255
+cbl=255, equ=255, fir=255, rfi=255, hsf=255, stf=255, cal=255, esp=255 
+nst=255, rlv=255, ste=255, dfs=255, st0=255, ins=ffh, nds=255, dev=ffh
+pf1=ffh, pf2=ffh, dv2=ffh, io0=ffh, io1=ffh, io2=ffh, io3=ffh, io4=ffh
+io5=ffh, io6=ffh, io7=ffh, io8=ffh, io9=ffh, ioA=ffh, ioB=ffh, ioC=ffh
+ioD=ffh, ioE=ffh, ioF=ffh, ioG=ffh, ioH=ffh, ioI=ffh, ioJ=ffh, ioK=ffh
+ioL=ffh, ioM=ffh, ioN=ffh, ioO=ffh, ioP=ffh, ioQ=ffh
+ioR=ffh, ioS=ffh, ioT=ffh
+statusf=ffffffffh, statusf2=ffffffffh
+Flt Bits 1 = ffh, Flt Bits 2 = ffh, Flt Bits 3 = ffh, Flt Bits 4 = ffh
+SS Status=ffffffffh, PWR Status=ffffffffh, Run Status=ffffffffh
+Nudg Flags=ffh, Door Req=ffh, Call Flags=ffh
+Chk Run=ffh, Chk Start=ffh, Chk Level=ffh, Chk Door=ffh
+Front SD=ffffh, Rear SD=ffffh, Motion Tmr=65535
+PAL Vel=-0001, PAL Statusf=ffh, Inspect Svc=255
+Drive Command=ffffh, Drive Statusf=ffffh
+Torque Command=65535, Motor Torque=65535, Percent Load=6553
+
+ 43 §Lx5ï8 255:255:255 255/255/  -1 Position =255 Occurrences = 255 
+srv=255, prc=255, drf=255, rdf=255, dpr=255, dir=255, emp=255, med=255
+cbl=255, equ=255, fir=255, rfi=255, hsf=255, stf=255, cal=255, esp=255 
+nst=255, rlv=255, ste=255, dfs=255, st0=255, ins=ffh, nds=255, dev=ffh
+pf1=ffh, pf2=ffh, dv2=ffh, io0=ffh, io1=ffh, io2=ffh, io3=ffh, io4=ffh
+io5=ffh, io6=ffh, io7=ffh, io8=ffh, io9=ffh, ioA=ffh, ioB=ffh, ioC=ffh
+ioD=ffh, ioE=ffh, ioF=ffh, ioG=ffh, ioH=ffh, ioI=ffh, ioJ=ffh, ioK=ffh
+ioL=ffh, ioM=ffh, ioN=ffh, ioO=ffh, ioP=ffh, ioQ=ffh
+ioR=ffh, ioS=ffh, ioT=ffh
+statusf=ffffffffh, statusf2=ffffffffh
+Flt Bits 1 = ffh, Flt Bits 2 = ffh, Flt Bits 3 = ffh, Flt Bits 4 = ffh
+SS Status=ffffffffh, PWR Status=ffffffffh, Run Status=ffffffffh
+Nudg Flags=ffh, Door Req=ffh, Call Flags=ffh
+Chk Run=ffh, Chk Start=ffh, Chk Level=ffh, Chk Door=ffh
+Front SD=ffffh, Rear SD=ffffh, Motion Tmr=65535
+PAL Vel=-0001, PAL Statusf=ffh, Inspect Svc=255
+Drive Command=ffffh, Drive Statusf=ffffh
+Torque Command=65535, Motor Torque=65535, Percent Load=6553
+
+ 44 §Lx5ï8 255:255:255 255/255/  -1 Position =255 Occurrences = 255 
+srv=255, prc=255, drf=255, rdf=255, dpr=255, dir=255, emp=255, med=255
+cbl=255, equ=255, fir=255, rfi=255, hsf=255, stf=255, cal=255, esp=255 
+nst=255, rlv=255, ste=255, dfs=255, st0=255, ins=ffh, nds=255, dev=ffh
+pf1=ffh, pf2=ffh, dv2=ffh, io0=ffh, io1=ffh, io2=ffh, io3=ffh, io4=ffh
+io5=ffh, io6=ffh, io7=ffh, io8=ffh, io9=ffh, ioA=ffh, ioB=ffh, ioC=ffh
+ioD=ffh, ioE=ffh, ioF=ffh, ioG=ffh, ioH=ffh, ioI=ffh, ioJ=ffh, ioK=ffh
+ioL=ffh, ioM=ffh, ioN=ffh, ioO=ffh, ioP=ffh, ioQ=ffh
+ioR=ffh, ioS=ffh, ioT=ffh
+statusf=ffffffffh, statusf2=ffffffffh
+Flt Bits 1 = ffh, Flt Bits 2 = ffh, Flt Bits 3 = ffh, Flt Bits 4 = ffh
+SS Status=ffffffffh, PWR Status=ffffffffh, Run Status=ffffffffh
+Nudg Flags=ffh, Door Req=ffh, Call Flags=ffh
+Chk Run=ffh, Chk Start=ffh, Chk Level=ffh, Chk Door=ffh
+Front SD=ffffh, Rear SD=ffffh, Motion Tmr=65535
+PAL Vel=-0001, PAL Statusf=ffh, Inspect Svc=255
+Drive Command=ffffh, Drive Statusf=ffffh
+Torque Command=65535, Motor Torque=65535, Percent Load=6553
+
+ 45 §Lx5ï8 255:255:255 255/255/  -1 Position =255 Occurrences = 255 
+srv=255, prc=255, drf=255, rdf=255, dpr=255, dir=255, emp=255, med=255
+cbl=255, equ=255, fir=255, rfi=255, hsf=255, stf=255, cal=255, esp=255 
+nst=255, rlv=255, ste=255, dfs=255, st0=255, ins=ffh, nds=255, dev=ffh
+pf1=ffh, pf2=ffh, dv2=ffh, io0=ffh, io1=ffh, io2=ffh, io3=ffh, io4=ffh
+io5=ffh, io6=ffh, io7=ffh, io8=ffh, io9=ffh, ioA=ffh, ioB=ffh, ioC=ffh
+ioD=ffh, ioE=ffh, ioF=ffh, ioG=ffh, ioH=ffh, ioI=ffh, ioJ=ffh, ioK=ffh
+ioL=ffh, ioM=ffh, ioN=ffh, ioO=ffh, ioP=ffh, ioQ=ffh
+ioR=ffh, ioS=ffh, ioT=ffh
+statusf=ffffffffh, statusf2=ffffffffh
+Flt Bits 1 = ffh, Flt Bits 2 = ffh, Flt Bits 3 = ffh, Flt Bits 4 = ffh
+SS Status=ffffffffh, PWR Status=ffffffffh, Run Status=ffffffffh
+Nudg Flags=ffh, Door Req=ffh, Call Flags=ffh
+Chk Run=ffh, Chk Start=ffh, Chk Level=ffh, Chk Door=ffh
+Front SD=ffffh, Rear SD=ffffh, Motion Tmr=65535
+PAL Vel=-0001, PAL Statusf=ffh, Inspect Svc=255
+Drive Command=ffffh, Drive Statusf=ffffh
+Torque Command=65535, Motor Torque=65535, Percent Load=6553
+
+ 46 §Lx5ï8 255:255:255 255/255/  -1 Position =255 Occurrences = 255 
+srv=255, prc=255, drf=255, rdf=255, dpr=255, dir=255, emp=255, med=255
+cbl=255, equ=255, fir=255, rfi=255, hsf=255, stf=255, cal=255, esp=255 
+nst=255, rlv=255, ste=255, dfs=255, st0=255, ins=ffh, nds=255, dev=ffh
+pf1=ffh, pf2=ffh, dv2=ffh, io0=ffh, io1=ffh, io2=ffh, io3=ffh, io4=ffh
+io5=ffh, io6=ffh, io7=ffh, io8=ffh, io9=ffh, ioA=ffh, ioB=ffh, ioC=ffh
+ioD=ffh, ioE=ffh, ioF=ffh, ioG=ffh, ioH=ffh, ioI=ffh, ioJ=ffh, ioK=ffh
+ioL=ffh, ioM=ffh, ioN=ffh, ioO=ffh, ioP=ffh, ioQ=ffh
+ioR=ffh, ioS=ffh, ioT=ffh
+statusf=ffffffffh, statusf2=ffffffffh
+Flt Bits 1 = ffh, Flt Bits 2 = ffh, Flt Bits 3 = ffh, Flt Bits 4 = ffh
+SS Status=ffffffffh, PWR Status=ffffffffh, Run Status=ffffffffh
+Nudg Flags=ffh, Door Req=ffh, Call Flags=ffh
+Chk Run=ffh, Chk Start=ffh, Chk Level=ffh, Chk Door=ffh
+Front SD=ffffh, Rear SD=ffffh, Motion Tmr=65535
+PAL Vel=-0001, PAL Statusf=ffh, Inspect Svc=255
+Drive Command=ffffh, Drive Statusf=ffffh
+Torque Command=65535, Motor Torque=65535, Percent Load=6553
+
+ 47 §Lx5ï8 255:255:255 255/255/  -1 Position =255 Occurrences = 255 
+srv=255, prc=255, drf=255, rdf=255, dpr=255, dir=255, emp=255, med=255
+cbl=255, equ=255, fir=255, rfi=255, hsf=255, stf=255, cal=255, esp=255 
+nst=255, rlv=255, ste=255, dfs=255, st0=255, ins=ffh, nds=255, dev=ffh
+pf1=ffh, pf2=ffh, dv2=ffh, io0=ffh, io1=ffh, io2=ffh, io3=ffh, io4=ffh
+io5=ffh, io6=ffh, io7=ffh, io8=ffh, io9=ffh, ioA=ffh, ioB=ffh, ioC=ffh
+ioD=ffh, ioE=ffh, ioF=ffh, ioG=ffh, ioH=ffh, ioI=ffh, ioJ=ffh, ioK=ffh
+ioL=ffh, ioM=ffh, ioN=ffh, ioO=ffh, ioP=ffh, ioQ=ffh
+ioR=ffh, ioS=ffh, ioT=ffh
+statusf=ffffffffh, statusf2=ffffffffh
+Flt Bits 1 = ffh, Flt Bits 2 = ffh, Flt Bits 3 = ffh, Flt Bits 4 = ffh
+SS Status=ffffffffh, PWR Status=ffffffffh, Run Status=ffffffffh
+Nudg Flags=ffh, Door Req=ffh, Call Flags=ffh
+Chk Run=ffh, Chk Start=ffh, Chk Level=ffh, Chk Door=ffh
+Front SD=ffffh, Rear SD=ffffh, Motion Tmr=65535
+PAL Vel=-0001, PAL Statusf=ffh, Inspect Svc=255
+Drive Command=ffffh, Drive Statusf=ffffh
+Torque Command=65535, Motor Torque=65535, Percent Load=6553
+
+ 48 §Lx5ï8 255:255:255 255/255/  -1 Position =255 Occurrences = 255 
+srv=255, prc=255, drf=255, rdf=255, dpr=255, dir=255, emp=255, med=255
+cbl=255, equ=255, fir=255, rfi=255, hsf=255, stf=255, cal=255, esp=255 
+nst=255, rlv=255, ste=255, dfs=255, st0=255, ins=ffh, nds=255, dev=ffh
+pf1=ffh, pf2=ffh, dv2=ffh, io0=ffh, io1=ffh, io2=ffh, io3=ffh, io4=ffh
+io5=ffh, io6=ffh, io7=ffh, io8=ffh, io9=ffh, ioA=ffh, ioB=ffh, ioC=ffh
+ioD=ffh, ioE=ffh, ioF=ffh, ioG=ffh, ioH=ffh, ioI=ffh, ioJ=ffh, ioK=ffh
+ioL=ffh, ioM=ffh, ioN=ffh, ioO=ffh, ioP=ffh, ioQ=ffh
+ioR=ffh, ioS=ffh, ioT=ffh
+statusf=ffffffffh, statusf2=ffffffffh
+Flt Bits 1 = ffh, Flt Bits 2 = ffh, Flt Bits 3 = ffh, Flt Bits 4 = ffh
+SS Status=ffffffffh, PWR Status=ffffffffh, Run Status=ffffffffh
+Nudg Flags=ffh, Door Req=ffh, Call Flags=ffh
+Chk Run=ffh, Chk Start=ffh, Chk Level=ffh, Chk Door=ffh
+Front SD=ffffh, Rear SD=ffffh, Motion Tmr=65535
+PAL Vel=-0001, PAL Statusf=ffh, Inspect Svc=255
+Drive Command=ffffh, Drive Statusf=ffffh
+Torque Command=65535, Motor Torque=65535, Percent Load=6553
+
+ 49 §Lx5ï8 255:255:255 255/255/  -1 Position =255 Occurrences = 255 
+srv=255, prc=255, drf=255, rdf=255, dpr=255, dir=255, emp=255, med=255
+cbl=255, equ=255, fir=255, rfi=255, hsf=255, stf=255, cal=255, esp=255 
+nst=255, rlv=255, ste=255, dfs=255, st0=255, ins=ffh, nds=255, dev=ffh
+pf1=ffh, pf2=ffh, dv2=ffh, io0=ffh, io1=ffh, io2=ffh, io3=ffh, io4=ffh
+io5=ffh, io6=ffh, io7=ffh, io8=ffh, io9=ffh, ioA=ffh, ioB=ffh, ioC=ffh
+ioD=ffh, ioE=ffh, ioF=ffh, ioG=ffh, ioH=ffh, ioI=ffh, ioJ=ffh, ioK=ffh
+ioL=ffh, ioM=ffh, ioN=ffh, ioO=ffh, ioP=ffh, ioQ=ffh
+ioR=ffh, ioS=ffh, ioT=ffh
+statusf=ffffffffh, statusf2=ffffffffh
+Flt Bits 1 = ffh, Flt Bits 2 = ffh, Flt Bits 3 = ffh, Flt Bits 4 = ffh
+SS Status=ffffffffh, PWR Status=ffffffffh, Run Status=ffffffffh
+Nudg Flags=ffh, Door Req=ffh, Call Flags=ffh
+Chk Run=ffh, Chk Start=ffh, Chk Level=ffh, Chk Door=ffh
+Front SD=ffffh, Rear SD=ffffh, Motion Tmr=65535
+PAL Vel=-0001, PAL Statusf=ffh, Inspect Svc=255
+Drive Command=ffffh, Drive Statusf=ffffh
+Torque Command=65535, Motor Torque=65535, Percent Load=6553
+
+ 50 §Lx5ï8 255:255:255 255/255/  -1 Position =255 Occurrences = 255 
+srv=255, prc=255, drf=255, rdf=255, dpr=255, dir=255, emp=255, med=255
+cbl=255, equ=255, fir=255, rfi=255, hsf=255, stf=255, cal=255, esp=255 
+nst=255, rlv=255, ste=255, dfs=255, st0=255, ins=ffh, nds=255, dev=ffh
+pf1=ffh, pf2=ffh, dv2=ffh, io0=ffh, io1=ffh, io2=ffh, io3=ffh, io4=ffh
+io5=ffh, io6=ffh, io7=ffh, io8=ffh, io9=ffh, ioA=ffh, ioB=ffh, ioC=ffh
+ioD=ffh, ioE=ffh, ioF=ffh, ioG=ffh, ioH=ffh, ioI=ffh, ioJ=ffh, ioK=ffh
+ioL=ffh, ioM=ffh, ioN=ffh, ioO=ffh, ioP=ffh, ioQ=ffh
+ioR=ffh, ioS=ffh, ioT=ffh
+statusf=ffffffffh, statusf2=ffffffffh
+Flt Bits 1 = ffh, Flt Bits 2 = ffh, Flt Bits 3 = ffh, Flt Bits 4 = ffh
+SS Status=ffffffffh, PWR Status=ffffffffh, Run Status=ffffffffh
+Nudg Flags=ffh, Door Req=ffh, Call Flags=ffh
+Chk Run=ffh, Chk Start=ffh, Chk Level=ffh, Chk Door=ffh
+Front SD=ffffh, Rear SD=ffffh, Motion Tmr=65535
+PAL Vel=-0001, PAL Statusf=ffh, Inspect Svc=255
+Drive Command=ffffh, Drive Statusf=ffffh
+Torque Command=65535, Motor Torque=65535, Percent Load=6553
+
+ 51 §Lx5ï8 255:255:255 255/255/  -1 Position =255 Occurrences = 255 
+srv=255, prc=255, drf=255, rdf=255, dpr=255, dir=255, emp=255, med=255
+cbl=255, equ=255, fir=255, rfi=255, hsf=255, stf=255, cal=255, esp=255 
+nst=255, rlv=255, ste=255, dfs=255, st0=255, ins=ffh, nds=255, dev=ffh
+pf1=ffh, pf2=ffh, dv2=ffh, io0=ffh, io1=ffh, io2=ffh, io3=ffh, io4=ffh
+io5=ffh, io6=ffh, io7=ffh, io8=ffh, io9=ffh, ioA=ffh, ioB=ffh, ioC=ffh
+ioD=ffh, ioE=ffh, ioF=ffh, ioG=ffh, ioH=ffh, ioI=ffh, ioJ=ffh, ioK=ffh
+ioL=ffh, ioM=ffh, ioN=ffh, ioO=ffh, ioP=ffh, ioQ=ffh
+ioR=ffh, ioS=ffh, ioT=ffh
+statusf=ffffffffh, statusf2=ffffffffh
+Flt Bits 1 = ffh, Flt Bits 2 = ffh, Flt Bits 3 = ffh, Flt Bits 4 = ffh
+SS Status=ffffffffh, PWR Status=ffffffffh, Run Status=ffffffffh
+Nudg Flags=ffh, Door Req=ffh, Call Flags=ffh
+Chk Run=ffh, Chk Start=ffh, Chk Level=ffh, Chk Door=ffh
+Front SD=ffffh, Rear SD=ffffh, Motion Tmr=65535
+PAL Vel=-0001, PAL Statusf=ffh, Inspect Svc=255
+Drive Command=ffffh, Drive Statusf=ffffh
+Torque Command=65535, Motor Torque=65535, Percent Load=6553
+
+ 52 §Lx5ï8 255:255:255 255/255/  -1 Position =255 Occurrences = 255 
+srv=255, prc=255, drf=255, rdf=255, dpr=255, dir=255, emp=255, med=255
+cbl=255, equ=255, fir=255, rfi=255, hsf=255, stf=255, cal=255, esp=255 
+nst=255, rlv=255, ste=255, dfs=255, st0=255, ins=ffh, nds=255, dev=ffh
+pf1=ffh, pf2=ffh, dv2=ffh, io0=ffh, io1=ffh, io2=ffh, io3=ffh, io4=ffh
+io5=ffh, io6=ffh, io7=ffh, io8=ffh, io9=ffh, ioA=ffh, ioB=ffh, ioC=ffh
+ioD=ffh, ioE=ffh, ioF=ffh, ioG=ffh, ioH=ffh, ioI=ffh, ioJ=ffh, ioK=ffh
+ioL=ffh, ioM=ffh, ioN=ffh, ioO=ffh, ioP=ffh, ioQ=ffh
+ioR=ffh, ioS=ffh, ioT=ffh
+statusf=ffffffffh, statusf2=ffffffffh
+Flt Bits 1 = ffh, Flt Bits 2 = ffh, Flt Bits 3 = ffh, Flt Bits 4 = ffh
+SS Status=ffffffffh, PWR Status=ffffffffh, Run Status=ffffffffh
+Nudg Flags=ffh, Door Req=ffh, Call Flags=ffh
+Chk Run=ffh, Chk Start=ffh, Chk Level=ffh, Chk Door=ffh
+Front SD=ffffh, Rear SD=ffffh, Motion Tmr=65535
+PAL Vel=-0001, PAL Statusf=ffh, Inspect Svc=255
+Drive Command=ffffh, Drive Statusf=ffffh
+Torque Command=65535, Motor Torque=65535, Percent Load=6553
+
+ 53 §Lx5ï8 255:255:255 255/255/  -1 Position =255 Occurrences = 255 
+srv=255, prc=255, drf=255, rdf=255, dpr=255, dir=255, emp=255, med=255
+cbl=255, equ=255, fir=255, rfi=255, hsf=255, stf=255, cal=255, esp=255 
+nst=255, rlv=255, ste=255, dfs=255, st0=255, ins=ffh, nds=255, dev=ffh
+pf1=ffh, pf2=ffh, dv2=ffh, io0=ffh, io1=ffh, io2=ffh, io3=ffh, io4=ffh
+io5=ffh, io6=ffh, io7=ffh, io8=ffh, io9=ffh, ioA=ffh, ioB=ffh, ioC=ffh
+ioD=ffh, ioE=ffh, ioF=ffh, ioG=ffh, ioH=ffh, ioI=ffh, ioJ=ffh, ioK=ffh
+ioL=ffh, ioM=ffh, ioN=ffh, ioO=ffh, ioP=ffh, ioQ=ffh
+ioR=ffh, ioS=ffh, ioT=ffh
+statusf=ffffffffh, statusf2=ffffffffh
+Flt Bits 1 = ffh, Flt Bits 2 = ffh, Flt Bits 3 = ffh, Flt Bits 4 = ffh
+SS Status=ffffffffh, PWR Status=ffffffffh, Run Status=ffffffffh
+Nudg Flags=ffh, Door Req=ffh, Call Flags=ffh
+Chk Run=ffh, Chk Start=ffh, Chk Level=ffh, Chk Door=ffh
+Front SD=ffffh, Rear SD=ffffh, Motion Tmr=65535
+PAL Vel=-0001, PAL Statusf=ffh, Inspect Svc=255
+Drive Command=ffffh, Drive Statusf=ffffh
+Torque Command=65535, Motor Torque=65535, Percent Load=6553
+
+ 54 §Lx5ï8 255:255:255 255/255/  -1 Position =255 Occurrences = 255 
+srv=255, prc=255, drf=255, rdf=255, dpr=255, dir=255, emp=255, med=255
+cbl=255, equ=255, fir=255, rfi=255, hsf=255, stf=255, cal=255, esp=255 
+nst=255, rlv=255, ste=255, dfs=255, st0=255, ins=ffh, nds=255, dev=ffh
+pf1=ffh, pf2=ffh, dv2=ffh, io0=ffh, io1=ffh, io2=ffh, io3=ffh, io4=ffh
+io5=ffh, io6=ffh, io7=ffh, io8=ffh, io9=ffh, ioA=ffh, ioB=ffh, ioC=ffh
+ioD=ffh, ioE=ffh, ioF=ffh, ioG=ffh, ioH=ffh, ioI=ffh, ioJ=ffh, ioK=ffh
+ioL=ffh, ioM=ffh, ioN=ffh, ioO=ffh, ioP=ffh, ioQ=ffh
+ioR=ffh, ioS=ffh, ioT=ffh
+statusf=ffffffffh, statusf2=ffffffffh
+Flt Bits 1 = ffh, Flt Bits 2 = ffh, Flt Bits 3 = ffh, Flt Bits 4 = ffh
+SS Status=ffffffffh, PWR Status=ffffffffh, Run Status=ffffffffh
+Nudg Flags=ffh, Door Req=ffh, Call Flags=ffh
+Chk Run=ffh, Chk Start=ffh, Chk Level=ffh, Chk Door=ffh
+Front SD=ffffh, Rear SD=ffffh, Motion Tmr=65535
+PAL Vel=-0001, PAL Statusf=ffh, Inspect Svc=255
+Drive Command=ffffh, Drive Statusf=ffffh
+Torque Command=65535, Motor Torque=65535, Percent Load=6553
+
+ 55 §Lx5ï8 255:255:255 255/255/  -1 Position =255 Occurrences = 255 
+srv=255, prc=255, drf=255, rdf=255, dpr=255, dir=255, emp=255, med=255
+cbl=255, equ=255, fir=255, rfi=255, hsf=255, stf=255, cal=255, esp=255 
+nst=255, rlv=255, ste=255, dfs=255, st0=255, ins=ffh, nds=255, dev=ffh
+pf1=ffh, pf2=ffh, dv2=ffh, io0=ffh, io1=ffh, io2=ffh, io3=ffh, io4=ffh
+io5=ffh, io6=ffh, io7=ffh, io8=ffh, io9=ffh, ioA=ffh, ioB=ffh, ioC=ffh
+ioD=ffh, ioE=ffh, ioF=ffh, ioG=ffh, ioH=ffh, ioI=ffh, ioJ=ffh, ioK=ffh
+ioL=ffh, ioM=ffh, ioN=ffh, ioO=ffh, ioP=ffh, ioQ=ffh
+ioR=ffh, ioS=ffh, ioT=ffh
+statusf=ffffffffh, statusf2=ffffffffh
+Flt Bits 1 = ffh, Flt Bits 2 = ffh, Flt Bits 3 = ffh, Flt Bits 4 = ffh
+SS Status=ffffffffh, PWR Status=ffffffffh, Run Status=ffffffffh
+Nudg Flags=ffh, Door Req=ffh, Call Flags=ffh
+Chk Run=ffh, Chk Start=ffh, Chk Level=ffh, Chk Door=ffh
+Front SD=ffffh, Rear SD=ffffh, Motion Tmr=65535
+PAL Vel=-0001, PAL Statusf=ffh, Inspect Svc=255
+Drive Command=ffffh, Drive Statusf=ffffh
+Torque Command=65535, Motor Torque=65535, Percent Load=6553
+
+ 56 §Lx5ï8 255:255:255 255/255/  -1 Position =255 Occurrences = 255 
+srv=255, prc=255, drf=255, rdf=255, dpr=255, dir=255, emp=255, med=255
+cbl=255, equ=255, fir=255, rfi=255, hsf=255, stf=255, cal=255, esp=255 
+nst=255, rlv=255, ste=255, dfs=255, st0=255, ins=ffh, nds=255, dev=ffh
+pf1=ffh, pf2=ffh, dv2=ffh, io0=ffh, io1=ffh, io2=ffh, io3=ffh, io4=ffh
+io5=ffh, io6=ffh, io7=ffh, io8=ffh, io9=ffh, ioA=ffh, ioB=ffh, ioC=ffh
+ioD=ffh, ioE=ffh, ioF=ffh, ioG=ffh, ioH=ffh, ioI=ffh, ioJ=ffh, ioK=ffh
+ioL=ffh, ioM=ffh, ioN=ffh, ioO=ffh, ioP=ffh, ioQ=ffh
+ioR=ffh, ioS=ffh, ioT=ffh
+statusf=ffffffffh, statusf2=ffffffffh
+Flt Bits 1 = ffh, Flt Bits 2 = ffh, Flt Bits 3 = ffh, Flt Bits 4 = ffh
+SS Status=ffffffffh, PWR Status=ffffffffh, Run Status=ffffffffh
+Nudg Flags=ffh, Door Req=ffh, Call Flags=ffh
+Chk Run=ffh, Chk Start=ffh, Chk Level=ffh, Chk Door=ffh
+Front SD=ffffh, Rear SD=ffffh, Motion Tmr=65535
+PAL Vel=-0001, PAL Statusf=ffh, Inspect Svc=255
+Drive Command=ffffh, Drive Statusf=ffffh
+Torque Command=65535, Motor Torque=65535, Percent Load=6553
+
+ 57 §Lx5ï8 255:255:255 255/255/  -1 Position =255 Occurrences = 255 
+srv=255, prc=255, drf=255, rdf=255, dpr=255, dir=255, emp=255, med=255
+cbl=255, equ=255, fir=255, rfi=255, hsf=255, stf=255, cal=255, esp=255 
+nst=255, rlv=255, ste=255, dfs=255, st0=255, ins=ffh, nds=255, dev=ffh
+pf1=ffh, pf2=ffh, dv2=ffh, io0=ffh, io1=ffh, io2=ffh, io3=ffh, io4=ffh
+io5=ffh, io6=ffh, io7=ffh, io8=ffh, io9=ffh, ioA=ffh, ioB=ffh, ioC=ffh
+ioD=ffh, ioE=ffh, ioF=ffh, ioG=ffh, ioH=ffh, ioI=ffh, ioJ=ffh, ioK=ffh
+ioL=ffh, ioM=ffh, ioN=ffh, ioO=ffh, ioP=ffh, ioQ=ffh
+ioR=ffh, ioS=ffh, ioT=ffh
+statusf=ffffffffh, statusf2=ffffffffh
+Flt Bits 1 = ffh, Flt Bits 2 = ffh, Flt Bits 3 = ffh, Flt Bits 4 = ffh
+SS Status=ffffffffh, PWR Status=ffffffffh, Run Status=ffffffffh
+Nudg Flags=ffh, Door Req=ffh, Call Flags=ffh
+Chk Run=ffh, Chk Start=ffh, Chk Level=ffh, Chk Door=ffh
+Front SD=ffffh, Rear SD=ffffh, Motion Tmr=65535
+PAL Vel=-0001, PAL Statusf=ffh, Inspect Svc=255
+Drive Command=ffffh, Drive Statusf=ffffh
+Torque Command=65535, Motor Torque=65535, Percent Load=6553
+
+ 58 §Lx5ï8 255:255:255 255/255/  -1 Position =255 Occurrences = 255 
+srv=255, prc=255, drf=255, rdf=255, dpr=255, dir=255, emp=255, med=255
+cbl=255, equ=255, fir=255, rfi=255, hsf=255, stf=255, cal=255, esp=255 
+nst=255, rlv=255, ste=255, dfs=255, st0=255, ins=ffh, nds=255, dev=ffh
+pf1=ffh, pf2=ffh, dv2=ffh, io0=ffh, io1=ffh, io2=ffh, io3=ffh, io4=ffh
+io5=ffh, io6=ffh, io7=ffh, io8=ffh, io9=ffh, ioA=ffh, ioB=ffh, ioC=ffh
+ioD=ffh, ioE=ffh, ioF=ffh, ioG=ffh, ioH=ffh, ioI=ffh, ioJ=ffh, ioK=ffh
+ioL=ffh, ioM=ffh, ioN=ffh, ioO=ffh, ioP=ffh, ioQ=ffh
+ioR=ffh, ioS=ffh, ioT=ffh
+statusf=ffffffffh, statusf2=ffffffffh
+Flt Bits 1 = ffh, Flt Bits 2 = ffh, Flt Bits 3 = ffh, Flt Bits 4 = ffh
+SS Status=ffffffffh, PWR Status=ffffffffh, Run Status=ffffffffh
+Nudg Flags=ffh, Door Req=ffh, Call Flags=ffh
+Chk Run=ffh, Chk Start=ffh, Chk Level=ffh, Chk Door=ffh
+Front SD=ffffh, Rear SD=ffffh, Motion Tmr=65535
+PAL Vel=-0001, PAL Statusf=ffh, Inspect Svc=255
+Drive Command=ffffh, Drive Statusf=ffffh
+Torque Command=65535, Motor Torque=65535, Percent Load=6553
+
+ 59 §Lx5ï8 255:255:255 255/255/  -1 Position =255 Occurrences = 255 
+srv=255, prc=255, drf=255, rdf=255, dpr=255, dir=255, emp=255, med=255
+cbl=255, equ=255, fir=255, rfi=255, hsf=255, stf=255, cal=255, esp=255 
+nst=255, rlv=255, ste=255, dfs=255, st0=255, ins=ffh, nds=255, dev=ffh
+pf1=ffh, pf2=ffh, dv2=ffh, io0=ffh, io1=ffh, io2=ffh, io3=ffh, io4=ffh
+io5=ffh, io6=ffh, io7=ffh, io8=ffh, io9=ffh, ioA=ffh, ioB=ffh, ioC=ffh
+ioD=ffh, ioE=ffh, ioF=ffh, ioG=ffh, ioH=ffh, ioI=ffh, ioJ=ffh, ioK=ffh
+ioL=ffh, ioM=ffh, ioN=ffh, ioO=ffh, ioP=ffh, ioQ=ffh
+ioR=ffh, ioS=ffh, ioT=ffh
+statusf=ffffffffh, statusf2=ffffffffh
+Flt Bits 1 = ffh, Flt Bits 2 = ffh, Flt Bits 3 = ffh, Flt Bits 4 = ffh
+SS Status=ffffffffh, PWR Status=ffffffffh, Run Status=ffffffffh
+Nudg Flags=ffh, Door Req=ffh, Call Flags=ffh
+Chk Run=ffh, Chk Start=ffh, Chk Level=ffh, Chk Door=ffh
+Front SD=ffffh, Rear SD=ffffh, Motion Tmr=65535
+PAL Vel=-0001, PAL Statusf=ffh, Inspect Svc=255
+Drive Command=ffffh, Drive Statusf=ffffh
+Torque Command=65535, Motor Torque=65535, Percent Load=6553
+
+ 60 §Lx5ï8 255:255:255 255/255/  -1 Position =255 Occurrences = 255 
+srv=255, prc=255, drf=255, rdf=255, dpr=255, dir=255, emp=255, med=255
+cbl=255, equ=255, fir=255, rfi=255, hsf=255, stf=255, cal=255, esp=255 
+nst=255, rlv=255, ste=255, dfs=255, st0=255, ins=ffh, nds=255, dev=ffh
+pf1=ffh, pf2=ffh, dv2=ffh, io0=ffh, io1=ffh, io2=ffh, io3=ffh, io4=ffh
+io5=ffh, io6=ffh, io7=ffh, io8=ffh, io9=ffh, ioA=ffh, ioB=ffh, ioC=ffh
+ioD=ffh, ioE=ffh, ioF=ffh, ioG=ffh, ioH=ffh, ioI=ffh, ioJ=ffh, ioK=ffh
+ioL=ffh, ioM=ffh, ioN=ffh, ioO=ffh, ioP=ffh, ioQ=ffh
+ioR=ffh, ioS=ffh, ioT=ffh
+statusf=ffffffffh, statusf2=ffffffffh
+Flt Bits 1 = ffh, Flt Bits 2 = ffh, Flt Bits 3 = ffh, Flt Bits 4 = ffh
+SS Status=ffffffffh, PWR Status=ffffffffh, Run Status=ffffffffh
+Nudg Flags=ffh, Door Req=ffh, Call Flags=ffh
+Chk Run=ffh, Chk Start=ffh, Chk Level=ffh, Chk Door=ffh
+Front SD=ffffh, Rear SD=ffffh, Motion Tmr=65535
+PAL Vel=-0001, PAL Statusf=ffh, Inspect Svc=255
+Drive Command=ffffh, Drive Statusf=ffffh
+Torque Command=65535, Motor Torque=65535, Percent Load=6553
+
+ 61 §Lx5ï8 255:255:255 255/255/  -1 Position =255 Occurrences = 255 
+srv=255, prc=255, drf=255, rdf=255, dpr=255, dir=255, emp=255, med=255
+cbl=255, equ=255, fir=255, rfi=255, hsf=255, stf=255, cal=255, esp=255 
+nst=255, rlv=255, ste=255, dfs=255, st0=255, ins=ffh, nds=255, dev=ffh
+pf1=ffh, pf2=ffh, dv2=ffh, io0=ffh, io1=ffh, io2=ffh, io3=ffh, io4=ffh
+io5=ffh, io6=ffh, io7=ffh, io8=ffh, io9=ffh, ioA=ffh, ioB=ffh, ioC=ffh
+ioD=ffh, ioE=ffh, ioF=ffh, ioG=ffh, ioH=ffh, ioI=ffh, ioJ=ffh, ioK=ffh
+ioL=ffh, ioM=ffh, ioN=ffh, ioO=ffh, ioP=ffh, ioQ=ffh
+ioR=ffh, ioS=ffh, ioT=ffh
+statusf=ffffffffh, statusf2=ffffffffh
+Flt Bits 1 = ffh, Flt Bits 2 = ffh, Flt Bits 3 = ffh, Flt Bits 4 = ffh
+SS Status=ffffffffh, PWR Status=ffffffffh, Run Status=ffffffffh
+Nudg Flags=ffh, Door Req=ffh, Call Flags=ffh
+Chk Run=ffh, Chk Start=ffh, Chk Level=ffh, Chk Door=ffh
+Front SD=ffffh, Rear SD=ffffh, Motion Tmr=65535
+PAL Vel=-0001, PAL Statusf=ffh, Inspect Svc=255
+Drive Command=ffffh, Drive Statusf=ffffh
+Torque Command=65535, Motor Torque=65535, Percent Load=6553
+
+ 62 §Lx5ï8 255:255:255 255/255/  -1 Position =255 Occurrences = 255 
+srv=255, prc=255, drf=255, rdf=255, dpr=255, dir=255, emp=255, med=255
+cbl=255, equ=255, fir=255, rfi=255, hsf=255, stf=255, cal=255, esp=255 
+nst=255, rlv=255, ste=255, dfs=255, st0=255, ins=ffh, nds=255, dev=ffh
+pf1=ffh, pf2=ffh, dv2=ffh, io0=ffh, io1=ffh, io2=ffh, io3=ffh, io4=ffh
+io5=ffh, io6=ffh, io7=ffh, io8=ffh, io9=ffh, ioA=ffh, ioB=ffh, ioC=ffh
+ioD=ffh, ioE=ffh, ioF=ffh, ioG=ffh, ioH=ffh, ioI=ffh, ioJ=ffh, ioK=ffh
+ioL=ffh, ioM=ffh, ioN=ffh, ioO=ffh, ioP=ffh, ioQ=ffh
+ioR=ffh, ioS=ffh, ioT=ffh
+statusf=ffffffffh, statusf2=ffffffffh
+Flt Bits 1 = ffh, Flt Bits 2 = ffh, Flt Bits 3 = ffh, Flt Bits 4 = ffh
+SS Status=ffffffffh, PWR Status=ffffffffh, Run Status=ffffffffh
+Nudg Flags=ffh, Door Req=ffh, Call Flags=ffh
+Chk Run=ffh, Chk Start=ffh, Chk Level=ffh, Chk Door=ffh
+Front SD=ffffh, Rear SD=ffffh, Motion Tmr=65535
+PAL Vel=-0001, PAL Statusf=ffh, Inspect Svc=255
+Drive Command=ffffh, Drive Statusf=ffffh
+Torque Command=65535, Motor Torque=65535, Percent Load=6553
+
+ 63 §Lx5ï8 255:255:255 255/255/  -1 Position =255 Occurrences = 255 
+srv=255, prc=255, drf=255, rdf=255, dpr=255, dir=255, emp=255, med=255
+cbl=255, equ=255, fir=255, rfi=255, hsf=255, stf=255, cal=255, esp=255 
+nst=255, rlv=255, ste=255, dfs=255, st0=255, ins=ffh, nds=255, dev=ffh
+pf1=ffh, pf2=ffh, dv2=ffh, io0=ffh, io1=ffh, io2=ffh, io3=ffh, io4=ffh
+io5=ffh, io6=ffh, io7=ffh, io8=ffh, io9=ffh, ioA=ffh, ioB=ffh, ioC=ffh
+ioD=ffh, ioE=ffh, ioF=ffh, ioG=ffh, ioH=ffh, ioI=ffh, ioJ=ffh, ioK=ffh
+ioL=ffh, ioM=ffh, ioN=ffh, ioO=ffh, ioP=ffh, ioQ=ffh
+ioR=ffh, ioS=ffh, ioT=ffh
+statusf=ffffffffh, statusf2=ffffffffh
+Flt Bits 1 = ffh, Flt Bits 2 = ffh, Flt Bits 3 = ffh, Flt Bits 4 = ffh
+SS Status=ffffffffh, PWR Status=ffffffffh, Run Status=ffffffffh
+Nudg Flags=ffh, Door Req=ffh, Call Flags=ffh
+Chk Run=ffh, Chk Start=ffh, Chk Level=ffh, Chk Door=ffh
+Front SD=ffffh, Rear SD=ffffh, Motion Tmr=65535
+PAL Vel=-0001, PAL Statusf=ffh, Inspect Svc=255
+Drive Command=ffffh, Drive Statusf=ffffh
+Torque Command=65535, Motor Torque=65535, Percent Load=6553
+
+ 64 §Lx5ï8 255:255:255 255/255/  -1 Position =255 Occurrences = 255 
+srv=255, prc=255, drf=255, rdf=255, dpr=255, dir=255, emp=255, med=255
+cbl=255, equ=255, fir=255, rfi=255, hsf=255, stf=255, cal=255, esp=255 
+nst=255, rlv=255, ste=255, dfs=255, st0=255, ins=ffh, nds=255, dev=ffh
+pf1=ffh, pf2=ffh, dv2=ffh, io0=ffh, io1=ffh, io2=ffh, io3=ffh, io4=ffh
+io5=ffh, io6=ffh, io7=ffh, io8=ffh, io9=ffh, ioA=ffh, ioB=ffh, ioC=ffh
+ioD=ffh, ioE=ffh, ioF=ffh, ioG=ffh, ioH=ffh, ioI=ffh, ioJ=ffh, ioK=ffh
+ioL=ffh, ioM=ffh, ioN=ffh, ioO=ffh, ioP=ffh, ioQ=ffh
+ioR=ffh, ioS=ffh, ioT=ffh
+statusf=ffffffffh, statusf2=ffffffffh
+Flt Bits 1 = ffh, Flt Bits 2 = ffh, Flt Bits 3 = ffh, Flt Bits 4 = ffh
+SS Status=ffffffffh, PWR Status=ffffffffh, Run Status=ffffffffh
+Nudg Flags=ffh, Door Req=ffh, Call Flags=ffh
+Chk Run=ffh, Chk Start=ffh, Chk Level=ffh, Chk Door=ffh
+Front SD=ffffh, Rear SD=ffffh, Motion Tmr=65535
+PAL Vel=-0001, PAL Statusf=ffh, Inspect Svc=255
+Drive Command=ffffh, Drive Statusf=ffffh
+Torque Command=65535, Motor Torque=65535, Percent Load=6553
+
+ 65 §Lx5ï8 255:255:255 255/255/  -1 Position =255 Occurrences = 255 
+srv=255, prc=255, drf=255, rdf=255, dpr=255, dir=255, emp=255, med=255
+cbl=255, equ=255, fir=255, rfi=255, hsf=255, stf=255, cal=255, esp=255 
+nst=255, rlv=255, ste=255, dfs=255, st0=255, ins=ffh, nds=255, dev=ffh
+pf1=ffh, pf2=ffh, dv2=ffh, io0=ffh, io1=ffh, io2=ffh, io3=ffh, io4=ffh
+io5=ffh, io6=ffh, io7=ffh, io8=ffh, io9=ffh, ioA=ffh, ioB=ffh, ioC=ffh
+ioD=ffh, ioE=ffh, ioF=ffh, ioG=ffh, ioH=ffh, ioI=ffh, ioJ=ffh, ioK=ffh
+ioL=ffh, ioM=ffh, ioN=ffh, ioO=ffh, ioP=ffh, ioQ=ffh
+ioR=ffh, ioS=ffh, ioT=ffh
+statusf=ffffffffh, statusf2=ffffffffh
+Flt Bits 1 = ffh, Flt Bits 2 = ffh, Flt Bits 3 = ffh, Flt Bits 4 = ffh
+SS Status=ffffffffh, PWR Status=ffffffffh, Run Status=ffffffffh
+Nudg Flags=ffh, Door Req=ffh, Call Flags=ffh
+Chk Run=ffh, Chk Start=ffh, Chk Level=ffh, Chk Door=ffh
+Front SD=ffffh, Rear SD=ffffh, Motion Tmr=65535
+PAL Vel=-0001, PAL Statusf=ffh, Inspect Svc=255
+Drive Command=ffffh, Drive Statusf=ffffh
+Torque Command=65535, Motor Torque=65535, Percent Load=6553
+
+ 66 §Lx5ï8 255:255:255 255/255/  -1 Position =255 Occurrences = 255 
+srv=255, prc=255, drf=255, rdf=255, dpr=255, dir=255, emp=255, med=255
+cbl=255, equ=255, fir=255, rfi=255, hsf=255, stf=255, cal=255, esp=255 
+nst=255, rlv=255, ste=255, dfs=255, st0=255, ins=ffh, nds=255, dev=ffh
+pf1=ffh, pf2=ffh, dv2=ffh, io0=ffh, io1=ffh, io2=ffh, io3=ffh, io4=ffh
+io5=ffh, io6=ffh, io7=ffh, io8=ffh, io9=ffh, ioA=ffh, ioB=ffh, ioC=ffh
+ioD=ffh, ioE=ffh, ioF=ffh, ioG=ffh, ioH=ffh, ioI=ffh, ioJ=ffh, ioK=ffh
+ioL=ffh, ioM=ffh, ioN=ffh, ioO=ffh, ioP=ffh, ioQ=ffh
+ioR=ffh, ioS=ffh, ioT=ffh
+statusf=ffffffffh, statusf2=ffffffffh
+Flt Bits 1 = ffh, Flt Bits 2 = ffh, Flt Bits 3 = ffh, Flt Bits 4 = ffh
+SS Status=ffffffffh, PWR Status=ffffffffh, Run Status=ffffffffh
+Nudg Flags=ffh, Door Req=ffh, Call Flags=ffh
+Chk Run=ffh, Chk Start=ffh, Chk Level=ffh, Chk Door=ffh
+Front SD=ffffh, Rear SD=ffffh, Motion Tmr=65535
+PAL Vel=-0001, PAL Statusf=ffh, Inspect Svc=255
+Drive Command=ffffh, Drive Statusf=ffffh
+Torque Command=65535, Motor Torque=65535, Percent Load=6553
+
+ 67 §Lx5ï8 255:255:255 255/255/  -1 Position =255 Occurrences = 255 
+srv=255, prc=255, drf=255, rdf=255, dpr=255, dir=255, emp=255, med=255
+cbl=255, equ=255, fir=255, rfi=255, hsf=255, stf=255, cal=255, esp=255 
+nst=255, rlv=255, ste=255, dfs=255, st0=255, ins=ffh, nds=255, dev=ffh
+pf1=ffh, pf2=ffh, dv2=ffh, io0=ffh, io1=ffh, io2=ffh, io3=ffh, io4=ffh
+io5=ffh, io6=ffh, io7=ffh, io8=ffh, io9=ffh, ioA=ffh, ioB=ffh, ioC=ffh
+ioD=ffh, ioE=ffh, ioF=ffh, ioG=ffh, ioH=ffh, ioI=ffh, ioJ=ffh, ioK=ffh
+ioL=ffh, ioM=ffh, ioN=ffh, ioO=ffh, ioP=ffh, ioQ=ffh
+ioR=ffh, ioS=ffh, ioT=ffh
+statusf=ffffffffh, statusf2=ffffffffh
+Flt Bits 1 = ffh, Flt Bits 2 = ffh, Flt Bits 3 = ffh, Flt Bits 4 = ffh
+SS Status=ffffffffh, PWR Status=ffffffffh, Run Status=ffffffffh
+Nudg Flags=ffh, Door Req=ffh, Call Flags=ffh
+Chk Run=ffh, Chk Start=ffh, Chk Level=ffh, Chk Door=ffh
+Front SD=ffffh, Rear SD=ffffh, Motion Tmr=65535
+PAL Vel=-0001, PAL Statusf=ffh, Inspect Svc=255
+Drive Command=ffffh, Drive Statusf=ffffh
+Torque Command=65535, Motor Torque=65535, Percent Load=6553
+
+ 68 §Lx5ï8 255:255:255 255/255/  -1 Position =255 Occurrences = 255 
+srv=255, prc=255, drf=255, rdf=255, dpr=255, dir=255, emp=255, med=255
+cbl=255, equ=255, fir=255, rfi=255, hsf=255, stf=255, cal=255, esp=255 
+nst=255, rlv=255, ste=255, dfs=255, st0=255, ins=ffh, nds=255, dev=ffh
+pf1=ffh, pf2=ffh, dv2=ffh, io0=ffh, io1=ffh, io2=ffh, io3=ffh, io4=ffh
+io5=ffh, io6=ffh, io7=ffh, io8=ffh, io9=ffh, ioA=ffh, ioB=ffh, ioC=ffh
+ioD=ffh, ioE=ffh, ioF=ffh, ioG=ffh, ioH=ffh, ioI=ffh, ioJ=ffh, ioK=ffh
+ioL=ffh, ioM=ffh, ioN=ffh, ioO=ffh, ioP=ffh, ioQ=ffh
+ioR=ffh, ioS=ffh, ioT=ffh
+statusf=ffffffffh, statusf2=ffffffffh
+Flt Bits 1 = ffh, Flt Bits 2 = ffh, Flt Bits 3 = ffh, Flt Bits 4 = ffh
+SS Status=ffffffffh, PWR Status=ffffffffh, Run Status=ffffffffh
+Nudg Flags=ffh, Door Req=ffh, Call Flags=ffh
+Chk Run=ffh, Chk Start=ffh, Chk Level=ffh, Chk Door=ffh
+Front SD=ffffh, Rear SD=ffffh, Motion Tmr=65535
+PAL Vel=-0001, PAL Statusf=ffh, Inspect Svc=255
+Drive Command=ffffh, Drive Statusf=ffffh
+Torque Command=65535, Motor Torque=65535, Percent Load=6553
+
+ 69 §Lx5ï8 255:255:255 255/255/  -1 Position =255 Occurrences = 255 
+srv=255, prc=255, drf=255, rdf=255, dpr=255, dir=255, emp=255, med=255
+cbl=255, equ=255, fir=255, rfi=255, hsf=255, stf=255, cal=255, esp=255 
+nst=255, rlv=255, ste=255, dfs=255, st0=255, ins=ffh, nds=255, dev=ffh
+pf1=ffh, pf2=ffh, dv2=ffh, io0=ffh, io1=ffh, io2=ffh, io3=ffh, io4=ffh
+io5=ffh, io6=ffh, io7=ffh, io8=ffh, io9=ffh, ioA=ffh, ioB=ffh, ioC=ffh
+ioD=ffh, ioE=ffh, ioF=ffh, ioG=ffh, ioH=ffh, ioI=ffh, ioJ=ffh, ioK=ffh
+ioL=ffh, ioM=ffh, ioN=ffh, ioO=ffh, ioP=ffh, ioQ=ffh
+ioR=ffh, ioS=ffh, ioT=ffh
+statusf=ffffffffh, statusf2=ffffffffh
+Flt Bits 1 = ffh, Flt Bits 2 = ffh, Flt Bits 3 = ffh, Flt Bits 4 = ffh
+SS Status=ffffffffh, PWR Status=ffffffffh, Run Status=ffffffffh
+Nudg Flags=ffh, Door Req=ffh, Call Flags=ffh
+Chk Run=ffh, Chk Start=ffh, Chk Level=ffh, Chk Door=ffh
+Front SD=ffffh, Rear SD=ffffh, Motion Tmr=65535
+PAL Vel=-0001, PAL Statusf=ffh, Inspect Svc=255
+Drive Command=ffffh, Drive Statusf=ffffh
+Torque Command=65535, Motor Torque=65535, Percent Load=6553
+
+ 70 §Lx5ï8 255:255:255 255/255/  -1 Position =255 Occurrences = 255 
+srv=255, prc=255, drf=255, rdf=255, dpr=255, dir=255, emp=255, med=255
+cbl=255, equ=255, fir=255, rfi=255, hsf=255, stf=255, cal=255, esp=255 
+nst=255, rlv=255, ste=255, dfs=255, st0=255, ins=ffh, nds=255, dev=ffh
+pf1=ffh, pf2=ffh, dv2=ffh, io0=ffh, io1=ffh, io2=ffh, io3=ffh, io4=ffh
+io5=ffh, io6=ffh, io7=ffh, io8=ffh, io9=ffh, ioA=ffh, ioB=ffh, ioC=ffh
+ioD=ffh, ioE=ffh, ioF=ffh, ioG=ffh, ioH=ffh, ioI=ffh, ioJ=ffh, ioK=ffh
+ioL=ffh, ioM=ffh, ioN=ffh, ioO=ffh, ioP=ffh, ioQ=ffh
+ioR=ffh, ioS=ffh, ioT=ffh
+statusf=ffffffffh, statusf2=ffffffffh
+Flt Bits 1 = ffh, Flt Bits 2 = ffh, Flt Bits 3 = ffh, Flt Bits 4 = ffh
+SS Status=ffffffffh, PWR Status=ffffffffh, Run Status=ffffffffh
+Nudg Flags=ffh, Door Req=ffh, Call Flags=ffh
+Chk Run=ffh, Chk Start=ffh, Chk Level=ffh, Chk Door=ffh
+Front SD=ffffh, Rear SD=ffffh, Motion Tmr=65535
+PAL Vel=-0001, PAL Statusf=ffh, Inspect Svc=255
+Drive Command=ffffh, Drive Statusf=ffffh
+Torque Command=65535, Motor Torque=65535, Percent Load=6553
+
+ 71 §Lx5ï8 255:255:255 255/255/  -1 Position =255 Occurrences = 255 
+srv=255, prc=255, drf=255, rdf=255, dpr=255, dir=255, emp=255, med=255
+cbl=255, equ=255, fir=255, rfi=255, hsf=255, stf=255, cal=255, esp=255 
+nst=255, rlv=255, ste=255, dfs=255, st0=255, ins=ffh, nds=255, dev=ffh
+pf1=ffh, pf2=ffh, dv2=ffh, io0=ffh, io1=ffh, io2=ffh, io3=ffh, io4=ffh
+io5=ffh, io6=ffh, io7=ffh, io8=ffh, io9=ffh, ioA=ffh, ioB=ffh, ioC=ffh
+ioD=ffh, ioE=ffh, ioF=ffh, ioG=ffh, ioH=ffh, ioI=ffh, ioJ=ffh, ioK=ffh
+ioL=ffh, ioM=ffh, ioN=ffh, ioO=ffh, ioP=ffh, ioQ=ffh
+ioR=ffh, ioS=ffh, ioT=ffh
+statusf=ffffffffh, statusf2=ffffffffh
+Flt Bits 1 = ffh, Flt Bits 2 = ffh, Flt Bits 3 = ffh, Flt Bits 4 = ffh
+SS Status=ffffffffh, PWR Status=ffffffffh, Run Status=ffffffffh
+Nudg Flags=ffh, Door Req=ffh, Call Flags=ffh
+Chk Run=ffh, Chk Start=ffh, Chk Level=ffh, Chk Door=ffh
+Front SD=ffffh, Rear SD=ffffh, Motion Tmr=65535
+PAL Vel=-0001, PAL Statusf=ffh, Inspect Svc=255
+Drive Command=ffffh, Drive Statusf=ffffh
+Torque Command=65535, Motor Torque=65535, Percent Load=6553
+
+ 72 §Lx5ï8 255:255:255 255/255/  -1 Position =255 Occurrences = 255 
+srv=255, prc=255, drf=255, rdf=255, dpr=255, dir=255, emp=255, med=255
+cbl=255, equ=255, fir=255, rfi=255, hsf=255, stf=255, cal=255, esp=255 
+nst=255, rlv=255, ste=255, dfs=255, st0=255, ins=ffh, nds=255, dev=ffh
+pf1=ffh, pf2=ffh, dv2=ffh, io0=ffh, io1=ffh, io2=ffh, io3=ffh, io4=ffh
+io5=ffh, io6=ffh, io7=ffh, io8=ffh, io9=ffh, ioA=ffh, ioB=ffh, ioC=ffh
+ioD=ffh, ioE=ffh, ioF=ffh, ioG=ffh, ioH=ffh, ioI=ffh, ioJ=ffh, ioK=ffh
+ioL=ffh, ioM=ffh, ioN=ffh, ioO=ffh, ioP=ffh, ioQ=ffh
+ioR=ffh, ioS=ffh, ioT=ffh
+statusf=ffffffffh, statusf2=ffffffffh
+Flt Bits 1 = ffh, Flt Bits 2 = ffh, Flt Bits 3 = ffh, Flt Bits 4 = ffh
+SS Status=ffffffffh, PWR Status=ffffffffh, Run Status=ffffffffh
+Nudg Flags=ffh, Door Req=ffh, Call Flags=ffh
+Chk Run=ffh, Chk Start=ffh, Chk Level=ffh, Chk Door=ffh
+Front SD=ffffh, Rear SD=ffffh, Motion Tmr=65535
+PAL Vel=-0001, PAL Statusf=ffh, Inspect Svc=255
+Drive Command=ffffh, Drive Statusf=ffffh
+Torque Command=65535, Motor Torque=65535, Percent Load=6553
+
+ 73 §Lx5ï8 255:255:255 255/255/  -1 Position =255 Occurrences = 255 
+srv=255, prc=255, drf=255, rdf=255, dpr=255, dir=255, emp=255, med=255
+cbl=255, equ=255, fir=255, rfi=255, hsf=255, stf=255, cal=255, esp=255 
+nst=255, rlv=255, ste=255, dfs=255, st0=255, ins=ffh, nds=255, dev=ffh
+pf1=ffh, pf2=ffh, dv2=ffh, io0=ffh, io1=ffh, io2=ffh, io3=ffh, io4=ffh
+io5=ffh, io6=ffh, io7=ffh, io8=ffh, io9=ffh, ioA=ffh, ioB=ffh, ioC=ffh
+ioD=ffh, ioE=ffh, ioF=ffh, ioG=ffh, ioH=ffh, ioI=ffh, ioJ=ffh, ioK=ffh
+ioL=ffh, ioM=ffh, ioN=ffh, ioO=ffh, ioP=ffh, ioQ=ffh
+ioR=ffh, ioS=ffh, ioT=ffh
+statusf=ffffffffh, statusf2=ffffffffh
+Flt Bits 1 = ffh, Flt Bits 2 = ffh, Flt Bits 3 = ffh, Flt Bits 4 = ffh
+SS Status=ffffffffh, PWR Status=ffffffffh, Run Status=ffffffffh
+Nudg Flags=ffh, Door Req=ffh, Call Flags=ffh
+Chk Run=ffh, Chk Start=ffh, Chk Level=ffh, Chk Door=ffh
+Front SD=ffffh, Rear SD=ffffh, Motion Tmr=65535
+PAL Vel=-0001, PAL Statusf=ffh, Inspect Svc=255
+Drive Command=ffffh, Drive Statusf=ffffh
+Torque Command=65535, Motor Torque=65535, Percent Load=6553
+
+ 74 §Lx5ï8 255:255:255 255/255/  -1 Position =255 Occurrences = 255 
+srv=255, prc=255, drf=255, rdf=255, dpr=255, dir=255, emp=255, med=255
+cbl=255, equ=255, fir=255, rfi=255, hsf=255, stf=255, cal=255, esp=255 
+nst=255, rlv=255, ste=255, dfs=255, st0=255, ins=ffh, nds=255, dev=ffh
+pf1=ffh, pf2=ffh, dv2=ffh, io0=ffh, io1=ffh, io2=ffh, io3=ffh, io4=ffh
+io5=ffh, io6=ffh, io7=ffh, io8=ffh, io9=ffh, ioA=ffh, ioB=ffh, ioC=ffh
+ioD=ffh, ioE=ffh, ioF=ffh, ioG=ffh, ioH=ffh, ioI=ffh, ioJ=ffh, ioK=ffh
+ioL=ffh, ioM=ffh, ioN=ffh, ioO=ffh, ioP=ffh, ioQ=ffh
+ioR=ffh, ioS=ffh, ioT=ffh
+statusf=ffffffffh, statusf2=ffffffffh
+Flt Bits 1 = ffh, Flt Bits 2 = ffh, Flt Bits 3 = ffh, Flt Bits 4 = ffh
+SS Status=ffffffffh, PWR Status=ffffffffh, Run Status=ffffffffh
+Nudg Flags=ffh, Door Req=ffh, Call Flags=ffh
+Chk Run=ffh, Chk Start=ffh, Chk Level=ffh, Chk Door=ffh
+Front SD=ffffh, Rear SD=ffffh, Motion Tmr=65535
+PAL Vel=-0001, PAL Statusf=ffh, Inspect Svc=255
+Drive Command=ffffh, Drive Statusf=ffffh
+Torque Command=65535, Motor Torque=65535, Percent Load=6553
+
+ 75 §Lx5ï8 255:255:255 255/255/  -1 Position =255 Occurrences = 255 
+srv=255, prc=255, drf=255, rdf=255, dpr=255, dir=255, emp=255, med=255
+cbl=255, equ=255, fir=255, rfi=255, hsf=255, stf=255, cal=255, esp=255 
+nst=255, rlv=255, ste=255, dfs=255, st0=255, ins=ffh, nds=255, dev=ffh
+pf1=ffh, pf2=ffh, dv2=ffh, io0=ffh, io1=ffh, io2=ffh, io3=ffh, io4=ffh
+io5=ffh, io6=ffh, io7=ffh, io8=ffh, io9=ffh, ioA=ffh, ioB=ffh, ioC=ffh
+ioD=ffh, ioE=ffh, ioF=ffh, ioG=ffh, ioH=ffh, ioI=ffh, ioJ=ffh, ioK=ffh
+ioL=ffh, ioM=ffh, ioN=ffh, ioO=ffh, ioP=ffh, ioQ=ffh
+ioR=ffh, ioS=ffh, ioT=ffh
+statusf=ffffffffh, statusf2=ffffffffh
+Flt Bits 1 = ffh, Flt Bits 2 = ffh, Flt Bits 3 = ffh, Flt Bits 4 = ffh
+SS Status=ffffffffh, PWR Status=ffffffffh, Run Status=ffffffffh
+Nudg Flags=ffh, Door Req=ffh, Call Flags=ffh
+Chk Run=ffh, Chk Start=ffh, Chk Level=ffh, Chk Door=ffh
+Front SD=ffffh, Rear SD=ffffh, Motion Tmr=65535
+PAL Vel=-0001, PAL Statusf=ffh, Inspect Svc=255
+Drive Command=ffffh, Drive Statusf=ffffh
+Torque Command=65535, Motor Torque=65535, Percent Load=6553
+
+ 76 §Lx5ï8 255:255:255 255/255/  -1 Position =255 Occurrences = 255 
+srv=255, prc=255, drf=255, rdf=255, dpr=255, dir=255, emp=255, med=255
+cbl=255, equ=255, fir=255, rfi=255, hsf=255, stf=255, cal=255, esp=255 
+nst=255, rlv=255, ste=255, dfs=255, st0=255, ins=ffh, nds=255, dev=ffh
+pf1=ffh, pf2=ffh, dv2=ffh, io0=ffh, io1=ffh, io2=ffh, io3=ffh, io4=ffh
+io5=ffh, io6=ffh, io7=ffh, io8=ffh, io9=ffh, ioA=ffh, ioB=ffh, ioC=ffh
+ioD=ffh, ioE=ffh, ioF=ffh, ioG=ffh, ioH=ffh, ioI=ffh, ioJ=ffh, ioK=ffh
+ioL=ffh, ioM=ffh, ioN=ffh, ioO=ffh, ioP=ffh, ioQ=ffh
+ioR=ffh, ioS=ffh, ioT=ffh
+statusf=ffffffffh, statusf2=ffffffffh
+Flt Bits 1 = ffh, Flt Bits 2 = ffh, Flt Bits 3 = ffh, Flt Bits 4 = ffh
+SS Status=ffffffffh, PWR Status=ffffffffh, Run Status=ffffffffh
+Nudg Flags=ffh, Door Req=ffh, Call Flags=ffh
+Chk Run=ffh, Chk Start=ffh, Chk Level=ffh, Chk Door=ffh
+Front SD=ffffh, Rear SD=ffffh, Motion Tmr=65535
+PAL Vel=-0001, PAL Statusf=ffh, Inspect Svc=255
+Drive Command=ffffh, Drive Statusf=ffffh
+Torque Command=65535, Motor Torque=65535, Percent Load=6553
+
+ 77 §Lx5ï8 255:255:255 255/255/  -1 Position =255 Occurrences = 255 
+srv=255, prc=255, drf=255, rdf=255, dpr=255, dir=255, emp=255, med=255
+cbl=255, equ=255, fir=255, rfi=255, hsf=255, stf=255, cal=255, esp=255 
+nst=255, rlv=255, ste=255, dfs=255, st0=255, ins=ffh, nds=255, dev=ffh
+pf1=ffh, pf2=ffh, dv2=ffh, io0=ffh, io1=ffh, io2=ffh, io3=ffh, io4=ffh
+io5=ffh, io6=ffh, io7=ffh, io8=ffh, io9=ffh, ioA=ffh, ioB=ffh, ioC=ffh
+ioD=ffh, ioE=ffh, ioF=ffh, ioG=ffh, ioH=ffh, ioI=ffh, ioJ=ffh, ioK=ffh
+ioL=ffh, ioM=ffh, ioN=ffh, ioO=ffh, ioP=ffh, ioQ=ffh
+ioR=ffh, ioS=ffh, ioT=ffh
+statusf=ffffffffh, statusf2=ffffffffh
+Flt Bits 1 = ffh, Flt Bits 2 = ffh, Flt Bits 3 = ffh, Flt Bits 4 = ffh
+SS Status=ffffffffh, PWR Status=ffffffffh, Run Status=ffffffffh
+Nudg Flags=ffh, Door Req=ffh, Call Flags=ffh
+Chk Run=ffh, Chk Start=ffh, Chk Level=ffh, Chk Door=ffh
+Front SD=ffffh, Rear SD=ffffh, Motion Tmr=65535
+PAL Vel=-0001, PAL Statusf=ffh, Inspect Svc=255
+Drive Command=ffffh, Drive Statusf=ffffh
+Torque Command=65535, Motor Torque=65535, Percent Load=6553
+
+ 78 §Lx5ï8 255:255:255 255/255/  -1 Position =255 Occurrences = 255 
+srv=255, prc=255, drf=255, rdf=255, dpr=255, dir=255, emp=255, med=255
+cbl=255, equ=255, fir=255, rfi=255, hsf=255, stf=255, cal=255, esp=255 
+nst=255, rlv=255, ste=255, dfs=255, st0=255, ins=ffh, nds=255, dev=ffh
+pf1=ffh, pf2=ffh, dv2=ffh, io0=ffh, io1=ffh, io2=ffh, io3=ffh, io4=ffh
+io5=ffh, io6=ffh, io7=ffh, io8=ffh, io9=ffh, ioA=ffh, ioB=ffh, ioC=ffh
+ioD=ffh, ioE=ffh, ioF=ffh, ioG=ffh, ioH=ffh, ioI=ffh, ioJ=ffh, ioK=ffh
+ioL=ffh, ioM=ffh, ioN=ffh, ioO=ffh, ioP=ffh, ioQ=ffh
+ioR=ffh, ioS=ffh, ioT=ffh
+statusf=ffffffffh, statusf2=ffffffffh
+Flt Bits 1 = ffh, Flt Bits 2 = ffh, Flt Bits 3 = ffh, Flt Bits 4 = ffh
+SS Status=ffffffffh, PWR Status=ffffffffh, Run Status=ffffffffh
+Nudg Flags=ffh, Door Req=ffh, Call Flags=ffh
+Chk Run=ffh, Chk Start=ffh, Chk Level=ffh, Chk Door=ffh
+Front SD=ffffh, Rear SD=ffffh, Motion Tmr=65535
+PAL Vel=-0001, PAL Statusf=ffh, Inspect Svc=255
+Drive Command=ffffh, Drive Statusf=ffffh
+Torque Command=65535, Motor Torque=65535, Percent Load=6553
+
+ 79 §Lx5ï8 255:255:255 255/255/  -1 Position =255 Occurrences = 255 
+srv=255, prc=255, drf=255, rdf=255, dpr=255, dir=255, emp=255, med=255
+cbl=255, equ=255, fir=255, rfi=255, hsf=255, stf=255, cal=255, esp=255 
+nst=255, rlv=255, ste=255, dfs=255, st0=255, ins=ffh, nds=255, dev=ffh
+pf1=ffh, pf2=ffh, dv2=ffh, io0=ffh, io1=ffh, io2=ffh, io3=ffh, io4=ffh
+io5=ffh, io6=ffh, io7=ffh, io8=ffh, io9=ffh, ioA=ffh, ioB=ffh, ioC=ffh
+ioD=ffh, ioE=ffh, ioF=ffh, ioG=ffh, ioH=ffh, ioI=ffh, ioJ=ffh, ioK=ffh
+ioL=ffh, ioM=ffh, ioN=ffh, ioO=ffh, ioP=ffh, ioQ=ffh
+ioR=ffh, ioS=ffh, ioT=ffh
+statusf=ffffffffh, statusf2=ffffffffh
+Flt Bits 1 = ffh, Flt Bits 2 = ffh, Flt Bits 3 = ffh, Flt Bits 4 = ffh
+SS Status=ffffffffh, PWR Status=ffffffffh, Run Status=ffffffffh
+Nudg Flags=ffh, Door Req=ffh, Call Flags=ffh
+Chk Run=ffh, Chk Start=ffh, Chk Level=ffh, Chk Door=ffh
+Front SD=ffffh, Rear SD=ffffh, Motion Tmr=65535
+PAL Vel=-0001, PAL Statusf=ffh, Inspect Svc=255
+Drive Command=ffffh, Drive Statusf=ffffh
+Torque Command=65535, Motor Torque=65535, Percent Load=6553
+
+ 80 §Lx5ï8 255:255:255 255/255/  -1 Position =255 Occurrences = 255 
+srv=255, prc=255, drf=255, rdf=255, dpr=255, dir=255, emp=255, med=255
+cbl=255, equ=255, fir=255, rfi=255, hsf=255, stf=255, cal=255, esp=255 
+nst=255, rlv=255, ste=255, dfs=255, st0=255, ins=ffh, nds=255, dev=ffh
+pf1=ffh, pf2=ffh, dv2=ffh, io0=ffh, io1=ffh, io2=ffh, io3=ffh, io4=ffh
+io5=ffh, io6=ffh, io7=ffh, io8=ffh, io9=ffh, ioA=ffh, ioB=ffh, ioC=ffh
+ioD=ffh, ioE=ffh, ioF=ffh, ioG=ffh, ioH=ffh, ioI=ffh, ioJ=ffh, ioK=ffh
+ioL=ffh, ioM=ffh, ioN=ffh, ioO=ffh, ioP=ffh, ioQ=ffh
+ioR=ffh, ioS=ffh, ioT=ffh
+statusf=ffffffffh, statusf2=ffffffffh
+Flt Bits 1 = ffh, Flt Bits 2 = ffh, Flt Bits 3 = ffh, Flt Bits 4 = ffh
+SS Status=ffffffffh, PWR Status=ffffffffh, Run Status=ffffffffh
+Nudg Flags=ffh, Door Req=ffh, Call Flags=ffh
+Chk Run=ffh, Chk Start=ffh, Chk Level=ffh, Chk Door=ffh
+Front SD=ffffh, Rear SD=ffffh, Motion Tmr=65535
+PAL Vel=-0001, PAL Statusf=ffh, Inspect Svc=255
+Drive Command=ffffh, Drive Statusf=ffffh
+Torque Command=65535, Motor Torque=65535, Percent Load=6553
+
+ 81 §Lx5ï8 255:255:255 255/255/  -1 Position =255 Occurrences = 255 
+srv=255, prc=255, drf=255, rdf=255, dpr=255, dir=255, emp=255, med=255
+cbl=255, equ=255, fir=255, rfi=255, hsf=255, stf=255, cal=255, esp=255 
+nst=255, rlv=255, ste=255, dfs=255, st0=255, ins=ffh, nds=255, dev=ffh
+pf1=ffh, pf2=ffh, dv2=ffh, io0=ffh, io1=ffh, io2=ffh, io3=ffh, io4=ffh
+io5=ffh, io6=ffh, io7=ffh, io8=ffh, io9=ffh, ioA=ffh, ioB=ffh, ioC=ffh
+ioD=ffh, ioE=ffh, ioF=ffh, ioG=ffh, ioH=ffh, ioI=ffh, ioJ=ffh, ioK=ffh
+ioL=ffh, ioM=ffh, ioN=ffh, ioO=ffh, ioP=ffh, ioQ=ffh
+ioR=ffh, ioS=ffh, ioT=ffh
+statusf=ffffffffh, statusf2=ffffffffh
+Flt Bits 1 = ffh, Flt Bits 2 = ffh, Flt Bits 3 = ffh, Flt Bits 4 = ffh
+SS Status=ffffffffh, PWR Status=ffffffffh, Run Status=ffffffffh
+Nudg Flags=ffh, Door Req=ffh, Call Flags=ffh
+Chk Run=ffh, Chk Start=ffh, Chk Level=ffh, Chk Door=ffh
+Front SD=ffffh, Rear SD=ffffh, Motion Tmr=65535
+PAL Vel=-0001, PAL Statusf=ffh, Inspect Svc=255
+Drive Command=ffffh, Drive Statusf=ffffh
+Torque Command=65535, Motor Torque=65535, Percent Load=6553
+
+ 82 §Lx5ï8 255:255:255 255/255/  -1 Position =255 Occurrences = 255 
+srv=255, prc=255, drf=255, rdf=255, dpr=255, dir=255, emp=255, med=255
+cbl=255, equ=255, fir=255, rfi=255, hsf=255, stf=255, cal=255, esp=255 
+nst=255, rlv=255, ste=255, dfs=255, st0=255, ins=ffh, nds=255, dev=ffh
+pf1=ffh, pf2=ffh, dv2=ffh, io0=ffh, io1=ffh, io2=ffh, io3=ffh, io4=ffh
+io5=ffh, io6=ffh, io7=ffh, io8=ffh, io9=ffh, ioA=ffh, ioB=ffh, ioC=ffh
+ioD=ffh, ioE=ffh, ioF=ffh, ioG=ffh, ioH=ffh, ioI=ffh, ioJ=ffh, ioK=ffh
+ioL=ffh, ioM=ffh, ioN=ffh, ioO=ffh, ioP=ffh, ioQ=ffh
+ioR=ffh, ioS=ffh, ioT=ffh
+statusf=ffffffffh, statusf2=ffffffffh
+Flt Bits 1 = ffh, Flt Bits 2 = ffh, Flt Bits 3 = ffh, Flt Bits 4 = ffh
+SS Status=ffffffffh, PWR Status=ffffffffh, Run Status=ffffffffh
+Nudg Flags=ffh, Door Req=ffh, Call Flags=ffh
+Chk Run=ffh, Chk Start=ffh, Chk Level=ffh, Chk Door=ffh
+Front SD=ffffh, Rear SD=ffffh, Motion Tmr=65535
+PAL Vel=-0001, PAL Statusf=ffh, Inspect Svc=255
+Drive Command=ffffh, Drive Statusf=ffffh
+Torque Command=65535, Motor Torque=65535, Percent Load=6553
+
+ 83 §Lx5ï8 255:255:255 255/255/  -1 Position =255 Occurrences = 255 
+srv=255, prc=255, drf=255, rdf=255, dpr=255, dir=255, emp=255, med=255
+cbl=255, equ=255, fir=255, rfi=255, hsf=255, stf=255, cal=255, esp=255 
+nst=255, rlv=255, ste=255, dfs=255, st0=255, ins=ffh, nds=255, dev=ffh
+pf1=ffh, pf2=ffh, dv2=ffh, io0=ffh, io1=ffh, io2=ffh, io3=ffh, io4=ffh
+io5=ffh, io6=ffh, io7=ffh, io8=ffh, io9=ffh, ioA=ffh, ioB=ffh, ioC=ffh
+ioD=ffh, ioE=ffh, ioF=ffh, ioG=ffh, ioH=ffh, ioI=ffh, ioJ=ffh, ioK=ffh
+ioL=ffh, ioM=ffh, ioN=ffh, ioO=ffh, ioP=ffh, ioQ=ffh
+ioR=ffh, ioS=ffh, ioT=ffh
+statusf=ffffffffh, statusf2=ffffffffh
+Flt Bits 1 = ffh, Flt Bits 2 = ffh, Flt Bits 3 = ffh, Flt Bits 4 = ffh
+SS Status=ffffffffh, PWR Status=ffffffffh, Run Status=ffffffffh
+Nudg Flags=ffh, Door Req=ffh, Call Flags=ffh
+Chk Run=ffh, Chk Start=ffh, Chk Level=ffh, Chk Door=ffh
+Front SD=ffffh, Rear SD=ffffh, Motion Tmr=65535
+PAL Vel=-0001, PAL Statusf=ffh, Inspect Svc=255
+Drive Command=ffffh, Drive Statusf=ffffh
+Torque Command=65535, Motor Torque=65535, Percent Load=6553
+
+ 84 §Lx5ï8 255:255:255 255/255/  -1 Position =255 Occurrences = 255 
+srv=255, prc=255, drf=255, rdf=255, dpr=255, dir=255, emp=255, med=255
+cbl=255, equ=255, fir=255, rfi=255, hsf=255, stf=255, cal=255, esp=255 
+nst=255, rlv=255, ste=255, dfs=255, st0=255, ins=ffh, nds=255, dev=ffh
+pf1=ffh, pf2=ffh, dv2=ffh, io0=ffh, io1=ffh, io2=ffh, io3=ffh, io4=ffh
+io5=ffh, io6=ffh, io7=ffh, io8=ffh, io9=ffh, ioA=ffh, ioB=ffh, ioC=ffh
+ioD=ffh, ioE=ffh, ioF=ffh, ioG=ffh, ioH=ffh, ioI=ffh, ioJ=ffh, ioK=ffh
+ioL=ffh, ioM=ffh, ioN=ffh, ioO=ffh, ioP=ffh, ioQ=ffh
+ioR=ffh, ioS=ffh, ioT=ffh
+statusf=ffffffffh, statusf2=ffffffffh
+Flt Bits 1 = ffh, Flt Bits 2 = ffh, Flt Bits 3 = ffh, Flt Bits 4 = ffh
+SS Status=ffffffffh, PWR Status=ffffffffh, Run Status=ffffffffh
+Nudg Flags=ffh, Door Req=ffh, Call Flags=ffh
+Chk Run=ffh, Chk Start=ffh, Chk Level=ffh, Chk Door=ffh
+Front SD=ffffh, Rear SD=ffffh, Motion Tmr=65535
+PAL Vel=-0001, PAL Statusf=ffh, Inspect Svc=255
+Drive Command=ffffh, Drive Statusf=ffffh
+Torque Command=65535, Motor Torque=65535, Percent Load=6553
+
+ 85 §Lx5ï8 255:255:255 255/255/  -1 Position =255 Occurrences = 255 
+srv=255, prc=255, drf=255, rdf=255, dpr=255, dir=255, emp=255, med=255
+cbl=255, equ=255, fir=255, rfi=255, hsf=255, stf=255, cal=255, esp=255 
+nst=255, rlv=255, ste=255, dfs=255, st0=255, ins=ffh, nds=255, dev=ffh
+pf1=ffh, pf2=ffh, dv2=ffh, io0=ffh, io1=ffh, io2=ffh, io3=ffh, io4=ffh
+io5=ffh, io6=ffh, io7=ffh, io8=ffh, io9=ffh, ioA=ffh, ioB=ffh, ioC=ffh
+ioD=ffh, ioE=ffh, ioF=ffh, ioG=ffh, ioH=ffh, ioI=ffh, ioJ=ffh, ioK=ffh
+ioL=ffh, ioM=ffh, ioN=ffh, ioO=ffh, ioP=ffh, ioQ=ffh
+ioR=ffh, ioS=ffh, ioT=ffh
+statusf=ffffffffh, statusf2=ffffffffh
+Flt Bits 1 = ffh, Flt Bits 2 = ffh, Flt Bits 3 = ffh, Flt Bits 4 = ffh
+SS Status=ffffffffh, PWR Status=ffffffffh, Run Status=ffffffffh
+Nudg Flags=ffh, Door Req=ffh, Call Flags=ffh
+Chk Run=ffh, Chk Start=ffh, Chk Level=ffh, Chk Door=ffh
+Front SD=ffffh, Rear SD=ffffh, Motion Tmr=65535
+PAL Vel=-0001, PAL Statusf=ffh, Inspect Svc=255
+Drive Command=ffffh, Drive Statusf=ffffh
+Torque Command=65535, Motor Torque=65535, Percent Load=6553
+
+ 86 §Lx5ï8 255:255:255 255/255/  -1 Position =255 Occurrences = 255 
+srv=255, prc=255, drf=255, rdf=255, dpr=255, dir=255, emp=255, med=255
+cbl=255, equ=255, fir=255, rfi=255, hsf=255, stf=255, cal=255, esp=255 
+nst=255, rlv=255, ste=255, dfs=255, st0=255, ins=ffh, nds=255, dev=ffh
+pf1=ffh, pf2=ffh, dv2=ffh, io0=ffh, io1=ffh, io2=ffh, io3=ffh, io4=ffh
+io5=ffh, io6=ffh, io7=ffh, io8=ffh, io9=ffh, ioA=ffh, ioB=ffh, ioC=ffh
+ioD=ffh, ioE=ffh, ioF=ffh, ioG=ffh, ioH=ffh, ioI=ffh, ioJ=ffh, ioK=ffh
+ioL=ffh, ioM=ffh, ioN=ffh, ioO=ffh, ioP=ffh, ioQ=ffh
+ioR=ffh, ioS=ffh, ioT=ffh
+statusf=ffffffffh, statusf2=ffffffffh
+Flt Bits 1 = ffh, Flt Bits 2 = ffh, Flt Bits 3 = ffh, Flt Bits 4 = ffh
+SS Status=ffffffffh, PWR Status=ffffffffh, Run Status=ffffffffh
+Nudg Flags=ffh, Door Req=ffh, Call Flags=ffh
+Chk Run=ffh, Chk Start=ffh, Chk Level=ffh, Chk Door=ffh
+Front SD=ffffh, Rear SD=ffffh, Motion Tmr=65535
+PAL Vel=-0001, PAL Statusf=ffh, Inspect Svc=255
+Drive Command=ffffh, Drive Statusf=ffffh
+Torque Command=65535, Motor Torque=65535, Percent Load=6553
+
+ 87 §Lx5ï8 255:255:255 255/255/  -1 Position =255 Occurrences = 255 
+srv=255, prc=255, drf=255, rdf=255, dpr=255, dir=255, emp=255, med=255
+cbl=255, equ=255, fir=255, rfi=255, hsf=255, stf=255, cal=255, esp=255 
+nst=255, rlv=255, ste=255, dfs=255, st0=255, ins=ffh, nds=255, dev=ffh
+pf1=ffh, pf2=ffh, dv2=ffh, io0=ffh, io1=ffh, io2=ffh, io3=ffh, io4=ffh
+io5=ffh, io6=ffh, io7=ffh, io8=ffh, io9=ffh, ioA=ffh, ioB=ffh, ioC=ffh
+ioD=ffh, ioE=ffh, ioF=ffh, ioG=ffh, ioH=ffh, ioI=ffh, ioJ=ffh, ioK=ffh
+ioL=ffh, ioM=ffh, ioN=ffh, ioO=ffh, ioP=ffh, ioQ=ffh
+ioR=ffh, ioS=ffh, ioT=ffh
+statusf=ffffffffh, statusf2=ffffffffh
+Flt Bits 1 = ffh, Flt Bits 2 = ffh, Flt Bits 3 = ffh, Flt Bits 4 = ffh
+SS Status=ffffffffh, PWR Status=ffffffffh, Run Status=ffffffffh
+Nudg Flags=ffh, Door Req=ffh, Call Flags=ffh
+Chk Run=ffh, Chk Start=ffh, Chk Level=ffh, Chk Door=ffh
+Front SD=ffffh, Rear SD=ffffh, Motion Tmr=65535
+PAL Vel=-0001, PAL Statusf=ffh, Inspect Svc=255
+Drive Command=ffffh, Drive Statusf=ffffh
+Torque Command=65535, Motor Torque=65535, Percent Load=6553
+
+ 88 §Lx5ï8 255:255:255 255/255/  -1 Position =255 Occurrences = 255 
+srv=255, prc=255, drf=255, rdf=255, dpr=255, dir=255, emp=255, med=255
+cbl=255, equ=255, fir=255, rfi=255, hsf=255, stf=255, cal=255, esp=255 
+nst=255, rlv=255, ste=255, dfs=255, st0=255, ins=ffh, nds=255, dev=ffh
+pf1=ffh, pf2=ffh, dv2=ffh, io0=ffh, io1=ffh, io2=ffh, io3=ffh, io4=ffh
+io5=ffh, io6=ffh, io7=ffh, io8=ffh, io9=ffh, ioA=ffh, ioB=ffh, ioC=ffh
+ioD=ffh, ioE=ffh, ioF=ffh, ioG=ffh, ioH=ffh, ioI=ffh, ioJ=ffh, ioK=ffh
+ioL=ffh, ioM=ffh, ioN=ffh, ioO=ffh, ioP=ffh, ioQ=ffh
+ioR=ffh, ioS=ffh, ioT=ffh
+statusf=ffffffffh, statusf2=ffffffffh
+Flt Bits 1 = ffh, Flt Bits 2 = ffh, Flt Bits 3 = ffh, Flt Bits 4 = ffh
+SS Status=ffffffffh, PWR Status=ffffffffh, Run Status=ffffffffh
+Nudg Flags=ffh, Door Req=ffh, Call Flags=ffh
+Chk Run=ffh, Chk Start=ffh, Chk Level=ffh, Chk Door=ffh
+Front SD=ffffh, Rear SD=ffffh, Motion Tmr=65535
+PAL Vel=-0001, PAL Statusf=ffh, Inspect Svc=255
+Drive Command=ffffh, Drive Statusf=ffffh
+Torque Command=65535, Motor Torque=65535, Percent Load=6553
+
+ 89 §Lx5ï8 255:255:255 255/255/  -1 Position =255 Occurrences = 255 
+srv=255, prc=255, drf=255, rdf=255, dpr=255, dir=255, emp=255, med=255
+cbl=255, equ=255, fir=255, rfi=255, hsf=255, stf=255, cal=255, esp=255 
+nst=255, rlv=255, ste=255, dfs=255, st0=255, ins=ffh, nds=255, dev=ffh
+pf1=ffh, pf2=ffh, dv2=ffh, io0=ffh, io1=ffh, io2=ffh, io3=ffh, io4=ffh
+io5=ffh, io6=ffh, io7=ffh, io8=ffh, io9=ffh, ioA=ffh, ioB=ffh, ioC=ffh
+ioD=ffh, ioE=ffh, ioF=ffh, ioG=ffh, ioH=ffh, ioI=ffh, ioJ=ffh, ioK=ffh
+ioL=ffh, ioM=ffh, ioN=ffh, ioO=ffh, ioP=ffh, ioQ=ffh
+ioR=ffh, ioS=ffh, ioT=ffh
+statusf=ffffffffh, statusf2=ffffffffh
+Flt Bits 1 = ffh, Flt Bits 2 = ffh, Flt Bits 3 = ffh, Flt Bits 4 = ffh
+SS Status=ffffffffh, PWR Status=ffffffffh, Run Status=ffffffffh
+Nudg Flags=ffh, Door Req=ffh, Call Flags=ffh
+Chk Run=ffh, Chk Start=ffh, Chk Level=ffh, Chk Door=ffh
+Front SD=ffffh, Rear SD=ffffh, Motion Tmr=65535
+PAL Vel=-0001, PAL Statusf=ffh, Inspect Svc=255
+Drive Command=ffffh, Drive Statusf=ffffh
+Torque Command=65535, Motor Torque=65535, Percent Load=6553
+
+ 90 §Lx5ï8 255:255:255 255/255/  -1 Position =255 Occurrences = 255 
+srv=255, prc=255, drf=255, rdf=255, dpr=255, dir=255, emp=255, med=255
+cbl=255, equ=255, fir=255, rfi=255, hsf=255, stf=255, cal=255, esp=255 
+nst=255, rlv=255, ste=255, dfs=255, st0=255, ins=ffh, nds=255, dev=ffh
+pf1=ffh, pf2=ffh, dv2=ffh, io0=ffh, io1=ffh, io2=ffh, io3=ffh, io4=ffh
+io5=ffh, io6=ffh, io7=ffh, io8=ffh, io9=ffh, ioA=ffh, ioB=ffh, ioC=ffh
+ioD=ffh, ioE=ffh, ioF=ffh, ioG=ffh, ioH=ffh, ioI=ffh, ioJ=ffh, ioK=ffh
+ioL=ffh, ioM=ffh, ioN=ffh, ioO=ffh, ioP=ffh, ioQ=ffh
+ioR=ffh, ioS=ffh, ioT=ffh
+statusf=ffffffffh, statusf2=ffffffffh
+Flt Bits 1 = ffh, Flt Bits 2 = ffh, Flt Bits 3 = ffh, Flt Bits 4 = ffh
+SS Status=ffffffffh, PWR Status=ffffffffh, Run Status=ffffffffh
+Nudg Flags=ffh, Door Req=ffh, Call Flags=ffh
+Chk Run=ffh, Chk Start=ffh, Chk Level=ffh, Chk Door=ffh
+Front SD=ffffh, Rear SD=ffffh, Motion Tmr=65535
+PAL Vel=-0001, PAL Statusf=ffh, Inspect Svc=255
+Drive Command=ffffh, Drive Statusf=ffffh
+Torque Command=65535, Motor Torque=65535, Percent Load=6553
+
+ 91 §Lx5ï8 255:255:255 255/255/  -1 Position =255 Occurrences = 255 
+srv=000, prc=000, drf=174, rdf=000, dpr=008, dir=000, emp=000, med=000
+cbl=000, equ=000, fir=000, rfi=000, hsf=000, stf=000, cal=000, esp=000 
+nst=000, rlv=000, ste=000, dfs=000, st0=000, ins=00h, nds=000, dev=00h
+pf1=00h, pf2=00h, dv2=00h, io0=00h, io1=00h, io2=00h, io3=00h, io4=00h
+io5=00h, io6=00h, io7=00h, io8=00h, io9=00h, ioA=00h, ioB=00h, ioC=00h
+ioD=00h, ioE=00h, ioF=00h, ioG=00h, ioH=00h, ioI=00h, ioJ=00h, ioK=00h
+ioL=00h, ioM=00h, ioN=00h, ioO=00h, ioP=00h, ioQ=00h
+ioR=00h, ioS=00h, ioT=00h
+statusf=00000000h, statusf2=00000000h
+Flt Bits 1 =  0h, Flt Bits 2 =  0h, Flt Bits 3 =  0h, Flt Bits 4 =  0h
+SS Status=0000h, PWR Status=0000h, Run Status=00000000h
+Nudg Flags=00h, Door Req=00h, Call Flags=00h
+Chk Run=00h, Chk Start=00h, Chk Level=00h, Chk Door= 0h
+Front SD=0000h, Rear SD=0000h, Motion Tmr=00000
+PAL Vel=00256, PAL Statusf=00h, Inspect Svc=000
+Drive Command=0000h, Drive Statusf=0000h
+Torque Command=00000, Motor Torque=    0, Percent Load=  0
+
+ 92 ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ  0:00:00  0/00/   0 Position = 0 Occurrences =   0 
+srv=000, prc=000, drf=000, rdf=000, dpr=000, dir=010, emp=001, med=006
+cbl=005, equ=000, fir=011, rfi=184, hsf=039, stf=001, cal=026, esp=001 
+nst=014, rlv=003, ste=000, dfs=000, st0=002, ins=02h, nds=000, dev=00h
+pf1=00h, pf2=00h, dv2=00h, io0=00h, io1=00h, io2=00h, io3=02h, io4=00h
+io5=01h, io6=00h, io7=01h, io8=00h, io9=01h, ioA=00h, ioB=00h, ioC=00h
+ioD=00h, ioE=00h, ioF=00h, ioG=a1h, ioH=0fh, ioI=7eh, ioJ=00h, ioK=c3h
+ioL=6bh, ioM=10h, ioN=0ch, ioO=00h, ioP=01h, ioQ=c5h
+ioR=f7h, ioS=f1h, ioT=ffh
+statusf=fc000000h, statusf2=00000000h
+Flt Bits 1 =  0h, Flt Bits 2 =  0h, Flt Bits 3 =  0h, Flt Bits 4 =  0h
+SS Status=0002h, PWR Status=0000h, Run Status=00000000h
+Nudg Flags=00h, Door Req=00h, Call Flags=00h
+Chk Run=02h, Chk Start=00h, Chk Level=00h, Chk Door= 0h
+Front SD=0000h, Rear SD=0000h, Motion Tmr=00512
+PAL Vel=05059, PAL Statusf=00h, Inspect Svc=000
+Drive Command=0000h, Drive Statusf=0000h
+Torque Command=00000, Motor Torque=    0, Percent Load= 59
+
+ 93 ¸  0:00:00  0/00/   0 Position = 0 Occurrences =   0 
+srv=000, prc=000, drf=000, rdf=000, dpr=000, dir=000, emp=000, med=000
+cbl=000, equ=000, fir=000, rfi=000, hsf=000, stf=000, cal=000, esp=000 
+nst=000, rlv=000, ste=000, dfs=000, st0=000, ins=00h, nds=000, dev=00h
+pf1=00h, pf2=00h, dv2=00h, io0=00h, io1=00h, io2=00h, io3=00h, io4=00h
+io5=00h, io6=00h, io7=00h, io8=00h, io9=00h, ioA=00h, ioB=00h, ioC=00h
+ioD=00h, ioE=00h, ioF=00h, ioG=00h, ioH=00h, ioI=00h, ioJ=00h, ioK=00h
+ioL=00h, ioM=00h, ioN=00h, ioO=00h, ioP=00h, ioQ=00h
+ioR=00h, ioS=00h, ioT=00h
+statusf=00000000h, statusf2=00000000h
+Flt Bits 1 =  0h, Flt Bits 2 =  0h, Flt Bits 3 =  0h, Flt Bits 4 =  0h
+SS Status=0000h, PWR Status=0000h, Run Status=00000100h
+Nudg Flags=00h, Door Req=00h, Call Flags=00h
+Chk Run=00h, Chk Start=00h, Chk Level=00h, Chk Door= 0h
+Front SD=0000h, Rear SD=0000h, Motion Tmr=00000
+PAL Vel=00000, PAL Statusf=00h, Inspect Svc=000
+Drive Command=0000h, Drive Statusf=0000h
+Torque Command=00000, Motor Torque=    0, Percent Load=  0
+
+ 94 Load Table Fault   1:37:19  5/06/3000 Position = 1 Occurrences =   1 
+srv=000, prc=000, drf=000, rdf=000, dpr=000, dir=000, emp=000, med=000
+cbl=000, equ=000, fir=000, rfi=000, hsf=000, stf=000, cal=000, esp=000 
+nst=000, rlv=000, ste=001, dfs=000, st0=000, ins=00h, nds=000, dev=00h
+pf1=00h, pf2=00h, dv2=00h, io0=00h, io1=00h, io2=00h, io3=00h, io4=00h
+io5=00h, io6=00h, io7=00h, io8=00h, io9=00h, ioA=00h, ioB=00h, ioC=00h
+ioD=00h, ioE=00h, ioF=00h, ioG=00h, ioH=00h, ioI=00h, ioJ=00h, ioK=00h
+ioL=00h, ioM=00h, ioN=00h, ioO=00h, ioP=00h, ioQ=00h
+ioR=00h, ioS=00h, ioT=00h
+statusf=00000000h, statusf2=00000000h
+Flt Bits 1 =  1h, Flt Bits 2 =  0h, Flt Bits 3 =  0h, Flt Bits 4 =  0h
+SS Status=0000h, PWR Status=0000h, Run Status=00000000h
+Nudg Flags=00h, Door Req=00h, Call Flags=00h
+Chk Run=00h, Chk Start=00h, Chk Level=00h, Chk Door= 0h
+Front SD=0000h, Rear SD=0000h, Motion Tmr=00000
+PAL Vel=00000, PAL Statusf=00h, Inspect Svc=000
+Drive Command=0000h, Drive Statusf=0000h
+Torque Command=00000, Motor Torque=    0, Percent Load=  0
+
+ 95 d Weigh Var Init   1:37:19  5/06/3000 Position = 1 Occurrences =   1 
+srv=000, prc=000, drf=000, rdf=000, dpr=000, dir=000, emp=000, med=000
+cbl=000, equ=000, fir=000, rfi=000, hsf=000, stf=000, cal=000, esp=000 
+nst=000, rlv=000, ste=001, dfs=000, st0=000, ins=00h, nds=000, dev=00h
+pf1=00h, pf2=00h, dv2=00h, io0=00h, io1=00h, io2=00h, io3=00h, io4=00h
+io5=00h, io6=00h, io7=00h, io8=00h, io9=00h, ioA=00h, ioB=00h, ioC=00h
+ioD=00h, ioE=00h, ioF=00h, ioG=00h, ioH=00h, ioI=00h, ioJ=00h, ioK=00h
+ioL=00h, ioM=00h, ioN=00h, ioO=00h, ioP=00h, ioQ=00h
+ioR=00h, ioS=00h, ioT=00h
+statusf=00000000h, statusf2=00000000h
+Flt Bits 1 =  1h, Flt Bits 2 =  0h, Flt Bits 3 =  0h, Flt Bits 4 =  0h
+SS Status=0000h, PWR Status=0000h, Run Status=00000000h
+Nudg Flags=00h, Door Req=00h, Call Flags=00h
+Chk Run=00h, Chk Start=00h, Chk Level=00h, Chk Door= 0h
+Front SD=0000h, Rear SD=0000h, Motion Tmr=00000
+PAL Vel=00000, PAL Statusf=00h, Inspect Svc=000
+Drive Command=0000h, Drive Statusf=0000h
+Torque Command=00000, Motor Torque=    0, Percent Load=  0
+
+ 96 M Hardware Fault   1:37:19  5/06/3000 Position = 1 Occurrences =   1 
+srv=000, prc=000, drf=000, rdf=000, dpr=000, dir=000, emp=000, med=000
+cbl=000, equ=000, fir=000, rfi=000, hsf=000, stf=000, cal=000, esp=000 
+nst=000, rlv=000, ste=001, dfs=000, st0=000, ins=00h, nds=000, dev=00h
+pf1=00h, pf2=00h, dv2=00h, io0=00h, io1=00h, io2=00h, io3=00h, io4=00h
+io5=00h, io6=00h, io7=00h, io8=00h, io9=00h, ioA=00h, ioB=00h, ioC=00h
+ioD=00h, ioE=00h, ioF=00h, ioG=00h, ioH=00h, ioI=00h, ioJ=00h, ioK=00h
+ioL=00h, ioM=00h, ioN=00h, ioO=00h, ioP=00h, ioQ=00h
+ioR=00h, ioS=00h, ioT=00h
+statusf=00000000h, statusf2=00000000h
+Flt Bits 1 =  1h, Flt Bits 2 =  0h, Flt Bits 3 =  0h, Flt Bits 4 =  0h
+SS Status=0000h, PWR Status=0000h, Run Status=00000000h
+Nudg Flags=00h, Door Req=00h, Call Flags=00h
+Chk Run=00h, Chk Start=00h, Chk Level=00h, Chk Door= 0h
+Front SD=0000h, Rear SD=0000h, Motion Tmr=00000
+PAL Vel=00000, PAL Statusf=00h, Inspect Svc=000
+Drive Command=0000h, Drive Statusf=0000h
+Torque Command=00000, Motor Torque=    0, Percent Load=  0
+
+ 97 stway Update Init  1:37:20  5/06/3000 Position = 1 Occurrences =   1 
+srv=000, prc=000, drf=000, rdf=000, dpr=000, dir=000, emp=000, med=000
+cbl=000, equ=000, fir=000, rfi=000, hsf=000, stf=000, cal=000, esp=000 
+nst=000, rlv=000, ste=001, dfs=000, st0=000, ins=00h, nds=000, dev=00h
+pf1=00h, pf2=00h, dv2=00h, io0=00h, io1=00h, io2=00h, io3=00h, io4=00h
+io5=00h, io6=00h, io7=00h, io8=00h, io9=00h, ioA=00h, ioB=00h, ioC=00h
+ioD=00h, ioE=00h, ioF=00h, ioG=00h, ioH=00h, ioI=00h, ioJ=00h, ioK=00h
+ioL=00h, ioM=00h, ioN=00h, ioO=00h, ioP=00h, ioQ=00h
+ioR=00h, ioS=00h, ioT=00h
+statusf=00000000h, statusf2=00000000h
+Flt Bits 1 =  1h, Flt Bits 2 =  0h, Flt Bits 3 =  0h, Flt Bits 4 =  0h
+SS Status=0000h, PWR Status=0000h, Run Status=00000000h
+Nudg Flags=00h, Door Req=00h, Call Flags=00h
+Chk Run=00h, Chk Start=00h, Chk Level=00h, Chk Door= 0h
+Front SD=0000h, Rear SD=0000h, Motion Tmr=00000
+PAL Vel=00000, PAL Statusf=00h, Inspect Svc=000
+Drive Command=0000h, Drive Statusf=0000h
+Torque Command=00000, Motor Torque=    0, Percent Load=  0
+
+ 98 Power Up Reset     1:37:20  5/06/3000 Position = 1 Occurrences =   1 
+srv=000, prc=000, drf=000, rdf=000, dpr=000, dir=000, emp=000, med=000
+cbl=000, equ=000, fir=000, rfi=000, hsf=000, stf=000, cal=000, esp=000 
+nst=000, rlv=000, ste=001, dfs=000, st0=000, ins=00h, nds=000, dev=00h
+pf1=00h, pf2=00h, dv2=00h, io0=00h, io1=00h, io2=00h, io3=00h, io4=00h
+io5=00h, io6=00h, io7=00h, io8=00h, io9=00h, ioA=ffh, ioB=ffh, ioC=fdh
+ioD=ffh, ioE=00h, ioF=00h, ioG=00h, ioH=fch, ioI=00h, ioJ=00h, ioK=00h
+ioL=00h, ioM=00h, ioN=00h, ioO=00h, ioP=16h, ioQ=00h
+ioR=00h, ioS=00h, ioT=00h
+statusf=00000000h, statusf2=00000000h
+Flt Bits 1 =  1h, Flt Bits 2 =  0h, Flt Bits 3 =  0h, Flt Bits 4 =  0h
+SS Status=0000h, PWR Status=0000h, Run Status=00000000h
+Nudg Flags=00h, Door Req=00h, Call Flags=00h
+Chk Run=00h, Chk Start=00h, Chk Level=00h, Chk Door= 0h
+Front SD=0000h, Rear SD=0000h, Motion Tmr=00000
+PAL Vel=00000, PAL Statusf=00h, Inspect Svc=000
+Drive Command=0000h, Drive Statusf=0000h
+Torque Command=00000, Motor Torque=    0, Percent Load=  0
+
+ 99  Reset Fault       1:37:25  5/06/3000 Position = 1 Occurrences =   1 
+srv=000, prc=001, drf=000, rdf=000, dpr=000, dir=000, emp=000, med=000
+cbl=000, equ=000, fir=000, rfi=000, hsf=000, stf=000, cal=000, esp=000 
+nst=000, rlv=000, ste=001, dfs=000, st0=000, ins=00h, nds=000, dev=00h
+pf1=00h, pf2=00h, dv2=00h, io0=a1h, io1=0fh, io2=7eh, io3=00h, io4=c3h
+io5=63h, io6=10h, io7=0ch, io8=00h, io9=00h, ioA=f5h, ioB=f7h, ioC=fdh
+ioD=ffh, ioE=35h, ioF=00h, ioG=07h, ioH=fch, ioI=00h, ioJ=00h, ioK=00h
+ioL=00h, ioM=00h, ioN=00h, ioO=05h, ioP=16h, ioQ=00h
+ioR=00h, ioS=00h, ioT=00h
+statusf=00000000h, statusf2=00000001h
+Flt Bits 1 =  1h, Flt Bits 2 =  0h, Flt Bits 3 =  0h, Flt Bits 4 =  0h
+SS Status=0000h, PWR Status=0000h, Run Status=000013c0h
+Nudg Flags=00h, Door Req=00h, Call Flags=00h
+Chk Run=00h, Chk Start=00h, Chk Level=00h, Chk Door= 0h
+Front SD=0000h, Rear SD=0000h, Motion Tmr=00051
+PAL Vel=00000, PAL Statusf=00h, Inspect Svc=000
+Drive Command=0000h, Drive Statusf=0000h
+Torque Command=00000, Motor Torque=    0, Percent Load=  0
+
+100 Stalled Fault      1:38:25  5/06/3000 Position = 1 Occurrences =   1 
+srv=012, prc=003, drf=000, rdf=000, dpr=001, dir=001, emp=000, med=000
+cbl=000, equ=000, fir=000, rfi=000, hsf=000, stf=000, cal=001, esp=000 
+nst=000, rlv=000, ste=001, dfs=000, st0=001, ins=00h, nds=000, dev=00h
+pf1=00h, pf2=00h, dv2=00h, io0=a1h, io1=0fh, io2=7eh, io3=00h, io4=c3h
+io5=6bh, io6=14h, io7=0ch, io8=27h, io9=04h, ioA=c5h, ioB=f1h, ioC=b1h
+ioD=ffh, ioE=35h, ioF=00h, ioG=07h, ioH=fch, ioI=00h, ioJ=00h, ioK=00h
+ioL=0eh, ioM=e0h, ioN=00h, ioO=05h, ioP=12h, ioQ=00h
+ioR=00h, ioS=00h, ioT=00h
+statusf=00000000h, statusf2=00000001h
+Flt Bits 1 =  1h, Flt Bits 2 =  0h, Flt Bits 3 =  0h, Flt Bits 4 =  0h
+SS Status=0000h, PWR Status=0000h, Run Status=020013c5h
+Nudg Flags=00h, Door Req=00h, Call Flags=01h
+Chk Run=00h, Chk Start=00h, Chk Level=00h, Chk Door= 0h
+Front SD=0000h, Rear SD=0000h, Motion Tmr=00600
+PAL Vel=00000, PAL Statusf=80h, Inspect Svc=000
+Drive Command=0000h, Drive Statusf=0000h
+Torque Command=00000, Motor Torque=    0, Percent Load=  0
+
+101 Directional Fault  1:39:26  5/06/3000 Position = 1 Occurrences =   1 
+srv=014, prc=003, drf=000, rdf=000, dpr=002, dir=002, emp=000, med=000
+cbl=000, equ=000, fir=000, rfi=000, hsf=000, stf=000, cal=002, esp=000 
+nst=001, rlv=000, ste=001, dfs=000, st0=001, ins=00h, nds=000, dev=00h
+pf1=00h, pf2=00h, dv2=00h, io0=a1h, io1=0fh, io2=7eh, io3=00h, io4=c3h
+io5=6bh, io6=10h, io7=0ch, io8=00h, io9=01h, ioA=c5h, ioB=f7h, ioC=f1h
+ioD=ffh, ioE=35h, ioF=00h, ioG=07h, ioH=fch, ioI=00h, ioJ=00h, ioK=00h
+ioL=0eh, ioM=20h, ioN=00h, ioO=05h, ioP=12h, ioQ=00h
+ioR=00h, ioS=00h, ioT=00h
+statusf=00000000h, statusf2=00000001h
+Flt Bits 1 =  1h, Flt Bits 2 =  0h, Flt Bits 3 =  0h, Flt Bits 4 =  0h
+SS Status=0000h, PWR Status=0000h, Run Status=020013c3h
+Nudg Flags=00h, Door Req=00h, Call Flags=02h
+Chk Run=00h, Chk Start=00h, Chk Level=00h, Chk Door= 0h
+Front SD=0000h, Rear SD=0000h, Motion Tmr=00591
+PAL Vel=00000, PAL Statusf=00h, Inspect Svc=000
+Drive Command=0000h, Drive Statusf=0000h
+Torque Command=00000, Motor Torque=    0, Percent Load=  0
+

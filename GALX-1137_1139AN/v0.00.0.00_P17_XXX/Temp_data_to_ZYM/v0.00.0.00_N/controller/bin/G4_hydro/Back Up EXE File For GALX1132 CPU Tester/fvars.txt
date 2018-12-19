@@ -1,0 +1,611 @@
+Car Data
+000001 // Car Nunber 
+000150 // Car Speed 
+000001 // Number of Cars 
+000001 // Bottom Floor 
+000005 // Top Floor 
+000005 // Group Top Floor 
+Field Variables
+000534 // Last Field Variable
+000015 // 000  Y Delta Time= 
+000020 // 001    Fault Time= 
+000050 // 002    Reset Time= 
+000001 // 003 Double Stroke= 
+000007 // 004  Lant On Time= 
+000002 // 005 Lant Off Time= 
+000005 // 006 Pas Chime Tim= 
+000250 // 007 Door Fail Tim= 
+000600 // 008 Nudging Time = 
+000005 // 009 Preopen Delay= 
+000020 // 010      CC Dwell= 
+000040 // 011      HC Dwell= 
+000050 // 012   Lobby Dwell= 
+000250 // 013 Handicap Dwll= 
+000020 // 014 NonInterfer T= 
+000001 // 015   Lobby Floor= 
+000001 // 016 Fire Main Flr= 
+000002 // 017  ALT Fire Flr= 
+000600 // 018    Stall Time= 
+000010 // 019 Soft Stop Tim= 
+003600 // 020   Lt/Fan Time= 
+000000 // 021  Brk Pick Del= 
+000001 // 022  Brk Drop Del= 
+000125 // 023 SoftStart Jrk= 
+000092 // 024  Acceleration= 
+000125 // 025    Decel Jerk= 
+000092 // 026    Decel Rate= 
+000120 // 027  Flr Targ Dis= 
+000050 // 028  Leveling Spd= 
+000060 // 029 Relevel Speed= 
+000030 // 030 Inspect Speed= 
+000000 // 031          Year= 
+000000 // 032         Month= 
+000000 // 033           Day= 
+000000 // 034          Hour= 
+000000 // 035        Minute= 
+000125 // 036 RollOver Jerk= 
+000000 // 037 EE MemoryType= 
+000000 // 038 SafeTest Year= 
+000000 // 039 SafeTst Month= 
+000000 // 040 Safe Test Day= 
+000000 // 041 Pattern Delay= 
+000110 // 042  Field Weaken= 
+002048 // 043   Encoder PPR= 
+001050 // 044   Encoder RPM= 
+000000 // 045     COM1 Baud= 
+000001 // 046       Parking= 
+000001 // 047  Em Pwr Floor= 
+000001 // 048 Em Power Cars= 
+000001 // 049 1stRecall Car= 
+000001 // 050 1stEP Run Car= 
+000600 // 051 Recall Timout= 
+000000 // 052 DOB Over Nudg= 
+000000 // 053 Emer Dispatch= 
+000000 // 054 Lobby Request= 
+000000 // 055   Next Car Up= 
+000000 // 056 Code Blue Car= 
+000000 // 057        IR Car= 
+000001 // 058 Brake Lift Sw= 
+000000 // 059 LW Anti-nuisn= 
+000000 // 060   Fire Sw Loc= 
+000006 // 061  ETA Min Time= 
+000015 // 062 ETA Co CC Tim= 
+000001 // 063 Vid Pos Car 1= 
+000002 // 064 Vid Pos Car 2= 
+000003 // 065 Vid Pos Car 3= 
+000004 // 066 Vid Pos Car 4= 
+000005 // 067 Vid Pos Car 5= 
+000006 // 068 Vid Pos Car 6= 
+000000 // 069 No Psg RunCnt= 
+000000 // 070  Ind Over Sec= 
+000000 // 071 Relev Brk Dly= 
+000000 // 072 RelevBrk LowV= 
+000600 // 073 UpPk Trig Tim= 
+000003 // 074 UpPk Trig Cnt= 
+000003 // 075 UpPk CC Count= 
+001800 // 076 Up Peak Time = 
+000600 // 077 DnPk Trig Tim= 
+000012 // 078 DnPk Trig Cnt= 
+001800 // 079 DownPeak Time= 
+000080 // 080 Park Dly Time= 
+000000 // 081 HC X-AssignEn= 
+000060 // 082 HCX-AssignETA= 
+000001 // 083  Med Em Floor= 
+000000 // 084 Med Em Sw Loc= 
+000000 // 085 MachRm FirRet= 
+000000 // 086 Hoistw FirRet= 
+000000 // 087  Recall Reset= 
+000050 // 088 StopDecelRate= 
+000000 // 089 Relev Pat Dly= 
+000001 // 090 DON Start Ctl= 
+005500 // 091  Brk Opto Dly= 
+000000 // 092    Invert BLS= 
+000000 // 093 ISER Outp Ctl= 
+000000 // 094  Dispatch Car= 
+000000 // 095 Video Tim-out= 
+000000 // 096 Ins Door Clos= 
+000000 // 097 Parking Flr 1= 
+000000 // 098 Parking Flr 2= 
+000000 // 099 Parking Flr 3= 
+000000 // 100 Parking Flr 4= 
+000000 // 101 Parking Flr 5= 
+000000 // 102 Parking Width= 
+000400 // 103 Balanced Load= 
+000000 // 104 Torque Amount= 
+000060 // 105   Load Bypass= 
+000020 // 106 Load Antinuis= 
+000040 // 107 Load Dispatch= 
+000110 // 108 Load Overload= 
+000000 // 109    IR Control= 
+000230 // 110 Brk Pick Volt= 
+000030 // 111 Brk Pick Time= 
+000160 // 112 Brk Hold Volt= 
+000230 // 113 Bk Relev Volt= 
+000240 // 114 BkAC L-L Volt= 
+002830 // 115 Bk Resistance= 
+000600 // 116 Att Buz Delay= 
+000000 // 117  Aux. Fire Sw= 
+000000 // 118  Hall Fire Lt= 
+000000 // 119 COP/Remote CC= 
+000000 // 120 Door Dly Time= 
+000000 // 121  Security Rcl= 
+000000 // 122  DOB Over Sec= 
+000000 // 123 ManDo Buz Dly= 
+000001 // 124  Security Flr= 
+000000 // 125 RC Pick Delay= 
+000010 // 126 Shrt Dwll Tim= 
+000000 // 127    2nd IR Car= 
+000000 // 128 Stop At Lobby= 
+000001 // 129    Invert CLF= 
+000000 // 130    Invert TPL= 
+000000 // 131    Invert LPS= 
+000000 // 132    Invert LOS= 
+000000 // 133 Nudg No Calls= 
+000000 // 134   Fire Option= 
+000000 // 135 Att CC frm HC= 
+000600 // 136  CB Door Time= 
+000000 // 137 CB Req IndCar= 
+000000 // 138 Flash CBLight= 
+000000 // 139 HSV DoorCl CC= 
+000040 // 140 EBK Rset Time= 
+000000 // 141 IND DoorCl CC= 
+000000 // 142 RopeComp Torq= 
+000003 // 143 Grip/EBK Trip= 
+000000 // 144 Single AutoPB= 
+000000 // 145 DO No ActvDOL= 
+000000 // 146                
+000000 // 147 RelevStrt Spd= 
+000180 // 148 Em Decel Rate= 
+000000 // 149 DCB Canc Dwll= 
+000000 // 150 Retrn To Lbby= 
+000007 // 151 Vid Pos Car 7= 
+000008 // 152 Vid Pos Car 8= 
+000000 // 153  Parking Type= 
+000000 // 154 Parking Flr 6= 
+000000 // 155 Parking Flr 7= 
+000000 // 156 Non-Simul Dor= 
+000000 // 157 Preopen Doors= 
+000115 // 158 Ovrspeed Trip= 
+000000 // 159 Pos Count Upd= 
+005000 // 160 Pls Err Delay= 
+000000 // 161 Gripr/EBK Buz= 
+000010 // 162 Relev Dly Tim= 
+000001 // 163 Fire Option 2= 
+000000 // 164 ClGate NoPref= 
+000003 // 165 Level Flt Cnt= 
+000000 // 166 Torq Down Amt= 
+000000 // 167 Torq Ramp Tim= 
+000400 // 168   EE Time-out= 
+000000 // 169 OTS No HCCanc= 
+000000 // 170 Nudge Dis Ctl= 
+000200 // 171 F1 DC Tim-out= 
+000000 // 172 NoHC Dor Reop= 
+000005 // 173  Drv Rdy Flts= 
+000080 // 174 RTL Dwell Tim= 
+000000 // 175 NCU Lant Ctrl= 
+000000 // 176 NCU Pref Ctrl= 
+000000 // 177 2nd Riser Ctl= 
+000000 // 178 2nd Risr Lant= 
+000000 // 179 ATT Pref Time= 
+000000 // 180 HB/PI DisNoFl= 
+000200 // 181 VIP Door Time= 
+000000 // 182 VIP Operation= 
+000001 // 183 Nmbr Vip Cars= 
+000000 // 184 EmPwr Op Outp= 
+000000 // 185 EmPwr Pk Outp= 
+000000 // 186  HEOF Control= 
+000000 // 187 Drv Baud Rate= 
+000000 // 188  Drive Update= 
+000001 // 189  Alt Lbby Flr= 
+000001 // 190 Alt Parkin Fl= 
+000000 // 191 Lobby Req Ctl= 
+000040 // 192 Handicap Load= 
+000010 // 193 FR DC Tim-out= 
+000000 // 194 Handicap Wait= 
+000300 // 195 Short Fl Dist= 
+000000 // 196   RCM Control= 
+000000 // 197 Rcl frm F1Alt= 
+000300 // 198 Learn HWStall= 
+000100 // 199 PlsCnt Upd Er= 
+000000 // 200 AttBuzOff Tim= 
+000050 // 201 AttBuz On Tim= 
+000000 // 202 Brk Pick Rate= 
+000000 // 203 BrkRelev Rate= 
+000000 // 204 Brk Pick Strt= 
+000000 // 205 BrkRelev Strt= 
+000000 // 206 Shrt Fl Dn SD= 
+000000 // 207 ShrtMidF DnSD= 
+000000 // 208 Shrt Fl Up SD= 
+000000 // 209 ShrtMidF UpSD= 
+000000 // 210 ElevOff RetFl= 
+000000 // 211 PI Serv Msg 1= 
+000000 // 212 PI Serv Msg 2= 
+000000 // 213  GOV Grip/EBK= 
+000125 // 214 ShF SoftStJrk= 
+000092 // 215 ShF AccelRate= 
+000125 // 216 ShrtF RollJrk= 
+000125 // 217 ShrtF DeclJrk= 
+000092 // 218 ShF DecelRate= 
+000080 // 219 ShrtF TargDis= 
+000000 // 220 ShortFl Cntrl= 
+000000 // 221  Sec Recall 2= 
+000150 // 222 EP Recall Dly= 
+000060 // 223 GrpCC Sec OvT= 
+000000 // 224 EmBk Drop Dly= 
+000030 // 225 EmBk Pick Tim= 
+001000 // 226   HC On Brght= 
+000200 // 227 HC Off Bright= 
+000005 // 228 Access Top Fl= 
+000001 // 229 Access Bot Fl= 
+000000 // 230 StopOn PosCnt= 
+000080 // 231  Sabb Restart= 
+000010 // 232 FR Pwr DO Tim= 
+000000 // 233  Auto Flt Dpy= 
+000000 // 234      Password= 
+003000 // 235 Pword Tim-out= 
+000000 // 236 Behnd CC Canc= 
+000000 // 237 AdvDoor EnTim= 
+000000 // 238 Grp TimerPark= 
+000000 // 239 Binary Preset= 
+000000 // 240  Short Fl hsf= 
+000000 // 241  Up Pk Contrl= 
+000001 // 242  Up Peak Pool= 
+000000 // 243 DnPeak Contrl= 
+000000 // 244 DownPeak Pool= 
+000000 // 245 X-Assign Cars= 
+000000 // 246  Drive Modbus= 
+000000 // 247 AltRcl FS Off= 
+000300 // 248 Ins Decel Stp= 
+000000 // 249 EP Recovr Dir= 
+000000 // 250 Brk Drop Volt= 
+000000 // 251 Brk Drop Rate= 
+000000 // 252 Brk Drop Strt= 
+000025 // 253  Recovery Spd= 
+000100 // 254  EM Decel Lev= 
+000025 // 255 EP Recovr Spd= 
+000000 // 256 Run Cycle Tim= 
+000625 // 257   HCUp On Red= 
+000625 // 258  HCUp Off Red= 
+001000 // 259 HCUp On Green= 
+001000 // 260 HCU Off Green= 
+000500 // 261  HCUp On Blue= 
+000500 // 262 HCUp Off Blue= 
+000000 // 263 DoorOpenL Ctl= 
+000015 // 264 HCUp On Color= 
+000015 // 265 HCU Off Color= 
+000015 // 266  HC Sec Color= 
+000000 // 267    HC Sec Ctl= 
+001000 // 268 HC Sec Bright= 
+001000 // 269    HC Sec Red= 
+000000 // 270  HC Sec Green= 
+001000 // 271   HC Sec Blue= 
+000000 // 272 HWS2 Fire Ret= 
+001000 // 273  Drv Spd Mult= 
+000000 // 274  Adv Pre-Torq= 
+000015 // 275   CC On Color= 
+000015 // 276  CC Off Color= 
+001000 // 277  CC On Bright= 
+000200 // 278 CC Off Bright= 
+000625 // 279     CC On Red= 
+000625 // 280    CC Off Red= 
+001000 // 281   CC On Green= 
+001000 // 282  CC Off Green= 
+000500 // 283    CC On Blue= 
+000500 // 284   CC Off Blue= 
+000000 // 285  CC Light Ctl= 
+000015 // 286  CC Sec Color= 
+001000 // 287 CC Sec Bright= 
+001000 // 288    CC Sec Red= 
+000000 // 289  CC Sec Green= 
+001000 // 290   CC Sec Blue= 
+000000 // 291   Sabb En Ctl= 
+001980 // 292 Low Line Volt= 
+001980 // 293 Low Door Volt= 
+000100 // 294 EP Top Speed = 
+000125 // 295 EP SoftSt Jrk= 
+000092 // 296 EP Accel Rate= 
+000125 // 297  EP Roll Jerk= 
+000125 // 298 EP Decel Jerk= 
+000092 // 299 EP Decel Rate= 
+000120 // 300 EP Target Dis= 
+000150 // 301     Top Speed= 
+000000 // 302 Insp Spd ISER= 
+000200 // 303 EP Recovr Tim= 
+000001 // 304  FireL Em Pwr= 
+000001 // 305 EP Man Sel En= 
+000000 // 306 FireL OTS Ret= 
+000100 // 307 Sabbath Dwell= 
+000050 // 308 Sabb Buzz Dly= 
+000500 // 309 LowBat CapLev= 
+000000 // 310  Sabb Dis Ctl= 
+000000 // 311 EE Canc Dwell= 
+000000 // 312 SkpCar@RcFLDO= 
+000000 // 313 SkpCarN@RcFDO= 
+000000 // 314 Asgn ParkF DO= 
+000000 // 315 Hall Lant Dly= 
+000000 // 316  Sabb En Ctl2= 
+000000 // 317 Cab Lant Ctrl= 
+000000 // 318 Mx Door Hld T= 
+000000 // 319  Acc Door Cls= 
+000000 // 320 CCAttUp Color= 
+001000 // 321 CCAttUpBright= 
+000000 // 322  CC AttUp Red= 
+001000 // 323 CCAttUp Green= 
+000000 // 324 CC AttUp Blue= 
+000000 // 325 CCAttDn Color= 
+001000 // 326 CCAttDnBright= 
+001000 // 327  CC AttDn Red= 
+000000 // 328 CCAttDn Green= 
+000000 // 329 CC AttDn Blue= 
+000000 // 330 Fire Lt Color= 
+001000 // 331 Fir Lt Bright= 
+000625 // 332   Fire Lt Red= 
+001000 // 333 Fire Lt Green= 
+000500 // 334  Fire Lt Blue= 
+000000 // 335  Med Lt Color= 
+001000 // 336 Med Lt Bright= 
+000000 // 337    Med Lt Red= 
+000000 // 338  Med Lt Green= 
+001000 // 339   Med Lt Blue= 
+000000 // 340 Emer Lt Color= 
+001000 // 341  Em Lt Bright= 
+000750 // 342   Emer Lt Red= 
+001000 // 343 Emer Lt Green= 
+000000 // 344  Emer Lt Blue= 
+000000 // 345  OTS Lt Color= 
+001000 // 346 OTS Lt Bright= 
+001000 // 347    OTS Lt Red= 
+000400 // 348  OTS Lt Green= 
+000000 // 349   OTS Lt Blue= 
+000000 // 350  Backlight Lt= 
+000004 // 351  CAN Sync Cnt= 
+000015 // 352 HCDn On Color= 
+001000 // 353 HCDn OnBright= 
+000625 // 354   HCDn On Red= 
+001000 // 355 HCDn On Green= 
+000500 // 356  HCDn On Blue= 
+000015 // 357 HCD Off Color= 
+000200 // 358 HCD Off Brght= 
+000625 // 359  HCDn Off Red= 
+001000 // 360 HCD Off Green= 
+000500 // 361 HCDn Off Blue= 
+000000 // 362   CB On Color= 
+001000 // 363  CB On Bright= 
+000000 // 364     CB On Red= 
+000000 // 365   CB On Green= 
+001000 // 366    CB On Blue= 
+000000 // 367  Vip On Color= 
+001000 // 368 Vip On Bright= 
+001000 // 369    Vip On Red= 
+000400 // 370  Vip On Green= 
+000000 // 371   Vip On Blue= 
+000015 // 372 IRUp On Color= 
+001000 // 373 IRU On Bright= 
+000625 // 374   IRUp On Red= 
+001000 // 375 IRUp On Green= 
+000500 // 376  IRUp On Blue= 
+000015 // 377 IRDn On Color= 
+000200 // 378 IRD On Bright= 
+000625 // 379   IRDn On Red= 
+001000 // 380 IRDn On Green= 
+000500 // 381  IRDn On Blue= 
+000015 // 382 IRU Off Color= 
+001000 // 383 IRU Off Brght= 
+000625 // 384  IRUp Off Red= 
+001000 // 385 IRU Off Green= 
+000500 // 386 IRUp Off Blue= 
+000015 // 387 IRD Off Color= 
+000200 // 388 IRD Off Brght= 
+000625 // 389  IRDn Off Red= 
+001000 // 390 IRD Off Green= 
+000500 // 391 IRDn Off Blue= 
+001000 // 392 HCU On Bright= 
+000200 // 393 HCU Off Brght= 
+000000 // 394 CB Button Loc= 
+000000 // 395 Vip Buttn Loc= 
+000000 // 396 IR Color Ctrl= 
+000000 // 397  CB Off Color= 
+000200 // 398 CB Off Bright= 
+000000 // 399    CB Off Red= 
+000000 // 400  CB Off Green= 
+001000 // 401   CB Off Blue= 
+000000 // 402 Vip Off Color= 
+000200 // 403 Vip Off Brght= 
+001000 // 404   Vip Off Red= 
+000400 // 405 Vip Off Green= 
+000000 // 406  Vip Off Blue= 
+000000 // 407 Vip Lant Ctrl= 
+000000 // 408 GrpCC Ovrride= 
+000000 // 409 ExclusionFLT1= 
+000000 // 410 ExclusionFLT2= 
+000000 // 411 ExclusionFLT3= 
+000000 // 412 ExclusionFLT4= 
+000000 // 413 ExclusionFLT5= 
+000000 // 414 ExclusionFLT6= 
+000230 // 415 EmBk PickVolt= 
+000160 // 416 EmBk HoldVolt= 
+000000 // 417 EmBk PickRate= 
+000000 // 418 EmBk DropRate= 
+000240 // 419  EmBk L-L VAC= 
+005500 // 420 EmBk Opto Dly= 
+000000 // 421 CAN Baud Rate= 
+000000 // 422  Arrival Lant= 
+000000 // 423 CB SRiser Car= 
+000000 // 424 CB Sel IR Car= 
+000010 // 425 CB IR Penalty= 
+000000 // 426 INSEC Out Ctl= 
+000000 // 427 Manual Dir En= 
+000003 // 428 Encr Interval= 
+000010 // 429   Encr Sample= 
+000002 // 430 Chime on CC T= 
+000000 // 431   Service UPS= 
+000006 // 432 COM1 Port Sel= 
+000003 // 433     COM2 Baud= 
+000000 // 434 Cpu Timg Outp= 
+000000 // 435 PI Serv Msg 3= 
+000000 // 436 HCasg SecType= 
+000002 // 437 UPS/COM3 Baud= 
+000000 // 438    HC Ack Buz= 
+000000 // 439      CB Car 2= 
+000000 // 440  HEOF Cntrl 2= 
+000000 // 441  CB Buzz ctrl= 
+000000 // 442   CB Over Ind= 
+000000 // 443 CB Rcl anycar= 
+000000 // 444 HEOF Override= 
+000000 // 445 FS2 Do Reopen= 
+000010 // 446 Pwl Bk On Tim= 
+000000 // 447 Pwl Bk OffTim= 
+000000 // 448 EP ATTcar 1st= 
+000000 // 449   Encoder Dir= 
+000000 // 450 EP Rcl Out En= 
+000000 // 451 OSERL OutCtl1= 
+000001 // 452 Handcap T Flr= 
+000000 // 453 OSERL OutCtl2= 
+006000 // 454 OSER NoCall T= 
+000600 // 455 OSER BtwFlr T= 
+000600 // 456 OSER SSopen T= 
+000000 // 457 HWS2 Fire Loc= 
+000005 // 458 RCDrop Fail T= 
+000150 // 459 Velocity Diff= 
+000000 // 460  Vel Diff Dis= 
+000000 // 461 SP Dir FltDis= 
+000000 // 462 LimDir FltDis= 
+000000 // 463 EncDir FltDis= 
+000000 // 464 ULDLDirFltDis= 
+000000 // 465 Relev St Time= 
+000000 // 466 MedDoorReopen= 
+000000 // 467 MedInd Ovrrid= 
+000000 // 468 EMS/HSafterCB= 
+000000 // 469  DoorHold Msg= 
+000002 // 470 1st Rcl EPSF2= 
+000002 // 471 1st Run EPSF2= 
+000000 // 472 RCF Output En= 
+000000 // 473 Lant Pref Dly= 
+000150 // 474 Slip Vel Diff= 
+000000 // 475 F2DOB ovr DCB= 
+000000 // 476 ClDoor F1 Rcl= 
+000600 // 477 F1 Door Dwell= 
+000000 // 478 HC Secur ctrl= 
+000000 // 479  Slip Det Dis= 
+000000 // 480  Leveling Flt= 
+000000 // 481   EM Brake Sw= 
+000001 // 482  Att Buz ctrl= 
+000006 // 483   Rad Pos Ind= 
+000000 // 484 IND Rcl 2 Lby= 
+000200 // 485 IND Rcl2Lby T= 
+005000 // 486     Motor RPM= 
+000000 // 487 VIP multicall= 
+000000 // 488 Svc Light Ctl= 
+000000 // 489  Encoder Baud= 
+000063 // 490    Enc NodeID= 
+000000 // 491 CB SingleCall= 
+000000 // 492  Sabbath Mode= 
+000000 // 493  RTL Door Sel= 
+000000 // 494 LbyLan NCU/IR= 
+000000 // 495 Priorty Floor= 
+000600 // 496 Priorty Flr T= 
+000000 // 497 EPS Sel NoGrp= 
+000035 // 498  Access Speed= 
+000000 // 499 AutoSVC T-out= 
+000120 // 500 AutoSVC tot T= 
+000000 // 501   CCS on Sabb= 
+000000 // 502 Med CCS Ovrrd= 
+000000 // 503 HEOF AutoRstT= 
+000000 // 504 CCPBS Grp Sec= 
+000003 // 505 UL DeadZn Sel= 
+000240 // 506   Acc UT Dist= 
+000240 // 507   Acc DT Dist= 
+000000 // 508 COM2 Port Sel= 
+000000 // 509  3rd Risr Ctl= 
+000000 // 510 RS485COM Baud= 
+000000 // 511  Encoder Type= 
+000000 // 512  KEB Dpy Type= 
+000000 // 513 Brk Phase Inp= 
+000000 // 514 EmBk Phase In= 
+000000 // 515 Dist Feed Fwd= 
+000000 // 516  SR CCSec Dir= 
+000000 // 517 Min Door T En= 
+000000 // 518 Recall Reset2= 
+000000 // 519 Invert HC Sec= 
+000000 // 520   DZ grip ctl= 
+000000 // 521  Sec Dis Time= 
+000003 // 522 DL DeadZn Sel= 
+000002 // 523  EE Test Time= 
+000000 // 524 Sec ReasignCC= 
+000000 // 525 Disabl Opp HC= 
+000010 // 526  Dis Opp HC T= 
+000000 // 527  HEOF Cntrl 3= 
+000000 // 528  CEOF Control= 
+000000 // 529  CEOF Cntrl 2= 
+000000 // 530    CB over FS= 
+000000 // 531    COP/RM Dis= 
+000000 // 532 F2 STP Recovr= 
+000010 // 533 AutoSwg DODly= 
+000005 // 534 CL Pulse Time= 
+000000 // 535 Unused Variable
+000000 // 536 Unused Variable
+000000 // 537 Unused Variable
+000000 // 538 Unused Variable
+000000 // 539 Unused Variable
+000000 // 540 Unused Variable
+000000 // 541 Unused Variable
+000000 // 542 Unused Variable
+000000 // 543 Unused Variable
+000000 // 544 Unused Variable
+000000 // 545 Unused Variable
+000000 // 546 Unused Variable
+000000 // 547 Unused Variable
+000000 // 548 Unused Variable
+000000 // 549 Unused Variable
+000000 // 550 Unused Variable
+000000 // 551 Unused Variable
+000000 // 552 Unused Variable
+000000 // 553 Unused Variable
+000000 // 554 Unused Variable
+000000 // 555 Unused Variable
+000000 // 556 Unused Variable
+000000 // 557 Unused Variable
+000000 // 558 Unused Variable
+000000 // 559 Unused Variable
+000000 // 560 Unused Variable
+000000 // 561 Unused Variable
+000000 // 562 Unused Variable
+000000 // 563 Unused Variable
+000000 // 564 Unused Variable
+000000 // 565 Unused Variable
+000000 // 566 Unused Variable
+000000 // 567 Unused Variable
+000000 // 568 Unused Variable
+000000 // 569 Unused Variable
+000000 // 570 Unused Variable
+000000 // 571 Unused Variable
+000000 // 572 Unused Variable
+000000 // 573 Unused Variable
+000000 // 574 Unused Variable
+000000 // 575 Unused Variable
+000000 // 576 Unused Variable
+000000 // 577 Unused Variable
+000000 // 578 Unused Variable
+000000 // 579 Unused Variable
+000000 // 580 Unused Variable
+000000 // 581 Unused Variable
+000000 // 582 Unused Variable
+000000 // 583 Unused Variable
+000000 // 584 Unused Variable
+000000 // 585 Unused Variable
+000000 // 586 Unused Variable
+000000 // 587 Unused Variable
+000000 // 588 Unused Variable
+000000 // 589 Unused Variable
+000000 // 590 Unused Variable
+000000 // 591 Unused Variable
+000000 // 592 Unused Variable
+000000 // 593 Unused Variable
+000000 // 594 Unused Variable
+000000 // 595 Unused Variable
+000000 // 596 Unused Variable
+000000 // 597 Unused Variable
+000000 // 598 Unused Variable
+000000 // 599 Unused Variable
+
+ 

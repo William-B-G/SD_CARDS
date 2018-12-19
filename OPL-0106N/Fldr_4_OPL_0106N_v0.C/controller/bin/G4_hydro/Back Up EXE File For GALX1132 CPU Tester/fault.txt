@@ -1,0 +1,909 @@
+Car Data
+000001 // Car Nunber 
+000150 // Car Speed 
+000001 // Number of Cars 
+000001 // Bottom Floor 
+000005 // Top Floor 
+000005 // Group Top Floor 
+Fault Log Car #1 
+
+  1 ve has Com Error   1:44:45  1/01/3000 Position = 5 Occurrences =   1 
+srv=000, prc=000, drf=000, rdf=000, dpr=000, dir=000, emp=000, med=000
+cbl=000, equ=000, fir=000, rfi=000, hsf=000, stf=000, cal=000, esp=000 
+nst=000, rlv=000, ste=001, dsf=000, st0=000, ins=00h, nds=000, dev=00h
+pf1=00h, pf2=00h, dv2=00h, io0=00h, io1=00h, io2=00h, io3=00h, io4=00h
+io5=00h, io6=00h, io7=00h, io8=00h, io9=00h, ioA=ffh, ioB=ffh, ioC=ffh
+ioD=ffh, ioE=00h, ioF=00h, ioG=00h, ioH=fch, ioI=00h, ioJ=00h, ioK=00h
+ioL=00h, ioM=00h, ioN=00h, ioO=00h, ioP=16h, ioQ=00h
+ioR=00h, ioS=00h, ioT=00h
+statusf=00000000h, statusf2=00000000h
+SS Status=0000h, PWR Status=0000h, Run Status=00000000h
+Nudg Flags=00h, Door Req=00h, Call Flags=00h
+Chk Run=00h, Chk Start=00h, Chk Level=00h, Chk Door= 0h
+Front SD=0000h, Rear SD=0000h, Motion Tmr=00000
+PAL Vel=00000, PAL Statusf=00h, Inspect Svc=000
+Drive Command=0000h, Drive Statusf=0000h
+Torque Command=00000, Motor Torque=    0, Percent Load=  0
+
+  2 ault           1:44:55  1/01/3000 Position = 5 Occurrences =   1 
+srv=000, prc=001, drf=000, rdf=000, dpr=000, dir=000, emp=000, med=000
+cbl=000, equ=000, fir=000, rfi=000, hsf=000, stf=000, cal=000, esp=000 
+nst=000, rlv=000, ste=001, dsf=000, st0=000, ins=00h, nds=000, dev=00h
+pf1=00h, pf2=00h, dv2=00h, io0=a1h, io1=0fh, io2=7eh, io3=00h, io4=c3h
+io5=61h, io6=10h, io7=0dh, io8=00h, io9=00h, ioA=ffh, ioB=f7h, ioC=ffh
+ioD=fbh, ioE=35h, ioF=00h, ioG=07h, ioH=fch, ioI=00h, ioJ=00h, ioK=00h
+ioL=00h, ioM=00h, ioN=00h, ioO=05h, ioP=16h, ioQ=00h
+ioR=00h, ioS=00h, ioT=00h
+statusf=00002000h, statusf2=00000000h
+SS Status=0000h, PWR Status=0000h, Run Status=000013c0h
+Nudg Flags=00h, Door Req=00h, Call Flags=00h
+Chk Run=00h, Chk Start=00h, Chk Level=00h, Chk Door= 0h
+Front SD=0000h, Rear SD=0000h, Motion Tmr=00051
+PAL Vel=00000, PAL Statusf=00h, Inspect Svc=000
+Drive Command=0000h, Drive Statusf=0000h
+Torque Command=00000, Motor Torque=    0, Percent Load=  0
+
+  3 ve has Com Error   1:51:37  1/01/3000 Position = 5 Occurrences =   1 
+srv=000, prc=000, drf=000, rdf=000, dpr=000, dir=000, emp=000, med=000
+cbl=000, equ=000, fir=000, rfi=000, hsf=000, stf=000, cal=000, esp=000 
+nst=000, rlv=000, ste=001, dsf=000, st0=000, ins=00h, nds=000, dev=00h
+pf1=00h, pf2=00h, dv2=00h, io0=00h, io1=00h, io2=00h, io3=00h, io4=00h
+io5=00h, io6=00h, io7=00h, io8=00h, io9=00h, ioA=ffh, ioB=ffh, ioC=ffh
+ioD=ffh, ioE=00h, ioF=00h, ioG=00h, ioH=fch, ioI=00h, ioJ=00h, ioK=00h
+ioL=00h, ioM=00h, ioN=00h, ioO=00h, ioP=16h, ioQ=00h
+ioR=00h, ioS=00h, ioT=00h
+statusf=00000000h, statusf2=00000000h
+SS Status=0000h, PWR Status=0000h, Run Status=00000000h
+Nudg Flags=00h, Door Req=00h, Call Flags=00h
+Chk Run=00h, Chk Start=00h, Chk Level=00h, Chk Door= 0h
+Front SD=0000h, Rear SD=0000h, Motion Tmr=00000
+PAL Vel=00000, PAL Statusf=00h, Inspect Svc=000
+Drive Command=0000h, Drive Statusf=0000h
+Torque Command=00000, Motor Torque=    0, Percent Load=  0
+
+  4 ault           1:51:42  1/01/3000 Position = 5 Occurrences =   1 
+srv=000, prc=001, drf=000, rdf=000, dpr=000, dir=000, emp=000, med=000
+cbl=000, equ=000, fir=000, rfi=000, hsf=000, stf=000, cal=000, esp=000 
+nst=000, rlv=000, ste=001, dsf=000, st0=000, ins=00h, nds=000, dev=00h
+pf1=00h, pf2=00h, dv2=00h, io0=a1h, io1=0fh, io2=7eh, io3=00h, io4=c3h
+io5=61h, io6=10h, io7=0dh, io8=00h, io9=00h, ioA=ffh, ioB=f7h, ioC=ffh
+ioD=fbh, ioE=35h, ioF=00h, ioG=07h, ioH=fch, ioI=00h, ioJ=00h, ioK=00h
+ioL=00h, ioM=00h, ioN=00h, ioO=05h, ioP=16h, ioQ=00h
+ioR=00h, ioS=00h, ioT=00h
+statusf=00002000h, statusf2=00000000h
+SS Status=0000h, PWR Status=0000h, Run Status=000013c0h
+Nudg Flags=00h, Door Req=00h, Call Flags=00h
+Chk Run=00h, Chk Start=00h, Chk Level=00h, Chk Door= 0h
+Front SD=0000h, Rear SD=0000h, Motion Tmr=00051
+PAL Vel=00000, PAL Statusf=00h, Inspect Svc=000
+Drive Command=0000h, Drive Statusf=0000h
+Torque Command=00000, Motor Torque=    0, Percent Load=  0
+
+  5 ve has Com Error   1:52:43  1/01/3000 Position = 5 Occurrences =   1 
+srv=000, prc=000, drf=000, rdf=000, dpr=000, dir=000, emp=000, med=000
+cbl=000, equ=000, fir=000, rfi=000, hsf=000, stf=000, cal=000, esp=000 
+nst=000, rlv=000, ste=001, dsf=000, st0=000, ins=00h, nds=000, dev=00h
+pf1=00h, pf2=00h, dv2=00h, io0=00h, io1=00h, io2=00h, io3=00h, io4=00h
+io5=00h, io6=00h, io7=00h, io8=00h, io9=00h, ioA=ffh, ioB=ffh, ioC=ffh
+ioD=ffh, ioE=00h, ioF=00h, ioG=00h, ioH=fch, ioI=00h, ioJ=00h, ioK=00h
+ioL=00h, ioM=00h, ioN=00h, ioO=00h, ioP=16h, ioQ=00h
+ioR=00h, ioS=00h, ioT=00h
+statusf=00000000h, statusf2=00000000h
+SS Status=0000h, PWR Status=0000h, Run Status=00000000h
+Nudg Flags=00h, Door Req=00h, Call Flags=00h
+Chk Run=00h, Chk Start=00h, Chk Level=00h, Chk Door= 0h
+Front SD=0000h, Rear SD=0000h, Motion Tmr=00000
+PAL Vel=00000, PAL Statusf=00h, Inspect Svc=000
+Drive Command=0000h, Drive Statusf=0000h
+Torque Command=00000, Motor Torque=    0, Percent Load=  0
+
+  6 ault           1:52:48  1/01/3000 Position = 5 Occurrences =   1 
+srv=000, prc=001, drf=000, rdf=000, dpr=000, dir=000, emp=000, med=000
+cbl=000, equ=000, fir=000, rfi=000, hsf=000, stf=000, cal=000, esp=000 
+nst=000, rlv=000, ste=001, dsf=000, st0=000, ins=00h, nds=000, dev=00h
+pf1=00h, pf2=00h, dv2=00h, io0=a1h, io1=0fh, io2=7eh, io3=00h, io4=c3h
+io5=61h, io6=10h, io7=0dh, io8=00h, io9=00h, ioA=ffh, ioB=f7h, ioC=ffh
+ioD=fbh, ioE=35h, ioF=00h, ioG=07h, ioH=fch, ioI=00h, ioJ=00h, ioK=00h
+ioL=00h, ioM=00h, ioN=00h, ioO=05h, ioP=16h, ioQ=00h
+ioR=00h, ioS=00h, ioT=00h
+statusf=00002000h, statusf2=00000000h
+SS Status=0000h, PWR Status=0000h, Run Status=000013c0h
+Nudg Flags=00h, Door Req=00h, Call Flags=00h
+Chk Run=00h, Chk Start=00h, Chk Level=00h, Chk Door= 0h
+Front SD=0000h, Rear SD=0000h, Motion Tmr=00051
+PAL Vel=00000, PAL Statusf=00h, Inspect Svc=000
+Drive Command=0000h, Drive Statusf=0000h
+Torque Command=00000, Motor Torque=    0, Percent Load=  0
+
+  7 ve has Com Error   1:52:53  1/01/3000 Position = 5 Occurrences =   1 
+srv=000, prc=000, drf=000, rdf=000, dpr=000, dir=000, emp=000, med=000
+cbl=000, equ=000, fir=000, rfi=000, hsf=000, stf=000, cal=000, esp=000 
+nst=000, rlv=000, ste=001, dsf=000, st0=000, ins=00h, nds=000, dev=00h
+pf1=00h, pf2=00h, dv2=00h, io0=00h, io1=00h, io2=00h, io3=00h, io4=00h
+io5=00h, io6=00h, io7=00h, io8=00h, io9=00h, ioA=ffh, ioB=ffh, ioC=ffh
+ioD=ffh, ioE=00h, ioF=00h, ioG=00h, ioH=fch, ioI=00h, ioJ=00h, ioK=00h
+ioL=00h, ioM=00h, ioN=00h, ioO=00h, ioP=16h, ioQ=00h
+ioR=00h, ioS=00h, ioT=00h
+statusf=00000000h, statusf2=00000000h
+SS Status=0000h, PWR Status=0000h, Run Status=00000000h
+Nudg Flags=00h, Door Req=00h, Call Flags=00h
+Chk Run=00h, Chk Start=00h, Chk Level=00h, Chk Door= 0h
+Front SD=0000h, Rear SD=0000h, Motion Tmr=00000
+PAL Vel=00000, PAL Statusf=00h, Inspect Svc=000
+Drive Command=0000h, Drive Statusf=0000h
+Torque Command=00000, Motor Torque=    0, Percent Load=  0
+
+  8 ault           1:52:58  1/01/3000 Position = 5 Occurrences =   1 
+srv=000, prc=001, drf=000, rdf=000, dpr=000, dir=000, emp=000, med=000
+cbl=000, equ=000, fir=000, rfi=000, hsf=000, stf=000, cal=000, esp=000 
+nst=000, rlv=000, ste=001, dsf=000, st0=000, ins=00h, nds=000, dev=00h
+pf1=00h, pf2=00h, dv2=00h, io0=a1h, io1=0fh, io2=7eh, io3=00h, io4=c3h
+io5=61h, io6=10h, io7=0dh, io8=00h, io9=00h, ioA=ffh, ioB=f7h, ioC=ffh
+ioD=fbh, ioE=35h, ioF=00h, ioG=07h, ioH=fch, ioI=00h, ioJ=00h, ioK=00h
+ioL=00h, ioM=00h, ioN=00h, ioO=05h, ioP=16h, ioQ=00h
+ioR=00h, ioS=00h, ioT=00h
+statusf=00002000h, statusf2=00000000h
+SS Status=0000h, PWR Status=0000h, Run Status=000013c0h
+Nudg Flags=00h, Door Req=00h, Call Flags=00h
+Chk Run=00h, Chk Start=00h, Chk Level=00h, Chk Door= 0h
+Front SD=0000h, Rear SD=0000h, Motion Tmr=00051
+PAL Vel=00000, PAL Statusf=00h, Inspect Svc=000
+Drive Command=0000h, Drive Statusf=0000h
+Torque Command=00000, Motor Torque=    0, Percent Load=  0
+
+  9 ve has Com Error   1:56:44  1/01/3000 Position = 5 Occurrences =   1 
+srv=000, prc=000, drf=000, rdf=000, dpr=000, dir=000, emp=000, med=000
+cbl=000, equ=000, fir=000, rfi=000, hsf=000, stf=000, cal=000, esp=000 
+nst=000, rlv=000, ste=001, dsf=000, st0=000, ins=00h, nds=000, dev=00h
+pf1=00h, pf2=00h, dv2=00h, io0=00h, io1=00h, io2=00h, io3=00h, io4=00h
+io5=00h, io6=00h, io7=00h, io8=00h, io9=00h, ioA=ffh, ioB=ffh, ioC=ffh
+ioD=ffh, ioE=00h, ioF=00h, ioG=00h, ioH=fch, ioI=00h, ioJ=00h, ioK=00h
+ioL=00h, ioM=00h, ioN=00h, ioO=00h, ioP=16h, ioQ=00h
+ioR=00h, ioS=00h, ioT=00h
+statusf=00000000h, statusf2=00000000h
+SS Status=0000h, PWR Status=0000h, Run Status=00000000h
+Nudg Flags=00h, Door Req=00h, Call Flags=00h
+Chk Run=00h, Chk Start=00h, Chk Level=00h, Chk Door= 0h
+Front SD=0000h, Rear SD=0000h, Motion Tmr=00000
+PAL Vel=00000, PAL Statusf=00h, Inspect Svc=000
+Drive Command=0000h, Drive Statusf=0000h
+Torque Command=00000, Motor Torque=    0, Percent Load=  0
+
+ 10 ault           1:56:49  1/01/3000 Position = 5 Occurrences =   1 
+srv=000, prc=001, drf=000, rdf=000, dpr=000, dir=000, emp=000, med=000
+cbl=000, equ=000, fir=000, rfi=000, hsf=000, stf=000, cal=000, esp=000 
+nst=000, rlv=000, ste=001, dsf=000, st0=000, ins=00h, nds=000, dev=00h
+pf1=00h, pf2=00h, dv2=00h, io0=a1h, io1=0fh, io2=7eh, io3=00h, io4=c3h
+io5=61h, io6=10h, io7=0dh, io8=00h, io9=00h, ioA=ffh, ioB=f7h, ioC=ffh
+ioD=fbh, ioE=35h, ioF=00h, ioG=07h, ioH=fch, ioI=00h, ioJ=00h, ioK=00h
+ioL=00h, ioM=00h, ioN=00h, ioO=05h, ioP=16h, ioQ=00h
+ioR=00h, ioS=00h, ioT=00h
+statusf=00002000h, statusf2=00000000h
+SS Status=0000h, PWR Status=0000h, Run Status=000013c0h
+Nudg Flags=00h, Door Req=00h, Call Flags=00h
+Chk Run=00h, Chk Start=00h, Chk Level=00h, Chk Door= 0h
+Front SD=0000h, Rear SD=0000h, Motion Tmr=00051
+PAL Vel=00000, PAL Statusf=00h, Inspect Svc=000
+Drive Command=0000h, Drive Statusf=0000h
+Torque Command=00000, Motor Torque=    0, Percent Load=  0
+
+ 11 ve has Com Error   3:04:54  1/01/3000 Position = 5 Occurrences =   1 
+srv=000, prc=000, drf=000, rdf=000, dpr=000, dir=000, emp=000, med=000
+cbl=000, equ=000, fir=000, rfi=000, hsf=000, stf=000, cal=000, esp=000 
+nst=000, rlv=000, ste=001, dsf=000, st0=000, ins=00h, nds=000, dev=00h
+pf1=00h, pf2=00h, dv2=00h, io0=00h, io1=00h, io2=00h, io3=00h, io4=00h
+io5=00h, io6=00h, io7=00h, io8=00h, io9=00h, ioA=ffh, ioB=ffh, ioC=ffh
+ioD=ffh, ioE=00h, ioF=00h, ioG=00h, ioH=fch, ioI=00h, ioJ=00h, ioK=00h
+ioL=00h, ioM=00h, ioN=00h, ioO=00h, ioP=16h, ioQ=00h
+ioR=00h, ioS=00h, ioT=00h
+statusf=00000000h, statusf2=00000000h
+SS Status=0000h, PWR Status=0000h, Run Status=00000000h
+Nudg Flags=00h, Door Req=00h, Call Flags=00h
+Chk Run=00h, Chk Start=00h, Chk Level=00h, Chk Door= 0h
+Front SD=0000h, Rear SD=0000h, Motion Tmr=00000
+PAL Vel=00000, PAL Statusf=00h, Inspect Svc=000
+Drive Command=0000h, Drive Statusf=0000h
+Torque Command=00000, Motor Torque=    0, Percent Load=  0
+
+ 12 ault           3:04:59  1/01/3000 Position = 5 Occurrences =   1 
+srv=000, prc=001, drf=000, rdf=000, dpr=000, dir=000, emp=000, med=000
+cbl=000, equ=000, fir=000, rfi=000, hsf=000, stf=000, cal=000, esp=000 
+nst=000, rlv=000, ste=001, dsf=000, st0=000, ins=00h, nds=000, dev=00h
+pf1=00h, pf2=00h, dv2=00h, io0=a1h, io1=0fh, io2=7eh, io3=00h, io4=c3h
+io5=61h, io6=10h, io7=0dh, io8=00h, io9=00h, ioA=ffh, ioB=f7h, ioC=ffh
+ioD=fbh, ioE=35h, ioF=00h, ioG=07h, ioH=fch, ioI=00h, ioJ=00h, ioK=00h
+ioL=00h, ioM=00h, ioN=00h, ioO=05h, ioP=16h, ioQ=00h
+ioR=00h, ioS=00h, ioT=00h
+statusf=00002000h, statusf2=00000000h
+SS Status=0000h, PWR Status=0000h, Run Status=000013c0h
+Nudg Flags=00h, Door Req=00h, Call Flags=00h
+Chk Run=00h, Chk Start=00h, Chk Level=00h, Chk Door= 0h
+Front SD=0000h, Rear SD=0000h, Motion Tmr=00051
+PAL Vel=00000, PAL Statusf=00h, Inspect Svc=000
+Drive Command=0000h, Drive Statusf=0000h
+Torque Command=00000, Motor Torque=    0, Percent Load=  0
+
+ 13 ve has Com Error   3:29:03  1/01/3000 Position = 5 Occurrences =   1 
+srv=000, prc=000, drf=000, rdf=000, dpr=000, dir=000, emp=000, med=000
+cbl=000, equ=000, fir=000, rfi=000, hsf=000, stf=000, cal=000, esp=000 
+nst=000, rlv=000, ste=001, dsf=000, st0=000, ins=00h, nds=000, dev=00h
+pf1=00h, pf2=00h, dv2=00h, io0=00h, io1=00h, io2=00h, io3=00h, io4=00h
+io5=00h, io6=00h, io7=00h, io8=00h, io9=00h, ioA=ffh, ioB=ffh, ioC=ffh
+ioD=ffh, ioE=00h, ioF=00h, ioG=00h, ioH=fch, ioI=00h, ioJ=00h, ioK=00h
+ioL=00h, ioM=00h, ioN=00h, ioO=00h, ioP=16h, ioQ=00h
+ioR=00h, ioS=00h, ioT=00h
+statusf=00000000h, statusf2=00000000h
+SS Status=0000h, PWR Status=0000h, Run Status=00000000h
+Nudg Flags=00h, Door Req=00h, Call Flags=00h
+Chk Run=00h, Chk Start=00h, Chk Level=00h, Chk Door= 0h
+Front SD=0000h, Rear SD=0000h, Motion Tmr=00000
+PAL Vel=00000, PAL Statusf=00h, Inspect Svc=000
+Drive Command=0000h, Drive Statusf=0000h
+Torque Command=00000, Motor Torque=    0, Percent Load=  0
+
+ 14 ault           3:29:08  1/01/3000 Position = 5 Occurrences =   1 
+srv=000, prc=001, drf=000, rdf=000, dpr=000, dir=000, emp=000, med=000
+cbl=000, equ=000, fir=000, rfi=000, hsf=000, stf=000, cal=000, esp=000 
+nst=000, rlv=000, ste=001, dsf=000, st0=000, ins=00h, nds=000, dev=00h
+pf1=00h, pf2=00h, dv2=00h, io0=a1h, io1=0fh, io2=7eh, io3=00h, io4=c3h
+io5=61h, io6=10h, io7=0dh, io8=00h, io9=00h, ioA=ffh, ioB=f7h, ioC=ffh
+ioD=fbh, ioE=35h, ioF=00h, ioG=07h, ioH=fch, ioI=00h, ioJ=00h, ioK=00h
+ioL=00h, ioM=00h, ioN=00h, ioO=05h, ioP=16h, ioQ=00h
+ioR=00h, ioS=00h, ioT=00h
+statusf=00002000h, statusf2=00000000h
+SS Status=0000h, PWR Status=0000h, Run Status=000013c0h
+Nudg Flags=00h, Door Req=00h, Call Flags=00h
+Chk Run=00h, Chk Start=00h, Chk Level=00h, Chk Door= 0h
+Front SD=0000h, Rear SD=0000h, Motion Tmr=00051
+PAL Vel=00000, PAL Statusf=00h, Inspect Svc=000
+Drive Command=0000h, Drive Statusf=0000h
+Torque Command=00000, Motor Torque=    0, Percent Load=  0
+
+ 15 ve has Com Error   5:13:57  1/01/3000 Position = 5 Occurrences =   1 
+srv=000, prc=000, drf=000, rdf=000, dpr=000, dir=000, emp=000, med=000
+cbl=000, equ=000, fir=000, rfi=000, hsf=000, stf=000, cal=000, esp=000 
+nst=000, rlv=000, ste=001, dsf=000, st0=000, ins=00h, nds=000, dev=00h
+pf1=00h, pf2=00h, dv2=00h, io0=00h, io1=00h, io2=00h, io3=00h, io4=00h
+io5=00h, io6=00h, io7=00h, io8=00h, io9=00h, ioA=ffh, ioB=ffh, ioC=ffh
+ioD=ffh, ioE=00h, ioF=00h, ioG=00h, ioH=fch, ioI=00h, ioJ=00h, ioK=00h
+ioL=00h, ioM=00h, ioN=00h, ioO=00h, ioP=16h, ioQ=00h
+ioR=00h, ioS=00h, ioT=00h
+statusf=00000000h, statusf2=00000000h
+SS Status=0000h, PWR Status=0000h, Run Status=00000000h
+Nudg Flags=00h, Door Req=00h, Call Flags=00h
+Chk Run=00h, Chk Start=00h, Chk Level=00h, Chk Door= 0h
+Front SD=0000h, Rear SD=0000h, Motion Tmr=00000
+PAL Vel=00000, PAL Statusf=00h, Inspect Svc=000
+Drive Command=0000h, Drive Statusf=0000h
+Torque Command=00000, Motor Torque=    0, Percent Load=  0
+
+ 16 ault           5:14:02  1/01/3000 Position = 5 Occurrences =   1 
+srv=000, prc=001, drf=000, rdf=000, dpr=000, dir=000, emp=000, med=000
+cbl=000, equ=000, fir=000, rfi=000, hsf=000, stf=000, cal=000, esp=000 
+nst=000, rlv=000, ste=001, dsf=000, st0=000, ins=00h, nds=000, dev=00h
+pf1=00h, pf2=00h, dv2=00h, io0=a1h, io1=0fh, io2=7eh, io3=00h, io4=c3h
+io5=61h, io6=10h, io7=0dh, io8=00h, io9=00h, ioA=ffh, ioB=f7h, ioC=ffh
+ioD=fbh, ioE=35h, ioF=00h, ioG=07h, ioH=fch, ioI=00h, ioJ=00h, ioK=00h
+ioL=00h, ioM=00h, ioN=00h, ioO=05h, ioP=16h, ioQ=00h
+ioR=00h, ioS=00h, ioT=00h
+statusf=00002000h, statusf2=00000000h
+SS Status=0000h, PWR Status=0000h, Run Status=000013c0h
+Nudg Flags=00h, Door Req=00h, Call Flags=00h
+Chk Run=00h, Chk Start=00h, Chk Level=00h, Chk Door= 0h
+Front SD=0000h, Rear SD=0000h, Motion Tmr=00051
+PAL Vel=00000, PAL Statusf=00h, Inspect Svc=000
+Drive Command=0000h, Drive Statusf=0000h
+Torque Command=00000, Motor Torque=    0, Percent Load=  0
+
+ 17 ve has Com Error   5:25:04  1/01/3000 Position = 5 Occurrences =   1 
+srv=000, prc=000, drf=000, rdf=000, dpr=000, dir=000, emp=000, med=000
+cbl=000, equ=000, fir=000, rfi=000, hsf=000, stf=000, cal=000, esp=000 
+nst=000, rlv=000, ste=001, dsf=000, st0=000, ins=00h, nds=000, dev=00h
+pf1=00h, pf2=00h, dv2=00h, io0=00h, io1=00h, io2=00h, io3=00h, io4=00h
+io5=00h, io6=00h, io7=00h, io8=00h, io9=00h, ioA=ffh, ioB=ffh, ioC=ffh
+ioD=ffh, ioE=00h, ioF=00h, ioG=00h, ioH=fch, ioI=00h, ioJ=00h, ioK=00h
+ioL=00h, ioM=00h, ioN=00h, ioO=00h, ioP=16h, ioQ=00h
+ioR=00h, ioS=00h, ioT=00h
+statusf=00000000h, statusf2=00000000h
+SS Status=0000h, PWR Status=0000h, Run Status=00000000h
+Nudg Flags=00h, Door Req=00h, Call Flags=00h
+Chk Run=00h, Chk Start=00h, Chk Level=00h, Chk Door= 0h
+Front SD=0000h, Rear SD=0000h, Motion Tmr=00000
+PAL Vel=00000, PAL Statusf=00h, Inspect Svc=000
+Drive Command=0000h, Drive Statusf=0000h
+Torque Command=00000, Motor Torque=    0, Percent Load=  0
+
+ 18 ault           5:25:09  1/01/3000 Position = 5 Occurrences =   1 
+srv=000, prc=001, drf=000, rdf=000, dpr=000, dir=000, emp=000, med=000
+cbl=000, equ=000, fir=000, rfi=000, hsf=000, stf=000, cal=000, esp=000 
+nst=000, rlv=000, ste=001, dsf=000, st0=000, ins=00h, nds=000, dev=00h
+pf1=00h, pf2=00h, dv2=00h, io0=a1h, io1=0fh, io2=7eh, io3=00h, io4=c3h
+io5=61h, io6=10h, io7=0dh, io8=00h, io9=00h, ioA=ffh, ioB=f7h, ioC=ffh
+ioD=fbh, ioE=35h, ioF=00h, ioG=07h, ioH=fch, ioI=00h, ioJ=00h, ioK=00h
+ioL=00h, ioM=00h, ioN=00h, ioO=05h, ioP=16h, ioQ=00h
+ioR=00h, ioS=00h, ioT=00h
+statusf=00002000h, statusf2=00000000h
+SS Status=0000h, PWR Status=0000h, Run Status=000013c0h
+Nudg Flags=00h, Door Req=00h, Call Flags=00h
+Chk Run=00h, Chk Start=00h, Chk Level=00h, Chk Door= 0h
+Front SD=0000h, Rear SD=0000h, Motion Tmr=00051
+PAL Vel=00000, PAL Statusf=00h, Inspect Svc=000
+Drive Command=0000h, Drive Statusf=0000h
+Torque Command=00000, Motor Torque=    0, Percent Load=  0
+
+ 19 ve has Com Error   0:05:44  1/01/3000 Position = 5 Occurrences =   1 
+srv=000, prc=000, drf=000, rdf=000, dpr=000, dir=000, emp=000, med=000
+cbl=000, equ=000, fir=000, rfi=000, hsf=000, stf=000, cal=000, esp=000 
+nst=000, rlv=000, ste=001, dsf=000, st0=000, ins=00h, nds=000, dev=00h
+pf1=00h, pf2=00h, dv2=00h, io0=00h, io1=00h, io2=00h, io3=00h, io4=00h
+io5=00h, io6=00h, io7=00h, io8=00h, io9=00h, ioA=ffh, ioB=ffh, ioC=ffh
+ioD=ffh, ioE=00h, ioF=00h, ioG=00h, ioH=fch, ioI=00h, ioJ=00h, ioK=00h
+ioL=00h, ioM=00h, ioN=00h, ioO=00h, ioP=16h, ioQ=00h
+ioR=00h, ioS=00h, ioT=00h
+statusf=00000000h, statusf2=00000000h
+SS Status=0000h, PWR Status=0000h, Run Status=00000000h
+Nudg Flags=00h, Door Req=00h, Call Flags=00h
+Chk Run=00h, Chk Start=00h, Chk Level=00h, Chk Door= 0h
+Front SD=0000h, Rear SD=0000h, Motion Tmr=00000
+PAL Vel=00000, PAL Statusf=00h, Inspect Svc=000
+Drive Command=0000h, Drive Statusf=0000h
+Torque Command=00000, Motor Torque=    0, Percent Load=  0
+
+ 20 ault           0:05:49  1/01/3000 Position = 5 Occurrences =   1 
+srv=000, prc=001, drf=000, rdf=000, dpr=000, dir=000, emp=000, med=000
+cbl=000, equ=000, fir=000, rfi=000, hsf=000, stf=000, cal=000, esp=000 
+nst=000, rlv=000, ste=001, dsf=000, st0=000, ins=00h, nds=000, dev=00h
+pf1=00h, pf2=00h, dv2=00h, io0=a1h, io1=0fh, io2=7eh, io3=00h, io4=c3h
+io5=61h, io6=10h, io7=0dh, io8=00h, io9=00h, ioA=ffh, ioB=f7h, ioC=ffh
+ioD=fbh, ioE=35h, ioF=00h, ioG=07h, ioH=fch, ioI=00h, ioJ=00h, ioK=00h
+ioL=00h, ioM=00h, ioN=00h, ioO=05h, ioP=16h, ioQ=00h
+ioR=00h, ioS=00h, ioT=00h
+statusf=00002000h, statusf2=00000000h
+SS Status=0000h, PWR Status=0000h, Run Status=000013c0h
+Nudg Flags=00h, Door Req=00h, Call Flags=00h
+Chk Run=00h, Chk Start=00h, Chk Level=00h, Chk Door= 0h
+Front SD=0000h, Rear SD=0000h, Motion Tmr=00051
+PAL Vel=00000, PAL Statusf=00h, Inspect Svc=000
+Drive Command=0000h, Drive Statusf=0000h
+Torque Command=00000, Motor Torque=    0, Percent Load=  0
+
+ 21 ve has Com Error   0:08:53  1/01/3000 Position = 5 Occurrences =   1 
+srv=000, prc=000, drf=000, rdf=000, dpr=000, dir=000, emp=000, med=000
+cbl=000, equ=000, fir=000, rfi=000, hsf=000, stf=000, cal=000, esp=000 
+nst=000, rlv=000, ste=001, dsf=000, st0=000, ins=00h, nds=000, dev=00h
+pf1=00h, pf2=00h, dv2=00h, io0=00h, io1=00h, io2=00h, io3=00h, io4=00h
+io5=00h, io6=00h, io7=00h, io8=00h, io9=00h, ioA=ffh, ioB=ffh, ioC=ffh
+ioD=ffh, ioE=00h, ioF=00h, ioG=00h, ioH=fch, ioI=00h, ioJ=00h, ioK=00h
+ioL=00h, ioM=00h, ioN=00h, ioO=00h, ioP=16h, ioQ=00h
+ioR=00h, ioS=00h, ioT=00h
+statusf=00000000h, statusf2=00000000h
+SS Status=0000h, PWR Status=0000h, Run Status=00000000h
+Nudg Flags=00h, Door Req=00h, Call Flags=00h
+Chk Run=00h, Chk Start=00h, Chk Level=00h, Chk Door= 0h
+Front SD=0000h, Rear SD=0000h, Motion Tmr=00000
+PAL Vel=00000, PAL Statusf=00h, Inspect Svc=000
+Drive Command=0000h, Drive Statusf=0000h
+Torque Command=00000, Motor Torque=    0, Percent Load=  0
+
+ 22 ault           0:08:58  1/01/3000 Position = 5 Occurrences =   1 
+srv=000, prc=001, drf=000, rdf=000, dpr=000, dir=000, emp=000, med=000
+cbl=000, equ=000, fir=000, rfi=000, hsf=000, stf=000, cal=000, esp=000 
+nst=000, rlv=000, ste=001, dsf=000, st0=000, ins=00h, nds=000, dev=00h
+pf1=00h, pf2=00h, dv2=00h, io0=a1h, io1=0fh, io2=7eh, io3=00h, io4=c3h
+io5=61h, io6=10h, io7=0dh, io8=00h, io9=00h, ioA=ffh, ioB=f7h, ioC=ffh
+ioD=fbh, ioE=35h, ioF=00h, ioG=07h, ioH=fch, ioI=00h, ioJ=00h, ioK=00h
+ioL=00h, ioM=00h, ioN=00h, ioO=05h, ioP=16h, ioQ=00h
+ioR=00h, ioS=00h, ioT=00h
+statusf=00002000h, statusf2=00000000h
+SS Status=0000h, PWR Status=0000h, Run Status=000013c0h
+Nudg Flags=00h, Door Req=00h, Call Flags=00h
+Chk Run=00h, Chk Start=00h, Chk Level=00h, Chk Door= 0h
+Front SD=0000h, Rear SD=0000h, Motion Tmr=00051
+PAL Vel=00000, PAL Statusf=00h, Inspect Svc=000
+Drive Command=0000h, Drive Statusf=0000h
+Torque Command=00000, Motor Torque=    0, Percent Load=  0
+
+ 23 ve has Com Error   1:13:18  1/01/3000 Position = 5 Occurrences =   1 
+srv=000, prc=000, drf=000, rdf=000, dpr=000, dir=000, emp=000, med=000
+cbl=000, equ=000, fir=000, rfi=000, hsf=000, stf=000, cal=000, esp=000 
+nst=000, rlv=000, ste=001, dsf=000, st0=000, ins=00h, nds=000, dev=00h
+pf1=00h, pf2=00h, dv2=00h, io0=00h, io1=00h, io2=00h, io3=00h, io4=00h
+io5=00h, io6=00h, io7=00h, io8=00h, io9=00h, ioA=ffh, ioB=ffh, ioC=ffh
+ioD=ffh, ioE=00h, ioF=00h, ioG=00h, ioH=fch, ioI=00h, ioJ=00h, ioK=00h
+ioL=00h, ioM=00h, ioN=00h, ioO=00h, ioP=16h, ioQ=00h
+ioR=00h, ioS=00h, ioT=00h
+statusf=00000000h, statusf2=00000000h
+SS Status=0000h, PWR Status=0000h, Run Status=00000000h
+Nudg Flags=00h, Door Req=00h, Call Flags=00h
+Chk Run=00h, Chk Start=00h, Chk Level=00h, Chk Door= 0h
+Front SD=0000h, Rear SD=0000h, Motion Tmr=00000
+PAL Vel=00000, PAL Statusf=00h, Inspect Svc=000
+Drive Command=0000h, Drive Statusf=0000h
+Torque Command=00000, Motor Torque=    0, Percent Load=  0
+
+ 24 ault           1:13:23  1/01/3000 Position = 5 Occurrences =   1 
+srv=000, prc=001, drf=000, rdf=000, dpr=000, dir=000, emp=000, med=000
+cbl=000, equ=000, fir=000, rfi=000, hsf=000, stf=000, cal=000, esp=000 
+nst=000, rlv=000, ste=001, dsf=000, st0=000, ins=00h, nds=000, dev=00h
+pf1=00h, pf2=00h, dv2=00h, io0=a1h, io1=0fh, io2=7eh, io3=00h, io4=c3h
+io5=61h, io6=10h, io7=0dh, io8=00h, io9=00h, ioA=ffh, ioB=f7h, ioC=ffh
+ioD=fbh, ioE=35h, ioF=00h, ioG=07h, ioH=fch, ioI=00h, ioJ=00h, ioK=00h
+ioL=00h, ioM=00h, ioN=00h, ioO=05h, ioP=16h, ioQ=00h
+ioR=00h, ioS=00h, ioT=00h
+statusf=00002000h, statusf2=00000000h
+SS Status=0000h, PWR Status=0000h, Run Status=000013c0h
+Nudg Flags=00h, Door Req=00h, Call Flags=00h
+Chk Run=00h, Chk Start=00h, Chk Level=00h, Chk Door= 0h
+Front SD=0000h, Rear SD=0000h, Motion Tmr=00051
+PAL Vel=00000, PAL Statusf=00h, Inspect Svc=000
+Drive Command=0000h, Drive Statusf=0000h
+Torque Command=00000, Motor Torque=    0, Percent Load=  0
+
+ 25 ve has Com Error   1:29:54  1/01/3000 Position = 5 Occurrences =   1 
+srv=000, prc=000, drf=000, rdf=000, dpr=000, dir=000, emp=000, med=000
+cbl=000, equ=000, fir=000, rfi=000, hsf=000, stf=000, cal=000, esp=000 
+nst=000, rlv=000, ste=001, dsf=000, st0=000, ins=00h, nds=000, dev=00h
+pf1=00h, pf2=00h, dv2=00h, io0=00h, io1=00h, io2=00h, io3=00h, io4=00h
+io5=00h, io6=00h, io7=00h, io8=00h, io9=00h, ioA=ffh, ioB=ffh, ioC=ffh
+ioD=ffh, ioE=00h, ioF=00h, ioG=00h, ioH=fch, ioI=00h, ioJ=00h, ioK=00h
+ioL=00h, ioM=00h, ioN=00h, ioO=00h, ioP=16h, ioQ=00h
+ioR=00h, ioS=00h, ioT=00h
+statusf=00000000h, statusf2=00000000h
+SS Status=0000h, PWR Status=0000h, Run Status=00000000h
+Nudg Flags=00h, Door Req=00h, Call Flags=00h
+Chk Run=00h, Chk Start=00h, Chk Level=00h, Chk Door= 0h
+Front SD=0000h, Rear SD=0000h, Motion Tmr=00000
+PAL Vel=00000, PAL Statusf=00h, Inspect Svc=000
+Drive Command=0000h, Drive Statusf=0000h
+Torque Command=00000, Motor Torque=    0, Percent Load=  0
+
+ 26 ault           1:29:59  1/01/3000 Position = 5 Occurrences =   1 
+srv=000, prc=001, drf=000, rdf=000, dpr=000, dir=000, emp=000, med=000
+cbl=000, equ=000, fir=000, rfi=000, hsf=000, stf=000, cal=000, esp=000 
+nst=000, rlv=000, ste=001, dsf=000, st0=000, ins=00h, nds=000, dev=00h
+pf1=00h, pf2=00h, dv2=00h, io0=a1h, io1=0fh, io2=7eh, io3=00h, io4=c3h
+io5=61h, io6=10h, io7=0dh, io8=00h, io9=00h, ioA=ffh, ioB=f7h, ioC=ffh
+ioD=fbh, ioE=35h, ioF=00h, ioG=07h, ioH=fch, ioI=00h, ioJ=00h, ioK=00h
+ioL=00h, ioM=00h, ioN=00h, ioO=05h, ioP=16h, ioQ=00h
+ioR=00h, ioS=00h, ioT=00h
+statusf=00002000h, statusf2=00000000h
+SS Status=0000h, PWR Status=0000h, Run Status=000013c0h
+Nudg Flags=00h, Door Req=00h, Call Flags=00h
+Chk Run=00h, Chk Start=00h, Chk Level=00h, Chk Door= 0h
+Front SD=0000h, Rear SD=0000h, Motion Tmr=00051
+PAL Vel=00000, PAL Statusf=00h, Inspect Svc=000
+Drive Command=0000h, Drive Statusf=0000h
+Torque Command=00000, Motor Torque=    0, Percent Load=  0
+
+ 27 ve has Com Error  20:83:56  1/01/3000 Position = 5 Occurrences =   1 
+srv=000, prc=000, drf=000, rdf=000, dpr=000, dir=000, emp=000, med=000
+cbl=000, equ=000, fir=000, rfi=000, hsf=000, stf=000, cal=000, esp=000 
+nst=000, rlv=000, ste=001, dsf=000, st0=000, ins=00h, nds=000, dev=00h
+pf1=00h, pf2=00h, dv2=00h, io0=00h, io1=00h, io2=00h, io3=00h, io4=00h
+io5=00h, io6=00h, io7=00h, io8=00h, io9=00h, ioA=ffh, ioB=ffh, ioC=ffh
+ioD=ffh, ioE=00h, ioF=00h, ioG=00h, ioH=fch, ioI=00h, ioJ=00h, ioK=00h
+ioL=00h, ioM=00h, ioN=00h, ioO=00h, ioP=16h, ioQ=00h
+ioR=00h, ioS=00h, ioT=00h
+statusf=00000000h, statusf2=00000000h
+SS Status=0000h, PWR Status=0000h, Run Status=00000000h
+Nudg Flags=00h, Door Req=00h, Call Flags=00h
+Chk Run=00h, Chk Start=00h, Chk Level=00h, Chk Door= 0h
+Front SD=0000h, Rear SD=0000h, Motion Tmr=00000
+PAL Vel=00000, PAL Statusf=00h, Inspect Svc=000
+Drive Command=0000h, Drive Statusf=0000h
+Torque Command=00000, Motor Torque=    0, Percent Load=  0
+
+ 28 ault          21:44:01  1/01/3000 Position = 5 Occurrences =   1 
+srv=000, prc=001, drf=000, rdf=000, dpr=000, dir=000, emp=000, med=000
+cbl=000, equ=000, fir=000, rfi=000, hsf=000, stf=000, cal=000, esp=000 
+nst=000, rlv=000, ste=001, dsf=000, st0=000, ins=00h, nds=000, dev=00h
+pf1=00h, pf2=00h, dv2=00h, io0=a1h, io1=0fh, io2=7eh, io3=00h, io4=c3h
+io5=61h, io6=10h, io7=0dh, io8=00h, io9=00h, ioA=ffh, ioB=f7h, ioC=ffh
+ioD=fbh, ioE=35h, ioF=00h, ioG=07h, ioH=fch, ioI=00h, ioJ=00h, ioK=00h
+ioL=00h, ioM=00h, ioN=00h, ioO=05h, ioP=16h, ioQ=00h
+ioR=00h, ioS=00h, ioT=00h
+statusf=00002000h, statusf2=00000000h
+SS Status=0000h, PWR Status=0000h, Run Status=000013c0h
+Nudg Flags=00h, Door Req=00h, Call Flags=00h
+Chk Run=00h, Chk Start=00h, Chk Level=00h, Chk Door= 0h
+Front SD=0000h, Rear SD=0000h, Motion Tmr=00051
+PAL Vel=00000, PAL Statusf=00h, Inspect Svc=000
+Drive Command=0000h, Drive Statusf=0000h
+Torque Command=00000, Motor Torque=    0, Percent Load=  0
+
+ 29 ve has Com Error   0:04:47  1/02/3000 Position = 5 Occurrences =   1 
+srv=000, prc=000, drf=000, rdf=000, dpr=000, dir=000, emp=000, med=000
+cbl=000, equ=000, fir=000, rfi=000, hsf=000, stf=000, cal=000, esp=000 
+nst=000, rlv=000, ste=001, dsf=000, st0=000, ins=00h, nds=000, dev=00h
+pf1=00h, pf2=00h, dv2=00h, io0=00h, io1=00h, io2=00h, io3=00h, io4=00h
+io5=00h, io6=00h, io7=00h, io8=00h, io9=00h, ioA=ffh, ioB=ffh, ioC=ffh
+ioD=ffh, ioE=00h, ioF=00h, ioG=00h, ioH=fch, ioI=00h, ioJ=00h, ioK=00h
+ioL=00h, ioM=00h, ioN=00h, ioO=00h, ioP=16h, ioQ=00h
+ioR=00h, ioS=00h, ioT=00h
+statusf=00000000h, statusf2=00000000h
+SS Status=0000h, PWR Status=0000h, Run Status=00000000h
+Nudg Flags=00h, Door Req=00h, Call Flags=00h
+Chk Run=00h, Chk Start=00h, Chk Level=00h, Chk Door= 0h
+Front SD=0000h, Rear SD=0000h, Motion Tmr=00000
+PAL Vel=00000, PAL Statusf=00h, Inspect Svc=000
+Drive Command=0000h, Drive Statusf=0000h
+Torque Command=00000, Motor Torque=    0, Percent Load=  0
+
+ 30 ault           0:04:52  1/02/3000 Position = 5 Occurrences =   1 
+srv=000, prc=001, drf=000, rdf=000, dpr=000, dir=000, emp=000, med=000
+cbl=000, equ=000, fir=000, rfi=000, hsf=000, stf=000, cal=000, esp=000 
+nst=000, rlv=000, ste=001, dsf=000, st0=000, ins=00h, nds=000, dev=00h
+pf1=00h, pf2=00h, dv2=00h, io0=a1h, io1=0fh, io2=7eh, io3=00h, io4=c3h
+io5=61h, io6=10h, io7=0dh, io8=00h, io9=00h, ioA=ffh, ioB=f7h, ioC=ffh
+ioD=fbh, ioE=35h, ioF=00h, ioG=07h, ioH=fch, ioI=00h, ioJ=00h, ioK=00h
+ioL=00h, ioM=00h, ioN=00h, ioO=05h, ioP=16h, ioQ=00h
+ioR=00h, ioS=00h, ioT=00h
+statusf=00002000h, statusf2=00000000h
+SS Status=0000h, PWR Status=0000h, Run Status=000013c0h
+Nudg Flags=00h, Door Req=00h, Call Flags=00h
+Chk Run=00h, Chk Start=00h, Chk Level=00h, Chk Door= 0h
+Front SD=0000h, Rear SD=0000h, Motion Tmr=00051
+PAL Vel=00000, PAL Statusf=00h, Inspect Svc=000
+Drive Command=0000h, Drive Statusf=0000h
+Torque Command=00000, Motor Torque=    0, Percent Load=  0
+
+ 31 ve has Com Error   0:18:27  1/02/3000 Position = 5 Occurrences =   1 
+srv=000, prc=000, drf=000, rdf=000, dpr=000, dir=000, emp=000, med=000
+cbl=000, equ=000, fir=000, rfi=000, hsf=000, stf=000, cal=000, esp=000 
+nst=000, rlv=000, ste=001, dsf=000, st0=000, ins=00h, nds=000, dev=00h
+pf1=00h, pf2=00h, dv2=00h, io0=00h, io1=00h, io2=00h, io3=00h, io4=00h
+io5=00h, io6=00h, io7=00h, io8=00h, io9=00h, ioA=ffh, ioB=ffh, ioC=ffh
+ioD=ffh, ioE=00h, ioF=00h, ioG=00h, ioH=fch, ioI=00h, ioJ=00h, ioK=00h
+ioL=00h, ioM=00h, ioN=00h, ioO=00h, ioP=16h, ioQ=00h
+ioR=00h, ioS=00h, ioT=00h
+statusf=00000000h, statusf2=00000000h
+SS Status=0000h, PWR Status=0000h, Run Status=00000000h
+Nudg Flags=00h, Door Req=00h, Call Flags=00h
+Chk Run=00h, Chk Start=00h, Chk Level=00h, Chk Door= 0h
+Front SD=0000h, Rear SD=0000h, Motion Tmr=00000
+PAL Vel=00000, PAL Statusf=00h, Inspect Svc=000
+Drive Command=0000h, Drive Statusf=0000h
+Torque Command=00000, Motor Torque=    0, Percent Load=  0
+
+ 32 ault           0:18:32  1/02/3000 Position = 5 Occurrences =   1 
+srv=000, prc=001, drf=000, rdf=000, dpr=000, dir=000, emp=000, med=000
+cbl=000, equ=000, fir=000, rfi=000, hsf=000, stf=000, cal=000, esp=000 
+nst=000, rlv=000, ste=001, dsf=000, st0=000, ins=00h, nds=000, dev=00h
+pf1=00h, pf2=00h, dv2=00h, io0=a1h, io1=0fh, io2=7eh, io3=00h, io4=c3h
+io5=61h, io6=10h, io7=0dh, io8=00h, io9=00h, ioA=ffh, ioB=f7h, ioC=ffh
+ioD=fbh, ioE=35h, ioF=00h, ioG=07h, ioH=fch, ioI=00h, ioJ=00h, ioK=00h
+ioL=00h, ioM=00h, ioN=00h, ioO=05h, ioP=16h, ioQ=00h
+ioR=00h, ioS=00h, ioT=00h
+statusf=00002000h, statusf2=00000000h
+SS Status=0000h, PWR Status=0000h, Run Status=000013c0h
+Nudg Flags=00h, Door Req=00h, Call Flags=00h
+Chk Run=00h, Chk Start=00h, Chk Level=00h, Chk Door= 0h
+Front SD=0000h, Rear SD=0000h, Motion Tmr=00051
+PAL Vel=00000, PAL Statusf=00h, Inspect Svc=000
+Drive Command=0000h, Drive Statusf=0000h
+Torque Command=00000, Motor Torque=    0, Percent Load=  0
+
+ 33 ve has Com Error   2:13:26  1/02/3000 Position = 5 Occurrences =   1 
+srv=000, prc=000, drf=000, rdf=000, dpr=000, dir=000, emp=000, med=000
+cbl=000, equ=000, fir=000, rfi=000, hsf=000, stf=000, cal=000, esp=000 
+nst=000, rlv=000, ste=001, dsf=000, st0=000, ins=00h, nds=000, dev=00h
+pf1=00h, pf2=00h, dv2=00h, io0=00h, io1=00h, io2=00h, io3=00h, io4=00h
+io5=00h, io6=00h, io7=00h, io8=00h, io9=00h, ioA=ffh, ioB=ffh, ioC=ffh
+ioD=ffh, ioE=00h, ioF=00h, ioG=00h, ioH=fch, ioI=00h, ioJ=00h, ioK=00h
+ioL=00h, ioM=00h, ioN=00h, ioO=00h, ioP=16h, ioQ=00h
+ioR=00h, ioS=00h, ioT=00h
+statusf=00000000h, statusf2=00000000h
+SS Status=0000h, PWR Status=0000h, Run Status=00000000h
+Nudg Flags=00h, Door Req=00h, Call Flags=00h
+Chk Run=00h, Chk Start=00h, Chk Level=00h, Chk Door= 0h
+Front SD=0000h, Rear SD=0000h, Motion Tmr=00000
+PAL Vel=00000, PAL Statusf=00h, Inspect Svc=000
+Drive Command=0000h, Drive Statusf=0000h
+Torque Command=00000, Motor Torque=    0, Percent Load=  0
+
+ 34 ault           2:13:31  1/02/3000 Position = 5 Occurrences =   1 
+srv=000, prc=001, drf=000, rdf=000, dpr=000, dir=000, emp=000, med=000
+cbl=000, equ=000, fir=000, rfi=000, hsf=000, stf=000, cal=000, esp=000 
+nst=000, rlv=000, ste=001, dsf=000, st0=000, ins=00h, nds=000, dev=00h
+pf1=00h, pf2=00h, dv2=00h, io0=a1h, io1=0fh, io2=7eh, io3=00h, io4=c3h
+io5=61h, io6=10h, io7=0dh, io8=00h, io9=00h, ioA=ffh, ioB=f7h, ioC=ffh
+ioD=fbh, ioE=35h, ioF=00h, ioG=07h, ioH=fch, ioI=00h, ioJ=00h, ioK=00h
+ioL=00h, ioM=00h, ioN=00h, ioO=05h, ioP=16h, ioQ=00h
+ioR=00h, ioS=00h, ioT=00h
+statusf=00002000h, statusf2=00000000h
+SS Status=0000h, PWR Status=0000h, Run Status=000013c0h
+Nudg Flags=00h, Door Req=00h, Call Flags=00h
+Chk Run=00h, Chk Start=00h, Chk Level=00h, Chk Door= 0h
+Front SD=0000h, Rear SD=0000h, Motion Tmr=00051
+PAL Vel=00000, PAL Statusf=00h, Inspect Svc=000
+Drive Command=0000h, Drive Statusf=0000h
+Torque Command=00000, Motor Torque=    0, Percent Load=  0
+
+ 35 ve has Com Error   3:23:48  1/02/3000 Position = 5 Occurrences =   1 
+srv=000, prc=000, drf=000, rdf=000, dpr=000, dir=000, emp=000, med=000
+cbl=000, equ=000, fir=000, rfi=000, hsf=000, stf=000, cal=000, esp=000 
+nst=000, rlv=000, ste=001, dsf=000, st0=000, ins=00h, nds=000, dev=00h
+pf1=00h, pf2=00h, dv2=00h, io0=00h, io1=00h, io2=00h, io3=00h, io4=00h
+io5=00h, io6=00h, io7=00h, io8=00h, io9=00h, ioA=ffh, ioB=ffh, ioC=ffh
+ioD=ffh, ioE=00h, ioF=00h, ioG=00h, ioH=fch, ioI=00h, ioJ=00h, ioK=00h
+ioL=00h, ioM=00h, ioN=00h, ioO=00h, ioP=16h, ioQ=00h
+ioR=00h, ioS=00h, ioT=00h
+statusf=00000000h, statusf2=00000000h
+SS Status=0000h, PWR Status=0000h, Run Status=00000000h
+Nudg Flags=00h, Door Req=00h, Call Flags=00h
+Chk Run=00h, Chk Start=00h, Chk Level=00h, Chk Door= 0h
+Front SD=0000h, Rear SD=0000h, Motion Tmr=00000
+PAL Vel=00000, PAL Statusf=00h, Inspect Svc=000
+Drive Command=0000h, Drive Statusf=0000h
+Torque Command=00000, Motor Torque=    0, Percent Load=  0
+
+ 36 ault           3:23:53  1/02/3000 Position = 5 Occurrences =   1 
+srv=000, prc=001, drf=000, rdf=000, dpr=000, dir=000, emp=000, med=000
+cbl=000, equ=000, fir=000, rfi=000, hsf=000, stf=000, cal=000, esp=000 
+nst=000, rlv=000, ste=001, dsf=000, st0=000, ins=00h, nds=000, dev=00h
+pf1=00h, pf2=00h, dv2=00h, io0=a1h, io1=0fh, io2=7eh, io3=00h, io4=c3h
+io5=61h, io6=10h, io7=0dh, io8=00h, io9=00h, ioA=ffh, ioB=f7h, ioC=ffh
+ioD=fbh, ioE=35h, ioF=00h, ioG=07h, ioH=fch, ioI=00h, ioJ=00h, ioK=00h
+ioL=00h, ioM=00h, ioN=00h, ioO=05h, ioP=16h, ioQ=00h
+ioR=00h, ioS=00h, ioT=00h
+statusf=00002000h, statusf2=00000000h
+SS Status=0000h, PWR Status=0000h, Run Status=000013c0h
+Nudg Flags=00h, Door Req=00h, Call Flags=00h
+Chk Run=00h, Chk Start=00h, Chk Level=00h, Chk Door= 0h
+Front SD=0000h, Rear SD=0000h, Motion Tmr=00051
+PAL Vel=00000, PAL Statusf=00h, Inspect Svc=000
+Drive Command=0000h, Drive Statusf=0000h
+Torque Command=00000, Motor Torque=    0, Percent Load=  0
+
+ 37 ve has Com Error   4:14:10  1/02/3000 Position = 5 Occurrences =   1 
+srv=000, prc=000, drf=000, rdf=000, dpr=000, dir=000, emp=000, med=000
+cbl=000, equ=000, fir=000, rfi=000, hsf=000, stf=000, cal=000, esp=000 
+nst=000, rlv=000, ste=001, dsf=000, st0=000, ins=00h, nds=000, dev=00h
+pf1=00h, pf2=00h, dv2=00h, io0=00h, io1=00h, io2=00h, io3=00h, io4=00h
+io5=00h, io6=00h, io7=00h, io8=00h, io9=00h, ioA=ffh, ioB=ffh, ioC=ffh
+ioD=ffh, ioE=00h, ioF=00h, ioG=00h, ioH=fch, ioI=00h, ioJ=00h, ioK=00h
+ioL=00h, ioM=00h, ioN=00h, ioO=00h, ioP=16h, ioQ=00h
+ioR=00h, ioS=00h, ioT=00h
+statusf=00000000h, statusf2=00000000h
+SS Status=0000h, PWR Status=0000h, Run Status=00000000h
+Nudg Flags=00h, Door Req=00h, Call Flags=00h
+Chk Run=00h, Chk Start=00h, Chk Level=00h, Chk Door= 0h
+Front SD=0000h, Rear SD=0000h, Motion Tmr=00000
+PAL Vel=00000, PAL Statusf=00h, Inspect Svc=000
+Drive Command=0000h, Drive Statusf=0000h
+Torque Command=00000, Motor Torque=    0, Percent Load=  0
+
+ 38 ault           4:14:15  1/02/3000 Position = 5 Occurrences =   1 
+srv=000, prc=001, drf=000, rdf=000, dpr=000, dir=000, emp=000, med=000
+cbl=000, equ=000, fir=000, rfi=000, hsf=000, stf=000, cal=000, esp=000 
+nst=000, rlv=000, ste=001, dsf=000, st0=000, ins=00h, nds=000, dev=00h
+pf1=00h, pf2=00h, dv2=00h, io0=a1h, io1=0fh, io2=7eh, io3=00h, io4=c3h
+io5=61h, io6=10h, io7=0dh, io8=00h, io9=00h, ioA=ffh, ioB=f7h, ioC=ffh
+ioD=fbh, ioE=35h, ioF=00h, ioG=07h, ioH=fch, ioI=00h, ioJ=00h, ioK=00h
+ioL=00h, ioM=00h, ioN=00h, ioO=05h, ioP=16h, ioQ=00h
+ioR=00h, ioS=00h, ioT=00h
+statusf=00002000h, statusf2=00000000h
+SS Status=0000h, PWR Status=0000h, Run Status=000013c0h
+Nudg Flags=00h, Door Req=00h, Call Flags=00h
+Chk Run=00h, Chk Start=00h, Chk Level=00h, Chk Door= 0h
+Front SD=0000h, Rear SD=0000h, Motion Tmr=00051
+PAL Vel=00000, PAL Statusf=00h, Inspect Svc=000
+Drive Command=0000h, Drive Statusf=0000h
+Torque Command=00000, Motor Torque=    0, Percent Load=  0
+
+ 39 ve has Com Error   0:16:50  1/01/3000 Position = 5 Occurrences =   1 
+srv=000, prc=000, drf=000, rdf=000, dpr=000, dir=000, emp=000, med=000
+cbl=000, equ=000, fir=000, rfi=000, hsf=000, stf=000, cal=000, esp=000 
+nst=000, rlv=000, ste=001, dsf=000, st0=000, ins=00h, nds=000, dev=00h
+pf1=00h, pf2=00h, dv2=00h, io0=00h, io1=00h, io2=00h, io3=00h, io4=00h
+io5=00h, io6=00h, io7=00h, io8=00h, io9=00h, ioA=ffh, ioB=ffh, ioC=ffh
+ioD=ffh, ioE=00h, ioF=00h, ioG=00h, ioH=fch, ioI=00h, ioJ=00h, ioK=00h
+ioL=00h, ioM=00h, ioN=00h, ioO=00h, ioP=16h, ioQ=00h
+ioR=00h, ioS=00h, ioT=00h
+statusf=00000000h, statusf2=00000000h
+SS Status=0000h, PWR Status=0000h, Run Status=00000000h
+Nudg Flags=00h, Door Req=00h, Call Flags=00h
+Chk Run=00h, Chk Start=00h, Chk Level=00h, Chk Door= 0h
+Front SD=0000h, Rear SD=0000h, Motion Tmr=00000
+PAL Vel=00000, PAL Statusf=00h, Inspect Svc=000
+Drive Command=0000h, Drive Statusf=0000h
+Torque Command=00000, Motor Torque=    0, Percent Load=  0
+
+ 40 ault           0:16:55  1/01/3000 Position = 5 Occurrences =   1 
+srv=000, prc=001, drf=000, rdf=000, dpr=000, dir=000, emp=000, med=000
+cbl=000, equ=000, fir=000, rfi=000, hsf=000, stf=000, cal=000, esp=000 
+nst=000, rlv=000, ste=001, dsf=000, st0=000, ins=00h, nds=000, dev=00h
+pf1=00h, pf2=00h, dv2=00h, io0=a1h, io1=0fh, io2=7eh, io3=00h, io4=c3h
+io5=61h, io6=10h, io7=0dh, io8=00h, io9=00h, ioA=ffh, ioB=f7h, ioC=ffh
+ioD=fbh, ioE=35h, ioF=00h, ioG=07h, ioH=fch, ioI=00h, ioJ=00h, ioK=00h
+ioL=00h, ioM=00h, ioN=00h, ioO=05h, ioP=16h, ioQ=00h
+ioR=00h, ioS=00h, ioT=00h
+statusf=00002000h, statusf2=00000000h
+SS Status=0000h, PWR Status=0000h, Run Status=000013c0h
+Nudg Flags=00h, Door Req=00h, Call Flags=00h
+Chk Run=00h, Chk Start=00h, Chk Level=00h, Chk Door= 0h
+Front SD=0000h, Rear SD=0000h, Motion Tmr=00051
+PAL Vel=00000, PAL Statusf=00h, Inspect Svc=000
+Drive Command=0000h, Drive Statusf=0000h
+Torque Command=00000, Motor Torque=    0, Percent Load=  0
+
+ 41 ve has Com Error  16:56:54  1/01/3000 Position = 5 Occurrences =   1 
+srv=000, prc=000, drf=000, rdf=000, dpr=000, dir=000, emp=000, med=000
+cbl=000, equ=000, fir=000, rfi=000, hsf=000, stf=000, cal=000, esp=000 
+nst=000, rlv=000, ste=001, dsf=000, st0=000, ins=00h, nds=000, dev=00h
+pf1=00h, pf2=00h, dv2=00h, io0=00h, io1=00h, io2=00h, io3=00h, io4=00h
+io5=00h, io6=00h, io7=00h, io8=00h, io9=00h, ioA=ffh, ioB=ffh, ioC=ffh
+ioD=ffh, ioE=00h, ioF=00h, ioG=00h, ioH=fch, ioI=00h, ioJ=00h, ioK=00h
+ioL=00h, ioM=00h, ioN=00h, ioO=00h, ioP=16h, ioQ=00h
+ioR=00h, ioS=00h, ioT=00h
+statusf=00000000h, statusf2=00000000h
+SS Status=0000h, PWR Status=0000h, Run Status=00000000h
+Nudg Flags=00h, Door Req=00h, Call Flags=00h
+Chk Run=00h, Chk Start=00h, Chk Level=00h, Chk Door= 0h
+Front SD=0000h, Rear SD=0000h, Motion Tmr=00000
+PAL Vel=00000, PAL Statusf=00h, Inspect Svc=000
+Drive Command=0000h, Drive Statusf=0000h
+Torque Command=00000, Motor Torque=    0, Percent Load=  0
+
+ 42 ault          16:56:59  1/01/3000 Position = 5 Occurrences =   1 
+srv=000, prc=001, drf=000, rdf=000, dpr=000, dir=000, emp=000, med=000
+cbl=000, equ=000, fir=000, rfi=000, hsf=000, stf=000, cal=000, esp=000 
+nst=000, rlv=000, ste=001, dsf=000, st0=000, ins=00h, nds=000, dev=00h
+pf1=00h, pf2=00h, dv2=00h, io0=a1h, io1=0fh, io2=7eh, io3=00h, io4=c3h
+io5=61h, io6=10h, io7=0dh, io8=00h, io9=00h, ioA=ffh, ioB=f7h, ioC=ffh
+ioD=fbh, ioE=35h, ioF=00h, ioG=07h, ioH=fch, ioI=00h, ioJ=00h, ioK=00h
+ioL=00h, ioM=00h, ioN=00h, ioO=05h, ioP=16h, ioQ=00h
+ioR=00h, ioS=00h, ioT=00h
+statusf=00002000h, statusf2=00000000h
+SS Status=0000h, PWR Status=0000h, Run Status=000013c0h
+Nudg Flags=00h, Door Req=00h, Call Flags=00h
+Chk Run=00h, Chk Start=00h, Chk Level=00h, Chk Door= 0h
+Front SD=0000h, Rear SD=0000h, Motion Tmr=00051
+PAL Vel=00000, PAL Statusf=00h, Inspect Svc=000
+Drive Command=0000h, Drive Statusf=0000h
+Torque Command=00000, Motor Torque=    0, Percent Load=  0
+
+ 43 ve has Com Error  17:20:14  1/01/3000 Position = 5 Occurrences =   1 
+srv=000, prc=000, drf=000, rdf=000, dpr=000, dir=000, emp=000, med=000
+cbl=000, equ=000, fir=000, rfi=000, hsf=000, stf=000, cal=000, esp=000 
+nst=000, rlv=000, ste=001, dsf=000, st0=000, ins=00h, nds=000, dev=00h
+pf1=00h, pf2=00h, dv2=00h, io0=00h, io1=00h, io2=00h, io3=00h, io4=00h
+io5=00h, io6=00h, io7=00h, io8=00h, io9=00h, ioA=ffh, ioB=ffh, ioC=ffh
+ioD=ffh, ioE=00h, ioF=00h, ioG=00h, ioH=fch, ioI=00h, ioJ=00h, ioK=00h
+ioL=00h, ioM=00h, ioN=00h, ioO=00h, ioP=16h, ioQ=00h
+ioR=00h, ioS=00h, ioT=00h
+statusf=00000000h, statusf2=00000000h
+SS Status=0000h, PWR Status=0000h, Run Status=00000000h
+Nudg Flags=00h, Door Req=00h, Call Flags=00h
+Chk Run=00h, Chk Start=00h, Chk Level=00h, Chk Door= 0h
+Front SD=0000h, Rear SD=0000h, Motion Tmr=00000
+PAL Vel=00000, PAL Statusf=00h, Inspect Svc=000
+Drive Command=0000h, Drive Statusf=0000h
+Torque Command=00000, Motor Torque=    0, Percent Load=  0
+
+ 44 ault          17:20:19  1/01/3000 Position = 5 Occurrences =   1 
+srv=000, prc=001, drf=000, rdf=000, dpr=000, dir=000, emp=000, med=000
+cbl=000, equ=000, fir=000, rfi=000, hsf=000, stf=000, cal=000, esp=000 
+nst=000, rlv=000, ste=001, dsf=000, st0=000, ins=00h, nds=000, dev=00h
+pf1=00h, pf2=00h, dv2=00h, io0=a1h, io1=0fh, io2=7eh, io3=00h, io4=c3h
+io5=61h, io6=10h, io7=0dh, io8=00h, io9=00h, ioA=ffh, ioB=f7h, ioC=ffh
+ioD=fbh, ioE=35h, ioF=00h, ioG=07h, ioH=fch, ioI=00h, ioJ=00h, ioK=00h
+ioL=00h, ioM=00h, ioN=00h, ioO=05h, ioP=16h, ioQ=00h
+ioR=00h, ioS=00h, ioT=00h
+statusf=00002000h, statusf2=00000000h
+SS Status=0000h, PWR Status=0000h, Run Status=000013c0h
+Nudg Flags=00h, Door Req=00h, Call Flags=00h
+Chk Run=00h, Chk Start=00h, Chk Level=00h, Chk Door= 0h
+Front SD=0000h, Rear SD=0000h, Motion Tmr=00051
+PAL Vel=00000, PAL Statusf=00h, Inspect Svc=000
+Drive Command=0000h, Drive Statusf=0000h
+Torque Command=00000, Motor Torque=    0, Percent Load=  0
+
+ 45 ve has Com Error  21:13:31  1/01/3000 Position = 5 Occurrences =   1 
+srv=000, prc=000, drf=000, rdf=000, dpr=000, dir=000, emp=000, med=000
+cbl=000, equ=000, fir=000, rfi=000, hsf=000, stf=000, cal=000, esp=000 
+nst=000, rlv=000, ste=001, dsf=000, st0=000, ins=00h, nds=000, dev=00h
+pf1=00h, pf2=00h, dv2=00h, io0=00h, io1=00h, io2=00h, io3=00h, io4=00h
+io5=00h, io6=00h, io7=00h, io8=00h, io9=00h, ioA=ffh, ioB=ffh, ioC=ffh
+ioD=ffh, ioE=00h, ioF=00h, ioG=00h, ioH=fch, ioI=00h, ioJ=00h, ioK=00h
+ioL=00h, ioM=00h, ioN=00h, ioO=00h, ioP=16h, ioQ=00h
+ioR=00h, ioS=00h, ioT=00h
+statusf=00000000h, statusf2=00000000h
+SS Status=0000h, PWR Status=0000h, Run Status=00000000h
+Nudg Flags=00h, Door Req=00h, Call Flags=00h
+Chk Run=00h, Chk Start=00h, Chk Level=00h, Chk Door= 0h
+Front SD=0000h, Rear SD=0000h, Motion Tmr=00000
+PAL Vel=00000, PAL Statusf=00h, Inspect Svc=000
+Drive Command=0000h, Drive Statusf=0000h
+Torque Command=00000, Motor Torque=    0, Percent Load=  0
+
+ 46 ault          21:13:36  1/01/3000 Position = 5 Occurrences =   1 
+srv=000, prc=001, drf=000, rdf=000, dpr=000, dir=000, emp=000, med=000
+cbl=000, equ=000, fir=000, rfi=000, hsf=000, stf=000, cal=000, esp=000 
+nst=000, rlv=000, ste=001, dsf=000, st0=000, ins=00h, nds=000, dev=00h
+pf1=00h, pf2=00h, dv2=00h, io0=a1h, io1=0fh, io2=7eh, io3=00h, io4=c3h
+io5=61h, io6=10h, io7=0dh, io8=00h, io9=00h, ioA=ffh, ioB=f7h, ioC=ffh
+ioD=fbh, ioE=35h, ioF=00h, ioG=07h, ioH=fch, ioI=00h, ioJ=00h, ioK=00h
+ioL=00h, ioM=00h, ioN=00h, ioO=05h, ioP=16h, ioQ=00h
+ioR=00h, ioS=00h, ioT=00h
+statusf=00002000h, statusf2=00000000h
+SS Status=0000h, PWR Status=0000h, Run Status=000013c0h
+Nudg Flags=00h, Door Req=00h, Call Flags=00h
+Chk Run=00h, Chk Start=00h, Chk Level=00h, Chk Door= 0h
+Front SD=0000h, Rear SD=0000h, Motion Tmr=00051
+PAL Vel=00000, PAL Statusf=00h, Inspect Svc=000
+Drive Command=0000h, Drive Statusf=0000h
+Torque Command=00000, Motor Torque=    0, Percent Load=  0
+
+ 47 ve has Com Error  22:51:53  1/01/3000 Position = 5 Occurrences =   1 
+srv=000, prc=000, drf=000, rdf=000, dpr=000, dir=000, emp=000, med=000
+cbl=000, equ=000, fir=000, rfi=000, hsf=000, stf=000, cal=000, esp=000 
+nst=000, rlv=000, ste=001, dsf=000, st0=000, ins=00h, nds=000, dev=00h
+pf1=00h, pf2=00h, dv2=00h, io0=00h, io1=00h, io2=00h, io3=00h, io4=00h
+io5=00h, io6=00h, io7=00h, io8=00h, io9=00h, ioA=ffh, ioB=ffh, ioC=ffh
+ioD=ffh, ioE=00h, ioF=00h, ioG=00h, ioH=fch, ioI=00h, ioJ=00h, ioK=00h
+ioL=00h, ioM=00h, ioN=00h, ioO=00h, ioP=16h, ioQ=00h
+ioR=00h, ioS=00h, ioT=00h
+statusf=00000000h, statusf2=00000000h
+SS Status=0000h, PWR Status=0000h, Run Status=00000000h
+Nudg Flags=00h, Door Req=00h, Call Flags=00h
+Chk Run=00h, Chk Start=00h, Chk Level=00h, Chk Door= 0h
+Front SD=0000h, Rear SD=0000h, Motion Tmr=00000
+PAL Vel=00000, PAL Statusf=00h, Inspect Svc=000
+Drive Command=0000h, Drive Statusf=0000h
+Torque Command=00000, Motor Torque=    0, Percent Load=  0
+
+ 48 ault          22:51:58  1/01/3000 Position = 5 Occurrences =   1 
+srv=000, prc=001, drf=000, rdf=000, dpr=000, dir=000, emp=000, med=000
+cbl=000, equ=000, fir=000, rfi=000, hsf=000, stf=000, cal=000, esp=000 
+nst=000, rlv=000, ste=001, dsf=000, st0=000, ins=00h, nds=000, dev=00h
+pf1=00h, pf2=00h, dv2=00h, io0=a1h, io1=0fh, io2=7eh, io3=00h, io4=c3h
+io5=61h, io6=10h, io7=0dh, io8=00h, io9=00h, ioA=ffh, ioB=f7h, ioC=ffh
+ioD=fbh, ioE=35h, ioF=00h, ioG=07h, ioH=fch, ioI=00h, ioJ=00h, ioK=00h
+ioL=00h, ioM=00h, ioN=00h, ioO=05h, ioP=16h, ioQ=00h
+ioR=00h, ioS=00h, ioT=00h
+statusf=00002000h, statusf2=00000000h
+SS Status=0000h, PWR Status=0000h, Run Status=000013c0h
+Nudg Flags=00h, Door Req=00h, Call Flags=00h
+Chk Run=00h, Chk Start=00h, Chk Level=00h, Chk Door= 0h
+Front SD=0000h, Rear SD=0000h, Motion Tmr=00051
+PAL Vel=00000, PAL Statusf=00h, Inspect Svc=000
+Drive Command=0000h, Drive Statusf=0000h
+Torque Command=00000, Motor Torque=    0, Percent Load=  0
+
+ 49 ve has Com Error  23:04:59  1/01/3000 Position = 5 Occurrences =   1 
+srv=000, prc=000, drf=000, rdf=000, dpr=000, dir=000, emp=000, med=000
+cbl=000, equ=000, fir=000, rfi=000, hsf=000, stf=000, cal=000, esp=000 
+nst=000, rlv=000, ste=001, dsf=000, st0=000, ins=00h, nds=000, dev=00h
+pf1=00h, pf2=00h, dv2=00h, io0=00h, io1=00h, io2=00h, io3=00h, io4=00h
+io5=00h, io6=00h, io7=00h, io8=00h, io9=00h, ioA=ffh, ioB=ffh, ioC=ffh
+ioD=ffh, ioE=00h, ioF=00h, ioG=00h, ioH=fch, ioI=00h, ioJ=00h, ioK=00h
+ioL=00h, ioM=00h, ioN=00h, ioO=00h, ioP=16h, ioQ=00h
+ioR=00h, ioS=00h, ioT=00h
+statusf=00000000h, statusf2=00000000h
+SS Status=0000h, PWR Status=0000h, Run Status=00000000h
+Nudg Flags=00h, Door Req=00h, Call Flags=00h
+Chk Run=00h, Chk Start=00h, Chk Level=00h, Chk Door= 0h
+Front SD=0000h, Rear SD=0000h, Motion Tmr=00000
+PAL Vel=00000, PAL Statusf=00h, Inspect Svc=000
+Drive Command=0000h, Drive Statusf=0000h
+Torque Command=00000, Motor Torque=    0, Percent Load=  0
+
+ 50 ault          23:05:04  1/01/3000 Position = 5 Occurrences =   5 
+srv=000, prc=001, drf=000, rdf=000, dpr=000, dir=000, emp=000, med=000
+cbl=000, equ=000, fir=000, rfi=000, hsf=000, stf=000, cal=000, esp=000 
+nst=000, rlv=000, ste=001, dsf=000, st0=000, ins=00h, nds=000, dev=00h
+pf1=00h, pf2=00h, dv2=00h, io0=a1h, io1=0fh, io2=7eh, io3=00h, io4=c3h
+io5=61h, io6=10h, io7=0dh, io8=00h, io9=00h, ioA=ffh, ioB=f7h, ioC=ffh
+ioD=fbh, ioE=35h, ioF=00h, ioG=07h, ioH=fch, ioI=00h, ioJ=00h, ioK=00h
+ioL=00h, ioM=00h, ioN=00h, ioO=05h, ioP=16h, ioQ=00h
+ioR=00h, ioS=00h, ioT=00h
+statusf=00002000h, statusf2=00000000h
+SS Status=0000h, PWR Status=0000h, Run Status=000013c0h
+Nudg Flags=00h, Door Req=00h, Call Flags=00h
+Chk Run=00h, Chk Start=00h, Chk Level=00h, Chk Door= 0h
+Front SD=0000h, Rear SD=0000h, Motion Tmr=00051
+PAL Vel=00000, PAL Statusf=00h, Inspect Svc=000
+Drive Command=0000h, Drive Statusf=0000h
+Torque Command=00000, Motor Torque=    0, Percent Load=  0
+

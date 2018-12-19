@@ -1,0 +1,13 @@
+#define VLE_IS_ON 1 
+#define ROM_VERSION 1
+#define GALaxy_4 1
+#define Simulator 0
+#define Traction 1
+#define Tract_HR 1
+#define Tract_OL 0
+#define Sim_Control 0
+#define Sim_Motion 0
+#define TS3300 0
+#define TS5300 0
+#define Little_Endian 0
+#define ServiceTimer 1

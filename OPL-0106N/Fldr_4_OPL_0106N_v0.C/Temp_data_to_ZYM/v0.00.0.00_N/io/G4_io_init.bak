@@ -1,0 +1,3700 @@
+//  Initialize I/O name array
+//  With this routine, the ionames are read from the code area and placed in a ram array.  This data array is setup for
+//  the specific job and can be transmitted serially to the user interface pc.
+
+#define d_IOINIT 1
+#include "global.h"
+
+#if (Tract_HR == 1)
+  #include "arymaphr.h"
+#else
+  #include "arymap.h"
+#endif
+
+#define Sim_Door 1
+
+void io_init(void);
+void set_io_board_status (void);
+void init_iodata(void);
+int16 count_bit(unsigned char bitnmb);
+void remote_cc_io (int16 byte_ix, int16 start_ix, int16 end_ix);
+void locate_io (struct io *iop);
+void init_io (struct io *iop);
+
+// input indexes
+uint8 i_bit_ix = 0;
+uint8 i_array_ix = 0;
+uint16 i_addr_ix = 0;
+uint8 i_inc_amt = 0;
+
+// output indexes
+uint8 o_bit_ix = 0;
+uint8 o_array_ix = 0;
+uint16 o_addr_ix = 0;
+uint8 o_inc_amt = 0;
+
+int16 board;
+int16 io_count;
+
+unsigned char iodata[9][nmb_ios];
+unsigned char ioset[nmb_ios];
+unsigned char ioclr[nmb_ios];
+unsigned char IO_In_Out[nmb_ios];
+unsigned char IO_board[car_size][nmb_io_brds];
+
+
+#if (Tract_HR == 1)
+
+int16 io_bd_order[53] = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,29,30,
+                       31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,26,27,28,49,50,51,52};
+
+int16 brdtype[53] = {BRDT1,BRDT2,BRDT3,BRDT4,BRDT5,BRDT6,BRDT7,BRDT8,BRDT9,BRDT10,
+	BRDT11,BRDT12,BRDT13,BRDT14,BRDT15,BRDT16,BRDT17,BRDT18,BRDT19,BRDT20,
+	BRDT21,BRDT22,BRDT23,BRDT24,BRDT25,BRDT26,BRDT27,BRDT28,BRDT29,BRDT30,
+	BRDT31,BRDT32,BRDT33,BRDT34,BRDT35,BRDT36,BRDT37,BRDT38,BRDT39,BRDT40,
+	BRDT41,BRDT42,BRDT43,BRDT44,BRDT45,BRDT46,BRDT47,BRDT48,BRDT49,BRDT50,
+	BRDT51,BRDT52};
+
+int16 brdadd[6][3]  =  {
+	{BRD1A, BRD1B, BRD1C},
+	{BRD2A, BRD2B, BRD2C,},
+	{BRD3A, BRD3B, BRD3C,},
+	{BRD4A, BRD4B, BRD4C,},
+	{BRD5A, BRD5B, BRD5C,},
+	{BRD6A, BRD6B, BRD6C,},
+	};
+
+
+int16 HC_IO_board[c_max_hc_boards] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+					   				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+					   				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+#else
+
+int16 io_bd_order[33] = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32};
+
+int16 brdtype[33] = {BRDT1,BRDT2,BRDT3,BRDT4,BRDT5,BRDT6,BRDT7,BRDT8,BRDT9,
+	BRDT10,BRDT11,BRDT12,BRDT13,BRDT14,BRDT15,BRDT16,BRDT17,
+	BRDT18,BRDT19,BRDT20,BRDT21,BRDT22,BRDT23,BRDT24,BRDT25,BRDT26,
+	BRDT27,BRDT28,BRDT29,BRDT30,BRDT31,BRDT32};
+
+int16 brdadd[6][3]  =  {
+	{BRD1A, BRD1B, BRD1C},
+	{BRD2A, BRD2B, BRD2C,},
+	{BRD3A, BRD3B, BRD3C,},
+	{BRD4A, BRD4B, BRD4C,},
+	{BRD5A, BRD5B, BRD5C,},
+	{BRD6A, BRD6B, BRD6C,},
+	};
+
+int16 HC_IO_board[c_max_hc_boards] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+#endif
+
+#define ON 1
+#define OFF 0
+
+#define CALL 1
+#define PI 2
+#define ALWAYS 4
+
+#define MAINIO 0
+#define MRCAN 1
+#define CTCAN 2
+
+#define NoLight 0
+#define SecLight 1
+#define AttUpLight 2
+#define AttDnLight 3
+#define OffLight 4
+#define OnLight 5
+#define FireLight 6
+#define MedLight 7
+#define EmLight 8
+#define OTSLight 9
+
+
+typedef struct io {
+	uint8 on;
+	uint8 bus;
+	uint16 addr;
+	uint8 array;
+	uint8 bit;
+	char name[6];
+	unsigned char type;		 // Bit 0: 1 = Car Call io, Bit1: 1 = PI type io, Bit2: 1 = Always displayed, 
+						 	 // Bit 4: 1 = Send Label
+	unsigned char on_color_ix;		// 0=non,1=Sec,2=AttUP,3=AttDN,4=OffButton,5=OnButton,6=Fire,7=Medical,8=Emergency,9=OTS,4=Non-cc buttons
+} io_type;
+
+
+typedef struct gio {
+	uint8 array;
+	uint8 bit;
+	char name[6];
+	unsigned char type;		 // Bit 0: 1 = Car Call io, Bit1: 1 = PI type io, Bit2: 1 = Always displayed, 
+							 // Bit 4: 1 = Send Label
+} gio_type;
+
+
+#define Door_Test 0
+
+
+#if (Tract_HR == 1)
+char  ioname [1248][5];
+unsigned char  io_valid[157];
+unsigned char  io_send_name[157];
+unsigned char io_on_color_ix[1248];
+char  hcioname [c_max_hc_boards * 24][5];
+unsigned char  gio_valid[c_max_hc_boards * 3];
+extern const int exio_loc = 1032;
+#else
+char  ioname [768][5];
+unsigned char  io_valid[97];
+unsigned char  io_send_name[97];
+unsigned char io_on_color_ix[768];
+char  hcioname [c_max_hc_boards * 24][5];
+unsigned char  gio_valid[c_max_hc_boards * 3];
+extern const int exio_loc = 480;
+#endif 
+
+extern const int16 bittbl[16];
+
+/*
+		Rules:		1. All i/o's are enabled on lthe main i/o board
+					2. Voltage specific I/O's are placed first (i.e. Slowdown Limits, Door I/O, Cab lanterns)
+					3. Car and Hall I/O can be 110 or 24 Volts
+					4. Options i/o's for the car or hall must match the car or hall I/O voltages.
+*/
+
+//***************************
+// Initialize the I/O
+//***************************
+
+int16 next_io (struct io *iop)
+{
+	
+	// Increment the index
+	if ((iop->type & 0x80) != 0)
+	{	// this is an input
+	// locate the io
+		iop->addr = ix;
+		iop->array = i_array_ix;
+		iop->bit = i_bit_ix;
+		if (i_bit_ix < BIT8)
+			i_bit_ix++;	// go to the next bit location
+		else
+		{	// go to the next port location
+			if (i_inc_amt == 0)
+			{
+				i_bit_ix = BIT1;
+				i_addr_ix++;
+				i_array_ix++;
+				i_inc_amt = 1;
+			}
+			else
+			{
+				i_bit_ix = BIT1;
+				i_addr_ix+=2;
+				i_array_ix+=2;
+				i_inc_amt = 0;
+			}
+		}
+		io_count++;
+		
+	}
+	else
+	{
+		// locate the io
+		iop->addr = o_addr_ix;
+		iop->array = o_array_ix;
+		iop->bit = o_bit_ix;
+		if (o_bit_ix < BIT8)
+			o_bit_ix++;	// go to the next bit location
+		else
+		{	// go to the next port location
+			if (o_inc_amt == 0)
+			{
+				o_bit_ix = BIT1;
+				o_addr_ix++;
+				o_array_ix++;
+				o_inc_amt = 1;
+			}
+			else
+			{
+				o_bit_ix = BIT5
+				o_addr_ix+=2;
+				o_array_ix+=2;
+				o_inc_amt = 0;
+			}
+		}
+		io_count++;
+	}
+	init_valid_io(iop);		// Set the valid io bit in the iodata array
+	
+	if (io_count >= 12)
+	{		// go to next board
+		board++;
+		start_io_loc(board);
+		io_count = 0;
+	}
+}
+
+//**********************************************
+// Copy IO location from source to destination
+//**********************************************
+
+void copy_io_loc (struct io *iopd, struct io *iops)
+{
+	iopd->addr = iops->addr;		
+	iopd->array = iops->array;		
+	iopd->bit = iops->bit;
+}
+
+
+//***************************
+// Start I/O location indexes
+//***************************
+
+start_io_loc (int16 brd)
+{
+	int16 brd_st = 0;
+	int16 array_st = 0;
+	
+	board = brd;		// starting board location
+	if (board >= 7)
+	{
+		array_st = 18;
+		brd_st = 7;
+	}
+	else if (board >= 47)
+	{
+		array_st = 138
+		brd_st = 47;
+	}
+	i_addr_ix = ((board - brd_st) * 3) + array_st;
+	i_array_ix = (board - brd_st) * 3;
+	o_addr_ix = i_addr_ix + 1;
+	o_array_ix = i_array_ix + 1;
+	i_bit_ix = BIT1;
+	o_bit_ix = BIT5;
+}
+
+
+//********************************
+// Initialize the i/o location
+//********************************
+
+init_io (struct io *iop, int8 bus, int16 addr, int8 array, int8 bit, char *name, int8 type, int8 on_color)
+{
+	iop->bus = bus;
+	iop->addr = addr;		
+	iop->array = array;		
+	iop->bit = bit;
+	iop->type = type;
+	iop->name[0] = name[0];
+	iop->name[1] = name[1];
+	iop->name[2] = name[2];
+	iop->name[3] = name[3];
+	iop->name[4] = name[4];
+	iop->on_color_ix = iops->on_color_ix;
+	init_valid_io(iop);		
+}
+
+//**********************************************
+// Copy IO attributes from source to destination
+//**********************************************
+
+void copy_io_attr (struct io *iopd, struct io *iops)
+{
+	iopd->addr = iops->addr;		
+	iopd->array = iops->array;		
+	iopd->bit = iops->bit;
+	iopd->type = iops->type;
+	iopd->name[0] = iops->name[0];
+	iopd->name[1] = iops->name[1];
+	iopd->name[2] = iops->name[2];
+	iopd->name[3] = iops->name[3];
+	iopd->name[4] = iops->name[4];
+	iopd->on_color_ix = iops->on_color_ix;		
+}
+
+
+//*********************************************************
+// Get io offset from bit location
+//*********************************************************
+
+int16 count_bit(unsigned char bitnmb)
+{
+	int16 i;
+	int16 j;
+
+	j = 0;
+	for (i=0;i<=7;i++)
+	{
+		if ((bitnmb & bittbl[i]) != 0)
+			return j;
+		j++;
+	}
+	return j;
+}
+
+//*********************************************************
+// Calculate io location from array number and bit location
+//*********************************************************
+int16 get_io_loc(struct io *iop)
+{
+	int16 port_nmb;
+	int16 ix;
+	int16 brd_nmb;
+
+	brd_nmb = iop->array/3;
+	port_nmb = iop->array%3;
+	ix = count_bit(iop->bit);
+	return ((brd_nmb * 24) + (port_nmb * 8) + ix);
+}
+
+
+//********************************
+// Initialize the io valid array
+//********************************
+
+void init_valid_io (struct io *iop)
+{
+	int16 i;
+	
+	i = get_io_loc(iop);
+	if ((iop->type & 0x01) != 0)
+	{
+		if (convert_call(ioname[i],iop->name,(grtop_rfl != 0)) == 1)
+		{
+			io_valid[i/8] |= bittbl[i & 0x7]; 
+			io_on_color_ix[i] = iop->on_color_ix; 
+			if ((iop->type & 0x10) != 0)
+				io_send_name[i/8] |= bittbl[i & 0x7]; 
+		}
+	}	
+	else if ((iop->type & 0x02) != 0)
+	{
+		if (convert_pi(ioname[i],iop->name) == 1)
+		{
+			io_valid[i/8] |= bittbl[i & 0x7]; 
+			io_on_color_ix[i] = iop->on_color_ix; 
+			if ((iop->type & 0x10) != 0)
+				io_send_name[i/8] |= bittbl[i & 0x7]; 
+		}
+	}
+	else
+	{
+		strncpy(ioname[i],iop->name,5);
+		io_valid[i/8] |= bittbl[i & 0x7]; 
+		io_on_color_ix[i] = iop->on_color_ix; 
+		if ((iop->type & 0x10) != 0)
+			io_send_name[i/8] |= bittbl[i & 0x7]; 
+		
+	}
+}
+
+//************************************
+// Initialize the group io valid array
+//************************************
+
+void init_valid_gio (struct hcio *iop)
+{
+	int16 i;
+	
+	i = get_io_loc(iop);
+	if ((iop->type & 0x01) != 0)
+	{
+		if (convert_call(hcioname[i],iop->name,(grtop_rfl != 0)) == 1)
+			gio_valid[i/8] |= bittbl[i & 0x7]; 
+	}	
+	else if ((iop->type & 0x02) != 0)
+	{
+		if (convert_pi(hcioname[i],iop->name) == 1)
+			gio_valid[i/8] |= bittbl[i & 0x7]; 
+	}
+	else
+	{
+		strncpy(hcioname[i],iop->name,5);
+		gio_valid[i/8] |= bittbl[i & 0x7]; 
+	}
+}
+
+
+//********************************************************
+//  Convert numbered pi label to floor number pi label
+//********************************************************
+
+
+int16 convert_pi(char d[], const char s[])
+{
+	int16 i,ix,dp;
+	int16 topfl;
+
+	dp = 1;
+	ix = 0;
+	for (i=4;i>=0;i--)
+	{
+		d[i] = ' ';
+		if ((s[i] >= '0') && (s[i] <= '9'))
+		{
+			ix += (s[i] - '0') * dp;
+			dp *= 10;
+		 }
+	}
+
+	if ((cons[dispis]& 0x01) != 0)
+		topfl = cons[grtopf];
+	else
+		topfl = 5;
+
+	if ((ix > 0) && (ix <= topfl))
+	{
+
+		if (flmrk[ix][0] == ' ')
+		{
+			d[3] = 'P';
+			d[4] = flmrk[ix][1];
+		}
+		else
+		{
+			d[2] = 'P';
+			d[3] = flmrk[ix][0];
+			d[4] = flmrk[ix][1];
+		}
+		return 1;
+	}
+	for(i=0;i<=4;i++)	 // Clear i/o if invalid floor number for this job
+		d[i] = ' ';
+	return 0;
+}
+
+//********************************************************
+//  Convert numbered call label to floor number call label
+//********************************************************
+
+int16 convert_call(char d[], const char s[],unsigned char rear_op)
+{
+	int16 i,ix,dp,ic;
+	int16 tuc,topfl;
+	int16 trc;
+
+	dp = 1;
+	ix = 0;
+	ic = 0;
+	tuc = 0;
+	trc = 0;
+	for (i=4;i>=0;i--)
+	{
+		d[i] = ' ';
+		if ((s[i] >= '0') && (s[i] <= '9'))
+		{
+			ix += (s[i] - '0') * dp;
+			dp *= 10;
+			ic++;
+ 		}
+		else if (s[i] == ' ')
+			ic++;
+		else 
+		{
+			d[i] = s[i];
+			if (s[i] == 'U')
+				tuc = 1;
+		}
+		if (rear_op == 0)
+		{
+			if (s[i] == 'R')
+			{	// do not display rear calls if no rears
+				ic = 0;
+				break;
+			}
+		}
+		else if (s[i] == 'R')
+			trc = 1;
+			
+	}
+
+	if ((ic > 0) && (ic <= 4))
+	{
+		if (trc == 1)
+		{
+			if (tuc == 1)
+			{
+				if ( cons[grtopf] > grtop_rfl)
+					topfl = grtop_rfl;
+				else
+					topfl = grtop_rfl-1;
+			}
+			else
+				topfl = grtop_rfl;
+		}
+		else
+		{
+			if (tuc == 1)
+			{
+				if (grtop_rfl >  cons[grtopf])
+					topfl =  cons[grtopf];
+				else
+					topfl = cons[grtopf]-1;
+			}
+			else
+				topfl = cons[grtopf];
+		}
+
+		if ((ix > 0) && (ix <= topfl))
+		{
+			ic--;
+			d[ic] = flmrk[ix][1];
+			ic--;
+			d[ic] = flmrk[ix][0];
+			return 1;
+		}
+	}
+	for(i=0;i<=4;i++)	 // Clear i/o if invalid floor number for this job
+		d[i] = ' ';
+	return 0;
+
+}
+
+
+//**************************************************
+//  Initialize all I/O
+//**************************************************
+
+void io_init (void)
+{
+	int16 i,j,k;
+	int16 byte_ix, bit_ix, io_ix;
+	int16 gcc_sec,cc_sec,gcc_rsec;
+ 	int16 start_ix=0;
+ 	int16 end_ix;
+	int16 car_ix;
+
+	set_io_board_status();
+
+
+//*********************************************************************************************
+// MAIN I/O BOARD
+//*********************************************************************************************
+
+//         iostruct,   bus, addr,arr,bit,  name,type,On color,  
+init_io_loc(   i_AD,MAINIO,BRD1A,0,BIT1,"   AD",0x04,NoLight};
+init_io_loc(  i_IND,MAINIO,BRD1A,0,BIT2,"  IND",0x04,NoLight};
+init_io_loc(  i_LBP,MAINIO,BRD1A,0,BIT3,"  LBP",0x04,NoLight};
+init_io_loc(  i_GBP,MAINIO,BRD1A,0,BIT4,"  GBP",0x04,NoLight};
+init_io_loc(  i_LPH,MAINIO,BRD1A,0,BIT5,"  LPH",0x04,NoLight};
+init_io_loc(  i_S10,MAINIO,BRD1A,0,BIT6,"  S10",0x04,NoLight};
+init_io_loc(i_S10_1,MAINIO,BRD1A,0,BIT7,"S10-1",0x04,NoLight};
+init_io_loc(  i_GOV,MAINIO,BRD1A,0,BIT8,"  GOV",0x04,NoLight};
+
+init_io_loc(   i_TF,MAINIO,BRD1B,1,BIT1,"  TF",	0x04,NoLight};
+init_io_loc(   i_BF,MAINIO,BRD1B,1,BIT2,"  BF",	0x04,NoLight};
+init_io_loc(   i_PS,MAINIO,BRD1B,1,BIT3,"  PS",	0x04,NoLight};
+init_io_loc(  i_HSS,MAINIO,BRD1B,1,BIT4,"  HSS",0x04,NoLight};
+init_io_loc(  i_ACC,MAINIO,BRD1B,1,BIT5,"  ACC",0x04,NoLight};
+init_io_loc(  i_BAD,MAINIO,BRD1B,1,BIT6,"  BAD",0x04,NoLight};
+init_io_loc(  i_BAU,MAINIO,BRD1B,1,BIT7,"  BAU",0x04,NoLight};
+init_io_loc(  i_TAD,MAINIO,BRD1B,1,BIT8,"  TAD",0x04,NoLight};
+
+init_io_loc(  i_TAU,MAINIO,BRD1C,2,BIT1,"  TAU",0x04,NoLight};
+init_io_loc(  i_DLB,MAINIO,BRD1C,2,BIT2,"  DLB",0x04,NoLight};
+init_io_loc(i_DLB_1,MAINIO,BRD1C,2,BIT3,"DLB-1",0x04,NoLight};
+init_io_loc(  i_DLM,MAINIO,BRD1C,2,BIT4,"  DLM",0x04,NoLight};
+init_io_loc(i_DLM_1,MAINIO,BRD1C,2,BIT5,"DLM-1",0x04,NoLight};
+init_io_loc(  i_DLT,MAINIO,BRD1C,2,BIT6,"  DLT",0x04,NoLight};
+init_io_loc(i_DLT_1,MAINIO,BRD1C,2,BIT7,"DLT-1",0x04,NoLight};
+init_io_loc(  i_RLM,MAINIO,BRD1C,2,BIT8,"  RLM",0x04,NoLight};
+
+init_io_loc(i_RLM_1,MAINIO,BRD2A,3,BIT1,"RLM-1",0x00,NoLight};
+init_io_loc(  i_TDC,MAINIO,BRD2A,3,BIT2,"  TDC",0x00,NoLight};
+init_io_loc(  i_MDC,MAINIO,BRD2A,3,BIT3,"  MDC",0x00,NoLight};
+init_io_loc(  i_BDC,MAINIO,BRD2A,3,BIT4,"  BDC",0x00,NoLight};
+init_io_loc( i_MDCR,MAINIO,BRD2A,3,BIT5," MDCR",0x00,NoLight};
+init_io_loc( i_BRKS,MAINIO,BRD2A,3,BIT6," BRKS",0x04,NoLight};
+init_io_loc( i_EBKS,MAINIO,BRD2A,3,BIT7," EBKS",0x00,NoLight};	// Emergency Brake Switch input
+init_io_loc(  i_SPI,MAINIO,BRD2A,3,BIT8,"  SPI",0x04,NoLight};
+
+init_io_loc( i_MRIU,MAINIO,BRD2B,4,BIT1," MRIU",0x04,NoLight};
+init_io_loc( i_MRIN,MAINIO,BRD2B,4,BIT2," MRIN",0x04,NoLight};
+init_io_loc( i_AUTO,MAINIO,BRD2B,4,BIT3," AUTO",0x04,NoLight};
+init_io_loc( i_MRSW,MAINIO,BRD2B,4,BIT4," MRSW",0x04,NoLight};
+init_io_loc(  i_SFC,MAINIO,BRD2B,4,BIT5," SFCi",0x04,NoLight};
+init_io_loc(  i_PFC,MAINIO,BRD2B,4,BIT6," PFCi",0x04,NoLight};
+init_io_loc( i_MRID,MAINIO,BRD2B,4,BIT7," MRID",0x04,NoLight};
+init_io_loc( i_MRIE,MAINIO,BRD2B,4,BIT8," MRIE",0x04,NoLight};	// Machine room inspection input
+
+init_io_loc(i_READY,MAINIO,BRD2C,5,BIT1,"  RDY",0x04,NoLight};	// Drive Ready input
+init_io_loc(  i_GTS,MAINIO,BRD2C,5,BIT2,"  GTS",0x04,NoLight};	// Gripper Trip Switch input
+init_io_loc( i_GRT1,MAINIO,BRD2C,5,BIT3," GRT1",0x04,NoLight};
+init_io_loc( i_GRT2,MAINIO,BRD2C,5,BIT4," GRT2",0x04,NoLight};
+init_io_loc(i_RGS_1,MAINIO,BRD2C,5,BIT5,"RGS-1",0x04,NoLight};
+init_io_loc(   i_GS,MAINIO,BRD2C,5,BIT6,"   GS",0x04,NoLight};
+init_io_loc( i_GS_1,MAINIO,BRD2C,5,BIT7," GS-1",0x04,NoLight};
+init_io_loc(  i_FST,MAINIO,BRD2C,5,BIT8," FSTi",0x04,NoLight};
+
+init_io_loc(   i_DN,MAINIO,BRD3A,6,BIT1,"   DN",0x04,NoLight};	// Down Directional Stop
+init_io_loc(   i_DZ,MAINIO,BRD3A,6,BIT2,"   DZ",0x04,NoLight};	// Door Zone input (DZU AND DZD)
+init_io_loc( i_DZ_1,MAINIO,BRD3A,6,BIT3," DZ-1",0x04,NoLight};	// Door Zone input (DZU AND DZD)
+init_io_loc(  i_RGS,MAINIO,BRD3A,6,BIT4,"  RGS",0x04,NoLight};
+init_io_loc(  i_CTA,MAINIO,BRD3A,6,BIT5," SPIN",0x04,NoLight};
+init_io_loc(  i_DTS,MAINIO,BRD3A,6,BIT6,"  DTS",0x04,NoLight};	// Down Emergeny Terminal Slowdown
+init_io_loc(   i_UN,MAINIO,BRD3A,6,BIT7,"   UN",0x04,NoLight};	// Up Directional Stop
+init_io_loc(  i_UTS,MAINIO,BRD3A,6,BIT8,"  UTS",0x04,NoLight};	// Up Emergency Terminal Slowdown 
+
+init_io_loc(   i_ID,MAINIO,BRD3B,7,BIT1,"   ID",0x04,NoLight};
+init_io_loc(  i_INE,MAINIO,BRD3B,7,BIT2,"  INE",0x04,NoLight};
+init_io_loc(   i_IU,MAINIO,BRD3B,7,BIT3,"   IU",0x04,NoLight};
+init_io_loc(  i_INS,MAINIO,BRD3B,7,BIT4,"  INS",0x04,NoLight};
+init_io_loc(    i_P,MAINIO,BRD3B,7,BIT5,"    P",0x04,NoLight};
+init_io_loc(  i_ICI,MAINIO,BRD3B,7,BIT6,"  ICI",0x04,NoLight};
+init_io_loc(  i_STP,MAINIO,BRD3B,7,BIT7,"   CS",0x04,NoLight};	// Car Stop Switch input
+init_io_loc(  i_FFS,MAINIO,BRD3B,7,BIT8,"  FFS",0x04,NoLight};
+
+init_io_loc(  i_MCC,MAINIO,BRD3C,8,BIT1," MCCi",0x04,NoLight};
+init_io_loc(  i_MCA,MAINIO,BRD3C,8,BIT2," MCAi",0x04,NoLight};
+init_io_loc(  i_DON,MAINIO,BRD3C,8,BIT3,"  DON",0x04,NoLight};
+init_io_loc(  i_BRK,MAINIO,BRD3C,8,BIT4," BRKi",0x04,NoLight};
+init_io_loc(  i_RUN,MAINIO,BRD3C,8,BIT5," RUNi",0x04,NoLight};
+init_io_loc(  i_DEL,MAINIO,BRD3C,8,BIT6,"  DEL",0x04,NoLight};
+init_io_loc( i_RUNA,MAINIO,BRD3C,8,BIT7,"RUNAi",0x04,NoLight};
+init_io_loc(  i_R54,MAINIO,BRD3C,8,BIT8,"  R54",0x04,NoLight};
+
+init_io_loc(  i_DNR,MAINIO,BRD4A,9,BIT1,"  DNi",0x04,NoLight};
+init_io_loc(   i_DF,MAINIO,BRD4A,9,BIT2,"  B0i",0x04,NoLight};
+init_io_loc(   i_UP,MAINIO,BRD4A,9,BIT3,"  UPi",0x04,NoLight};
+init_io_loc(   i_UF,MAINIO,BRD4A,9,BIT4,"  B1i",0x04,NoLight};
+
+
+init_io_loc(  o_FLH,MAINIO,BRD4B.10,BIT3,"  FLH",0x10,NoLight};
+init_io_loc( o_GR2R,MAINIO,BRD4B,10,BIT4," GR2R",0x10,NoLight};
+init_io_loc(   o_LE,MAINIO,BRD4B,10,BIT5,"   LE",0x10,NoLight};
+init_io_loc(  o_LE1,MAINIO,BRD4B,10,BIT6,"  LE1",0x10,NoLight};
+init_io_loc(  o_FST,MAINIO,BRD4B,10,BIT7,"  FST",0x10,NoLight};
+init_io_loc( o_FSTP,MAINIO,BRD4B,10,BIT8," FSTP",0x10,NoLight};
+
+init_io_loc(  o_RST,MAINIO,BRD4C,11,BIT1,"  RST",0x10,NoLight};
+init_io_loc(  o_MCC,MAINIO,BRD4C,11,BIT2,"  MCC",0x10,NoLight};
+init_io_loc(  o_MCA,MAINIO,BRD4C,11,BIT3,"  MCA",0x10,NoLight};
+init_io_loc(  o_PFC,MAINIO,BRD4C,11,BIT4,"  PFC",0x10,NoLight};
+init_io_loc(  o_DBG,MAINIO,BRD4C,11,BIT5,"  DBG",0x10,NoLight};
+init_io_loc(   o_FF,MAINIO,BRD4C,11,BIT6,"   FF",0x10,NoLight};
+init_io_loc(  o_SPO,MAINIO,BRD4C,11,BIT7,"  SPO",0x10,NoLight};
+init_io_loc( o_EBK1,MAINIO,BRD4C,11,BIT8," EBK1",0x10,NoLight};
+
+init_io_loc( o_RUNA,MAINIO,BRD5A,12,BIT3," RUNA",0x10,NoLight};
+init_io_loc(  o_RUN,MAINIO,BRD5A,12,BIT4,"  RUN",0x10,NoLight};
+init_io_loc(  o_DNR,MAINIO,BRD5A,12,BIT5,"  DNR",0x10,NoLight};
+init_io_loc(   o_DF,MAINIO,BRD5A,12,BIT6,"  DNF",0x10,NoLight};
+init_io_loc(   o_UP,MAINIO,BRD5A,12,BIT7,"   UP",0x10,NoLight};
+init_io_loc(  o_UPF,MAINIO,BRD5A,12,BIT8,"  UPF",0x10,NoLight};
+
+init_io_loc(  o_BRK,MAINIO,BRD5B,13,BIT1,"  BRK",0x10,NoLight};
+init_io_loc( o_EBK2,MAINIO,BRD5B,13,BIT2," EBK2",0x10,NoLight};
+init_io_loc(  o_DBC,MAINIO,BRD6B,13,BIT3,"  DBC",0x10,NoLight};
+	
+	init_io_loc(i_DN,
+	init_valid_io(i_DN);
+	init_valid_io(i_DT);
+	init_valid_io(i_DTS);
+
+	init_valid_io(i_UN);
+	init_valid_io(i_UT);
+	init_valid_io(i_UTS);
+
+	// Door locks and Car Gate
+	
+	init_valid_io(i_DLB);
+	init_valid_io(i_DLB_1);
+	init_valid_io(i_DLT);
+	init_valid_io(i_DLT_1);
+	init_valid_io(i_DLM);
+	init_valid_io(i_DLM_1);
+	init_valid_io(i_RLM);
+	init_valid_io(i_RLM_1);
+	init_valid_io(i_GS);
+	init_valid_io(i_GS_1);
+	init_valid_io(i_RGS);
+	init_valid_io(i_RGS_1);
+	init_valid_io(i_DPM);
+	init_valid_io(i_RPM);
+	init_valid_io(i_GBP);
+	init_valid_io(i_LBP);
+	
+	// Door zone sensors
+	init_valid_io(i_UL);
+	init_valid_io(i_UL_1)
+	init_valid_io(i_DZ);
+	init_valid_io(i_DZA);
+	init_valid_io(i_DL_1);
+	init_valid_io(i_DL);
+
+
+	// Access inputs
+	
+	init_valid_io(i_ACC);
+	init_valid_io(i_BAD);
+	init_valid_io(i_BAU);
+	init_valid_io(i_TAD);
+	init_valid_io(i_TAU);
+	
+	init_valid_io(i_FS);
+	init_valid_io(i_FSX);
+	init_valid_io(i_BP);
+	init_valid_io(i_ALT);
+	init_valid_io(i_MES);
+	init_valid_io(i_MRS);
+	init_valid_io(i_HWS);
+	init_valid_io(i_HWS2);
+	
+	
+	// Power and Safety String
+	init_valid_io(i_HC);
+	init_valid_io(i_SS);
+	init_valid_io(i_STP);
+	init_valid_io(i_GTS);
+	init_valid_io(i_FST);
+	init_valid_io(i_LC);
+	init_valid_io(i_PS);
+	init_valid_io(i_GOV);
+	
+	
+	init_valid_io(i_IND);
+	init_valid_io(i_AD);
+	init_valid_io(i_DEL);
+	init_valid_io(i_BRKS);
+	
+	// Inspection 
+	init_valid_io(i_INS);
+	init_valid_io(i_IU);
+	init_valid_io(i_ID);
+	
+	init_valid_io(i_MRIN);
+	init_valid_io(i_MRIU);
+	init_valid_io(i_MRID);
+	
+	init_valid_io(i_MRIE);
+	mr_ins_en = 1;
+	
+	init_valid_io(i_ICI);
+	
+	init_valid_io(i_AUTO);
+	
+	
+	// Run control
+	init_valid_io(o_RUN);
+	init_valid_io(o_RUNA);
+	init_valid_io(o_MCC);
+	init_valid_io(o_MCA);
+	init_valid_io(o_BRK);
+	init_valid_io(o_RST);
+	init_valid_io(o_PFC);
+	init_valid_io(o_GR1R);
+	init_valid_io(o_GR2R);
+	init_valid_io(o_LE);
+	init_valid_io(o_LE1);
+	init_valid_io(o_FST);
+	init_valid_io(o_FSTP);
+	init_valid_io(o_DBC);
+	init_valid_io(o_DNR);
+	init_valid_io(o_UP);
+	init_valid_io(o_DF);
+	init_valid_io(o_UPF);
+
+	if (cons[brake] == 0)		// NO Electronic brake
+		init_valid_io(o_BRKC);
+	
+	
+	init_valid_io(i_DON);
+	init_valid_io(i_BRK);
+	init_valid_io(i_RUN);
+	init_valid_io(i_RUNA);
+	init_valid_io(i_MCC);
+	init_valid_io(i_MCA);
+	init_valid_io(i_DNR);
+	init_valid_io(i_UP);
+	init_valid_io(i_DF);
+	init_valid_io(i_UF);
+	init_valid_io(i_GRT1);
+	init_valid_io(i_GRT2);
+	
+	init_valid_io(i_P);
+	
+	
+	
+	init_io(i_INE);
+	init_io(i_SFC);
+
+
+//************************************
+// Set the Option I/O Locations
+//************************************
+
+
+
+//****************************************
+// Car and car top I/O
+//****************************************
+
+
+	init_io(i_CTS);
+	init_io(i_FFS);
+	init_io(i_SS);
+
+	
+#if(Traction == 1)
+	start_io_loc(47);
+	if (cons[speed] > 250)
+	{
+		init_io(i_UT1);
+		init_io(i_DT1);
+	}
+	if (cons[speed] > 500)
+	{
+		init_io(i_UT2);
+		init_io(i_DT2);
+	}
+	if (cons[speed] > 700)
+	{
+		init_io(i_UT3);
+		init_io(i_DT3);
+	}
+	if (cons[speed] > 900)
+	{
+		init_io(i_UT4);
+		init_io(i_DT4);
+	}
+	if (cons[speed] > 1100)
+	{
+		init_io(i_UT5);
+		init_io(i_DT5);
+	}
+
+	if (cons[speed] > 1300)
+	{
+		init_io(i_UT6);
+		init_io(i_DT6);
+	}
+#endif
+
+	
+	// Car Calls
+	
+	start_io_loc(48);
+	for (i=cons[bottomf];i<=cons[topf];i++)
+	{
+		init_io(i_CC[i]);  // Initiallize both inputs and outputs.
+		init_io(o_CCL[i]);
+	}
+	
+	start_io_loc(48);
+	if (cons[rear] != 0)
+	{
+		for (i=cons[bottomf];i<=top_rfl[cons[carnmb]];i++)
+		{
+			init_io(i_CCR[i]);
+			init_io(o_CCRL[i]);
+		}
+	}
+
+	init_io(i_DCB); 
+	init_io(i_DOB);
+	init_io(i_DCBR);
+	init_io(i_DOBR);
+
+	// fire Service
+	
+	if ((cons[FS2_SW] == 1) || (cons[Australia] == 1))
+	{
+		strncpy(i_FS2.name,"FS2OF",5);		// Rename to FS2OF
+		if (cons[Australia] == 1)
+			strncpy(i_FS2H.name," FS2S",5);	// Rename to FS2S
+	}
+
+	init_io(i_FS2);
+	init_io(i_FS2H);
+	init_io(i_FS2C);
+
+	if (cons[RGB_CC] == 1)
+	{
+		init_io(i_ICIU);
+		init_io(i_ICID);
+		init_io(i_FDCB); 
+		init_io(i_FDOB);
+		init_io(i_FFS2C);
+		init_io(i_FDCBR);
+		init_io(i_FDOBR);
+		init_io(o_FFL);
+	}
+	
+	if(cons[exDHwLatFL] == 1)
+		init_io(o_EDHL);
+	
+	
+	init_io(i_DOL);
+	init_io(i_DCL);
+	init_io(i_DPM);
+	init_io(i_EE);
+	init_io(o_DO);
+	init_io(o_DC);
+	init_io(o_NUD);
+	if(((cons[dflt_MOVFR] & 0x02) != 0) && ((cons[sercom] & 0x10) != 0))
+	{
+		init_io(o_std_DO);
+		init_io(o_std_DC);
+		init_io(o_std_NUD);
+	}
+	else
+	{	
+#if ((Simulator == 1) || (Door_Test == 1))
+		init_io(i_movfr_DOL);
+		init_io(i_movfr_DCL);
+		init_io(i_movfr_DPM);
+		init_io(i_movfr_EE);
+		init_io(o_movfr_DO);
+		init_io(o_movfr_DC);
+		init_io(o_movfr_NUD);
+#endif
+	}
+
+	init_io(o_CLF);
+	
+	if (cons[StagRear] == 1)
+	{
+		init_io(o_DTR);
+	}
+	if (cons[vshort_tfl] != 0)
+	{
+		init_io(o_DTRS);
+	}
+	
+	if ((cons[dispis] & 0x80) != 0)
+	{
+		init_io(o_UDA);
+		init_io(o_DDA);
+		init_io(o_DPIC1);
+		init_io(o_DPIC2);
+		init_io(o_DPIC3);
+		init_io(o_DPIC4);
+		init_io(o_DPIC5);
+		init_io(o_DPIC6);
+	}
+
+	init_io(o_CUL);
+	init_io(o_CDL);
+	init_io(o_FL);
+	init_io(o_FBNB);
+	init_io(o_HB);
+	init_io(i_INDC);
+	
+	if (cons[rear] != 0)
+	{
+		init_io(o_CULR);
+		init_io(o_CDLR);
+	}
+
+	// Copy special car i/o's into array	
+
+	if (cons[BinPiIn] == 1)
+	{
+
+		init_io(i_BP1);
+		init_io(i_BP2)
+		;
+		if (cons[topf] > 3)
+			init_io(i_BP4);
+
+		if (cons[topf] > 7)
+			init_io(i_BP8);
+
+
+		if (cons[topf] > 15)
+			init_io(i_BP16);
+		
+		if (cons[grtopf] > 31)
+			init_io(i_BP32);
+	}
+
+
+	if (cons[rear] != 0)
+	{
+		init_io(i_DCLR);
+		init_io(i_DOLR);
+		init_io(i_SER);
+		init_io(i_RPM);
+		init_io(i_EER);
+		init_io(o_DCR);
+		init_io(o_DOR);
+		init_io(o_NUDR);
+
+#if (Simulator == 1)
+
+		init_io(i_movfr_DCLR);
+		init_io(i_movfr_DOLR);
+		init_io(i_movfr_RPM);
+		init_io(i_movfr_EER);
+		init_io(o_movfr_DCR);
+		init_io(o_movfr_DOR);
+		init_io(o_movfr_NUDR);
+
+#endif		
+	}
+
+	if ((cons[F1_CT] == 1) && ((cons[sercom] & 0x04) != 0))
+	{
+		init_io(o_FLCT);
+		init_io(o_FBNBCT);
+	}
+
+	if (cons[loadw] == 1)
+	{
+		init_io(i_LWA);
+		init_io(i_LWB);
+		init_io(i_LWD);
+		init_io(i_OVL);
+		init_io(o_OLL);
+	}
+	else if (cons[loadw] == 2)
+	{
+	 	init_io(o_OLL);
+	}
+
+
+	if ((cons[loadw] != 1) || (cons[RGB_CC] == 1))
+	{
+		init_io(i_ALRM);
+	} 
+
+	if ((cons[att] == 1) || (cons[att] == 2))
+	{
+		init_io(i_ATT);
+		init_io(i_ATTUP);
+		init_io(i_ATTDN);
+		init_io(i_ATTHC);
+
+		if (cons[RGB_CC] == 1)
+		{
+			init_io(o_ATDL);
+			init_io(o_ATUL);
+		}
+
+	}
+	else if ((cons[Car_Sw] & 1) != 0)
+	{
+		init_io(i_ATT);
+		init_io(i_ATTUP);
+		init_io(i_ATTDN);
+		init_io(i_ATTHC);
+	}
+
+	if (cons[medEm] == 1) 
+	{		// Medical Emergency Service
+		init_io(o_EML);
+		init_io(i_EMS);
+	}
+
+	if (cons[cblue] == 1)
+	{
+		init_io(o_EML);
+		init_io(i_EMS);
+	}
+
+	if ((cons[Elev_off] & 1) != 0)
+	{
+		init_io(i_ELOF);
+	}
+
+	if ((cons[hben] & 0x01) != 0)
+	{
+		init_io(i_HBE);
+	}
+
+	if (cons[exDHwL] == 1) 
+	{		// Extended door hold light   
+		init_io(o_EDL);
+	}
+
+	if (cons[LW_dis_sw] == 1) 
+	{	 
+		 // Disable Loadweigher switch
+		init_io(i_DLW);
+	}
+	if (cons[F1_ML_AL] == 1)
+	{
+		init_io(o_F1AL);
+		init_io(o_F1ML);
+	}
+
+	if (cons[door_type] == 1)
+	{
+		
+		init_io(o_RVD);
+		init_io(o_REV);
+
+		if (cons[rear] != 0)
+		{
+			init_io(o_RVDR);
+			init_io(o_REVR);
+		}
+	}
+	
+	if (cons[heavy_door] == 1)
+	{
+		
+		init_io(o_HVD);
+		if (cons[rear] != 0) 
+		{
+			init_io(o_HVDR);
+		}
+	}
+
+	if (cons[DZDoorEn] == 1)
+	{
+		init_io(o_DZDE);
+	}
+
+	if (cons[equake] == 1) 
+	{		// add earthquake light on car
+		init_io(o_EQLC);
+	}
+
+	if (cons[IndSec] == 1) 
+	{
+		init_io(i_INDS);
+		init_io(i_IDSO);
+	}
+	
+
+	
+//****************************************
+// Machine room I/O
+//****************************************
+
+
+	start_io_loc(7);
+	
+	// fire Service
+	
+	init_io(i_FS);
+	init_io(i_BP);
+	init_io(i_FSX);
+	init_io(i_ALT);
+	init_io(i_MES);
+	init_io(i_MRS);
+	init_io(i_HWS);
+	init_io(i_HWS2);
+	
+
+	// Emergency Power
+
+	init_io(i_EMP);
+	init_io(i_EPS);
+
+	if ((cons[EMPop] & 0x01) != 0)
+	{		// Then use this i/o for Emergency power transfer
+		init_io(i_EPT);
+	}
+
+	if ((cons[FI_EP_Ext] != 0) || (cons[Australia] == 1))
+	{
+		init_io(o_EPLH);
+		init_io(o_EPRL);
+		init_io(o_EPSL);
+		init_io(o_FLH);
+	}
+
+
+	if (cons[Remote_CC] != 0)
+	{
+		init_io(i_SCS);
+		for (i=cons[bottomf];i<=cons[topf];i++)
+		{
+			init_io(i_RM_CC[i]);
+			init_io(o_RM_CCL[i]);
+		}
+		
+		if (cons[rear] != 0)
+		{
+			init_io(i_SCSR);
+			for (i=cons[bottomf];i<=top_rfl[cons[carnmb]];i++)
+			{
+				init_io(i_RM_CCR[i]);
+				init_io(o_RM_CCRL[i]);
+			}
+		}
+
+
+		if (cons[Remote_CC] == 1) 
+			init_io(i_RM_INDC);
+		else if (cons[Remote_CC] == 2)
+			init_io(i_RM_ED);
+	}
+	
+	
+
+	if (cons[MR_FBZ] == 1) 
+		init_io(o_FBZ);
+
+	if ((Security_Type[cons[carnmb]] & 0x01) != 0)	
+	{
+		init_io(o_OPENL);
+		init_io(o_INSEC);
+	}
+
+	
+	if (cons[brake] == 3)
+	{
+		init_io(i_BKS1);
+		init_io(i_BKS2);
+		init_io(i_BDBS);
+		
+		if ((cons[EM_BRK] == 6) || (cons[Aux_Brake] == 1)  || (cons[EM_BRK] == 7))
+		{
+			init_io(i_XBKS1);
+			init_io(i_XBKS2);
+			init_io(i_XBDBS);
+		}
+	
+	}
+
+	if (cons[brake] == 2)
+	{
+		strncpy(i_BKS1.name,"  BBK",5);		// Rename to BBK
+		init_io(i_BKS1);
+		strncpy(i_BKS2.name,"  BMC",5);		// Rename to BMC
+		init_io(i_BKS2);
+
+		if ((cons[EM_BRK] == 6) || (cons[Aux_Brake] == 1) || (cons[EM_BRK] == 7))
+		{
+			strncpy(i_XBKS1.name," XBBK",5);		// Rename to BBK
+			init_io(i_XBKS1);
+			strncpy(i_XBKS2.name," XBMC",5);		// Rename to BMC
+			init_io(i_XBKS2);
+		}
+	}
+
+
+	if ((Drive_Type[cons[carnmb]] == 5) || (Drive_Type[cons[carnmb]] == 10))
+		init_io(o_FF);
+
+
+
+	if ((cons[dispis] & 0x40) != 0)
+	{
+		init_io(o_DPI1);
+		init_io(o_DPI2);
+		init_io(o_DPI3);
+		init_io(o_DPI4);
+		init_io(o_DPI5);
+		init_io(o_DPI6);
+	}
+
+
+	if ((cons[dispis] & 2) != 0)
+	{
+		init_io(o_LU);
+		init_io(o_LD);
+	}
+	init_io(o_ISER);
+	init_io(o_TCU);
+
+	if (((cons[Elev_off] & 8) != 0) || (((cons[Elev_off] & 0x10) != 0)))
+	{
+		init_io(o_ELOO);
+	}
+
+	if(oserl_enable == 1)
+	{
+		init_io(o_OSERL);
+		if(cons[distress] == 1)
+		{
+			init_io(o_OSERB);
+			init_io(i_OSERA);
+		
+		}
+	}
+
+	if ((cons[EM_BRK] == 1) || (cons[EM_BRK] == 4))
+	{
+		init_io(i_EBKS);
+	} 
+ 
+	if ((cons[EM_BRK] == 5) && (cons[EM_BKS] != 0))
+	{
+		init_io(i_EBKS);
+	}
+		
+
+	if (cons[otslbp] != 0)
+	{
+#if ((Traction == 1) || (Tract_OL == 1))
+		init_io(i_RTL);
+#else
+		init_io(i_RTLH);
+#endif
+		if ((cons[otslbp] & 0x04) != 0)
+		{
+			init_io(i_RTLDC);
+		}
+	}
+
+
+	if (cons[equake] == 1) 
+	{		// add earthquake 
+		init_io(i_ETH);
+		init_io(o_EQL);
+
+#if ((Traction == 1) || (Tract_OL == 1))
+		init_io(i_COL);
+#endif
+		init_io(i_EQR);
+
+#if (Tract_OL == 1)
+		init_io(i_CWS);
+#endif
+	}
+
+#if ((Traction == 0) && (Tract_OL == 0))
+	if (cons[Low_Oil] == 1)
+	{
+		init_io(i_LOS);
+	}
+#endif
+
+	if (cons[hugs] == 1)
+	{
+		init_io(o_HUGO);
+	}
+
+
+
+	if ((cons[Sabbath] == 4) || (cons[Sabbath] == 5))
+		init_io(o_SABO);
+
+	if ((cons[Sabbath] != 0)&&(cons[Super_Sabbath] == 1))
+	{
+		init_io(o_SABUZ);
+		init_io(o_SABEE);
+	}
+	
+	if (cons[cblue] == 1)
+	{
+		init_io(o_EMLH);// CBL
+	}
+	else if (cons[medEm] == 1) 
+	{		// Medical Emergency Service
+		init_io(i_EMSH);
+		init_io(o_EMLH);
+	}
+
+
+	if (((Security_Type[cons[carnmb]] & 0x10) != 0) && 
+	{
+		for (i=cons[bottomf];i<=cons[topf];i++)
+			init_io(i_CCS);
+		if (cons[rear] != 0)
+		{
+			for (i=cons[bottomf];i<=top_rfl[cons[carnmb]];i++)
+				init_io(i_RCCS);
+		}
+	}
+	if (((Security_Type[cons[carnmb]] & 0x40) != 0))
+	{
+		for (i=cons[bottomf];i<=cons[topf];i++)
+			init_io(i_OCS);
+		if (cons[rear] != 0)
+		{
+			for (i=cons[bottomf];i<=top_rfl[cons[carnmb]];i++)
+				init_io(i_ROCS);
+		}
+	}
+	
+
+	if ((cons[frghtd] == 6) || (cons[frghtd] == 7) || (cons[frghtd] == 8))
+	{
+		init_io(o_DCA);
+	}
+	 
+
+	if (cons[GLBP_LED] == 1) 
+	{	// Gate and Lock bypass LED output (external) for Rudy Rule
+		init_io(o_GBL);
+		init_io(o_LBL);
+	}
+
+
+#if ((Traction == 0) && (Tract_OL == 0))
+	if (cons[Low_Press] == 1)
+	{
+		init_io(i_LPS);
+	}
+	if (cons[Micro_Relev] == 1)
+	{
+		init_io(o_UPML);
+		init_io(o_DNML);
+	}
+	
+#endif
+
+
+#if ((Traction == 1) || (Tract_OL == 1))
+
+	if (fvars[fvrcmfrght] == 1)
+	{
+		rcm_frght_out_en = 1;
+	}
+
+#endif
+
+	if ((cons[mand] != 0) || (cons[frghtd] != 0))
+	{
+		init_io(i_BDC);
+		init_io(o_RCM);
+
+		if(rcm_frght_out_en == 1)
+		{
+			init_io(o_RCF);
+		}
+
+		init_io(i_MDC);
+		init_io(i_TDC);
+
+		if (cons[rear] != 0)
+		{
+			init_io(i_MDCR);
+		}
+	}
+	
+	if (cons[RCM_HWDoor] == 1) 
+	{
+		init_io(o_RCM);
+	}
+
+	if (cons[Australia] == 1)
+	{
+		init_io(i_BDC);
+		init_io(i_MDC);
+		init_io(i_TDC);
+
+		if (cons[rear] != 0)
+		{
+			init_io(i_MDCR);
+		}
+	}
+
+	if ((cons[Elev_off] & 2) != 0)
+	{
+		init_io(i_HEOF);
+   		if ((cons[Elev_off] & 4) != 0)
+	   	{
+			init_io(i_EOR);
+		}
+	}
+	
+	if(cons[Prison] == 1)
+	{
+		init_io(i_JAILB);
+		init_io(i_EOR);
+	}
+
+
+	if (cons[MtrBlower] == 1) 
+	{
+		init_io(o_MTB);
+	}
+
+  	if ((cons[SecFlCfg] == 1) || (cons[SecFlCfg] == 3) || ((cons[SecFlCfg] == 5)))
+	{
+		init_io(i_SECFM);
+	}
+	
+	if (cons[Sabbath] != 0)
+	{
+		init_io(i_SAB);
+	}
+	
+	if (cons[cc_pb_sec] == 1)
+	{
+		init_io(i_CCPBS);
+	}
+
+
+	if (cons[Auto_Swing_DO] == 1) 
+	{
+		init_io(o_FSDO);
+		if (cons[rear] != 0)
+		{
+			init_io(o_RSDO);
+		}
+	}
+
+
+	if (cons[GOV_Reset] == 1)
+	{
+		init_io(o_GOVR);
+		init_io(o_GOVT);
+	}
+
+	// 2=peele,3=courion modelE,4=ems, 5=courion model D
+	if (cons[frghtd] == 2)	   // peele
+	{
+		init_io(o_INSP);
+		init_io(o_ADO);
+		init_io(o_PH1R);
+		init_io(o_DESL);
+		init_io(o_PH2ON);
+		init_io(o_PH2HD);
+		init_io(o_PH2OF);
+		init_io(o_HDB);
+		init_io(o_RC);
+
+		if (cons[StagRear] == 1)
+		{
+			init_io(o_RDT);
+		}
+		if (cons[rear] != 0)
+		{  
+			init_io(o_RADO);
+		}
+	
+		init_io(o_DAO);
+	}
+
+	if ((cons[frghtd] == 3) || (cons[frghtd] == 5))	   // courion model D or E
+	{
+		init_io(o_MPTR);
+		init_io(o_FPH2);
+		init_io(o_CODG);
+		init_io(o_IAO);
+		init_io(o_COHS);
+		init_io(o_PH2HD);
+		init_io(o_FPH1);
+		init_io(o_ATO);
+		init_io(o_RAHS);
+		init_io(o_RC);
+
+		if (cons[rear] != 0)
+		{  
+			init_io(o_RADO);
+		}
+	
+	}
+
+	if (cons[frghtd] == 4)		 // ems
+	{
+		init_io(o_EMS1Z);
+		init_io(o_EMS2Z);
+		init_io(o_EMS3Z);
+		init_io(o_EMS4Z);
+		init_io(o_EMS5Z);
+		init_io(o_EMS6Z);
+		init_io(o_EMS7Z);
+		init_io(o_EMS8Z);
+		init_io(o_EMS9Z);
+		init_io(o_EMS10Z);
+		init_io(o_EMS11Z);
+		init_io(o_DSC);
+		init_io(o_FDOB);
+		init_io(o_RDOB);
+		init_io(o_HCO);
+		init_io(o_FRCL);
+		init_io(o_FPS2);
+		init_io(o_FH);
+		init_io(o_TC);
+		init_io(o_RC);
+		init_io(o_EFST);
+	}
+
+	if ((cons[frghtd] == 6) || (cons[frghtd] == 7) || (cons[frghtd] == 8)) 
+	{	   // Automatic front or rear freight door
+		init_io(o_RC);
+		init_io(o_FRT1Z);
+		init_io(o_FRT2Z);
+		init_io(o_FRT3Z);
+		init_io(o_PDO);
+		init_io(o_PDOR);
+	}
+	
+	if (cons[frghtd] == 9)	   // Guilbert
+	{
+		init_io(o_G_FH1R);
+		init_io(o_G_FDCBO);
+		init_io(o_G_RDCBO);
+		init_io(o_G_PH2ON);
+		init_io(o_G_PH2HD);
+		init_io(o_G_PH2OF);
+		init_io(o_G_INSP);
+		init_io(o_G_SOPEN);
+		init_io(o_G_ADO);
+		init_io(o_G_ADOH);
+		init_io(o_G_RDO);
+		init_io(o_G_RDOH);
+		init_io(o_G_RC);
+		init_io(o_G_ININD);
+	}
+
+
+
+	if ((cons[housing] == 1) || (cons[housing] == 2))
+	{
+		init_io(i_TF);
+		init_io(i_BF);
+		init_io(i_PDS);
+		init_io(i_BFS);
+		init_io(i_CMP);
+		init_io(i_TEE);
+		init_io(i_SEE);
+		init_io(i_CSS);
+		init_io(i_CCP);
+		init_io(i_CCLP);
+		init_io(i_HCLP);
+	}
+
+	if (cons[housing] == 2)
+	{
+
+		init_io(i_HMO);
+		init_io(i_DMO);
+		init_io(i_LHCP);
+	}
+
+	if ((cons[home] >= 100) || (cons[Reset_Jack] == 1))
+	{			// Reset jack operation
+		init_io(o_DNO);
+	}
+
+	if (cons[EM_BRK] == 2)
+	{
+		init_io(i_EBK);
+		init_io(i_EBKS);
+		init_io(o_EBK);
+		init_io(o_EBKC);
+	}
+	else if (cons[EM_BRK] == 3)
+	{
+		init_io(i_EBA);
+		init_io(i_EBB);
+		init_io(i_EBKS);
+		init_io(o_EBA1);
+		init_io(o_EBA2);
+		init_io(o_EBB1);
+		init_io(o_EBB2);
+		init_io(o_EBC);
+		init_io(o_UTM);
+	}
+	else if (cons[EM_BRK] == 5)
+	{
+		init_io(o_EBC);
+		init_io(o_UTM);
+	}
+	else if (cons[EM_BRK] == 7)
+	{
+		init_io(i_EBK1);
+		init_io(i_EBK2);
+		init_io(i_EBKS);
+		init_io(o_EBK1);
+		init_io(o_EBK2);
+	}
+	
+	if (cons[PWL_Brake] == 1)
+	{
+		init_io(o_MBP);
+		init_io(o_MB1);
+		init_io(o_MB2);
+		init_io(o_MBC);
+	}
+
+	if (cons[Emp_Recover] == 2)
+	{
+		init_io(o_NPD);
+		init_io(o_EPD);
+		init_io(o_EPO);
+	}
+ 	if (cons[PWL_Brake] == 2)
+	{
+		init_io(o_MBC);
+	}
+
+	if(cons[TUG] == 1)
+	{
+
+		init_io(i_TGDO);
+		init_io(i_TGDC);
+		init_io(i_TGDOR);
+		init_io(i_TGDCR);
+		init_io(i_THDS);
+		init_io(o_TDOL);
+		init_io(o_TDCL);
+		init_io(o_TDOLR);
+		init_io(o_TDCLR);
+		init_io(o_TAVL);
+		init_io(o_TAVL2);
+		init_io(o_TIND);
+		init_io(o_TMED);
+		init_io(o_TFSO);
+
+		init_io(o_TP1);
+		init_io(o_TP2);
+		init_io(o_TP3);
+		init_io(o_TP4);
+		init_io(o_TP5);
+		init_io(o_TP6);
+	}
+
+
+
+//******************************
+// Group I/O
+//******************************
+
+	gcc_sec = 0;
+	cc_sec = 0;
+	gcc_rsec = 0;
+ 
+
+ 	for(i=1;i<=6;i++)
+	{
+		if (((Security_Type[i] & 0x01) != 0) || ((Security_Type[i] & 0x10) != 0))
+			cc_sec = 1;
+		if (((Security_Type[i] & 0x02) != 0) || ((Security_Type[i] & 0x08) != 0) || 
+			((Security_Type[i] & 0x04) != 0) || ((Security_Type[i] & 0x20) != 0) || 
+			((Security_Type[i] & 0x80) != 0) || (cons[hugs] == 1))
+			gcc_sec = 1;			// any car has group security
+		if ( (((Security_Type[i] & 0x02) != 0) || ((Security_Type[i] & 0x08) != 0)) && 
+									((Security_Type[i] & 0x04) == 0) && (rear_op[i] != 0))
+			gcc_rsec = 1;
+	}
+
+	for(i=1;i<=cons[grtopf]; i++)
+	{
+		if (i < cons[grtopf])
+		{
+			init_valid_gio(i_UC[i]);
+			init_valid_gio(o_UCL[i]);
+		}
+		if(i > 1)
+		{
+			init_valid_gio(i_DC[i]);
+			init_valid_gio(o_DCL[i]);
+		}
+	}
+	
+	for(i=1;i<=cons[grtopf]; i++)
+	{
+		if (fvars[fvxasgn] == 1)
+		{
+		}
+
+		if (((Security_Type[cons[carnmb]] & 0x04) != 0) && (gcc_rsec == 0))
+		{
+		}
+		if (((Security_Type[cons[carnmb]] & 0x08) != 0))
+		{
+		}
+		if ((cons[VipSvc] != 0) && (cons[cblue] == 0))
+		{
+		}
+		if ((cons[VipSvc] != 0) && (cons[cblue] != 0) && (grtop_rfl == 0))
+		{
+		}
+		if (((cons[sercom] & 0x20) != 0))
+		{
+		}
+		if (((Security_Type[cons[carnmb]] & 0x20) != 0) || (cons[hugs] == 1))
+		{
+		}
+		if ((Security_Type[cons[carnmb]] & 0x80) != 0)
+		{
+		}
+		if (((cons[sercom] & 0x20) != 0) && (cons[Dual_Ser_Riser] == 1))
+		{				   // Dual Serial Riser I/O
+		}
+
+		if (((cons[sercom] & 0x20) == 0) && (cons[CB_SR] == 1))
+		{			  // no serial riser
+		}
+		
+		if ((cons[EMPop] & 0x08) != 0)
+		{
+		}
+		
+		// Copy special group i/o's into array	
+		if ((cons[sercom] & 0x20) != 0)
+		{
+			// Set I/O start location for serial hall
+		}
+
+		if ((cons[incrs] != 0) || (cons[Second_Riser] != 0))
+		{
+			init_valid_gio(i_ICR);
+	
+			if (cons[incrs] != 0)
+			{
+				init_valid_gio(i_ICR2);
+			}
+
+			if (grtop_rfl != 0)
+			{
+				init_valid_gio(i_EICR);
+			}
+		}
+		if (cons[epgrp] != 0)
+		{
+			init_valid_gio(i_RECEN);
+			init_valid_gio(i_RUNEN);
+			init_valid_gio(o_RUNCT);
+		}
+				
+		if (cons[LbyUpReq] == 1)
+		{
+			init_valid_gio(i_LUC);
+		}
+
+		if (cons[Car_Asgn_Fl] == 1)
+		{
+			init_valid_gio(i_CASEC);
+		}
+
+		if (cons[Park_NCU_ALB] == 1)
+		{
+			init_valid_gio(i_APRK);
+			init_valid_gio(i_NCU);
+		}
+		if(ep_out_fnshed_rcll_en == 1) // this is the field variable has been turned on before powering up
+		{
+			init_valid_gio(i_EPCOM);
+		}
+				
+	  	if (cons[SecFlCfg] == 2)
+		{
+			init_valid_gio(i_SECF1);
+			init_valid_gio(i_SECF2);
+			init_valid_gio(i_SECF3);
+		}
+							
+		if (gcc_rsec == 1)
+		{
+			init_valid_gio(i_RGSEC);
+		}
+		if ((Security_Type[cons[carnmb]] & 0x08) != 0) 
+		{
+			init_valid_gio(i_FSEC);
+			if (grtop_rfl != 0)
+				init_valid_gio(i_RFSEC);
+		}
+		if (((Security_Type[cons[carnmb]] & 0x20) != 0) || (cons[hugs] == 1)) 
+		{
+			init_valid_gio(i_HSEC);
+			if (grtop_rfl != 0)
+				init_valid_gio(i_RHSEC);
+		}
+		if ((Security_Type[cons[carnmb]] & 0x80) != 0) 
+		{
+			init_valid_gio(i_GSOR);
+			if (grtop_rfl != 0)
+				init_valid_gio(i_RGSOR);
+		}
+	}
+	
+	
+
+#if (Tract_HR == 1)
+	if (((cons[sercom] & 0x20) == 0) && (cons[CB_SR] == 1))
+	{			  // no serial riser
+		init_valid_gio(i_CBSR);
+		if (grtop_rfl != 0)
+			init_valid_gio(i_RCBSR);
+	}
+#endif
+
+}
+
+/******************************************************/
+/*** This is the Init the I/O Data routine ************/
+/*** Initialize input and outputs to the off state ****/
+/******************************************************/
+void init_iodata(void)
+{
+	int i;
+
+#if (Tract_HR == 1)
+	for(i=0; i<=156; i++)
+#else
+	for(i=0; i<=96; i++)
+#endif
+	{		  // Do one board at a time on each display column
+		iodata[1][i] = IO_In_Out[i];	// Turn off input = 0  and outputs = ff
+	}
+#if (Tract_HR == 1)
+	for (i=0; i<=29; i++)
+#else
+	for (i=0; i<=11; i++)
+#endif
+	{
+		gpi[i] = 0;
+		gpo[i] = 0;
+		cgpi[i] = 0;
+		cgpo[i] = 0;
+	}
+}
+
+
+
+
+// ***********************************
+// Set IO Loactions
+// ***********************************
+
+void set_io_location (void)
+{
+	// *************************************
+	// Set I/O array indexes
+	// *************************************
+
+	io_sel = 0;
+	ct_io_sel = 0;
+	rdoor_io_sel = 0;
+	f_rm_io_sel = 0;
+	lps_io_sel = 0;
+	tdc_io_sel = 0;
+	bdc_io_sel = 0;
+	mdc_io_sel = 0;
+	clant_io_sel = 0;
+	rclant_io_sel = 0;
+	iserv_io_sel = 0;
+	mbc_io_sel = 0;	
+	hvd_io_sel = 0;
+	rcc_io_sel = 0;
+	alrm_io_sel = 0;
+	ept_io_sel = 0;
+	hfire_io_sel = 0;
+	hemp_io_sel = 0;
+	flh_io_sel = 0;
+	eplh_io_sel = 0;
+	ss_io_sel = 0;
+
+	dza_io_sel = 0;
+	dz_io_sel = 0;
+	lev_io_sel = 0;
+	up_limit_io_sel = 0;
+	dn_limit_io_sel = 0;
+
+	rtl_io_sel = 0;
+	heof_io_sel = 0;
+	rtlh_io_sel = 0;
+	emsh_io_sel = 0;
+	fbz_io_sel = 0;
+	
+	
+	if (cons[sel_type] == 2)
+	{
+		dza_io_sel = 1;
+		dz_io_sel = 1;
+		lev_io_sel = 1;
+		up_limit_io_sel = 1;
+		dn_limit_io_sel = 1;
+	}
+
+	if (cons[SFC_2004_IO] == 1)
+		a2004_io_sel = 1;
+	else
+		a2004_io_sel = 0;
+
+	if ((cons[Low_Press] != 0) && (cons[mand] == 0) && (cons[frghtd] == 0) && (cons[medEm] == 0))
+		lps_io_sel = 0;
+	else if (cons[Low_Press] != 0)
+		lps_io_sel = 1;	
+	
+	rtlh_io_sel = a2004_io_sel;
+
+
+	if ((cons[FI_EP_Ext] != 0) || (cons[Australia] == 1))
+	{
+		hemp_io_sel = 1;
+		ept_io_sel = 2;
+		hfire_io_sel = 1;
+		if ((cons[FI_EP_Ext] == 2) || (cons[Australia] == 1))
+		{		   // only used with large i/o board
+			eplh_io_sel = 1;
+			flh_io_sel = 1;
+			rtl_io_sel = 1;
+			heof_io_sel = 1;	 
+			emsh_io_sel = 1;
+			emlh_io_sel = 1;
+			rtlh_io_sel = 2;
+			eor_io_sel = 2;
+		}
+	}
+	else if (((cons[EMPop] & 0x01) != 0) && (cons[mand] == 0) && (cons[frghtd] == 0) && (cons[Low_Press] == 0) && (cons[medEm] == 0))
+		ept_io_sel = 0;
+	else if ((cons[EMPop] & 0x01) != 0)
+		ept_io_sel = 1;
+
+	if(eor_io_sel == 0)
+	{
+		if (cons[equake] == 1)
+		{
+			eor_io_sel = 1;
+		}
+		else
+		{
+			eor_io_sel = 0;
+		}
+	}
+
+	if (cons[MR_INE] == 1)
+		mrie_io_sel = 0;
+	else if (cons[MR_INE] == 2)
+		mrie_io_sel = 1;
+	else if (cons[MR_INE] == 3)
+		mrie_io_sel = 2; 
+	
+
+	ebks_io_sel = 0;
+	if ((cons[EM_BRK] == 1) || (cons[EM_BRK] == 4))
+	{
+		if (cons[EM_BKS] == 1)
+			ebks_io_sel = 1;
+		else if (cons[EM_BKS] == 2)
+			ebks_io_sel = 2;
+		else if (cons[EM_BKS] == 3)
+			ebks_io_sel = 3; 
+	}
+
+
+	if (((cons[mand] != 0) || (cons[frghtd] != 0)) && (cons[equake] != 0))
+		tdc_io_sel = 1;					// Move to Same io SEFC
+	else
+		tdc_io_sel = 0;					// Same io location as EQR
+
+	if ((cons[mand] != 0) || (cons[frghtd] != 0))
+	{
+	   	if (cons[medEm] == 0)
+			bdc_io_sel = 0;			// use on EMH
+		else
+			bdc_io_sel = 1;			// use on EQ
+	}
+
+	if (((cons[dispis] & 2) != 0) && ((cons[sercom] & 0x01) != 0))
+		rcm_io_sel = 1;					// same as 4U
+	else
+		rcm_io_sel = 0;					// same as LLU
+
+	if (((cons[dispis] & 2) != 0) && (cons[GLBP_LED] == 0) && (cons[equake] == 0))
+		iserv_io_sel = 1;
+	else if(((cons[Elev_off] & 8) != 0) && (cons[GLBP_LED] == 0) && (cons[equake] == 0))
+		iserv_io_sel = 1;
+	else if(((cons[Elev_off] & 0x10) != 0) && (cons[GLBP_LED] == 0) && (cons[equake] == 0))
+		iserv_io_sel = 1;
+	else
+		iserv_io_sel = 0;
+	
+	if(cons[distress] ==  1)
+	{
+		oserl_enable = 1;
+		oserl_io_sel = 1;
+	}
+	else if(((cons[dispis] & 2) == 0) && (cons[GLBP_LED] == 0) && (cons[equake] == 0))
+	{
+		oserl_enable = 1;
+		oserl_io_sel = 0;
+	}	
+
+	if (((cons[Smoke_2004] == 1) && (cons[Australia] == 0)) || (cons[INS_EN_SFC] == 1))
+	{
+		los_io_sel = 1;
+		eq_io_sel = 1;
+		if (cons[INS_EN_SFC] == 1)
+		{
+			tdc_io_sel = 2;
+			bdc_io_sel = 2;
+			mdc_io_sel = 1;
+		}
+	}
+	else
+	{
+		los_io_sel = 0;
+		eq_io_sel = 0;
+	}		
+
+	if ((cons[equake] != 0) || (cons[INS_EN_SFC] == 1))
+		rtldc_io_sel = 1;
+	else
+		rtldc_io_sel = 0;
+
+
+	if ((cons[PWL_Brake] == 2)&& (cons[Emp_Recover] != 2))
+		mbc_io_sel = 1;
+	
+	if ((cons[sercom] & 4) != 0)
+	{			 // serial cop boards
+#if (Tract_HR == 1)
+		if (cons[RGB_CC] == 1)
+		{			  // rgb car call boards
+			io_sel = 2;
+			ct_io_sel = 3;
+			if (cons[F1_CT] == 1)
+			{
+				hvd_io_sel = 2;
+			}
+			else
+			{
+				hvd_io_sel = 1;
+			}
+			alrm_io_sel = 1;
+		}
+		else
+#endif 
+		if (cons[F1_CT] == 1)
+		{
+			io_sel = 1;
+			hvd_io_sel = 2;
+			ct_io_sel = 2;			 // Move i/o locations for EQL, EML, OLL, HVD, F1ML and F1AL.
+		}
+		else
+		{
+			io_sel = 1;
+			ct_io_sel = 1;
+			hvd_io_sel = 1;
+		}
+	}
+
+	if (cons[Remote_CC] != 0)
+	{	  // Car call boards
+		if (((Security_Type[cons[carnmb]] & 0x1) == 0) && ((Security_Type[cons[carnmb]] & 0x10) == 0))
+		{
+			f_rm_io_sel = 0;	  
+		}
+		else if (rear_op[cons[carnmb]] == 0)
+		{
+			f_rm_io_sel = 1;
+		}
+		else
+		{
+			f_rm_io_sel = 1;
+		}
+
+		if (((Security_Type[cons[carnmb]] & 0x1) == 0) && ((Security_Type[cons[carnmb]] & 0x10) == 0) && (rear_op[cons[carnmb]] == 0))
+		{
+			r_rm_io_sel = 0;
+		}
+		else
+		{
+			r_rm_io_sel = 1;
+		}
+
+	}
+
+	if (rear_op[cons[carnmb]] == 1)
+	{		// Rear cop and car calls
+		if (cons[rearsel] == 1)		// seperate rear door i/o locations
+			rdoor_io_sel = 1;
+	}
+		
+
+
+	if ((cons[sercom] & 0x10) != 0)
+	{
+#if (((Simulator == 0) && (Door_Test == 0)) || ((Simulator == 1) && (Sim_Door == 0)))
+		fdoor_io_sel = 1;
+
+		if((cons[dflt_MOVFR] & 0x01) != 0)
+			ee_io_sel = 0;
+		else
+			ee_io_sel = 1;
+
+		hvd_io_sel = 3;
+		if (rear_op[cons[carnmb]] == 1)
+			rdoor_io_sel = 2;
+#else
+		fdoor_io_sel = 0;
+#endif
+	}
+	else
+		fdoor_io_sel = 0;
+
+	if (cons[naec] == 1)
+		clant_io_sel = 3;
+	else
+		clant_io_sel = io_sel;
+
+	if (cons[RGB_CC] == 1)
+	{
+		rclant_io_sel = 1;
+		rcc_io_sel = 1;
+	}
+	if (cons[LW_dis_sw] == 1) 
+	{	 
+		if (cons[RGB_CC] == 1)
+			dlw_io_sel = 6;
+		else if ((cons[cblue] == 0) && (cons[medEm] == 0))  
+			dlw_io_sel = io_sel;
+		else if ((cons[cblue] == 1) && (cons[att] == 0))
+			dlw_io_sel = io_sel + 2;
+		else if (cons[hben] == 0)
+		{
+			dlw_io_sel = io_sel + 4;
+		}
+	}
+
+	if (cons[Australia] == 1)
+	{		 // Use the hall fire locations since they are on an external board 
+
+		// TDC, BDC, and MDC used for automatic door in Australia
+		tdc_io_sel = 3;
+		bdc_io_sel = 3;
+		mdc_io_sel = 2;
+
+		// use earthquake i/o in default position
+ 		los_io_sel = 0;
+		eq_io_sel = 0;
+	}
+
+#if ((Traction == 1) || (Tract_OL == 1))
+	if ((cons[MR_FBZ] == 1) && (cons[MtrBlower] == 0) && (cons[GOV_Reset] == 0))
+	{
+		if (cons[MtrBlower] == 0)
+			fbz_io_sel = 1;
+		else if (cons[GOV_Reset] == 0)
+			fbz_io_sel = 2;
+	}
+#endif
+
+	if ((cons[firesv] == 2) && (cons[ansi] >= 2004))
+		ss_io_sel = 1;
+	
+	
+
+	if (dza_io_sel == 1)
+		copy_io_attr(i_DZA, i_DZAx1);
+	if (dz_io_sel == 1)
+		copy_io_attr(i_DZ, i_DZx1);
+	if (lev_io_sel == 1)
+	{
+		copy_io_attr(i_UL, i_ULx1);
+		copy_io_attr(i_UL_1, i_UL_1x1);
+		copy_io_attr(i_DL, i_DLx1);
+		copy_io_attr(i_DL_1, i_DL_1x1);
+	}
+	if (up_limit_io_sel == 1)
+	{
+		copy_io_attr(i_UN, i_UNx1);
+		copy_io_attr(i_UT, i_UTx1);
+		copy_io_attr(i_UT1, i_UT1x1);
+		copy_io_attr(i_UT2, i_UT2x1);
+		copy_io_attr(i_UT3, i_UT3x1);
+		copy_io_attr(i_UT4, i_UT4x1);
+		copy_io_attr(i_UT5, i_UT5x1);
+		copy_io_attr(i_UT6, i_UT6x1);
+		
+	}
+	if (dn_limit_io_sel == 1)
+	{
+		copy_io_attr(i_DN, i_DNx1);
+		copy_io_attr(i_DT, i_DTx1);
+		copy_io_attr(i_DT1, i_DT1x1);
+		copy_io_attr(i_DT2, i_DT2x1);
+		copy_io_attr(i_DT3, i_DT3x1);
+		copy_io_attr(i_DT4, i_DT4x1);
+		copy_io_attr(i_DT5, i_DT5x1);
+		copy_io_attr(i_DT6, i_DT6x1);
+	}
+	
+	if (a2004_io_sel == 1)
+		copy_io_attr(i_CWS,i_CWSx1);
+		
+	if (lps_io_sel == 1)
+		copy_io_attr(i_LPS,i_LPSx1);
+		
+	if (los_io_sel == 1)
+		copy_io_attr(i_LOS,i_LOSx1);
+	
+	
+	if (rtlh_io_sel == 1)
+		copy_io_attr(i_RTLH,i_RTLHx1);
+	else if (rtlh_io_sel == 2)
+		copy_io_attr(i_RTLH,i_RTLHx2);
+	
+	if (rtldc_io_sel == 1)
+		copy_io_attr(i_RTLDC,i_RTLDCx1);
+
+	if (rtl_io_sel == 1)
+		copy_io_attr(i_RTL,i_RTLx1);
+	
+
+	if (hemp_io_sel == 1)
+	{
+		copy_io_attr(i_EMP,i_EMPx1);
+		copy_io_attr(i_EPS,i_EPSx1);
+	}
+
+	if (ept_io_sel == 1)
+		copy_io_attr(i_EPT,i_EPTx1);
+	else if (ept_io_sel == 2)
+		copy_io_attr(i_EPT,i_EPTx2);
+
+	if (hfire_io_sel == 1)
+	{
+		copy_io_attr(i_FS,i_FSx1);
+		copy_io_attr(i_BP,i_BPx1);
+		copy_io_attr(i_FSX,i_FSXx1);
+		copy_io_attr(i_ALT,i_ALTx1);
+		copy_io_attr(i_MES,i_MESx1);
+		copy_io_attr(i_MRS,i_MRSx1);
+		copy_io_attr(i_HWS,i_HWSx1);
+		copy_io_attr(i_HWS2,i_HWS2x1);
+	}
+	
+	if (eplh_io_sel == 1)
+	{
+		copy_io_attr(o_EPLH,o_EPLHx1);
+		copy_io_attr(o_EPRL,o_EPRLx1);
+		copy_io_attr(o_EPSL,o_EPSLx1);
+	}
+	
+	if (flh_io_sel == 1)
+		copy_io_attr(o_FLH,o_FLHx1);
+	
+	if (heof_io_sel == 1)
+	{
+		copy_io_attr(i_HEOF,i_HEOFx1);
+		copy_io_attr(i_JAILB,i_JAILBx1);
+		copy_io_attr(i_HUGI,i_HUGIx1);
+	}
+	
+	if (emsh_io_sel == 1)
+		copy_io_attr(i_EMSH,i_EMSHx1);
+	
+	if (emlh_io_sel == 1)
+		copy_io_attr(o_EMLH,o_EMLHx1);
+
+	if (eor_io_sel == 1)
+		copy_io_attr(i_EOR,i_EORx1);
+	else if (eor_io_sel == 2)
+		copy_io_attr(i_EOR,i_EORx2);
+	
+	if (mrie_io_sel == 1)
+		copy_io_attr(i_MRIE,i_MRIEx1);
+	else if (mrie_io_sel == 2)
+		copy_io_attr(i_MRIE,i_MRIEx2);
+	
+	if (ebks_io_sel == 1)
+		copy_io_attr(i_EBKS,i_EBKSx1);
+	else if (ebks_io_sel == 2)
+		copy_io_attr(i_EBKS,i_EBKSx2);
+	else if (ebks_io_sel == 3)
+		copy_io_attr(i_EBKS,i_EBKSx3);
+
+	if (tdc_io_sel == 1)
+		copy_io_attr(i_TDC,i_TDCx1);
+	else if (tdc_io_sel == 2)
+		copy_io_attr(i_TDC,i_TDCx2);
+	else if (tdc_io_sel == 3)
+		copy_io_attr(i_TDC,i_TDCx3);
+
+	if (bdc_io_sel == 1)
+		copy_io_attr(i_BDC,i_BDCx1);
+	else if (bdc_io_sel == 2)
+		copy_io_attr(i_BDC,i_BDCx2);
+	else if (bdc_io_sel == 3)
+		copy_io_attr(i_BDC,i_BDCx3);
+	
+	if (mdc_io_sel == 1)
+	{
+		copy_io_attr(i_MDC,i_MDCx1);
+		copy_io_attr(i_MDCR,i_MDCRx1);
+	}
+	else if (mdc_io_sel == 2)
+	{
+		copy_io_attr(i_MDC,i_MDCx2);
+		copy_io_attr(i_MDCR,i_MDCRx2);
+	}
+
+	if (rcm_io_sel == 1)					
+		copy_io_attr(o_RCM,o_RCMx1);
+
+	if (iserv_io_sel == 1)
+		copy_io_attr(o_ISER,o_ISERx1);
+	
+	if (oserl_io_sel == 1)
+		copy_io_attr(o_OSERL,o_OSERLx1);
+	
+
+	if (eq_io_sel == 1)
+	{
+		copy_io_attr(i_EQR,i_EQRx1);
+		copy_io_attr(i_ETH,i_ETHx1);
+		copy_io_attr(i_COL,i_COLx1);
+	}
+
+
+	if (io_sel == 1)
+	{
+		copy_io_attr(i_ED,i_EDx1);
+		copy_io_attr(i_ATTUP,i_ATTUPx1);
+		copy_io_attr(i_ATTDN,i_ATTDNx1);
+		copy_io_attr(i_ATT,i_ATTx1);
+		copy_io_attr(i_ATTBY,i_ATTBYx1);
+		copy_io_attr(i_ATTHC,i_ATTHCx1);
+		copy_io_attr(i_HBE,i_HBEx1);
+		copy_io_attr(i_INDC,i_INDCx1);
+		copy_io_attr(i_IDSO,i_IDSOx1);
+		copy_io_attr(i_DOB,i_DOBx1);
+		copy_io_attr(i_DCB,i_DCBx1);
+		copy_io_attr(i_FS2,i_FS2x1);
+		copy_io_attr(i_FS2H,i_FS2Hx1);
+		copy_io_attr(i_FS2C,i_FS2Cx1);
+		copy_io_attr(i_HUGB,i_HUGBx1);
+		copy_io_attr(i_EMS,i_EMSx1);
+		copy_io_attr(o_FL,o_FLx1);
+		copy_io_attr(o_DZDE,o_DZDEx1);
+		copy_io_attr(o_HUGO,o_HUGOx1);
+		copy_io_attr(o_HUGA,o_HUGAx1);
+		copy_io_attr(o_DTR,o_DTRx1);
+		copy_io_attr(o_DTR2,o_DTR2x1);
+		copy_io_attr(o_DDAC,o_DDACx1);
+		copy_io_attr(o_UDAC,o_UDACx1);
+		copy_io_attr(o_EDL,o_EDLx1);
+		copy_io_attr(o_REV,o_REVx1);
+		copy_io_attr(o_CLF,o_CLFx1);
+		copy_io_attr(o_FBNB,o_FBNBx1);
+		copy_io_attr(o_HB,o_HBx1);
+		copy_io_attr(o_SABUZ,o_SABUZx1);
+		copy_io_attr(o_SABEE,o_SABEEx1);
+		copy_io_attr(o_DPI1,o_DPI1x1);
+		copy_io_attr(o_DPI2,o_DPI2x1);
+		copy_io_attr(o_DPI3,o_DPI3x1);
+		copy_io_attr(o_DPI4,o_DPI4x1);
+		copy_io_attr(o_DPI5,o_DPI5x1);
+		copy_io_attr(o_DPI6,o_DPI6x1);
+		
+		for (i=1;i<=12;i++)
+		{
+			copy_io_attr(&i_CC[i],&i_CCx1[i]);
+			copy_io_attr(&o_CCL[i],&o_CCLx1[i]);
+		}
+	}
+	else if (io_sel == 2)
+	{
+		copy_io_attr(i_ED,i_EDx2);
+		copy_io_attr(i_ATTUP,i_ATTUPx2);
+		copy_io_attr(i_ATTDN,i_ATTDNx2);
+		copy_io_attr(i_ATT,i_ATTx2);
+		copy_io_attr(i_ATTBY,i_ATTBYx2);
+		copy_io_attr(i_ATTHC,i_ATTHCx2);
+		copy_io_attr(i_HBE,i_HBEx2);
+		copy_io_attr(i_INDC,i_INDCx2);
+		copy_io_attr(i_IDSO,i_IDSOx2);
+		copy_io_attr(i_DOB,i_DOBx2);
+		copy_io_attr(i_DCB,i_DCBx2);
+		copy_io_attr(i_FS2,i_FS2x2);
+		copy_io_attr(i_FS2H,i_FS2Hx2);
+		copy_io_attr(i_FS2C,i_FS2Cx2);
+		copy_io_attr(i_HUGB,i_HUGBx2);
+		copy_io_attr(i_EMS,i_EMSx2);
+		copy_io_attr(o_FL,o_FLx2);
+		copy_io_attr(o_DZDE,o_DZDEx2);
+		copy_io_attr(o_HUGO,o_HUGOx2);
+		copy_io_attr(o_HUGA,o_HUGAx2);
+		copy_io_attr(o_DTR,o_DTRx2);
+		copy_io_attr(o_DTR2,o_DTR2x2);
+		copy_io_attr(o_DDAC,o_DDACx2);
+		copy_io_attr(o_UDAC,o_UDACx2);
+		copy_io_attr(o_EDL,o_EDLx2);
+		copy_io_attr(o_REV,o_REVx2);
+		copy_io_attr(o_CLF,o_CLFx2);
+		copy_io_attr(o_FBNB,o_FBNBx2);
+		copy_io_attr(o_HB,o_HBx2);
+		copy_io_attr(o_SABUZ,o_SABUZx2);
+		copy_io_attr(o_SABEE,o_SABEEx2);
+		copy_io_attr(o_DPI1,o_DPI1x2);
+		copy_io_attr(o_DPI2,o_DPI2x2);
+		copy_io_attr(o_DPI3,o_DPI3x2);
+		copy_io_attr(o_DPI4,o_DPI4x2);
+		copy_io_attr(o_DPI5,o_DPI5x2);
+		copy_io_attr(o_DPI6,o_DPI6x2);
+		
+		for (i=1;i<=12;i++)
+		{
+			copy_io_attr(&i_CC[i],&i_CCx2[i]);
+			copy_io_attr(&o_CCL[i],&o_CCLx2[i]);
+		}
+	}
+	
+	if (ct_io_sel == 1)
+	{
+		copy_io_attr(o_F1ML,o_F1MLx1);
+		copy_io_attr(o_F1AL,o_F1ALx1);
+		copy_io_attr(o_EML,o_EMLx1);
+		copy_io_attr(o_EQLC,o_EQLCx1);
+		copy_io_attr(o_RVD,o_RVDx1);
+		copy_io_attr(o_DCA,o_DCAx1);
+		copy_io_attr(o_OLL,o_OLLx1);
+	}
+	else if (ct_io_sel == 2)
+	{
+		copy_io_attr(o_F1ML,o_F1MLx2);
+		copy_io_attr(o_F1AL,o_F1ALx2);
+		copy_io_attr(o_EML,o_EMLx2);
+		copy_io_attr(o_EQLC,o_EQLCx2);
+		copy_io_attr(o_RVD,o_RVDx2);
+		copy_io_attr(o_DCA,o_DCAx2);
+		copy_io_attr(o_OLL,o_OLLx2);
+	}
+	else if (ct_io_sel == 3)
+	{
+		copy_io_attr(o_F1ML,o_F1MLx3);
+		copy_io_attr(o_F1AL,o_F1ALx3);
+		copy_io_attr(o_EML,o_EMLx3);
+		copy_io_attr(o_EQLC,o_EQLCx3);
+		copy_io_attr(o_RVD,o_RVDx3);
+		copy_io_attr(o_DCA,o_DCAx3);
+		copy_io_attr(o_OLL,o_OLLx3);
+	}
+	
+	if (hvd_io_sel == 1)
+		copy_io_attr(o_HVD,o_HVDx1);
+	else if (hvd_io_sel == 2)
+		copy_io_attr(o_HVD,o_HVDx2);
+	else if (hvd_io_sel == 3)
+		copy_io_attr(o_HVD,o_HVDx3);
+
+	if (alrm_io_sel == 1)
+		copy_io_attr(i_ALRM,i_ALRMx1);
+
+	if (f_rm_io_sel == 1)
+	{
+		copy_io_attr(i_RM_ED,i_RM_EDx1);
+		copy_io_attr(i_RM_INDC,i_RM_INDCx1);
+		copy_io_attr(i_SCS,i_SCSx1);
+		copy_io_attr(i_RM_DOB,i_RM_DOBx1);
+		copy_io_attr(i_RM_DCB,i_RM_DCBx1);
+
+		for (i=1;i<=cons[topf];i++)
+		{
+			copy_io_attr(&i_RM_CC[i],&i_RM_CCx1[i]);
+			copy_io_attr(&o_RM_CCL[i],&o_RM_CCLx1[i]);
+		}
+	}
+	
+	if (r_rm_io_sel == 1)
+	{
+		copy_io_attr(i_SCSR,i_SCSRx1);
+		copy_io_attr(i_RM_DOBR,i_RM_DOBRx1);
+		copy_io_attr(i_RM_DCBR,i_RM_DCBRx1);
+
+		for (i=1;i<=grtop_rfl;i++)
+		{
+			copy_io_attr(&i_RM_CCR[i],&i_RM_CCRx1[i]);
+			copy_io_attr(&o_RM_CCRL[i],&o_RM_CCRLx1[i]);
+		}
+	}
+	
+	if (fdoor_io_sel == 1)
+	{
+		
+		copy_io_attr(i_DCL,i_DCLx1);
+		copy_io_attr(i_DOL,i_DOLx1);
+		copy_io_attr(i_DPM,i_DPMx1);
+		copy_io_attr(o_DO,o_DOx1);
+		copy_io_attr(o_DC,o_DCx1);
+		copy_io_attr(o_NUD,o_NUDx1);
+	}
+	
+	if (rdoor_io_sel == 1)
+	{
+		copy_io_attr(i_DCLR,i_DCLRx1);
+		copy_io_attr(i_DOLR,i_DOLRx1);
+		copy_io_attr(i_RPM,i_RPMx1);
+		copy_io_attr(i_SER,i_SERx1);
+		copy_io_attr(i_EER,i_EERx1);
+		copy_io_attr(o_DOR,o_DORx1);
+		copy_io_attr(o_DCR,o_DCRx1);
+		copy_io_attr(o_NUDR,o_NUDRx1);
+		copy_io_attr(o_RVDR,o_RVDRx1);
+		copy_io_attr(o_REVR,o_REVRx1);
+		copy_io_attr(o_HVDR,o_HVDRx1);
+	}
+	else if (rdoor_io_sel == 2)
+	{
+		copy_io_attr(i_DCLR,i_DCLRx2);
+		copy_io_attr(i_DOLR,i_DOLRx2);
+		copy_io_attr(i_RPM,i_RPMx2);
+		copy_io_attr(i_SER,i_SERx2);
+		copy_io_attr(i_EER,i_EERx2);
+		copy_io_attr(o_DOR,o_DORx2);
+		copy_io_attr(o_DCR,o_DCRx2);
+		copy_io_attr(o_NUDR,o_NUDRx2);
+		copy_io_attr(o_RVDR,o_RVDRx2);
+		copy_io_attr(o_REVR,o_REVRx2);
+		copy_io_attr(o_HVDR,o_HVDRx2);
+	}
+
+
+		
+	if (ee_io_sel == 1)
+		copy_io_attr(i_EE,i_EEx1);
+	
+
+	if (clant_io_sel == 1)
+	{
+		copy_io_attr(o_CUL,o_CULx1);
+		copy_io_attr(o_CDL,o_CDLx1);
+	}
+	else if (clant_io_sel == 2)
+	{
+		copy_io_attr(o_CUL,o_CULx2);
+		copy_io_attr(o_CDL,o_CDLx2);
+	}
+	if (clant_io_sel == 3)
+	{
+		copy_io_attr(o_CUL,o_CULx3);
+		copy_io_attr(o_CDL,o_CDLx3);
+	}
+
+	if (rclant_io_sel == 1)
+	{
+		copy_io_attr(o_CULR,o_CULRx1);
+		copy_io_attr(o_CDLR,o_CDLRx1);
+	}
+
+	if (rcc_io_sel == 1)
+	{
+		
+		copy_io_attr(i_DOBR,i_DOBRx1);
+		copy_io_attr(i_DCBR,i_DCBRx1);
+		
+		for (i=1;i<=17;i++)
+		{
+			copy_io_attr(&i_CCR[i],&i_CCRx1[i]);
+			copy_io_attr(&o_CCRL[i],&o_CCRLx1[i]);
+		}
+	}
+
+	if (dlw_io_sel == 1)
+		copy_io_attr(i_DLW,i_DLWx1);
+	else if (dlw_io_sel == 2)
+		copy_io_attr(i_DLW,i_DLWx2);
+	else if (dlw_io_sel == 3)
+		copy_io_attr(i_DLW,i_DLWx3);
+	else if (dlw_io_sel == 4)
+		copy_io_attr(i_DLW,i_DLWx4);
+	else if (dlw_io_sel == 5)
+		copy_io_attr(i_DLW,i_DLWx5);
+	else if (dlw_io_sel == 6)
+		copy_io_attr(i_DLW,i_DLWx6);
+
+
+	if (fbz_io_sel == 1)
+		copy_io_attr(o_FBZ,o_FBZx1);
+	else if (fbz_io_sel == 2)
+		copy_io_attr(o_FBZ,o_FBZx2);
+	
+	if (ss_io_sel == 1)
+	{
+		copy_io_attr(i_SS,i_SSx1);
+		copy_io_attr(i_FFS,i_FFSx1);
+	}
+}
+
+
+
+
+//******************************************************************
+// Set io board status flag to display only the io data that is used
+//******************************************************************
+void set_io_board_status (void)
+{
+	int16 i,j;
+	int16 nmb_uc,nmb_dc,nmb_io,nmb_brds;
+
+	page_2_brd_nmb[0] = 0;
+	page_3_brd_nmb[0] = 0;
+#if (Tract_HR == 1)
+	page_4_brd_nmb[0] = 0;
+	page_5_brd_nmb[0] = 0;
+#endif
+	max_nmb_io_brd[0] = 0;
+	iobd_rotate_start[0] = 0;
+	last_io_brd[0] = 0;
+
+	if ((cons[sercom] & 0x20) != 0)
+	{		   // hall call driver boards
+		if (((cons[sercom] & 1) != 0) || (cons[grtopf] > 5) || (grtop_rfl != 0))
+		{
+			HC_IO_board[0] = 1;
+
+			if (cons[grtopf] > 12) 
+				HC_IO_board[1] = 1;
+	#if (Tract_HR == 1)
+			if (cons[grtopf] > 24) 
+			{
+				HC_IO_board[2] = 0;
+				HC_IO_board[20] = 1;
+			}
+			if (cons[grtopf] > 36)
+				HC_IO_board[21] = 1;
+			if (cons[grtopf] > 48)
+				HC_IO_board[22] = 1;
+	#else
+			if (cons[grtopf] > 25)
+				HC_IO_board[2] = 1;
+	#endif
+
+			if (cons[Dual_Ser_Riser] == 1)
+			{
+	#if (Tract_HR == 1)
+				HC_IO_board[44] = 1;
+
+				if (cons[grtopf] > 12) 
+					HC_IO_board[45] = 1;
+
+				if (cons[grtopf] > 24) 
+				{
+					HC_IO_board[46] = 0;
+					HC_IO_board[49] = 1;
+				}				    	
+				if (cons[grtopf] > 36)
+					HC_IO_board[50] = 1;
+				if (cons[grtopf] > 48)
+					HC_IO_board[51] = 1;
+	#else
+				HC_IO_board[21] = 1;
+
+				if (cons[grtopf] > 12) 
+					HC_IO_board[22] = 1;
+
+				if (cons[grtopf] > 25)
+					HC_IO_board[23] = 1;
+	#endif
+			}
+		}
+
+		if ((cons[incrs] != 0) || (cons[Second_Riser] != 0) || (cons[epgrp] != 0) ||
+			(cons[LbyUpReq] == 1) || (cons[Car_Asgn_Fl] == 1) || (cons[Park_NCU_ALB] == 1))
+		{
+	#if (Tract_HR == 1)
+				HC_IO_board[43] = 1;
+	#else
+				HC_IO_board[20] = 1;
+	#endif
+		}
+
+		if (grtop_rfl != 0)
+		{
+		 	HC_IO_board[3] = 1;
+			if (grtop_rfl > 12)
+				HC_IO_board[4] = 1;
+	#if (Tract_HR == 1)
+			if (grtop_rfl > 24)  
+				HC_IO_board[23] = 1;
+			if (grtop_rfl > 36)  
+				HC_IO_board[24] = 1;
+			if (grtop_rfl > 48)  
+				HC_IO_board[25] = 1;
+
+	#else
+			if (grtop_rfl > 24)  
+				HC_IO_board[2] = 1;
+	#endif
+			if (cons[Dual_Ser_Riser] == 1)
+			{
+	#if (Tract_HR == 1)
+				HC_IO_board[47] = 1;
+				if (cons[grtopf] > 12) 
+					HC_IO_board[48] = 1;
+				if (cons[grtopf] > 24) 
+					HC_IO_board[52] = 1;
+				if (cons[grtopf] > 36)
+					HC_IO_board[53] = 1;
+				if (cons[grtopf] > 48)
+					HC_IO_board[54] = 1;
+	#else
+				HC_IO_board[24] = 1;
+				if (grtop_rfl > 12)
+					HC_IO_board[25] = 1;
+				if (grtop_rfl > 24)  
+					HC_IO_board[23] = 1;
+	#endif
+			}
+
+		}
+	}
+	else
+	{		// no hall call driver boards
+	
+		if (fvars[fvemprecall] == 1)
+			ep_out_fnshed_rcll_en = 1;
+
+	
+		if (((cons[sercom] & 1) != 0) || (cons[grtopf] > 5) || (grtop_rfl != 0))
+		{
+			HC_IO_board[0] = 1;
+
+			// Check the numbe of up call or down calls used for the option
+			nmb_uc = 0;
+			nmb_dc = 0;
+
+			if(ep_out_fnshed_rcll_en == 1)
+				nmb_uc ++;
+
+			if (cons[epgrp] != 0) 
+			{
+				nmb_uc ++;
+				nmb_dc += 2;
+			}
+
+			if (cons[LbyUpReq] != 0)
+				nmb_uc ++; 
+			
+			if (cons[Car_Asgn_Fl] == 1)
+				nmb_dc ++;
+
+			if (cons[Park_NCU_ALB] != 0)
+			{
+				nmb_dc ++;
+				nmb_uc += 2;
+			}
+
+			// max numbe of io used
+			if (nmb_uc > nmb_dc)
+				nmb_io = nmb_uc;
+			else
+				nmb_io = nmb_dc;
+
+			if (cons[grtopf] > (13 - nmb_io)) 
+				HC_IO_board[1] = 1;
+	#if (Tract_HR == 1)
+			if (cons[grtopf] > (25 - nmb_io)) 
+			{
+				HC_IO_board[2] = 0;
+				HC_IO_board[20] = 1;
+			}
+			if (cons[grtopf] > (37 - nmb_io))
+				HC_IO_board[21] = 1;
+			if (cons[grtopf] > (49 - nmb_io))
+				HC_IO_board[22] = 1;
+	#else
+			if (cons[grtopf] > (25 - nmb_io))
+				HC_IO_board[2] = 1;
+	#endif
+
+			if (cons[SecFlCfg] == 2)
+			{
+		#if (Tract_HR == 1)
+					HC_IO_board[43] = 1;
+		#else
+					HC_IO_board[20] = 1;
+		#endif
+			}
+			else if	(cons[SecFlCfg] == 3)
+			{
+				nmb_brds = (((cons[nmbcars] * cons[grtopf]) - 1)/24) + 1;
+				HC_IO_board[16] = 1;
+				if (nmb_brds >= 2)
+					HC_IO_board[17] = 1;
+				if (nmb_brds >= 3)
+					HC_IO_board[18] = 1;
+				if (nmb_brds >= 4)
+					HC_IO_board[19] = 1;
+
+		#if (Tract_HR == 1)
+				if (nmb_brds >= 5)
+					HC_IO_board[39] = 1;
+				if (nmb_brds >= 6)
+					HC_IO_board[40] = 1;
+				if (nmb_brds >= 7)
+					HC_IO_board[41] = 1;
+				if (nmb_brds >= 8)
+					HC_IO_board[42] = 1;
+		#endif
+
+			}
+
+		}
+
+		if (grtop_rfl != 0)
+		{
+		 	HC_IO_board[3] = 1;
+			if (grtop_rfl > 13)
+				HC_IO_board[4] = 1;
+	#if (Tract_HR == 1)
+			if (grtop_rfl > 25)  
+				HC_IO_board[23] = 1;
+			if (grtop_rfl > 37)  
+				HC_IO_board[24] = 1;
+			if (grtop_rfl > 49)  
+				HC_IO_board[25] = 1;
+	#else
+			if (grtop_rfl > 25)  
+				HC_IO_board[2] = 1;
+	#endif
+		}
+		
+	}
+			
+	if ((cons[incrs] != 0) || (cons[Second_Riser] != 0))
+	{
+	 	HC_IO_board[5] = 1;
+	 	if (cons[grtopf] > 12)
+	 		HC_IO_board[6] = 1;
+#if (Tract_HR == 1)
+	 	if (cons[grtopf] > 24)
+	 		HC_IO_board[26] = 1;
+	 	if (cons[grtopf] > 36)
+	 		HC_IO_board[27] = 1;
+	 	if (cons[grtopf] > 48)
+	 		HC_IO_board[28] = 1;
+#else
+	 	if (cons[grtopf] > 24)
+	 		HC_IO_board[7] = 1;
+#endif
+	 	if (grtop_rfl != 0)
+	 		HC_IO_board[8] = 1;
+	 	if (grtop_rfl > 12)
+	 		HC_IO_board[9] = 1;
+#if (Tract_HR == 1)
+	 	if (grtop_rfl > 24)
+	 		HC_IO_board[29] = 1;
+	 	if (grtop_rfl > 36)
+	 		HC_IO_board[30] = 1;
+	 	if (grtop_rfl > 48)
+	 		HC_IO_board[31] = 1;
+#else
+	 	if (grtop_rfl > 24)
+	 		HC_IO_board[7] = 1;
+#endif
+	}
+	
+	if (fvars[fvxasgn] == 1)
+	{
+ 		HC_IO_board[8] = 1;
+	 	if (cons[grtopf] > 13)
+	 		HC_IO_board[9] = 1;
+#if (Tract_HR == 1)
+	 	if (cons[grtopf] > 25)
+	 		HC_IO_board[29] = 1;
+	 	if (cons[grtopf] > 37)
+	 		HC_IO_board[30] = 1;
+	 	if (cons[grtopf] > 49)
+	 		HC_IO_board[31] = 1;
+#else
+	 	if (cons[grtopf] > 25)
+	 		HC_IO_board[7] = 1;
+#endif
+	}
+	
+	if((cons[incrs2] == 1) && (cons[rear] == 0))
+	{
+		HC_IO_board[8] = 1;
+#if (Tract_HR == 1)
+	 	if (cons[grtopf] > 25)
+	 		HC_IO_board[29] = 1;
+	 	if (cons[grtopf] > 37)
+	 		HC_IO_board[30] = 1;
+	 	if (cons[grtopf] > 49)
+	 		HC_IO_board[31] = 1;
+#else
+	 	if (cons[grtopf] > 25)
+	 		HC_IO_board[7] = 1;
+#endif
+	}
+
+	if (cons[cblue] != 0)
+	{
+	 	HC_IO_board[10] = 1;
+#if (Tract_HR == 1)
+	 	if (cons[grtopf] > 24)
+	 		HC_IO_board[32] = 1;
+	 	if (cons[grtopf] > 48)
+	 		HC_IO_board[33] = 1;
+#else
+	 	if (cons[grtopf] > 24)
+	 		HC_IO_board[11] = 1;
+#endif
+		if (grtop_rfl != 0)
+		{
+	 		HC_IO_board[12] = 1;
+#if (Tract_HR == 1)
+		 	if (grtop_rfl > 24)
+		 		HC_IO_board[34] = 1;
+		 	if (grtop_rfl > 48)
+		 		HC_IO_board[33] = 1;
+#endif
+		}
+		else if (cons[VipSvc] != 0)
+		{			 // if no rear call then vip can use the rear cb calls
+	 		HC_IO_board[12] = 1;
+#if (Tract_HR == 1)
+		 	if (grtop_rfl > 24)
+		 		HC_IO_board[34] = 1;
+		 	if (grtop_rfl > 48)
+		 		HC_IO_board[33] = 1;
+#endif
+		}
+#if (Tract_HR == 1)
+		if (cons[CB_SR] == 1)
+		{
+		 	HC_IO_board[52] = 1;
+		 	if (cons[grtopf] > 23)		   // allow for sr input switch
+		 		HC_IO_board[53] = 1;
+		 	if (cons[grtopf] > 47)
+		 		HC_IO_board[54] = 1;
+			if (grtop_rfl != 0)
+			{
+		 		HC_IO_board[55] = 1;
+			 	if (grtop_rfl > 23)
+			 		HC_IO_board[56] = 1;
+			 	if (grtop_rfl > 47)
+			 		HC_IO_board[54] = 1;
+			}
+		}
+#endif
+	}
+	else if (cons[VipSvc] != 0)
+	{		   // VIP uses the cb calls if not code blue
+	 	HC_IO_board[10] = 1;
+#if (Tract_HR == 1)
+	 	if (cons[grtopf] > 24)
+	 		HC_IO_board[32] = 1;
+	 	if (cons[grtopf] > 48)
+	 		HC_IO_board[33] = 1;
+#else
+	 	if (cons[grtopf] > 24)
+	 		HC_IO_board[11] = 1;
+#endif
+		if (grtop_rfl != 0)
+		{
+	 		HC_IO_board[12] = 1;
+#if (Tract_HR == 1)
+		 	if (grtop_rfl > 24)
+		 		HC_IO_board[34] = 1;
+		 	if (grtop_rfl > 48)
+		 		HC_IO_board[33] = 1;
+#endif
+		}
+	}
+	if (Grp_CC_Lockouts == 1)
+	{
+	 	HC_IO_board[13] = 1;
+#if (Tract_HR == 1)
+	 	if (cons[grtopf] >= 24)
+	 		HC_IO_board[35] = 1;
+	 	if (cons[grtopf] >= 48)
+	 		HC_IO_board[36] = 1;
+#else
+	 	if (cons[grtopf] >= 24)
+	 		HC_IO_board[14] = 1;
+#endif
+	 	if (grtop_rfl != 0)
+		{
+			HC_IO_board[15] = 1; 
+#if (Tract_HR == 1)
+		 	if (grtop_rfl >= 24)
+		 		HC_IO_board[37] = 1;
+		 	if (grtop_rfl >= 48)
+		 		HC_IO_board[38] = 1;
+#endif
+		}
+	}
+
+	if ((Grp_HC_Lockouts == 1) && (grtop_rfl == 0) && ((Security_Type[cons[carnmb]] & 0x04) != 0))
+	{
+		HC_IO_board[15] = 1; 
+#if (Tract_HR == 1)
+		if (cons[grtopf] >= 24)
+			HC_IO_board[37] = 1;
+		if (cons[grtopf] >= 48)
+			HC_IO_board[38] = 1;
+#else
+	 	if (cons[grtopf] >= 24)
+	 		HC_IO_board[14] = 1;
+#endif
+	}
+
+	if ((cons[Sabbath] == 2) || (cons[hugs] == 1) || ((Security_Type[cons[carnmb]] & 0x20) != 0) || ((Security_Type[cons[carnmb]] & 0x80) != 0))
+	{	// Set sabbath stopping floors from group inputs or security floors
+		HC_IO_board[16] = 1;
+#if (Tract_HR == 1)
+		if (cons[grtopf] >= 24)
+			HC_IO_board[39] = 1;
+		if (cons[grtopf] >= 48)
+			HC_IO_board[40] = 1;
+#else
+		if (cons[grtopf] >= 24)
+			HC_IO_board[17] = 1;
+#endif
+		if (grtop_rfl != 0)
+			HC_IO_board[18] = 1;
+#if (Tract_HR == 1)
+		if (grtop_rfl >= 24)
+			HC_IO_board[41] = 1;
+		if (grtop_rfl >= 48)
+			HC_IO_board[42] = 1;
+#endif
+	}
+	else if ((cons[Handicap_HPB] != 0) || ((cons[ids] & 2) != 0))
+	{	// Set handicap hall floors  
+		HC_IO_board[16] = 1;
+
+#if (Tract_HR == 1)
+		if (cons[grtopf] >= 24)
+			HC_IO_board[39] = 1;
+		if (cons[grtopf] >= 48)
+			HC_IO_board[40] = 1;
+#else
+		if (cons[grtopf] >= 24)
+			HC_IO_board[17] = 1;
+#endif
+	}
+
+	if ((cons[EMPop] & 0x08) != 0)
+		HC_IO_board[19] = 1;
+
+	nmbgio_page = 0;
+	nmbhcb = 0;
+	next_page_hcb_2 = 0;
+#if (Tract_HR == 1)
+	next_page_hcb_3 = 0;
+	next_page_hcb_4 = 0;
+	next_page_hcb_5 = 0;
+#endif
+	for (i=0;i<c_max_hc_boards;i++)
+	{
+		if (HC_IO_board[i] != 0)
+			nmbhcb++;
+
+		if ((nmbhcb > 0) && (nmbhcb <= 10))
+			nmbgio_page = 1;
+			
+		if ((nmbhcb > 10) && (next_page_hcb_2 == 0))
+		{
+			next_page_hcb_2 = i;
+			nmbgio_page = 2;
+		}
+
+#if (Tract_HR == 1)
+		if ((nmbhcb > 20) && (nmbgio_page == 2))
+		{
+			next_page_hcb_3 = i;
+			nmbgio_page = 3;
+		}
+		if ((nmbhcb > 30) && (nmbgio_page == 3))
+		{
+			next_page_hcb_4 = i;
+			nmbgio_page = 4;
+		}
+		if ((nmbhcb > 40) && (nmbgio_page == 4))
+		{
+			next_page_hcb_5 = i;
+			nmbgio_page = 5;
+		}
+#endif
+
+	}
+
+
+
+	// *******************************************
+	// Set Valid I/O boards
+	// *******************************************
+
+	for (i=1;i<=cons[nmbcars];i++)
+	{
+#if (Tract_HR == 1)
+		for (j=0;j<=48;j++)
+#else
+		for (j=0;j<=28;j++)
+#endif
+			IO_board[i][j] = 0;
+	 	for (j=1;j<=6;j++)
+			IO_board[i][j] = 1;
+
+
+		// Serial TOC and car call boards
+		if ((cons[sercom] & 4) != 0)
+		{		 // TOC without on board car calls (car calls on COP)
+#if (Tract_HR == 1)
+			if (cons[RGB_CC] == 1)
+			{
+				IO_board[i][43] = 1;
+				IO_board[i][44] = 1;
+				IO_board[i][45] = 1;
+				IO_board[i][46] = 1;
+				
+				//Enable boards all the time for PHONE input to be present
+				IO_board[i][47] = 1;
+				IO_board[i][48] = 1;
+
+/*				if ((cons[att] == 1) || ((cons[dispis] & 0x20) != 0))
+				{				  // attendant or pi's on the cop
+					IO_board[i][47] = 1;
+					IO_board[i][48] = 1;
+				}
+*/
+			}
+			else
+#endif
+			{
+				IO_board[i][13] = 1;
+				IO_board[i][14] = 1;
+			}
+		}
+		else
+		{
+				IO_board[i][23] = 1;
+				IO_board[i][24] = 1;
+		}
+		IO_board[i][25] = 1;
+
+		if ((cons[sercom] & 0x10) != 0)
+			IO_board[i][26] = 1;
+
+		if ((cons[EM_BRK] == 2) || (cons[EM_BRK] == 3) || (cons[EM_BRK] == 7))
+		{
+			IO_board[i][27] = 1;
+			IO_board[i][28] = 1;
+		}
+
+		if ((cons[EM_BRK] == 5) || (cons[PWL_Brake] == 1) || (cons[Emp_Recover] == 2))
+			IO_board[i][28] = 1;
+		
+		if ((cons[EM_BRK] == 5) && (cons[EM_BKS] != 0))
+			IO_board[i][27] = 1;
+		
+		if(cons[TUG] == 1)
+		{
+			IO_board[i][31] = 1;
+			IO_board[i][32] = 1;
+		}
+
+		if ((cons[Smoke_2004] == 1) && (cons[equake] != 0))
+			IO_board[i][27] = 1;
+
+		if ((cons[INS_EN_SFC] == 1) && ((cons[mand] != 0) || (cons[frghtd] != 0) || (cons[equake] != 0) || ((cons[Elev_off] & 4) != 0) || (cons[Prison] == 1)))
+		{
+			IO_board[i][27] = 1;
+		}
+		else if ((cons[equake] != 0) && (((cons[Elev_off] & 4) != 0)||(cons[Prison] == 1)))
+		{
+			IO_board[i][27] = 1;
+		}
+
+
+		if (top_fl[i] > 12)
+		{	  // Car call boards
+			IO_board[i][15] = 1;
+			IO_board[i][16] = 1;
+		}
+#if(Tract_HR == 1)
+		if (top_fl[i] > 36)
+		{	  // Car call boards
+			IO_board[i][29] = 1;
+			IO_board[i][30] = 1;
+		}
+#endif
+
+		if ((cons[FI_EP_Ext] != 0) || (cons[Australia] == 1)|| (cons[distress] == 1))
+		{
+#if(Tract_HR == 1)
+			IO_board[i][49] = 1;
+			IO_board[i][50] = 1;
+#else
+			IO_board[i][29] = 1;
+			IO_board[i][30] = 1;
+#endif
+		}
+
+		if (((Security_Type[i] & 0x01) != 0) || ((Security_Type[i] & 0x10) != 0) || ((Security_Type[i] & 0x40) != 0))
+		{
+			if (((Security_Type[i] & 0x01) != 0) || ((Security_Type[i] & 0x10) != 0))
+				IO_board[i][7] = 1;
+
+ 			IO_board[i][8] = 1;
+
+#if(Tract_HR == 1)
+			if (top_fl[i] >= 24)
+			{
+				if (((Security_Type[i] & 0x01) != 0) || ((Security_Type[i] & 0x10) != 0))
+					IO_board[i][33] = 1;
+				if ((Security_Type[i] & 0x40) != 0)
+					IO_board[i][34] = 1;
+			}
+			if (top_fl[i] >= 48)
+			{
+				if (((Security_Type[i] & 0x01) != 0) || ((Security_Type[i] & 0x10) != 0))
+					IO_board[i][35] = 1;
+				if ((Security_Type[i] & 0x40) != 0)
+					IO_board[i][34] = 1;
+			}
+
+#else
+			if (top_fl[i] >= 24)
+			{
+				if (((Security_Type[i] & 0x01) != 0) || ((Security_Type[i] & 0x10) != 0))
+					IO_board[i][9] = 1;
+				if ((Security_Type[i] & 0x40) != 0)
+					IO_board[i][10] = 1;
+			}
+
+#endif
+		}
+
+		if ((cons[housing] == 1) || (cons[housing] == 2))
+			IO_board[i][9] = 1;
+
+		if (cons[Remote_CC] != 0)
+		{	  // Car call boards
+			if (((Security_Type[i] & 0x1) == 0) && ((Security_Type[i] & 0x10) == 0))
+			{
+				IO_board[i][7] = 1;
+				IO_board[i][8] = 1;
+#if (Tract_HR == 1)
+				if (top_fl[i] > 20)
+				{
+					IO_board[i][33] = 1;
+					IO_board[i][34] = 1;
+				}
+				if (top_fl[i] > 44)
+				{
+					IO_board[i][35] = 1;
+					IO_board[i][36] = 1;
+				}
+#else
+				if (top_fl[i] > 20)
+				{
+					IO_board[i][9] = 1;
+					IO_board[i][10] = 1;
+				}
+#endif
+			}
+			else if (rear_op[i] == 0)
+			{
+				IO_board[i][9] = 1;
+				IO_board[i][10] = 1;
+				if (top_fl[i] > 20)
+				{
+					IO_board[i][11] = 1;
+					IO_board[i][12] = 1;
+				}
+#if (Tract_HR == 1)
+				if (top_fl[i] > 44)
+				{
+					IO_board[i][37] = 1;
+					IO_board[i][38] = 1;
+				}
+#endif
+			}
+			else		// at this point we can only accomodate 20 floors HR and LR
+			{
+
+				if(( f_rm_io_sel == 1) && (top_fl[i] <= 20))
+				{
+					IO_board[i][9] = 1;
+					IO_board[i][10] = 1;
+				}
+				if((r_rm_io_sel == 1) && (top_fl[i] <= 20))
+				{
+					IO_board[i][39] = 1;
+					IO_board[i][40] = 1;
+				}
+			}
+		}
+
+		if (rear_op[i] == 1)
+		{		// Rear cop and car calls
+			IO_board[i][17] = 1;
+			IO_board[i][18] = 1;
+			if (top_rfl[i] > 17)
+			{
+				IO_board[i][19] = 1;
+				IO_board[i][20] = 1;
+			}
+#if (Tract_HR == 1)
+			if (top_rfl[i] > 41)
+			{
+				IO_board[i][31] = 1;
+				IO_board[i][32] = 1;
+			}
+#endif
+			if ( ((Security_Type[i] & 0x01) != 0) || ((Security_Type[i] & 0x10) != 0) || ((Security_Type[i] & 0x40) != 0) )
+			{
+				if (((Security_Type[i] & 0x01) != 0) || ((Security_Type[i] & 0x10) != 0))
+					IO_board[i][11] = 1;
+				IO_board[i][12] = 1;
+#if (Tract_HR == 1)
+				if (top_rfl[i] >= 24)
+				{
+					if (((Security_Type[i] & 0x01) != 0) || ((Security_Type[i] & 0x10) != 0))
+						IO_board[i][37] = 1;
+					if ((Security_Type[i] & 0x40) != 0)
+						IO_board[i][38] = 1;
+				}
+				if (top_rfl[i] >= 48)
+				{
+					if (((Security_Type[i] & 0x01) != 0) || ((Security_Type[i] & 0x10) != 0))
+						IO_board[i][39] = 1;
+					if ((Security_Type[i] & 0x40) != 0)
+						IO_board[i][40] = 1;
+				}
+#else
+				if (top_rfl[i] >= 24)
+				{
+					if (((Security_Type[i] & 0x01) != 0) || ((Security_Type[i] & 0x10) != 0))
+						IO_board[i][9] = 1;
+					if ((Security_Type[i] & 0x40) != 0)
+						IO_board[i][10] = 1;
+				}
+#endif
+			}
+			if ((cons[Remote_CC] != 0) && (((Security_Type[i] & 0x01) == 0) || ((Security_Type[i] & 0x10) != 0)))
+			{	  // Car call boards
+				IO_board[i][11] = 1;
+				IO_board[i][12] = 1;
+#if (Tract_HR == 1)
+				if (top_rfl[i] >= 20)
+				{
+					IO_board[i][37] = 1;
+					if ((Security_Type[i] & 0x40) != 0)
+						IO_board[i][38] = 1;
+				}
+				if (top_rfl[i] >= 44)
+				{
+					IO_board[i][39] = 1;
+					if ((Security_Type[i] & 0x40) != 0)
+						IO_board[i][40] = 1;
+				}
+#else
+				if (top_rfl[i] > 20)
+				{
+					IO_board[i][9] = 1;
+					IO_board[i][10] = 1;
+				}
+#endif
+			}
+			if (cons[rearsel] == 1)
+			{		 // seperate rear door i/o locations
+				IO_board[i][21] = 1;
+				IO_board[i][22] = 1;
+			}
+		}				
+
+		if ((cons[frghtd] == 2) || (cons[frghtd] == 3) || (cons[frghtd] == 4) || (cons[frghtd] == 5) ||
+			(cons[frghtd] == 6) || (cons[frghtd] == 7) || (cons[frghtd] == 8) || (cons[frghtd] == 9) )
+			IO_board[i][22] = 1;
+		
+						   
+		if (cons[sel_type] == 2)
+		{
+			IO_board[i][41] = 1;
+		}
+
+		page_2_brd_nmb[i] = 0;
+		page_3_brd_nmb[i] = 0;
+#if (Tract_HR == 1)
+		page_4_brd_nmb[i] = 0;
+		page_5_brd_nmb[i] = 0;
+#endif
+		max_nmb_io_brd[i] = 0;
+		iobd_rotate_start[i] = 0;
+		last_io_brd[i] = 0;
+#if (Tract_HR == 1)
+		for (j=1;j<=52;j++)
+#else
+		for (j=1;j<=32;j++)
+#endif
+		{		  // set the first board for each video page
+			if (IO_board[i][io_bd_order[j]] == 1)
+			{
+				max_nmb_io_brd[i] ++;
+				if ((max_nmb_io_brd[i] > 10) && (page_2_brd_nmb[i] == 0))
+					page_2_brd_nmb[i] = io_bd_order[j];
+				if ((max_nmb_io_brd[i] > 20) && (page_3_brd_nmb[i] == 0))
+					page_3_brd_nmb[i] = io_bd_order[j];
+#if (Tract_HR == 1)
+				if ((max_nmb_io_brd[i] > 30) && (page_4_brd_nmb[i] == 0))
+					page_4_brd_nmb[i] = io_bd_order[j];
+				if ((max_nmb_io_brd[i] > 40) && (page_5_brd_nmb[i] == 0))
+					page_5_brd_nmb[i] = io_bd_order[j];
+#endif
+				if ((j == 7) && (iobd_rotate_start == 0))
+					iobd_rotate_start[i] = io_bd_order[j];
+				last_io_brd[i] = io_bd_order[j];
+			}
+		}
+	}
+}
+
+/* Revision History
+
+10/06/03 3.09 mhd		1. Created this routine to place all i/o name in a ram array to be able to transfer this data serially
+						   to a user device.  
+						2. When using serial COP i/o's, hall calls can be placed on the 1010 board if < 7 floors.
+10/30/03 3.10 MHD		1. Added EML output.
+11/11/03 3.12 mhd		1. Deleted using "DISP" on io board.
+12/04/03 3.14 MHD		1. Added discrete Pi's and direction lanterns on serial cop board for hydro cars.
+12/22/03 3.17 mhd		1. Add new security_type[] = 4 for seperate car call and hall call lockouts.  Use the rear car call 
+				   		   lockouts for the hall calls.
+3/3/04 4.00 mhd			1. Modified i/o's to uses serial comm to the Top of Car board. Have only one i/o configuration now.
+4/21/04 4.00 mhd		1. Setup new io locations for 1038 board. Changed board initialization, io addresses and started io array at 0.
+11/3/04 4.03 mhd		1. Changed otslbp flag from == 1 to != 0 to allow for the flag to be 2.
+2/24/05 4.06 mhd		1. Added init for i/o's CUL, CDL, FL, FB/NB, HB and DTR.
+3/1/05 4.07 mhd			1. Relocated 16CR, 17CR, CULR, CDLR, DOLR AND DCLR.
+3/31/05 4.08 MHD		1. Make earthquake i/o's not show on screen unless eaq flag is set.
+						2. Make medical emergency i/o's not show on screen unless med flag set.
+4/23/05 4.11 mhd		1. Modified security i/o labels.
+4/24/05 mhd    			2. Changed Security_Type to allow both car call lockouts and group car call lockouts.
+4/26/05 v4.14 mhd		1. Added extra lobby up call cons[LbyUpReq].
+5/6/05 v4.17 mhd		1. Correct index for icr_loc above 169.
+5/12/05 v4.18 mhd		1. Use TDC, MDC, BDC, MDCR and RCM i/o's for manual doors.
+5/18/05 				2. Changed LU and LD to LLU and LLD respectively.
+6/23/05 V4.23 mhd		1. Changed MC to MCA and MCi to MCAi.
+6/27/05 v4.23 mhd		2. Changed FSTP to FST, FSTP1 to FST1, input FST to FSTi and STP to CS.
+7/12/05 v4.24 mhd 		1. Added new Security_Type 0x10 for Lockout_Override to be used with group or ids floor lockouts.
+7/21/05 v4.25 mhd		1. Fixed index for RUNEN when using intergroup emergency power.
+9/23/05 v4.34 pn		1. Added i/o's for peelle door interface.
+						2. Delete access to s-curve board at i/o boards 26 and 27.
+12/14/05 V4.44 mhd		1. Changed label for EP to DZA.
+1/16/05 v4.47 pn		1. Added overload light when load weigher is set to 2.
+1/16/06 V4.48 mhd 		1. Delete using CWS for hydro cars.
+						2. Added FFS input.
+2/6/06 v4.52 pn			1. Include rear car call override when option 5 is set in the cons file.
+2/8/06 V4.25 mhd		1. Changed label for FFS to SS and SS to CTS.
+2/16/06 v4.55 mhd		1. Do not use RCM when lobby lanterns used
+2/27/06 V4.56 mhd		1. Added DNO (GEN) for reset jack operation (cons[home] >= 100).
+3/1/06 v4.57 pn			1. Added seperate retiring cam output on courion interface I/O board.
+3/6/06 		 mhd		2. Changed IAO to ADO for courion door.
+						3. Changed RTL to check ((cons[sercom] & 0x01) != 0) instead of ((cons[sercom] & 0x01) == 0)
+3/21/06 v4.59 mhd		1. Added RDT (Rear door transfer relay) for peele doors.
+3/23/06 v4.60 mhd		1. Added seperate hall call security input on gpi board.
+3/30/06 v4.61 pn    	1. Added rear auto door open for Courion door operator.
+4/4/06 V4.61 mhd		2. Made TDC input an array to use EQR input.
+4/28/06 v4.64 mhd		1. Corrected setting of ept_io_sel: Use EPT in place of EMH when no manual door, no emh and no low pressure switch.
+5/3/06 V4.65 mhd		1. Corrected hall call security when security type flag == 4 (seperate floor and hall lockouts without rear).
+						   So that the Floor lockout board is not shown when security type == 32.
+						2. Added new labels for car and group security.
+5/24/06 v4.67 pn		1. Added option for courion model D door operator. 
+5/26/06 v4.68 mhd		1. Added group emergency power car status indicators.
+						2. Added security car call latch output.
+						3. Added ED for remoted car call station instead of INDC.
+6/7/06 V4.70 mhd		1. Turn on io_board[22] for courion model D door operator so that the i/o's get displayed.
+8/31/06 v5.04 mhd		1. Check flag for freight door so that cons[mand] does not have to be set also.	
+						2. Move RCM to 4U output if LLU is used.
+11/1/06 v5.07 mhd		1. Added DZDE door zone door enable output.
+						2. Remove rear i/o's from display if no rear door.
+11/8/06 v5.08 mhd		1. Added UT4/DT4, UT5/DT5 and UT6/DT6.
+1/3/07 v5.10 mhd		1. For car lockout security, use board 9 if >= 24 floors instead of > 24.
+						2. Use EMLH (light in hall) when car on hospital service.
+2/1/07 v5.16 mhd		1. Modified files to use additional i/o boards for more than 29 floors. (see Tract_HR == 1)
+2/20/07 v5.17 mhd		1. Changed cons[remote_cc] to cons[Remote_CC] to display ED input because remote_cc is a variable and not cons[] index.
+2/15/07 V5.18 mhd		1. Renamed HC to HCC.
+						2. Made the floor mask large enough for 60 floors.
+						3. Changed iodata and related arrays from 85 to 145	and also changed gpi and related arrays from 11 to 30.
+						4. Increased the number of car io boards from 27 to 48 and increased the number of group io boards from 20 to 46.
+						5. Added new i/o names for additional boards.
+2/23/07 v5.19 mhd		1. Corrected size declaration for bittbl from int to int16.
+5/30/07 v5.24 mhd		1. Added new brake board input BKS1, BKS2  (Brake Lift Switch 1 and 2) and BDBS (Brake Drive Bypass Switch). 
+6/15/07 v5.27 mhd		1. Use DTR for very short floor.
+						2. Move BDC from EMH to EQ if emergency medical and manual doors.
+7/3/07 v5.29 mhd		1. Modified set_io_board_status for security_type 0x40 to show only output if 0x40 is only set.
+8/6/07 v5.31 mhd 		1. Added cons variable for jack reset (cons[Reset_Jack] == 1),
+8/24/07 v5.35 mhd		1. Added Micro Releveling UPML and DNML outputs
+8/28/07 v5.35.1 mhd 	1. Add Automatic Swing Door Open with manual gate.	Note: cons[mand] == 1.
+10/4/07 v5.38 mhd		1. Added IR i/o when (cons[Second_Riser] != 0).
+11/12/07 v5.39 mhd  	1. Allow VIP to use the code blues calls (if not used) or the rear code blue calls (if not used). 
+11/19/07 v5.39.1 mhd	1. Added cons[Park_NCU_En] (parking and next up enable) i/o's and re-structed logic for cons[Car_Asgn_Fl] and cons[LbyUpReq].
+11/28/07 V5.29.4 mhd	1. Move EDL to P5 from P1.	
+12/20/07 v5.39.8 mhd	1. Added VIP labels on CB Board.	
+						2. Change location for RICR from (cons[grtopf]+1) to (grtop_rfl + 1).
+						3. Change Convert_pi to use grtop_rfl for limit on rear calls.
+1/4/08 v5.40.1 mhd		1. Added i/o change cons[F1_CT] (Fire 1 Car Top) to place FBNB and FL on 1040 TOC board in place of EML and EQL.  When this option 
+                           is selected, EML, EQL, and OLL are moved to P2, P3 and P4 on the 1040 Car call board.  HVD is moved to DZDE location and REV is 
+						   moved to the DTR location on the 1040 (if option for HVD and REV selected).
+						2. Added outputs F1ML and F1AL to EQL and EML outputs.  These outputs will follow the location of EML and EQL even when cons[F1_CT]
+						   selected.
+1/25/08 v5.40.3 mhd		1. Changed name of RCM_HWDoorCL to RCM_HWDoor. Change variable RCM HOLD TO RCM Control added bit 2 for advanced RCM when RCM_HWDoor set.
+						2. Add RCM output when RCM_HWDoor is set with auto door.
+2/8/08 v5.40.4 mhd		1. Added ATTHC attendant hall call cancel input (works for simplex cars only).
+4/4/08 v5.42.7 pn		1. In the copy hall call i/o table to ram array for the cross assignment I/O's (traction
+						   high rise) changed index from k = 672 to k = 648 in order to display the cross assignment I/O's
+						   correctly.
+4/3/08 v5.43 mhd		1. Fixed convert_call() to check for rear or front top floors being higher than the opposite top floor to add an up call at the top 
+                           front or rear floor.
+4/9/08 V5.43.1 mhd		1. Added input EOR for cons[Elev_off] latch reset.
+4/15/08 v5.43.3 pn		1. Added cons[ids] bit 2 for adding an additional GPIO board for 
+						   montoring of external signals through lift-net.
+4/23/08 v5.43.7 mhd		1. Added i/o for emergency sheave brake EBK, EBKC, EBKi, EBKS.
+5/22/08 v5.44 mhd		1. Added fdoor_io_sel and rdoor_io_sel for front and rear door movfe can bus. Added hvd_io_sel for movfe can bus.
+6/13/08 v5.44.3 pn		1. Removed reference for traction to include hall elevator off feature for hydro.
+6/30/08 V5.44.5 mhd		1. Reversed serial io hall calls order to start with 1D at the top of display.  Changed index from 240 to 239.
+7/29/08 v5.45.3 mhd		1. Add FF output to io table if quatro dc drive, dsd-412 and traction.
+8/19/08 v5.45.5 pn		1. Added 4 additional outputs for EMS door operator.
+8/19/08 v5.45.6 mhd		1. Added IDSO and INDS for Independent Service Security
+						2. Added cons[EM_BRK] = 5 for seperate EBC and UTM control.
+9/3/08 v5.45.8 mhd		1. Added cons[hugs] == 1 for hugs security service. Uses (Security_Type & 0x20) i/o.
+10/21/08 v5.46.3 mhd	1. Added DTR2 if DTR is being used by staggered rear floor.
+12/16/08 v5.46.8 hdl	1. Added check for cons[att] == 2 to set attendant hall annunciator lights.
+1/12/09 v5.47.1 mhd		1. For serial hall call check above 24 floors the index changes from i to i-240 to select the correct i/o.
+1/13/09 v5.47.2 mhd		1. Added hall call board 21 and board 44 for extended group io when using serial hall calls.
+3/1/09 v5.47.7 mhd		1. Added car call pushbutton security input CCPBS.
+4/22/09 v5.48.4 mhd		1. Add output of DPM and RPM for serial movfr.
+						2. Set i/o's for dual serial riser
+5/13/09 v5.48.5 mhd		1. Added i/o's for manual power loss brake MBP, MBC, MB1, MB2.
+6/1/09 v5.48.8 mhd		1. Move Earthquake i/o to BRD27 if HWS2 or INE OR SFC input functions added.
+						2. Move manual door i/o TDC,BDC and MDC to BRD27 if INE or SFC input functions added. Also move RTLDC.
+7/15/08 V5.49 mhd		1. Renamed FS2 to FS2OF when cons[FS2_SW] == 1.
+8/19/09 v5.49.9 mhd		1. Corrected check for HC_IO_board[20] for cons[grtopf] > 25 instead of cons[grtopf] > 29 in set_io_board_status().
+8/28/09 v5.49.11 mhd	1. Added set ios for selector input on board 41 if sel_type == 2.
+						2. Added Governor trip ouput in the location of MTB.
+9/30/09 v5.50.3 hdl		1. Modified location of ISER output.
+10/12/09 v5.50.4 mhd	1. Added housing inputs HMO, DMO, and LHC.
+11/11/09 v5.50.7 hdl	1. Allow EOR input to coexist with earthquake
+12/1/09 v5.50.11 mhd	1. Added NPD, EPD and EPO for single phase UPS recovery.
+12/29/09 V5.51.2 mhd	1. Added SABO, sabbath On output for 3D output on 1064 board. Must not conflict with DT5. 
+3/15/10 v5.51.14 mhd	1. Added security inputs on board B18 (44) address for SECF1, SECF2 and SECF3.
+3/16/10 v5.52 mhd		1. Corrected using io_sel with REV and RVD instead of ct_io_sel.
+						2. Set io_sel = 2 and ct_io_sel = 3, when using cons[RGB_CC} = 1, rgb car call boards.
+						3. Moved the following I/Os for the RGB car call board:
+							UDAC, DDAC, DOBI, DCBI, FS2C, DTR, DTR2, CLF, FL, FNBN, ATTUP, ATTDN, ATT, ATTBY, ATTHC,
+							CCL[], CC[], ISDO, EMS, HBE, HB, SABUZ, INDC, FS2, FS2H, ED, EDL, DLW, ATUL, ATDL, REV, RVD,
+							DPI1, DPI2, DPI3, DPI4, DPI5, DPI6, DZDE, F1ML, F1AL, EML, EQL, DCA, CULR, CDLR and OLL.
+						4. Corrected remote car call for high rise cars see remote_cc_io().
+						5. Corrected override security for high rise cars.
+3/29/10 V5.52.1 mhd 	1. Moved HBE, FS2C, ED, DOB, DCB and 7CC.
+4/1/10 v5.52.2 mhd		1. Changed (cons[dispis] == 1) to ((cons[dispis] & 0x01) != 0) to allow for additional bit usage.
+5/4/10 V5.52.7 mhd		1. Added In Car Inspection up and down inputs for RGB_CC boards.
+						2. Added inputs FiDOB, FiDCB, FiFS2C, FiDOBR, FiDCBR, and output FiFL for rgb car call boards.
+5/7/10 v5.52.8 mhd		1. Added color index for every io so that the car call and emergency outputs can be color selected.
+7/7/10 V5.52.14 mhd		1. Added Aux_Brake and EM_BRK i/o's XBKS1, XBKS2 and XBDBS for electronic brakes.
+7/29/10 v5.52.19 mhd	1. Added i/o's and i/o boards for code blue second riser
+8/18/10 v5.52.25 mhd	1. Add io names for hall security (cons[SecFlCfg] == 3).
+8/23/10 v5.52.26 hdl	1. Added HUGO (hugs output). This outputs maps by default to P1 in the car station. 
+						2. Added INSEC output 
+9/20/10 5.52.31 hdl		1. Added ELOO for a flashing output when in elevator off (servf = 20)
+						2. Added cons[Elev_off] & 8 option to enable ELOO
+						3. Corrected Statement for rm_io_sel = 1. It did not map properly the SCS and  INDC
+10/26/10 v5.52.41  mhd	1. Added boards 49,50,51 and 52 for traction high rise and boards 29,30,31 and 32 for all others.
+1/11/10 v5.52.55 mhd	1. Added HEOF, RTL, EMSH, RTL and EMLH i/o's to boards 49,50 for high rise and boards 29,30 for all others when 24v hall fixture flag set.
+1/18/11 v5.52.56 mhd	1. Corrected setting rtlh_io_sel.  The statement "rtlh_io_sel = a2004_io_sel" had to be done before the conditionsl
+							statement "if (cons[FI_EP_Ext] != 0)".  
+1/26/11 v5.52.58 hdl	1. Added outputs for EMS door operator. EMS8,9,10,11
+
+4/8/11 v5.52.10 hdl		1. EPCOM output located in the top hall call plus one. It dinamically relocates to the last output if intergroup or any other is enable. It requires fvariable and reboot CPU
+
+5/27/11 v5.54.01 hdl    1. Added  ATTBP display signal
+5/30/11 v5.54.02 mhd	1. Corrected ATTBP for RGB_CC only so that ED/AB still shows up for other jobs.
+
+6/1/11 v5.54.03 mhd		1. Added cons[Australia] variable to use external i/o board for hall fire and emergency power i/o. TDC, BDC, MDC and MDCR inputs added for automatic doors.
+						2. Rename FS2H to FS2S for fire service start.
+8/12/11 V5.52.21 HDL	1. added an ouput for DAO for Designated Attendant Operation
+
+10/4/11 v5.52.27 hdl	1. changed logic for hvd_io_sel so it wont conflict with FL if RGB and F1_CT is set on
+
+12/7/11 v5.52.42 hdl	1. Enable RGB boards all the time for PHONE input to be present	IO_board[i][47] = 1 IO_board[i][48] = 1
+1/9/12 v5.54.48 hdl		1. Changed io location of eor for it to follow heof in the fire service board.
+3/3/12 V5.54.61 hdl 	1. Blocked the SABO from alternating for regular sabbath
+						2. Added (cons[Elev_off] & 0x10) to enable the ELOO to show just for telling the car finished recall of elevator off mode		
+
+3/14//12 v5.54.63 hdl	1. Added f_rm_io_sel and r_rm_io_sel to set the location of the boards for remote car calls
+
+3/29/12 v5.54.71 mhd	1. Added MRIE input array for motor room inspection enable.
+4/18/12 v6.0.06 mhd		1. Made EBKS an array and use cons[EM_BRK] to enable emergency brake.
+5/1/12 v6.0.7 mhd		1. Added new brake control cons[EM_BRK] == 7.  This is to have a controled drop of the emergency brake even after MC drops.
+*/					

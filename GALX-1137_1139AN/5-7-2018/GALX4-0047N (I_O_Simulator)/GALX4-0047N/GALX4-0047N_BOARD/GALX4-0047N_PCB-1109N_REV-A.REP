@@ -1,0 +1,506 @@
+*************************************************************
+FileName = GALX4-0047N_PCB-1109N_REV-A.GBR
+AutoAperture = True
+*************************************************************
+Generating : Top
+      File : GALX4-0047N_PCB-1109N_REV-A.GTL
+
+    Adding Layer      : Top
+
+    Adding Layer      : Multi-Layer
+
+
+Used DCodes :
+    D10
+    D11
+    D12
+    D13
+    D14
+    D15
+    D16
+    D17
+    D18
+    D19
+    D20
+    D21
+    D22
+    D23
+    D24
+    D25
+    D26
+    D27
+    D28
+    D29
+    D30
+    D31
+    D32
+    D33
+    D34
+    D35
+    D36
+    D37
+    D38
+    D39
+    D40
+    D41
+    D42
+    D43
+    D44
+    D45
+    D46
+    D47
+    D48
+    D49
+    D50
+    D51
+    D52
+    D53
+    D54
+    D55
+    D56
+*************************************************************
+
+*************************************************************
+Generating : Bottom
+      File : GALX4-0047N_PCB-1109N_REV-A.GBL
+
+    Adding Layer      : Bottom
+
+    Adding Layer      : Multi-Layer
+
+
+Used DCodes :
+    D12
+    D14
+    D15
+    D16
+    D18
+    D19
+    D20
+    D21
+    D22
+    D32
+    D33
+    D34
+    D35
+    D37
+    D38
+    D41
+    D42
+    D43
+    D44
+    D45
+    D46
+    D47
+    D48
+    D49
+    D50
+    D51
+    D52
+    D53
+    D54
+    D55
+    D56
+    D57
+    D58
+    D59
+    D60
+    D61
+    D62
+*************************************************************
+
+*************************************************************
+Generating : Bottom Pad Master
+      File : GALX4-0047N_PCB-1109N_REV-A.GPB
+
+    Adding Layer      : Bottom
+
+    Adding Layer      : Multi-Layer
+
+
+Used DCodes :
+    D12
+    D14
+    D15
+    D16
+    D18
+    D19
+    D20
+    D21
+    D22
+    D41
+    D42
+    D43
+    D44
+    D45
+    D46
+    D47
+    D48
+    D49
+    D50
+    D51
+    D52
+    D53
+    D54
+    D57
+    D58
+    D59
+    D60
+    D61
+*************************************************************
+
+*************************************************************
+Generating : Top Pad Master
+      File : GALX4-0047N_PCB-1109N_REV-A.GPT
+
+    Adding Layer      : Top
+
+    Adding Layer      : Multi-Layer
+
+
+Used DCodes :
+    D10
+    D11
+    D12
+    D13
+    D14
+    D15
+    D16
+    D17
+    D18
+    D19
+    D20
+    D21
+    D22
+    D23
+    D24
+    D25
+    D26
+    D27
+    D28
+    D29
+    D30
+    D31
+    D41
+    D42
+    D43
+    D44
+    D45
+    D46
+    D47
+    D48
+    D49
+    D50
+    D51
+    D52
+    D53
+    D54
+*************************************************************
+
+*************************************************************
+Generating : Top Silk
+      File : GALX4-0047N_PCB-1109N_REV-A.GTO
+
+    Adding Layer      : Top Silk
+
+
+Used DCodes :
+    D32
+    D33
+    D35
+    D62
+    D63
+    D64
+    D65
+    D66
+    D67
+    D68
+    D69
+    D70
+*************************************************************
+
+*************************************************************
+Generating : Top Paste
+      File : GALX4-0047N_PCB-1109N_REV-A.GTP
+
+    Adding Layer      : Top Paste
+
+    Adding Layer      : Top
+
+    Adding Layer      : Multi-Layer
+
+
+Used DCodes :
+    D10
+    D11
+    D12
+    D13
+    D14
+    D15
+    D16
+    D17
+    D18
+    D19
+    D21
+    D22
+    D23
+    D24
+    D26
+    D27
+    D28
+    D29
+    D30
+    D31
+    D71
+    D72
+    D73
+    D74
+    D75
+    D76
+    D77
+*************************************************************
+
+*************************************************************
+Generating : Top Mask
+      File : GALX4-0047N_PCB-1109N_REV-A.GTS
+
+    Adding Layer      : Top Mask
+
+    Adding Layer      : Top
+
+    Adding Layer      : Multi-Layer
+
+
+Used DCodes :
+    D50
+    D78
+    D79
+    D80
+    D81
+    D82
+    D83
+    D84
+    D85
+    D86
+    D87
+    D88
+    D89
+    D90
+    D91
+    D92
+    D93
+    D94
+    D95
+    D96
+    D97
+    D98
+    D99
+    D100
+    D101
+    D102
+    D103
+    D104
+    D105
+    D106
+    D107
+    D108
+    D109
+    D110
+    D111
+    D112
+    D113
+*************************************************************
+
+*************************************************************
+Generating : Bot Mask
+      File : GALX4-0047N_PCB-1109N_REV-A.GBS
+
+    Adding Layer      : Bot Mask
+
+    Adding Layer      : Bottom
+
+    Adding Layer      : Multi-Layer
+
+
+Used DCodes :
+    D50
+    D80
+    D82
+    D83
+    D84
+    D86
+    D87
+    D88
+    D89
+    D99
+    D100
+    D101
+    D102
+    D103
+    D104
+    D105
+    D106
+    D107
+    D108
+    D109
+    D110
+    D111
+    D112
+    D113
+    D114
+    D115
+    D116
+    D117
+    D118
+*************************************************************
+
+*************************************************************
+Generating : Bot Paste
+      File : GALX4-0047N_PCB-1109N_REV-A.GBP
+
+    Adding Layer      : Bot Paste
+
+    Adding Layer      : Bottom
+
+    Adding Layer      : Multi-Layer
+
+
+Used DCodes :
+    D12
+    D14
+    D15
+    D16
+    D18
+    D19
+    D21
+    D22
+    D57
+    D58
+    D59
+    D60
+    D61
+*************************************************************
+
+*************************************************************
+Generating : Bot Silk
+      File : GALX4-0047N_PCB-1109N_REV-A.GBO
+
+    Adding Layer      : Bot Silk
+
+
+Used DCodes :
+    D32
+    D33
+    D35
+    D65
+    D66
+*************************************************************
+
+*************************************************************
+Generating : Board
+      File : GALX4-0047N_PCB-1109N_REV-A.GKO
+
+    Adding Layer      : Board
+
+
+Used DCodes :
+    D33
+*************************************************************
+
+*************************************************************
+Generating : Top Assy
+      File : GALX4-0047N_PCB-1109N_REV-A.GM1
+
+    Adding Layer      : Top Assy
+
+
+Used DCodes :
+*************************************************************
+
+*************************************************************
+Generating : Bot Assy
+      File : GALX4-0047N_PCB-1109N_REV-A.GM2
+
+    Adding Layer      : Bot Assy
+
+
+Used DCodes :
+*************************************************************
+
+*************************************************************
+Generating : DXF1
+      File : GALX4-0047N_PCB-1109N_REV-A.GM3
+
+    Adding Layer      : DXF1
+
+
+Used DCodes :
+*************************************************************
+
+*************************************************************
+Generating : TITLE
+      File : GALX4-0047N_PCB-1109N_REV-A.GM4
+
+    Adding Layer      : TITLE
+
+
+Used DCodes :
+    D33
+    D119
+    D120
+*************************************************************
+
+*************************************************************
+Generating : Mechanical 13
+      File : GALX4-0047N_PCB-1109N_REV-A.GM13
+
+    Adding Layer      : Mechanical 13
+
+
+Used DCodes :
+    D121
+*************************************************************
+
+*************************************************************
+Generating : Mechanical 15
+      File : GALX4-0047N_PCB-1109N_REV-A.GM15
+
+    Adding Layer      : Mechanical 15
+
+
+Used DCodes :
+    D121
+*************************************************************
+
+*************************************************************
+Generating : Drill Drawing
+      File : GALX4-0047N_PCB-1109N_REV-A.GD1
+
+    Adding Drill Pair : Top-Bottom
+
+    Adding Layer      : Drill Drawing
+
+
+Used DCodes :
+    D32
+    D33
+    D65
+    D69
+    D122
+    D123
+    D124
+*************************************************************
+
+*************************************************************
+Generating : Drill Guide
+      File : GALX4-0047N_PCB-1109N_REV-A.GG1
+
+    Adding Drill Pair : Top-Bottom
+
+    Adding Layer      : Drill Guide
+
+
+Used DCodes :
+    D65
+*************************************************************
+

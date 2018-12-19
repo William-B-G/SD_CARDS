@@ -1,0 +1,559 @@
+//*********************************************************************************************
+// MAIN I/O BOARD
+//*********************************************************************************************
+
+#define  i_AD;
+#define  i_IND;
+#define  i_LBP;
+#define  i_GBP;
+#define  i_LPH;
+#define  i_S10;
+#define  i_S10_1;
+#define  i_GOV;
+
+#define  i_TF;
+#define  i_BF;
+#define  i_PS;
+#define  i_HSS;
+#define  i_ACC;
+#define  i_BAD;
+#define  i_BAU;
+#define  i_TAD;
+
+#define  i_TAU;
+#define  i_DLB;
+#define  i_DLB_1;
+#define  i_DLM;
+#define  i_DLM_1;
+#define  i_DLT;
+#define  i_DLT_1;
+#define  i_RLM;
+
+#define  i_RLM_1;
+#define  i_TDC;
+#define  i_MDC;
+#define  i_BDC;
+#define  i_MDCR;
+#define  i_BRKS;
+#define  i_EBKS;	// Emergency Brake Switch input
+#define  i_SPI;
+
+#define  i_MRIU;
+#define  i_MRIN;
+#define  i_AUTO;
+#define  i_MRSW;
+#define  i_SFC;
+#define  i_PFC;
+#define  i_MRID;
+#define  i_MRIE;	// Machine room inspection input
+
+#define  i_READY;	// Drive Ready input
+#define  i_GTS;	// Gripper Trip Switch input
+#define  i_GRT1;
+#define  i_GRT2;
+#define  i_RGS_1;
+#define  i_GS;
+#define  i_GS_1;
+#define  i_FST;
+
+#define  i_DN;	// Down Directional Stop
+#define  i_DZ;	// Door Zone input (DZU AND DZD)
+#define  i_DZ_1;	// Door Zone input (DZU AND DZD)
+#define  i_RGS;
+#define  i_CTA;
+#define  i_DTS;	// Down Emergeny Terminal Slowdown
+#define  i_UN;	// Up Directional Stop
+#define  i_UTS;	// Up Emergency Terminal Slowdown 
+
+#define  i_ID;
+#define  i_INE;
+#define  i_IU;
+#define  i_INS;
+#define  i_P;
+#define  i_ICI;
+#define  i_STP;	// Car Stop Switch input
+#define  i_FFS;
+
+#define  i_MCC;
+#define  i_MCA;
+#define  i_DON;
+#define  i_BRK;
+#define  i_RUN;
+#define  i_DEL;
+#define  i_RUNA;
+#define  i_R54;
+
+#define  i_DNR;
+#define  i_DF;
+#define  i_UP;
+#define  i_UF;
+
+
+#define  o_FLH;
+#define  o_GR2R;
+#define  o_LE;
+#define  o_LE1;
+#define  o_FST;
+#define  o_FSTP;
+
+#define  o_RST;
+#define  o_MCC;
+#define  o_MCA;
+#define  o_PFC;
+#define  o_DBG;
+#define  o_FF;
+#define  o_SPO;
+#define  o_EBK1;
+
+#define  o_RUNA;
+#define  o_RUN;
+#define  o_DNR;
+#define  o_DF;
+#define  o_UP;
+#define  o_UPF;
+
+#define  o_BRK;
+#define  o_EBK2;
+#define  o_DBC;
+	
+
+
+//*********************************************************************************************
+// Machine Room Can I/O
+//*********************************************************************************************
+
+#define  i_EBK1;	// Emergency brake 1 coil input
+#define  i_EBK2;	// Emergency brake 2 coil input
+#define  i_EBA;	// Emergency brake A coil input
+#define  i_EBB;	// Emergency brake B coil input
+#define  i_EBK;	// Emergency brake coil input
+#define  i_LC;	// LC 120VAC input 
+
+#define  i_TPL;
+#define  i_SEE;
+#define  i_TEE;
+#define  i_CMP;
+#define  i_BFS;
+#define  i_PDS;
+#define  i_HMO;
+
+#define  i_TGDO;
+#define  i_TGDOR;
+#define  i_TGDC;
+#define  i_TGDCR;
+#define  i_CCPBS;
+
+#define  i_XBKS1;
+#define  i_BKS1; 
+#define  i_BKS2;
+#define  i_BDBS;
+
+
+#define  i_RM_ED;
+#define  i_RM_INDC; 
+#define  i_OSERA;
+#define  i_SAB;
+#define  i_SECFM;
+
+#define  i_SCSMR;
+#define  i_SCSRMR;
+
+#define i_BP1;
+#define i_BP2;
+#define i_BP4;
+#define i_BP8;
+#define i_BP16;
+#define i_BP32;
+
+
+#define  i_LPS;
+#define  i_LOS;
+#define  i_RM_DOB;
+#define  i_RM_DCB;
+#define  i_RM_DCBR;
+#define  i_RM_DOBR;
+
+#define  i_EMP;
+#define  i_EPS;
+#define  i_EPT;
+#define  i_HEOF;
+#define  i_EOR;
+#define  i_JAILB;
+#define  i_HUGI;
+#define  i_HUGB;
+#define  i_RTL;
+#define  i_RTLH; 
+#define  i_RTLDC;
+#define  i_EMSH;
+
+#define  i_THDS;
+
+#define  i_FS;
+#define  i_BP;
+#define  i_FSX;
+#define  i_ALT; 
+#define  i_MES;
+#define  i_MRS;
+#define  i_HWS;
+#define  i_HWS2;
+
+
+#define  i_EQR;
+#define  i_ETH;
+#define  i_COL;
+
+
+#define  i_CWS;
+#define  i_ELOF;
+#define  i_HC;
+#define  i_CCP;
+#define  i_CCLP;
+#define  i_HCLP;
+#define  i_LHCP;
+#define  i_DMO;
+
+
+#define  o_FBZ;
+#define  o_BRKC;
+#define  o_EBK;
+#define  o_EBKC;
+#define  o_EBA1;
+#define  o_EBA2;
+#define  o_EBB1;
+#define  o_EBB2;
+#define  o_EBC;
+#define  o_UPML;
+#define  o_DNML;
+#define  o_EMLH;
+#define  o_EPLH;
+#define  o_EPLH;
+#define  o_EPRL;
+#define  o_EPRL;
+#define  o_EPSL;
+#define  o_EPSL;
+#define  o_HUGO;
+#define  o_HUGA;
+#define  o_NPD;
+#define  o_EPD;
+#define  o_EPO;
+#define  o_TCU;
+#define  o_LU;
+#define  o_LD;
+#define  o_GEN;
+#define  o_DNO;
+#define  o_MTB;
+#define  o_GBL;
+#define  o_LBL;
+#define  o_GOVR;
+#define  o_GOVT;
+
+
+#define  o_RCF;
+#define  o_MST;
+#define  o_GR1R;
+#define  o_UTM;
+#define  o_TDOL;
+#define  o_TDCL;
+#define  o_TDOLR;
+#define  o_TDCLR;
+#define  o_TAVL;
+#define  o_TAVL2;
+#define  o_TIND;
+#define  o_TMED;
+#define  o_TFSO;
+#define  o_TP1;
+#define  o_TP2;
+#define  o_TP3;
+#define  o_TP4;
+#define  o_TP5;
+#define  o_TP6;
+#define  o_EQL;
+#define  o_MBC;
+#define  o_MBP;
+#define  o_MB1;
+#define  o_MB2;
+#define  o_EDHL;
+#define  o_FSDO;
+#define  o_RSDO;
+#define  o_RVDR;
+#define  o_REVR;
+#define  o_RVD;
+#define  o_REV;
+#define  o_HVD;
+#define  o_HVDR;
+
+
+#define  o_FSO;
+#define  o_FiFL;
+#define  o_FLCT;
+#define  o_FBNBCT;
+#define  o_FBNB;
+#define  o_DCA;
+#define  o_HB;
+#define  o_SABUZ;
+#define  o_SABEE;
+#define  o_SABO;
+#define  o_ISER;
+#define  o_OSERB;
+#define  o_OSERL;
+#define  o_OPENL;
+#define  o_INSEC;
+#define  o_FSOCS;
+#define  o_FSORS;
+#define  o_FW;
+#define  o_DPI1;
+#define  o_DPI2;
+#define  o_DPI3;
+#define  o_DPI4;
+#define  o_DPI5;
+#define  o_DPI6;
+#define  o_OLL;
+#define  o_HDB;
+#define  o_DESL;
+#define  o_INSP;
+#define  o_ADO;
+#define  o_RADO;
+#define  o_PH1R;
+#define  o_PH2HD;
+#define  o_PH2ON;
+#define  o_PH2OF;
+#define  o_DAO;
+#define  o_RC;
+#define  o_RDT;
+#define  o_MPTR;
+#define  o_CODG; 	// Door/Gate Cut-out output for courion door interface
+#define  o_COHS;
+#define  o_ATO;
+#define  o_IAO;
+#define  o_FPH1;
+#define  o_RAHS;
+#define  o_FPH2;
+#define  o_DSC;
+#define  o_FDOB;
+#define  o_RDOB;
+#define  o_TC;
+#define  o_FRCL;
+#define  o_HCO;
+#define  o_FH;
+#define  o_FPS2;
+
+#define  o_EFST;
+#define  o_EMS1Z;
+#define  o_EMS2Z;
+#define  o_EMS3Z;
+#define  o_EMS4Z;
+#define  o_EMS5Z;
+#define  o_EMS6Z;
+#define  o_EMS7Z;
+#define  o_EMS8Z;
+#define  o_EMS9Z;
+#define  o_EMS10Z;
+#define  o_EMS11Z;
+#define  o_FRT1Z;
+#define  o_FRT2Z;
+#define  o_FRT3Z;
+#define  o_PDO;
+#define  o_PDOR;
+#define  o_G_INSP;
+#define  o_G_ADO;
+#define  o_G_FDCBO;
+#define  o_G_RDCBO;
+#define  o_G_ADOH;
+#define  o_G_RDO;
+#define  o_G_RDOH;
+#define  o_G_RC;
+#define  o_G_SOPEN;
+#define  o_G_ININD;
+#define  o_G_FH1R;
+#define  o_G_PH2HD;
+#define  o_G_PH2ON;
+#define  o_G_PH2OF;
+
+
+//*********************************************************************************************
+// Car Top Can I/O
+//*********************************************************************************************
+
+#define  i_RLS;
+#define  i_CSS;
+#define  i_CTS;
+#define  i_CST;
+
+#define  o_CUL;	// Car Up lantern
+#define  o_CDL;	// Car Down lantern
+#define  o_CLF;	// Cab Light and Fan
+#define  o_FAN;	// cab Fan
+#define  o_LIGHT;	// Cab Light
+
+
+#define  i_DT; 	// Down Terminal Slowdosn
+#define  i_DT1; 	// 1st Down Terminal limit
+#define  i_DT2; 	// 2nd Down Terminal limit
+#define  i_DT3; 	// 3rd Down Terminal limit
+#define  i_DT4; 	// 4th Down Terminal limit
+#define  i_DT5; 	// 5th Down Terminal limit
+#define  i_DT6; 	// 6th Down Terminal limit
+
+#define  i_UT; 	// Up Terminal Slowdown
+#define  i_UT1;	// 1st Up Terminal limit
+#define  i_UT2;	// 2nd Up Terminal limit
+#define  i_UT3; 	// 3rd Up Terminal limit
+#define  i_UT4; 	// 4th Up Terminal Limit
+#define  i_UT5; 	// 5th Up Terminal limit
+#define  i_UT6; 	// 6th Up Terminal Limit
+
+#define  i_DL;  	// Down Level Input
+#define  i_DZA; 	// Door Zone A input (DZU OR DZD)
+#define  i_UL; 	// Up level input
+#define  i_DZSL;	// Door Zone input 
+
+#define  i_DZ1A;	// Door Zone Sensor input
+#define  i_DZ2A;	// Door Zone Sensor input
+#define  i_DZ1B;	// Door Zone Sensor input
+#define  i_DZ2B;	// Door Zone Sensor input
+#define  i_UNSL;	// Up Terminal Slowdown
+#define  i_UTSL;	// Up Emergency Terminal Slowdown 
+
+#define  i_DNSL;	// Down Terminal Slowdosn
+#define  i_DTSL;	// Down Terminal Slowdosn
+
+#define  i_SS;
+
+
+#define  i_SE;
+#define  i_SER;
+#define  i_EE;
+#define  i_EER;
+#define  i_DCL;
+#define  i_DOL;
+#define  i_DCLR;
+#define  i_DOLR;
+#define  i_ALRM;
+#define  i_EMS;
+
+
+#define  i_movfr_DCL;
+#define  i_movfr_DOL;
+#define  i_movfr_EE;
+#define  i_movfr_DPM;
+#define  i_movfr_DCLR;
+#define  i_movfr_DOLR;
+#define  i_movfr_EER;
+#define  i_movfr_RPM;
+
+
+#define  i_std_DCL;
+#define  i_std_DOL;
+#define  i_std_EE;
+#define  i_std_DPM;
+#define  i_std_DCLR;
+#define  i_std_DOLR;
+#define  i_std_EER;
+#define  i_std_RPM;
+
+
+#define  i_DPM;
+#define  i_RPM;
+
+#define  i_DOB;
+#define  i_DCB;
+#define  i_DOBR;
+#define  i_DCBR;
+
+#define  i_FS2;
+#define  i_FS2H;
+#define  i_FS2C;
+
+#define  i_FiDOB;
+#define  i_FiDOBR;
+#define  i_FiFS2C;
+#define  i_FiDCB;
+#define  i_FiDCBR;
+
+#define  i_ICID;
+#define  i_ICIU;
+#define  i_ED;
+#define  i_OVL;
+#define  i_LWA;
+#define  i_LWB;
+#define  i_LWD;
+
+#define  i_ATT;
+#define  i_ATTUP;
+#define  i_ATTDN;
+#define  i_ATTBY;
+#define  i_ATTHC;
+
+
+#define  i_DZSA;
+#define  i_UNS;
+#define  i_DNS;
+#define  i_DLW;
+#define  i_HBE;
+
+#define  i_INDC;
+#define  i_INDS;
+#define  i_IDSO;
+#define  i_SCS;
+#define  i_SCSR;
+
+
+#define  i_DS;
+#define  i_US;
+
+							      																		
+#define  o_DO;
+#define  o_DC;
+#define  o_NUD;
+#define  o_DOR;
+#define  o_DCR;
+#define  o_NUDR;
+#define  o_DZDE;
+#define  o_DTR;
+#define  o_SFST;
+#define  o_ELOO;
+#define  o_CULR;
+#define  o_CDLR;
+#define  o_RCM;
+#define  o_DDAC;
+#define  o_UDAC;
+#define  o_FL;
+#define  o_F1ML;
+#define  o_F1AL;
+#define  o_EML;
+#define  o_ATDL;
+#define  o_ATUL;
+#define  o_EQLC;
+#define  o_EDL;
+
+#define  o_std_DO;
+#define  o_std_DC;
+#define  o_std_NUD;
+#define  o_movfr_DO;
+#define  o_movfr_DC;
+#define  o_movfr_NUD;
+
+#define  o_std_DOR;
+#define  o_std_DCR;
+#define  o_std_NUDR;
+#define  o_movfr_DOR;
+#define  o_movfr_DCR;
+#define  o_movfr_NUDR;
+
+	
+#define i_CC(fl) i_CCI[fl]
+#define o_CCL(fl) o_CCO[fl]
+#define i_CCR(fl) i_CCRI[fl]
+#define o_CCRL(fl) o_CCRO[fl]
+#define i_CCS(fl) i_CCSI[fl]
+#define i_RCCS(fl) i_RCCSI[fl]
+#define i_OCS(fl) i_OCSI[fl]
+#define i_ORS(fl) i_ORSI[fl]
+
+#define i_RM_CC(fl) i_RM_CCI[fl]
+#define o_RM_CCL(fl) o_RM_CCO[fl]
+#define i_RM_CCR(fl) i_RM_CCRI[fl]
+#define o_RM_CCRL(fl) o_RM_CCRO[fl]
+
+#define o_SCCL(fl) o_SCCO[fl]
+#define o_SCCRL(fl) o_SCCRO[fl]

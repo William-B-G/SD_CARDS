@@ -1,0 +1,26 @@
+---------------------------------------------------------------------------
+NCDrill File Report For: GALX4-0047N_PCB-1109N_REV-A_Panel.PcbDoc   3/24/2016  9:49:14 AM
+---------------------------------------------------------------------------
+
+Layer Pair : Top Layer to Bottom Layer
+ASCII Plated RoundHoles File : GALX4-0047N_PCB-1109N_REV-A_Panel-Plated.TXT
+ASCII Non-Plated RoundHoles File : GALX4-0047N_PCB-1109N_REV-A_Panel-NonPlated.TXT
+
+Tool         Hole Size           Hole Type     Hole Count Plated       Tool Travel
+---------------------------------------------------------------------------
+T1        15mil (0.381mm)          Round          162              46.88 Inch (1190.63 mm)
+T2        28mil (0.7112mm)         Round          128              57.97 Inch (1472.48 mm)
+T3        32mil (0.8128mm)         Round          84               34.80 Inch (884.04 mm)
+T4        38mil (0.9652mm)         Round          4                4.10 Inch (104.14 mm)
+T5        40mil (1.016mm)          Round          64               22.41 Inch (569.19 mm)
+T6        42mil (1.0668mm)         Round          192              31.19 Inch (792.17 mm)
+T7        46mil (1.1684mm)         Round          8                5.50 Inch (139.70 mm)
+T8        60mil (1.524mm)          Round          24               6.66 Inch (169.06 mm)
+T9        62mil (1.5748mm)         Round          40               20.11 Inch (510.79 mm)
+T10       75mil (1.905mm)          Round          4         NPTH   4.61 Inch (117.04 mm)
+T11       125mil (3.175mm)         Round          6         NPTH   34.15 Inch (867.41 mm)
+T12       234mil (5.9436mm)        Round          8         NPTH   24.55 Inch (623.49 mm)
+---------------------------------------------------------------------------
+Totals                                            724              292.92 Inch (7440.15 mm)
+
+Total Processing Time (hh:mm:ss) : 00:00:02

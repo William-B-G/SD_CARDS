@@ -1,0 +1,434 @@
+// MenuManager.c
+
+#include "global.h"
+
+#include "SD_TEST.h"
+#include "RTC_TEST.h"
+#include "GALX_1132_TEST.h"
+
+#define MAX_MENU_DEPTH 20
+#define Last_Main_Menu 6
+//#define Last_Menu (sizeof (struct A_Menu)MyMenuList / sizeof (struct A_Menu)MyMenuList[0])
+#define Last_Menu 22 // (sizeof (struct A_Menu)MyMenuList / sizeof (struct A_Menu)MyMenuList[0])
+
+extern int16 Check_for_Mode_Button(void);
+extern int16 Check_for_Up_Button(void);
+extern int16 Check_for_Down_Button(void);
+extern int16 Check_for_Enter_Button(void);
+
+void GALX_1132_TEST(void);
+void clr_lcd_dply(void);
+void fail_testagain(void);
+void MenuManager(void);
+void Push_Menu_LIFO(int16 New_LCD_Menu);
+int16 Pop_Menu_LIFO(void);
+void ServiceTheButtons(void);
+int16 Display_SW_Version(int16 New_LCD_Menu);
+void *FunctionPtrs[Last_Menu+1];
+int16 DoNothing(int16 New_LCD_Menu);
+int16 (*foo)(int16) = Display_Test;
+int16 (*Service_Request)(int16); // function pointer
+//taking one int16 param and
+// returning an int16
+
+int16 TESTCASE_1132=0;
+int16 Menu_LIFO_Index = 0;
+
+int16 LCD_Menu = 0;
+static int16 New_LCD_Menu = 0;
+static int16 DoNothingCase = 0;
+int16 LCD_Pointer = 0;
+int16 LCD_Upd_Dpy = 0;
+int16 LCD_Init = 0;
+int16 LCD_Sub_Init = 0;
+
+int16 line_ptr=0;
+int16 start_ptr=0;
+int16 i_index =0;
+int16 j_index = 0;
+int16 k_index = 0;
+
+int16 (*ServiceProvider)(int16);
+
+#pragma section const_type
+
+struct A_Menu *MenuPtr;
+/*
+struct MenuParams {
+    struct A_Menu *MenuPtr;
+    int16 Last_Menu_Item;
+};
+*/
+int16 TheMenuLength = 0;
+struct A_Menu {
+    char MenuItem[21];
+    void *Service;
+};
+
+struct A_Menu Main_MenuList[] = {
+    { "       GALaxy       ", DoNothing },  // 0
+    { " Functional Test    ", DoNothing }, 
+    { " Individual Tests   ", DoNothing },
+    { " Diagnostics        ", DoNothing },
+    { " Software Utilities ", DoNothing },   
+    { " Faults             ", DoNothing },
+    { " Development        ", Start_MyMenuList },    // Last_Main_Menu = 6             
+};
+
+struct A_Menu MyMenuList[] = {
+    { "       Development  ", DoNothing },          // 0
+    { " RS-232             ", The_RS_232_test },    // 1
+    { " MESSAGE BOARD A    ", DisplayMsgBrd_A },
+    { " MESSAGE BOARD B    ", DisplayMsgBrd_B },
+    { " Run Power-Up Mode  ", JumpToPowerUp },   
+    { " Hall Com - one shot", Hal_com_Tx_test },    // 5
+    { " Hall Com - ContinUs", Hal_com_Tx_test_Continuous },                 
+    { " MRAM               ", Test_MRAM },            
+    { " CAN                ", The_CAN_test },    
+    { " RS-485             ", The_RS_485_test },    
+    { " WATCH DOG          ", WDT_Test },           // 10
+    { " SD CARD            ", TEST_SD },
+    { " WIFI               ", DoNothing },
+    { " SOFTWARE VERSION   ", Display_SW_Version },
+    { " REAL TIME CLOCK    ", TEST_RTC },
+    { " PUSH BUTTONS       ", PushButtons_Test },   // 15
+    { " 4-LINE DISPLAY     ", Display_Test },
+    { " ADJUST LCD DISPLAY ", DoNothing },
+    { " GAL1132 IO BOARD   ", DoNothing },
+    { " DIAGNOSTICS        ", DoNothing },
+    { " GENERIC TEST       ", Generic_Test },          // 20  
+    { " MSG BD A SWITCHES  ", DoNothing },
+    { " MSG BD B SWITCHES  ", DoNothing },    // 22  be sure that
+};                                             // 'Last_Menu' is defined as 22
+
+enum {
+    Init_the_Menu,                // 0
+    CAN_test,                     // 1
+    RS_232_test,                  // 2
+    RS_485_test,                  // 3
+    Watch_dog_test,               // 4
+    MRAM_test,                    // 5
+    SD_Card_test,                 // 6
+    WIFI_test,                    // 7
+    SW_version_display,           // 8
+    RTC_test,                     // 9
+    Push_a_button_test,           // 10
+    Four_line_display_test,       // 11
+    Adjust_LCD_display,           // 12
+    GAL_IO_Board_test,            // 13
+    Diagnostics_test,             // 14
+    Generic_test,                 // 15
+    Scroll_Main_Menu,             // 16
+    Perform_Main_Menu_Function,   // 17
+    Function_Pass,                // 18
+    Function_Fail,                // 19
+    Idle_Time_wbg,                // 20
+    xxTest,                       // 21
+    Wait_for_Service_Request      // 22
+};
+
+enum {
+    Init1132TEST,
+    LookAtButtons,
+    RS232_TEST,
+    SD_TEST,
+    CAN_TEST,
+    RS485_TEST,
+    RTC_TEST,
+    PC104_TEST,
+    VideoSPI_TEST,
+    MRAM_TEST,
+    GALX1132_TESTDONE,
+    GALX1132_FAILED
+};
+
+char New_Menu_list[50];
+
+struct Menu_LIFO {
+    int16 New_LCD_Menu;
+    int16 Case_of;
+} Menu_LIFO_Instance[MAX_MENU_DEPTH];
+
+int16 DoNothing(int16 New_LCD_Menu)
+{
+    int16 TheMenu = New_LCD_Menu;
+    
+    SIU.GPDO[Z0_LED].R = ~SIU.GPDO[Z0_LED].R;  // toggle LED
+//    if(SIU.GPDO[Z0_LED].R) SIU.GPDO[Z0_LED].R =0; else SIU.GPDO[Z0_LED].R = 1;    
+    switch(DoNothingCase)
+    {
+      case Init_the_Menu:
+        timers[t_Generic_Delay] = 0;
+        Clear_Msg_Board();
+        Clear_Msg_Board_B();        
+        sprintf(src,"11: %d", TheMenuLength);
+        Add_msgx_First_TimeOnly(src,0);
+        debug_msg(src, 3);
+        DoNothingCase = Idle_Time_wbg;
+        break;
+      
+      case Idle_Time_wbg:
+        if(timers[t_Generic_Delay] >= 3) 
+        {
+          DoNothingCase = Init_the_Menu;
+          return FINISHED_WITH_SERVICE; 
+        }
+        break;
+        
+    default:
+        DoNothingCase = Init_the_Menu;
+        Clear_Msg_Board();
+        Clear_Msg_Board_B();
+        sprintf(src,"11: %d", New_LCD_Menu);  // New_LCD_Menu // TheMenuLength
+        Add_msgx_First_TimeOnly(src,0);        
+        SIU.GPDO[Z6_LED].R = 0;	// turn led ON (wbg)// tagwbg 15
+        return FINISHED_WITH_SERVICE;
+        break;
+    }                
+    return CONTINUE_SERVICE;
+}
+/*
+enum 
+{
+  DONE_BUT_CONTINUE_DISPLAY = -1,
+  FINISHED_WITH_SERVICE,
+  CONTINUE_SERVICE  	
+};
+*/
+
+void Start_Main_MenuList(void)
+{
+  MenuPtr = Main_MenuList;
+  TheMenuLength = (sizeof(Main_MenuList) / sizeof(Main_MenuList[0])) - 1;    
+}
+
+void Start_MyMenuList(void)
+{
+  MenuPtr = MyMenuList;
+  TheMenuLength = (sizeof(MyMenuList) / sizeof(MyMenuList[0])) - 1;    
+}
+
+void MenuManager(void)
+{
+    // ********** THE NEW MAIN MASTER MENU **************
+    static int16 Init_Main_Menu = 0;
+
+    int16 RtnVal= 0;
+
+    switch(New_LCD_Menu) {
+    
+    case Init_the_Menu:	// 0
+        SIU.GPDO[Z0_LED].R = 1;  // turn LED OFF
+//        Clear_Msg_Board();
+//        Clear_Msg_Board_B();        
+//        MenuPtr = MyMenuList;
+//        TheMenuLength = (sizeof(MyMenuList) / sizeof(MyMenuList[0])) - 1;
+        New_LCD_Menu = LookAtButtons;
+        //ServiceTheButtons();  // the init_control() calls init_LCD() which 
+          	    // sets LCD_Upd_Dpy = 1 so that the first time
+          	    // into ServiceTheButtons() the display will be updated.
+        break;
+        
+    case LookAtButtons:
+        SIU.GPDO[Z0_LED].R = ~SIU.GPDO[Z0_LED].R;  // toggle LED
+        ServiceTheButtons();  // the init_control() calls init_LCD() which 
+          	    // sets LCD_Upd_Dpy = 1 so that the first time
+          	    // into ServiceTheButtons() the display will be updated.    
+        break;
+        
+    case Wait_for_Service_Request: // Call back function to handle the selected test.
+        //  RtnVal =FunctionPtrs[11](0); // produces compiler error
+        //Service_Request = FunctionPtrs[11];  // ok
+        RtnVal = Service_Request(0);
+        if (RtnVal  == FINISHED_WITH_SERVICE) {
+            New_LCD_Menu = LookAtButtons;
+            LCD_Upd_Dpy = 1;
+        } else if (RtnVal < 0) {
+            SIU.GPDO[Z0_LED].R = 1;	// turn led OFF
+            New_LCD_Menu = Idle_Time_wbg;
+        }
+        break;
+
+    case Idle_Time_wbg:
+        // Continue to display the test results until Mode Button pressed.
+        Check_for_Up_Button();
+        // Just to clear out the button flag if someone presses button
+        Check_for_Down_Button();
+        // Just to clear out the button flag if someone presses button
+        Check_for_Enter_Button();
+        // Just to clear out the button flag if someone presses button
+
+        if(Check_for_Mode_Button() ) {
+            // this is the only button that will cause an action.
+            // rdLCDio(Lcd_MODE) =0 for not pressed
+            // and =1 for pressed. This is
+            // reverse of GALx1100BT
+///            LCD_Init = 1;
+            SIU.GPDO[Z6_LED].R = 1; // turn off LED
+            New_LCD_Menu = LookAtButtons; // Init
+            LCD_Upd_Dpy = 1;
+        }
+        break;
+
+    default:
+        New_LCD_Menu = Init_the_Menu;
+        Clear_Msg_Board();
+        Clear_Msg_Board_B();
+        sprintf(src,"11: %d", New_LCD_Menu);  // New_LCD_Menu // TheMenuLength
+        Add_msgx_First_TimeOnly(src,0);        
+        SIU.GPDO[Z6_LED].R = 0;	// turn led ON (wbg)// tagwbg 15
+        break;
+    }
+}
+
+//        MenuPtr = MyMenuList;
+//        TheMenuLength = sizeof(MyMenuList) / sizeof(MyMenuList[0]);
+
+void ServiceTheButtons(void)
+{ // the init_control() calls init_LCD() which 
+  // sets LCD_Upd_Dpy = 1 so that the first time
+  // into ServiceTheButtons() the display will be updated.
+    int16 i_index = 0;
+    static last_time_tic = 0;
+    
+    if(Check_for_Mode_Button() ) {
+        // rdLCDio(Lcd_MODE) =0 for not pressed
+        // and =1 for pressed. This is
+        // reverse of GALx1100BT
+///        LCD_Init = 1;
+        SIU.GPDO[Z6_LED].R = 1;	// turn led OFF (wbg)// tagwbg 15
+        New_LCD_Menu = Init_the_Menu;
+    }
+
+    if(Check_for_Enter_Button() ) {
+        Service_Request =  MenuPtr[LCD_Pointer].Service;
+            //MyMenuList[LCD_Pointer].Service; // sets the
+        // function pointer to point to the test routine.
+        New_LCD_Menu = Wait_for_Service_Request;
+///        LCD_Init = 1;
+        clr_lcd_dply();
+    }
+
+    if(Check_for_Up_Button()) {
+        LCD_Pointer--; // increment to the next menu item
+        if(LCD_Pointer < 1) LCD_Pointer = TheMenuLength; //Last_Menu;
+        LCD_Upd_Dpy = 1;
+    }
+
+    if(Check_for_Down_Button()) {
+        LCD_Pointer++; // decrement to the next menu item
+        if(LCD_Pointer > TheMenuLength /* Last_Menu */) LCD_Pointer = 1;
+        LCD_Upd_Dpy = 1;
+    }
+
+    if(LCD_Upd_Dpy == 1) {  // Display must be updated
+        LCD_Upd_Dpy = 0;
+        line_ptr = (LCD_Pointer - 1) % 3;
+        start_ptr = LCD_Pointer - line_ptr;
+        for(i_index=0; i_index<=19; i_index++) {
+            LCD_Display[0][i_index] = MenuPtr[0].MenuItem[i_index];
+            LCD_Display[1][i_index] =
+                MenuPtr[start_ptr].MenuItem[i_index];
+            if ((start_ptr + 1) > TheMenuLength) {
+                LCD_Display[2][i_index] = ' ';
+                LCD_Display[3][i_index] = ' ';
+            } else {
+                LCD_Display[2][i_index] =
+                    MenuPtr[start_ptr+1].MenuItem[i_index];
+                if ((start_ptr + 2) > TheMenuLength)
+                    LCD_Display[3][i_index] = ' ';
+                else
+                    LCD_Display[3][i_index] =
+                        MenuPtr[start_ptr+2].MenuItem[i_index];
+            }
+        }
+
+        LCD_Display[line_ptr+1][0] = '>';	// show cursor
+    }
+
+    if (New_LCD_Menu != Idle_Time_wbg) {
+        if (timers[tsec] != last_time_tic) {
+            if(timers[tsec] == 0) {
+                for(i_index=0; i_index<=19; i_index++) {
+                    LCD_Display[0][i_index] = MenuPtr[0].MenuItem[i_index];
+                }
+            } else if (timers[tsec] == 2) {
+                New_write_display(Version_Display,0,0);
+            }
+        }
+        last_time_tic = timers[tsec];
+    }
+} // END OF ServiceTheButtons()
+
+
+void Push_Menu_LIFO(int16 New_LCD_Menu)
+{
+    if(Menu_LIFO_Index < MAX_MENU_DEPTH)
+        Menu_LIFO_Instance[Menu_LIFO_Index++].New_LCD_Menu = New_LCD_Menu;
+    else { // tag01
+        // fatal error, display msg and go to endless loop always petting the dog
+        delay(10000);  // delay 1.8 ms to allow LCD to reset
+        write_display("FATAL ERROR at tag01", 2,0);
+        for (;;) {
+            petdog();
+        }
+    }  // END OF else
+}
+
+int16 Pop_Menu_LIFO(void)
+{
+    if(Menu_LIFO_Index > 0)
+        return Menu_LIFO_Instance[--Menu_LIFO_Index].New_LCD_Menu;
+    else { // tag02
+        // fatal error, display msg and go to endless loop always petting the dog
+        delay(10000);  // delay 1.8 ms to allow LCD to reset
+        write_display("FATAL ERROR at tag02", 2,0);
+        for (;;) {
+            petdog();
+        }
+    }  // END OF else
+}
+
+int16 Display_SW_Version(int16 New_LCD_Menu)
+{
+    int16 Menu_Index;
+
+    Menu_Index = New_LCD_Menu;
+    New_write_display("                    ",0,0);
+    New_write_display(" Software Version:  ",1,0);
+    New_write_display("      01.01.01      ",2,0);
+    New_write_display("                    ",3,0);
+
+    if ((version/10) == 0)
+        LCD_Display[2][6] = ' ';
+    else
+        LCD_Display[2][6] = (char)((version/10) + '0');
+    LCD_Display[2][7] = (char)((version%10) + '0');
+    LCD_Display[2][8] = '.';
+    LCD_Display[2][9] = (char)((revision/10) + '0');
+    LCD_Display[2][10] = (char)((revision%10) + '0');
+
+    LCD_Display[2][11] = '.';
+    LCD_Display[2][12] = (char)((interim_revision/10) + '0');
+    LCD_Display[2][13] = (char)((interim_revision%10) + '0');
+    if(Sandbox_revision != '0') {
+        LCD_Display[2][14] = '-'; // Sandbox_revision
+        LCD_Display[2][15] = (char)Sandbox_revision;
+    }
+    return -1;
+}
+
+void clr_lcd_dply(void)
+{
+    New_write_display("                    ",0,0);
+    New_write_display("                    ",1,0);
+    New_write_display("                    ",2,0);
+    New_write_display("                    ",3,0);
+}
+
+void fail_testagain(void)
+{
+    New_write_display("TEST FAILED (AGAIN?)",2,0);
+    New_write_display("NO(MODE)/YES(ENTER) ",3,0);
+}
+

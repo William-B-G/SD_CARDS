@@ -1,0 +1,636 @@
+ +0//No Load weighing
+ +0//automatic reset
+ +0//attendent
+ +0//behind car call cancel
+ +0//unibipolar,or hydro
+ +1//bottom floor
+ +1//Car Number
+ +0//code blue
+ +1//door close power on
+ +86//Serial Comm(Johnny Ma 2-7-2018 : Never ADD +1 into it, it wont work for TESTER FIRMWARE)
+ +1//binary pis
+ +0//calif earthquake
+ +1//fax modem installed Future
+ +0//power freight doors
+ +0//simplex homing floor
+ +2010//ansi
+ +0//inconspicous riser
+ +0//Automatic doors
+ +0//modem installed
+ +1//number of cars in group
+ +0//no door zone door close Future
+ +2//Ansi 2000-2010 fireservice
+ +0//out of service lobby park RTL
+ +0//preopening
+ +0//rear openings
+ +0//No Intergroup
+ +150//speed
+ +5//top floor
+ +0//1 = video, 3 = Electronic Brake
+ +5//group top floor
+ +1//binary position inputs
+ +9//Car #1 Drive Type
+ +9//Car #2 Drive Type
+ +9//Car #3 Drive Type
+ +9//Car #4 Drive Type
+ +9//Car #5 Drive Type
+ +9//Car #6 Drive Type
+ +1//Car #1 video position
+01111100000000000000000000000000//car call mask
+01111000000000000000000000000000//up call mask
+00111100000000000000000000000000//down call mask
+00000000000000000000000000000000//rear car call mask
+00000000000000000000000000000000//rear up call mask
+00000000000000000000000000000000//rear down call mask
+ +2//Car #2 video position
+00000000000000000000000000000000//car call mask
+00000000000000000000000000000000//up call mask
+00000000000000000000000000000000//down call mask
+00000000000000000000000000000000//rear car call mask
+00000000000000000000000000000000//rear up call mask
+00000000000000000000000000000000//rear down call mask
+ +3//Car #3 video position
+00000000000000000000000000000000//car call mask
+00000000000000000000000000000000//up call mask
+00000000000000000000000000000000//down call mask
+00000000000000000000000000000000//rear car call mask
+00000000000000000000000000000000//rear up call mask
+00000000000000000000000000000000//rear down call mask
+ +4//Car #4 video position
+00000000000000000000000000000000//car call mask
+00000000000000000000000000000000//up call mask
+00000000000000000000000000000000//down call mask
+00000000000000000000000000000000//rear car call mask
+00000000000000000000000000000000//rear up call mask
+00000000000000000000000000000000//rear down call mask
+ +5//Car #5 video position
+00000000000000000000000000000000//car call mask
+00000000000000000000000000000000//up call mask
+00000000000000000000000000000000//down call mask
+00000000000000000000000000000000//rear car call mask
+00000000000000000000000000000000//rear up call mask
+00000000000000000000000000000000//rear down call mask
+ +6//Car #6 video position
+00000000000000000000000000000000//car call mask
+00000000000000000000000000000000//up call mask
+00000000000000000000000000000000//down call mask
+00000000000000000000000000000000//rear car call mask
+00000000000000000000000000000000//rear up call mask
+00000000000000000000000000000000//rear down call mask
+//Floor Markings
+ 1//Floor #1 Markings
+ 2//Floor #2 Markings
+ 3//Floor #3 Markings
+ 4//Floor #4 Markings
+ 5//Floor #5 Markings
+ 6//Floor #6 Markings
+ 7//Floor #7 Markings
+ 8//Floor #8 Markings
+ 9//Floor #9 Markings
+10//Floor #10 Markings
+11//Floor #11 Markings
+12//Floor #12 Markings
+13//Floor #13 Markings
+14//Floor #14 Markings
+15//Floor #15 Markings
+16//Floor #16 Markings
+17//Floor #17 Markings
+18//Floor #18 Markings
+19//Floor #19 Markings
+20//Floor #20 Markings
+21//Floor #21 Markings
+22//Floor #22 Markings
+23//Floor #23 Markings
+24//Floor #24 Markings
+25//Floor #25 Markings
+26//Floor #26 Markings
+27//Floor #27 Markings
+28//Floor #28 Markings
+29//Floor #29 Markings
+30//Floor #30 Markings
+31//Floor #31 Markings
+32//Floor #32 Markings
+Learning Resource Center-Car 1//Job Name
+230 ANDREW DRIVE//Job Address line 1
+STOCKBRIDGE GA//Job Address line 2
+PREMIER ELEVATOR CO., INC.//Elevator Company
+Knock//Back Door Password
+Knock//Back Door User
+ELEVATOR//Company Password
+PREMIER//Company User Name
+   Welcome    //Video Line 1
+     To       //Video Line 3
+ Learning Resource Center-Car 1    //Video Line 3
+Continue-S1    //File Continuation
+ +1//Car1 Security Type
+ +0//Car2 Security Type
+ +0//Car3 Security Type
+ +0//Car4 Security Type
+ +0//Car5 Security Type
+ +0//Car6 Security Type
+Continue-S2    //Security Floors
+ +0//Security Floor Mask
+//  Car  1
+0000000000000000000000000000000000//car call mask
+0000000000000000000000000000000000//up call mask
+0000000000000000000000000000000000//down call mask
+0000000000000000000000000000000000//rear car call mask
+0000000000000000000000000000000000//rear up call mask
+0000000000000000000000000000000000//rear down call mask
+//  Car  2
+0000000000000000000000000000000000//car call mask
+0000000000000000000000000000000000//up call mask
+0000000000000000000000000000000000//down call mask
+0000000000000000000000000000000000//rear car call mask
+0000000000000000000000000000000000//rear up call mask
+0000000000000000000000000000000000//rear down call mask
+//  Car  3
+0000000000000000000000000000000000//car call mask
+0000000000000000000000000000000000//up call mask
+0000000000000000000000000000000000//down call mask
+0000000000000000000000000000000000//rear car call mask
+0000000000000000000000000000000000//rear up call mask
+0000000000000000000000000000000000//rear down call mask
+//  Car  4
+0000000000000000000000000000000000//car call mask
+0000000000000000000000000000000000//up call mask
+0000000000000000000000000000000000//down call mask
+0000000000000000000000000000000000//rear car call mask
+0000000000000000000000000000000000//rear up call mask
+0000000000000000000000000000000000//rear down call mask
+//  Car  5
+0000000000000000000000000000000000//car call mask
+0000000000000000000000000000000000//up call mask
+0000000000000000000000000000000000//down call mask
+0000000000000000000000000000000000//rear car call mask
+0000000000000000000000000000000000//rear up call mask
+0000000000000000000000000000000000//rear down call mask
+//  Car  6
+0000000000000000000000000000000000//car call mask
+0000000000000000000000000000000000//up call mask
+0000000000000000000000000000000000//down call mask
+0000000000000000000000000000000000//rear car call mask
+0000000000000000000000000000000000//rear up call mask
+0000000000000000000000000000000000//rear down call mask
+Continue-C2    //File continuation constants
+ +20141024// Date Code
+ +0//Handicap Buzzer Always On
+ +0//Extended Door Hold DCB cancel
+ +0//Mass Medical Service
+ +0//Buffer type, 1=reduced stroke
+ +0//Naec Show Specials
+ +3//Access 1 f-top,2 f-bot,4 r-top,8 r-bot
+ +0//shortfl: nmb of bottom floor of the short floor
+ +0//1 = Annual safety test Date Checked 
+ +0//1 = IDS enable protocol 
+ +0//LW_dis_sw 1 = Load weigher disable switch
+ +0//Elev_off 1=eof input 2 = hall eof 3 = both
+ +0//Remote_CC 1 = Remote CC station with DOB and DCB
+ +0//GLBP_LED 1= gate and lock bypass outputs
+ +1//1 = Low Pressure Switch (EMH)
+ +1//1 = Low Oil Switch (COL)
+ +0//1 = Motor Blower (GEN)
+ +0//1 = Sabbath Service (SECF)
+ +0//1 = Car Switch Operation
+Continue-C3    //File continuation constants
+ +0// Staggard Rear Door Option
+00000000000000000000000000000000// Staggard floor mask
+Continue-C4    //File continuation- Added constants
+ +0// Lobby Up Request Option Flag
+000000000// 1 = Car to serve Lobby call
+Continue-C5    //File continuation- Added constants
+ +0// Special Door Type 1 = OVL-6970
+ +0// 1 = Housing Authority Job
+ +0//1 = Rear Door I/O on Separate Brd
+ +0// +1=EMP Trans,+2=Hyd EMP Seq, +4=Hyd EPS
+ +1//SFC_2004_IO: 1=SFC test & SS, CTS io change
+ +4//Selector: 4= cedes selctor
+ +0//pbdoor: 1 = push button door operation
+ +0//DZDoorEn: 1 = Door Zone Door Enable (Use EML)
+ +0//dpp_upd: 1 = update dpp passing dz
+ +0//FSX_rear: 1 = NY Fire Use FSX for rear ph1 door
+ +0//RCM_HWDoorCL: 1=Retiring Cam to cl hoistway door
+ +0//vshort_tfl: # of top very short fl (Uses DTR)
+ +0//Reset_Jack: 1 = reset jack routine once a day
+ +0//Micro_Relev: 1 = Micro Releveling option
+ +0//Auto_Swing_DO: 1 = Auto Power open swing door
+ +0//Park_NCU_ALB: 1 = Add I/O APRK, ALBY, and NCU
+ +0//Handicap_HPB: 1 = Input for handicap car request
+ +0//F1_CT: 1 = FB and FL on 1040 Car Top
+ +0//F1_ML_AL: 1 = F1ML replaces EQLC, F1AL replaces EML
+ +0//shortflmid: fl num lower floor of the mid short flrs
+ +0//EM_BRK: 1=Em Brk Gearless, 2=Em Sheave Brk Geared
+Continue-C6    //File continuation- Added constants
+ +0// Heavy Door
+00000000000000000000000000000000//Front Floor mask
+00000000000000000000000000000000//Rear Floor mask
+Continue-C7     // File Continuation - Added constants
+ +0// Staggard Auto door Option flag
+00000000000000000000000000000000//floor mask
+00000000000000000000000000000000//rear floor mask
+Continue-CB     // File Continuation - Added constants
+ +0// Code Blue Car
+000000000//Valid code blue car mask
+Continue-S3    // Security floors
+ +0// Car Assigned Floor Security
+00000000000000000000000000000000//car # tbl cc
+00000000000000000000000000000000//car # tbl uc
+00000000000000000000000000000000//car # tbl dc
+00000000000000000000000000000000//car # tbl rcc
+00000000000000000000000000000000//car # tbl ruc
+00000000000000000000000000000000//car # tbl rdc
+Continue-EP     // File Continuation - Added constants
+ +0// EP Cars to select to run
+000000000// Valid EP car mask
+Continue-SR     // Second Riser hall call floors
+ +0// SR hall calls
+//Car 1
+00000000000000000000000000000000//car call mask
+00000000000000000000000000000000//up call mask
+00000000000000000000000000000000//down call mask
+00000000000000000000000000000000//rear car call mask
+00000000000000000000000000000000//rear up call mask
+00000000000000000000000000000000//rear down call mask
+//Car 2
+00000000000000000000000000000000//car call mask
+00000000000000000000000000000000//up call mask
+00000000000000000000000000000000//down call mask
+00000000000000000000000000000000//rear car call mask
+00000000000000000000000000000000//rear up call mask
+00000000000000000000000000000000//rear down call mask
+//Car 3
+00000000000000000000000000000000//car call mask
+00000000000000000000000000000000//up call mask
+00000000000000000000000000000000//down call mask
+00000000000000000000000000000000//rear car call mask
+00000000000000000000000000000000//rear up call mask
+00000000000000000000000000000000//rear down call mask
+//Car 4
+00000000000000000000000000000000//car call mask
+00000000000000000000000000000000//up call mask
+00000000000000000000000000000000//down call mask
+00000000000000000000000000000000//rear car call mask
+00000000000000000000000000000000//rear up call mask
+00000000000000000000000000000000//rear down call mask
+//Car 5
+00000000000000000000000000000000//car call mask
+00000000000000000000000000000000//up call mask
+00000000000000000000000000000000//down call mask
+00000000000000000000000000000000//rear car call mask
+00000000000000000000000000000000//rear up call mask
+00000000000000000000000000000000//rear down call mask
+//Car 6
+00000000000000000000000000000000//car call mask
+00000000000000000000000000000000//up call mask
+00000000000000000000000000000000//down call mask
+00000000000000000000000000000000//rear car call mask
+00000000000000000000000000000000//rear up call mask
+00000000000000000000000000000000//rear down call mask
+Continue-VIP        // File Continuation - Added constants
+ +0// VIP Operation
+000000000//Valid VIP car mask
+Continue-C8
++0//IndSec=1, Independent Service Security
++0//hugs=1, Hugs Security Service
++0//GOV_Reset=1, Governor Electronic Reset
++0//cc_pb_sec, 1=car call push button security
++0//loc_svc_tmr, 1 = Run svc tmr non-dispatcher car
++0//Emp_Recover, 1 = Traction with battery recovery
++0//Cycle_Run, 1 = Cycle car after sitting for hours
++0//HCP_Fuse, 1 = Separate HCP fuse split from Fire Sv
++0//Smoke_2004, 1=HWS2, Previously Dual Serial Riser
++0//PWL_Brake, 1=Manual Power Loss Brake
++0//INS_EN_SFC, 1=INE & SFC Inputs
++0//FS2_SW, 1=Reverse FS2 Switch Logic
++0//Voltage_Sensor, 1 = Voltage Sensor Board
++1//Galileo, 1 = Enable control function of Galileo
++0//EP_Profile, 1 = Use Em Power Speed profile on EP
++0//UPS_Type, 0 = APC, 1= EATON
++0//RGB_CC, 1 = RGB car call boards
++0//aux_RGB_CC, 1 = Aux RGB Car Call station
++0//Manchester Fire
++0//Aux_Brake, 1=Aux Electronic Brake
+Continue-SAB   // Sabbath Service Floor Selection
++0// Sabbath Floor Selection
+01111111111111111111111111111110//car call mask
+01100000000000000000000000000000//up call mask
+00011111111111111111111111111110//down call mask
+00000000000000000000000000000000//rear car call mask
+00000000000000000000000000000000//rear up call mask
+00000000000000000000000000000000//rear down call mask
+Continue-XA   // Cross-Assignment Group Floor Selection
++0// Cross-Assignment Floor Selection 1=GAL,2=Other,3=Both
+00000000000000000000000000000000//up call mask
+00000000000000000000000000000000//down call mask
+Continue-API  // Alternate Floor Markings
++0// Enable alternate ASCII PI markings
+ 1//Floor #1 Markings
+ 2//Floor #2 Markings
+ 3//Floor #3 Markings
+4//Floor #4 Markings
+5//Floor #5 Markings
+6//Floor #6 Markings
+7//Floor #7 Markings
+8//Floor #8 Markings
+9//Floor #9 Markings
+10//Floor #10 Markings
+11//Floor #11 Markings
+12//Floor #12 Markings
+13//Floor #13 Markings
+14//Floor #14 Markings
+15//Floor #15 Markings
+16//Floor #16 Markings
+17//Floor #17 Markings
+18//Floor #18 Markings
+19//Floor #19 Markings
+20//Floor #20 Markings
+21//Floor #21 Markings
+22//Floor #22 Markings
+23//Floor #23 Markings
+24//Floor #24 Markings
+25//Floor #25 Markings
+26//Floor #26 Markings
+27//Floor #27 Markings
+28//Floor #28 Markings
+29//Floor #29 Markings
+30//Floor #30 Markings
+31//Floor #31 Markings
+32//Floor #32 Markings
+Continue-XPI  // PI Cross reference Position
++0// Enable Cross-ref (Must translate to Binary)
+01//Floor #1 Position
+02//Floor #2 Position
+03//Floor #3 Position
+4//Floor #4 Position
+5//Floor #5 Position
+6//Floor #6 Position
+7//Floor #7 Position
+8//Floor #8 Position
+9//Floor #9 Position
+10//Floor #10 Position
+11//Floor #11 Position
+12//Floor #12 Position
+13//Floor #13 Position
+14//Floor #14 Position
+15//Floor #15 Position
+16//Floor #16 Position
+17//Floor #17 Position
+18//Floor #18 Position
+19//Floor #19 Position
+20//Floor #20 Position
+21//Floor #21 Position
+22//Floor #22 Position
+23//Floor #23 Position
+24//Floor #24 Position
+25//Floor #25 Position
+26//Floor #26 Position
+27//Floor #27 Position
+28//Floor #28 Position
+29//Floor #29 Position
+30//Floor #30 Position
+31//Floor #31 Position
+32//Floor #32 Position
+Continue-DSR    // Dual Serial Riser
++0// Dual Serial Riser
+00000000000000000000000000000000//Primary Front Riser Floor
+00000000000000000000000000000000//Secondary Front Riser Floor
+00000000000000000000000000000000//Primary Rear Riser Floor
+00000000000000000000000000000000//Secondary Rear or Third Front Riser Floor
+Continue-BPI  // Blind floor PI Position
++0// Enable blind ascii floor pi; floor below the blind shaft
+XX//Blind Floor ascii position
++0// Enable 2nd blind ascii floor pi; floor below the blind shaft
+XX//2nd Blind Floor ascii position
+Continue-SF2   //Security Floors
++0// Security floor 2 mask
+//Car  1
+00000000000000000000000000000000//car call mask
+00000000000000000000000000000000//up call mask
+00000000000000000000000000000000//down call mask
+00000000000000000000000000000000//rear car call mask
+00000000000000000000000000000000//rear up call mask
+00000000000000000000000000000000//rear down call mask
+//Car  2
+00000000000000000000000000000000//car call mask
+00000000000000000000000000000000//up call mask
+00000000000000000000000000000000//down call mask
+00000000000000000000000000000000//rear car call mask
+00000000000000000000000000000000//rear up call mask
+00000000000000000000000000000000//rear down call mask
+//Car  3
+00000000000000000000000000000000//car call mask
+00000000000000000000000000000000//up call mask
+00000000000000000000000000000000//down call mask
+00000000000000000000000000000000//rear car call mask
+00000000000000000000000000000000//rear up call mask
+00000000000000000000000000000000//rear down call mask
+//Car  4
+00000000000000000000000000000000//car call mask
+00000000000000000000000000000000//up call mask
+00000000000000000000000000000000//down call mask
+00000000000000000000000000000000//rear car call mask
+00000000000000000000000000000000//rear up call mask
+00000000000000000000000000000000//rear down call mask
+//Car  5
+00000000000000000000000000000000//car call mask
+00000000000000000000000000000000//up call mask
+00000000000000000000000000000000//down call mask
+00000000000000000000000000000000//rear car call mask
+00000000000000000000000000000000//rear up call mask
+00000000000000000000000000000000//rear down call mask
+//Car  6
+00000000000000000000000000000000//car call mask
+00000000000000000000000000000000//up call mask
+00000000000000000000000000000000//down call mask
+00000000000000000000000000000000//rear car call mask
+00000000000000000000000000000000//rear up call mask
+00000000000000000000000000000000//rear down call mask
+Continue-SF3    //Security Floors 3
++0// Security floor 3 mask
+//Car  1
+00000000000000000000000000000000//car call mask
+00000000000000000000000000000000//up call mask
+00000000000000000000000000000000//down call mask
+00000000000000000000000000000000//rear car call mask
+00000000000000000000000000000000//rear up call mask
+00000000000000000000000000000000//rear down call mask
+//Car  2
+00000000000000000000000000000000//car call mask
+00000000000000000000000000000000//up call mask
+00000000000000000000000000000000//down call mask
+00000000000000000000000000000000//rear car call mask
+00000000000000000000000000000000//rear up call mask
+00000000000000000000000000000000//rear down call mask
+//Car  3
+00000000000000000000000000000000//car call mask
+00000000000000000000000000000000//up call mask
+00000000000000000000000000000000//down call mask
+00000000000000000000000000000000//rear car call mask
+00000000000000000000000000000000//rear up call mask
+00000000000000000000000000000000//rear down call mask
+//Car  4
+00000000000000000000000000000000//car call mask
+00000000000000000000000000000000//up call mask
+00000000000000000000000000000000//down call mask
+00000000000000000000000000000000//rear car call mask
+00000000000000000000000000000000//rear up call mask
+00000000000000000000000000000000//rear down call mask
+//Car  5
+00000000000000000000000000000000//car call mask
+00000000000000000000000000000000//up call mask
+00000000000000000000000000000000//down call mask
+00000000000000000000000000000000//rear car call mask
+00000000000000000000000000000000//rear up call mask
+00000000000000000000000000000000//rear down call mask
+//Car  6
+00000000000000000000000000000000//car call mask
+00000000000000000000000000000000//up call mask
+00000000000000000000000000000000//down call mask
+00000000000000000000000000000000//rear car call mask
+00000000000000000000000000000000//rear up call mask
+00000000000000000000000000000000//rear down call mask
+Continue-SF4
++0// Security floor 4 mask
+//Car  1
+00000000000000000000000000000000//car call mask
+00000000000000000000000000000000//up call mask
+00000000000000000000000000000000//down call mask
+00000000000000000000000000000000//rear car call mask
+00000000000000000000000000000000//rear up call mask
+00000000000000000000000000000000//rear down call mask
+//Car  2
+00000000000000000000000000000000//car call mask
+00000000000000000000000000000000//up call mask
+00000000000000000000000000000000//down call mask
+00000000000000000000000000000000//rear car call mask
+00000000000000000000000000000000//rear up call mask
+00000000000000000000000000000000//rear down call mask
+//Car  3
+00000000000000000000000000000000//car call mask
+00000000000000000000000000000000//up call mask
+00000000000000000000000000000000//down call mask
+00000000000000000000000000000000//rear car call mask
+00000000000000000000000000000000//rear up call mask
+00000000000000000000000000000000//rear down call mask
+//Car  4
+00000000000000000000000000000000//car call mask
+00000000000000000000000000000000//up call mask
+00000000000000000000000000000000//down call mask
+00000000000000000000000000000000//rear car call mask
+00000000000000000000000000000000//rear up call mask
+00000000000000000000000000000000//rear down call mask
+//Car  5
+00000000000000000000000000000000//car call mask
+00000000000000000000000000000000//up call mask
+00000000000000000000000000000000//down call mask
+00000000000000000000000000000000//rear car call mask
+00000000000000000000000000000000//rear up call mask
+00000000000000000000000000000000//rear down call mask
+//Car  6
+00000000000000000000000000000000//car call mask
+00000000000000000000000000000000//up call mask
+00000000000000000000000000000000//down call mask
+00000000000000000000000000000000//rear car call mask
+00000000000000000000000000000000//rear up call mask
+00000000000000000000000000000000//rear down call mask
+Continue-CBVIP
++0// Code Blue/VIP Floor Mask
+00000000000000000000000000000000//cb/vip call mask
+00000000000000000000000000000000//rear cb/vip call mask
+Continue-C9   // File Continuation - Added constants
++0// cons[FI_EP_Ext]=1 for Ext FI/Ep I/O-compact, 2=Std
++0// cons[Prison] = 1. Special service for REMOTE COP
++0// cons[Super_Sabbath] enables outputs for SABUZ and SABEE
++0// cons[incrs2] Enable Second IR Set (3rd riser) front groups only
++0// cons[exDHwLatFL] = 1 ext door hold w/light 1 fl only (fvar) 
++0// cons[distress] = 1 enables osr light, buzzer and ack
++0// cons[Australia] = 1 enables code and i/o's for Australia
++0// cons[TUG] = 1 enables I/O interface for TUG Hospital Robots
++0// cons[Ser_IGEP] = 1 Serial InterGroup Emergency Poser
++0// cons[dflt_EE] + 1 EE in TOC, +2 defaults DO,CO,NUD to original location
++0// cons[MR_FBZ] = 1, Fire buzzer in the machine room.
++0// cons[MR_INE]=1,2,3 MR inspection enable input(ctrlrs with no switch on 1064)
++0// cons[EM_BKS] = 1,2,3 Seperate brake input
++0// cons[zoneSW] = enables ZON input inside 
++2// cons[hotoilSW] = 1 enables hot oil switch.
++0// cons[servOUT] = cons[servOUT] = Service Message indicator 1=COP 2=Main
++0// cons[enctype] 0=Turck, 1=Dynapar, 2=Wachendorff
++0//Unused 128
++0//Unused 129
++0//Unused 130
+Continue-CBSR  // File Continuation - Added constants
++0// Code Blue Second Riser Cars
+000000000//Valid code blue primary riser car mask
+000000000//Valid code blue secondary riser car mask
+Continue-EPSF  // File Continuation - Added constants
++0// Emergency Power Split Feeder Cars
+000000000//Power Feeder mask 0 for first 1 for second
+Continue-VIPMSK     // File Continuation - Added constants
++0// VIP Floor Mask (Separated from CB Mask)
+00000000000000000000000000000000//vip call mask
+00000000000000000000000000000000//rear vip call mask
+Continue-C10      // File Continuation - Added constants
++1 // cons[Hall_Lant] +1=Hlants, +2=hall discrete PI's, +128 = Hall binary PI's
++1 // cons[CCS_BUS]  0 = switches in controller, 1 = switches in car
++0// cons[IC_INE] = 1, use DCB as enable input for In Car Inspection mode
++0// cons[smoke_interface] +1 = enab smoke sensor per floor, +2 = disable hospital serv
++0// cons[FiCntrlCentr] = 1 add outputs for fire control center
++0// cons[sec_dis], +1 = disable car call security at lobby floor with a pushbutton
++0//Unused 140
++0//Unused 141
++0//Unused 142
++0//Unused 143
++0//Unused 144
++0//Unused 145
++0//Unused 146
++0//Unused 147
++0//Unused 148
++0//Unused 149
++0//Unused 150
++0//Unused 151
++0//Unused 152
++0//Unused 152
+Continue-TR     // Third Riser hall call floors
++0// TR hall calls
+//Car 1
+00000000000000000000000000000000//car call mask
+00000000000000000000000000000000//up call mask
+00000000000000000000000000000000//down call mask
+00000000000000000000000000000000//rear car call mask
+00000000000000000000000000000000//rear up call mask
+00000000000000000000000000000000//rear down call mask
+//Car 2
+00000000000000000000000000000000//car call mask
+00000000000000000000000000000000//up call mask
+00000000000000000000000000000000//down call mask
+00000000000000000000000000000000//rear car call mask
+00000000000000000000000000000000//rear up call mask
+00000000000000000000000000000000//rear down call mask
+//Car 3
+00000000000000000000000000000000//car call mask
+00000000000000000000000000000000//up call mask
+00000000000000000000000000000000//down call mask
+00000000000000000000000000000000//rear car call mask
+00000000000000000000000000000000//rear up call mask
+00000000000000000000000000000000//rear down call mask
+//Car 4
+00000000000000000000000000000000//car call mask
+00000000000000000000000000000000//up call mask
+00000000000000000000000000000000//down call mask
+00000000000000000000000000000000//rear car call mask
+00000000000000000000000000000000//rear up call mask
+00000000000000000000000000000000//rear down call mask
+//Car 5
+00000000000000000000000000000000//car call mask
+00000000000000000000000000000000//up call mask
+00000000000000000000000000000000//down call mask
+00000000000000000000000000000000//rear car call mask
+00000000000000000000000000000000//rear up call mask
+00000000000000000000000000000000//rear down call mask
+//Car 6
+00000000000000000000000000000000//car call mask
+00000000000000000000000000000000//up call mask
+00000000000000000000000000000000//down call mask
+00000000000000000000000000000000//rear car call mask
+00000000000000000000000000000000//rear up call mask
+00000000000000000000000000000000//rear down call mask

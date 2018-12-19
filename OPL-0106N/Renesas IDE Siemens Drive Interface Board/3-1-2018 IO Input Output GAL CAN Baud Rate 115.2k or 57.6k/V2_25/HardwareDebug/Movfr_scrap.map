@@ -1,0 +1,724 @@
+Renesas Optimizing Linker (W1.01.00 )             01-Mar-2018 14:13:08
+
+*** Options ***
+
+-subcommand=LinkerSubCommand.tmp
+-input="./src/CAN/CAN.obj"
+-input="./src/Flash/Flash.obj"
+-input="./src/Movfr.obj"
+-input="./src/StarterCodes/dbsct.obj"
+-input="./src/StarterCodes/interrupt_handlers.obj"
+-input="./src/StarterCodes/reset_program.obj"
+-input="./src/StarterCodes/sbrk.obj"
+-input="./src/StarterCodes/vector_table.obj"
+-input="./src/Timer/Timer.obj"
+-input="./src/WatchDog/WatchDog.obj"
+-start=SU,SI,B_1,R_1,B_2,R_2,B,R/0,PResetPRG,C_1,C_2,C,C$*,D*,W*,L,PIntPRG,P/0FFFF0000,FIXEDVECT/0FFFFFF80
+-library=C:\JOHNNY~1\SIEMEN~1\3-1-20~1\V2_25\HARDWA~2\Movfr_scrap.lib
+-noprelink
+-list=Movfr_scrap.map
+-show
+-nooptimize
+-debug
+-output=C:\Johnny Ma\Siemens Drive Interface Board\3-1-2018 IO Input Output GAL CAN Baud Rate Adjustable\V2_25\HardwareDebug\Movfr_scrap.abs
+-rom=D=R,D_1=R_1,D_2=R_2
+-nocompress
+-nomessage
+-nologo
+
+*** Error information ***
+
+*** Mapping List ***
+
+SECTION                            START      END         SIZE   ALIGN
+
+SU
+                                  00000000  000000ff       100   4
+SI
+                                  00000100  000003ff       300   4
+B_1
+                                  00000400  00000401         2   1
+R_1
+                                  00000402  0000044b        4a   1
+B_2
+                                  0000044c  0000044c         0   1
+R_2
+                                  0000044c  0000044c         0   1
+B
+                                  0000044c  00000857       40c   4
+R
+                                  00000858  0000088f        38   4
+PResetPRG
+                                  ffff0000  ffff0030        31   1
+C_1
+                                  ffff0031  ffff0031         0   1
+C_2
+                                  ffff0031  ffff0031         0   1
+C
+                                  ffff0034  ffff00e7        b4   4
+C$DSEC
+                                  ffff00e8  ffff010b        24   4
+C$BSEC
+                                  ffff010c  ffff0123        18   4
+C$INIT
+                                  ffff0124  ffff0124         0   1
+C$VECT
+                                  ffff0124  ffff0523       400   4
+C$VTBL
+                                  ffff0524  ffff0524         0   1
+D
+                                  ffff0524  ffff055b        38   4
+D_1
+                                  ffff055c  ffff05a5        4a   1
+D_2
+                                  ffff05a6  ffff05a6         0   1
+W
+                                  ffff05a6  ffff05a6         0   1
+W_1
+                                  ffff05a6  ffff05a6         0   1
+W_2
+                                  ffff05a6  ffff05a6         0   1
+L
+                                  ffff05a6  ffff05a6         0   1
+PIntPRG
+                                  ffff05a6  ffff068f        ea   1
+P
+                                  ffff0690  ffff1b2f      14a0   1
+FIXEDVECT
+                                  ffffff80  ffffffff        80   4
+
+*** Symbol List ***
+
+SECTION=
+FILE=                               START        END    SIZE
+  SYMBOL                            ADDR        SIZE    INFO      COUNTS  OPT
+
+SECTION=SU
+FILE=.\src\StarterCodes\reset_program.obj
+                                  00000000  000000ff       100
+
+SECTION=SI
+FILE=.\src\StarterCodes\reset_program.obj
+                                  00000100  000003ff       300
+
+SECTION=B_1
+FILE=.\src\CAN\CAN.obj
+                                  00000400  00000401         2
+  _ret_status_1
+                                  00000400         1   data ,g         2
+  _data_request
+                                  00000401         1   data ,g         1
+
+SECTION=R_1
+FILE=.\src\CAN\CAN.obj
+                                  00000402  00000419        18
+  _TxPacketList
+                                  00000402         4   data ,g         1
+  _RxPacketList
+                                  00000406         4   data ,g         1
+  _Packet29TxReqFlg
+                                  0000040a         1   data ,g         2
+  _Packet12TxReqFlg
+                                  0000040b         1   data ,g         2
+  _Packet14TxReqFlg
+                                  0000040c         1   data ,g         2
+  _CanAddr
+                                  0000040d         1   data ,g         3
+  _PacketReceived
+                                  0000040e         1   data ,g         0
+  _MovfrOnline
+                                  0000040f         1   data ,g         4
+  _InputStatus1
+                                  00000410         1   data ,g         2
+  _InputStatus2
+                                  00000411         1   data ,g         2
+  _InputStatus3
+                                  00000412         1   data ,g         2
+  _CAN_DOOR_HEAVY
+                                  00000413         1   data ,g         2
+  _CAN_DOOR_CLOSE
+                                  00000414         1   data ,g         2
+  _CAN_DOOR_NUDGE
+                                  00000415         1   data ,g         2
+  _CAN_DOOR_OPEN
+                                  00000416         1   data ,g         2
+  _TxCanInProcess
+                                  00000417         1   data ,g         2
+  _ActiveTxPacket
+                                  00000418         1   data ,g         2
+  _prev_Status_1
+                                  00000419         1   data ,g         1
+FILE=.\src\Movfr.obj
+                                  0000041a  0000044a        31
+  _Version
+                                  0000041a         1   data ,g         1
+  _Revision
+                                  0000041b         1   data ,g         1
+  _RUN_PB
+                                  0000041c         1   data ,g         2
+  _CAM_SETUP_PB
+                                  0000041d         1   data ,g         4
+  _AUTO_PB
+                                  0000041e         1   data ,g         3
+  _MANUAL_PB
+                                  0000041f         1   data ,g         3
+  _CLOSE_PB
+                                  00000420         1   data ,g         3
+  _OPEN_PB
+                                  00000421         1   data ,g         3
+  _NUDGE_PB
+                                  00000422         1   data ,g         3
+  _HEAVY_PB
+                                  00000423         1   data ,g         3
+  _CLOSE
+                                  00000424         1   data ,g         3
+  _OPEN
+                                  00000425         1   data ,g         3
+  _NUDGE
+                                  00000426         1   data ,g         3
+  _HEAVY
+                                  00000427         1   data ,g         3
+  _GSM
+                                  00000428         1   data ,g         2
+  _AUX
+                                  00000429         1   data ,g         1
+  _SSFO_IN
+                                  0000042a         1   data ,g         1
+  _SDO_IN
+                                  0000042b         1   data ,g         1
+  _SDC_IN
+                                  0000042c         1   data ,g         1
+  _DOL
+                                  0000042d         1   data ,g         4
+  _DCL
+                                  0000042e         1   data ,g         4
+  _REOPEN
+                                  0000042f         1   data ,g         4
+  _REOPEN_LCSE
+                                  00000430         1   data ,g         4
+  _FR_Jumper
+                                  00000431         1   data ,g         2
+  _CAN_BaudRate_flag
+                                  00000432         1   data ,g         2
+  _InputDebounceEna
+                                  00000433         1   data ,l         2
+  _OPEN_GLOBAL$3
+                                  00000434         1   data ,l         1
+  _CLOSE_GLOBAL$4
+                                  00000435         1   data ,l         1
+  _NUDGE_GLOBAL$5
+                                  00000436         1   data ,l         1
+  _HEAVY_GLOBAL$6
+                                  00000437         1   data ,l         1
+  _STR_SIGNAL$7
+                                  00000438         1   data ,l         1
+  _STF_SIGNAL$8
+                                  00000439         1   data ,l         1
+  _RUN_PB_DebounceCnt$9
+                                  0000043a         1   data ,l         1
+  _CAM_SETUP_PB_DebounceCnt$10
+                                  0000043b         1   data ,l         1
+  _AUTO_PB_DebounceCnt$11
+                                  0000043c         1   data ,l         1
+  _MANUAL_PB_DebounceCnt$12
+                                  0000043d         1   data ,l         1
+  _CLOSE_PB_DebounceCnt$13
+                                  0000043e         1   data ,l         1
+  _OPEN_PB_DebounceCnt$14
+                                  0000043f         1   data ,l         1
+  _NUDGE_PB_DebounceCnt$15
+                                  00000440         1   data ,l         1
+  _HEAVY_PB_DebounceCnt$16
+                                  00000441         1   data ,l         1
+  _CLOSE_DebounceCnt$17
+                                  00000442         1   data ,l         1
+  _OPEN_DebounceCnt$18
+                                  00000443         1   data ,l         1
+  _NUDGE_DebounceCnt$19
+                                  00000444         1   data ,l         1
+  _HEAVY_DebounceCnt$20
+                                  00000445         1   data ,l         1
+  _DOL_DebounceCnt$21
+                                  00000446         1   data ,l         1
+  _DCL_DebounceCnt$22
+                                  00000447         1   data ,l         1
+  _REOPEN_DebounceCnt$23
+                                  00000448         1   data ,l         1
+  _REOPEN_DebounceCnt_LCSE$24
+                                  00000449         1   data ,l         1
+  _CAN_BR_HLD_DebounceCnt$25
+                                  0000044a         1   data ,l         1
+FILE=.\src\Timer\Timer.obj
+                                  0000044b  0000044b         1
+  _can_delay_flag
+                                  0000044b         1   data ,g         2
+
+SECTION=B
+FILE=.\src\CAN\CAN.obj
+                                  0000044c  00000457         c
+  _Status_1
+                                  0000044c         4   data ,g         3
+  _Status_2
+                                  00000450         4   data ,g         2
+  _Command
+                                  00000454         4   data ,g         3
+FILE=.\src\StarterCodes\sbrk.obj
+                                  00000458  00000857       400
+  _heap_area
+                                  00000458       400   data ,l         2
+
+SECTION=R
+FILE=.\src\CAN\CAN.obj
+                                  00000858  0000085f         8
+  _RxCnt
+                                  00000858         4   data ,g         2
+  _WaitForAckFlg$1
+                                  0000085c         4   data ,l         1
+FILE=.\src\Flash\Flash.obj
+                                  00000860  00000863         4
+  _FlashClockStart
+                                  00000860         4   data ,g         2
+FILE=.\src\Movfr.obj
+                                  00000864  0000086f         c
+  _MainCLock
+                                  00000864         4   data ,g         0
+  _HeartBeatCase$1
+                                  00000868         4   data ,l         1
+  _BeatCnt$2
+                                  0000086c         4   data ,l         1
+FILE=.\src\StarterCodes\sbrk.obj
+                                  00000870  00000873         4
+  _brk
+                                  00000870         4   data ,l         1
+FILE=.\src\Timer\Timer.obj
+                                  00000874  0000088f        1c
+  _can_delay_time
+                                  00000874         4   data ,g         1
+  _TenMs
+                                  00000878         4   data ,g         3
+  _LedTimer
+                                  0000087c         4   data ,g         2
+  _CanAckTimer
+                                  00000880         4   data ,g         2
+  _CanTxTimer
+                                  00000884         4   data ,g         1
+  _CanRxTimer
+                                  00000888         4   data ,g         2
+  _CanOfflineTimer
+                                  0000088c         4   data ,g         2
+
+SECTION=PResetPRG
+FILE=.\src\StarterCodes\reset_program.obj
+                                  ffff0000  ffff0030        31
+  _PowerON_Reset
+                                  ffff0000        31   entry,g         1
+
+SECTION=C
+FILE=.\src\CAN\CAN.obj
+                                  ffff0034  ffff00b3        80
+  _MailBoxBitMap
+                                  ffff0034        80   data ,l         1
+FILE=.\src\StarterCodes\dbsct.obj
+                                  ffff00b4  ffff00e7        34
+  __CTBL
+                                  ffff00b4        34   data ,g         0
+
+SECTION=C$DSEC
+FILE=.\src\StarterCodes\dbsct.obj
+                                  ffff00e8  ffff010b        24
+  __DTBL
+                                  ffff00e8        24   data ,g         0
+
+SECTION=C$BSEC
+FILE=.\src\StarterCodes\dbsct.obj
+                                  ffff010c  ffff0123        18
+  __BTBL
+                                  ffff010c        18   data ,g         0
+
+SECTION=C$VECT
+FILE=.\src\StarterCodes\dbsct.obj
+                                  ffff0124  ffff0523       400
+
+SECTION=D
+FILE=.\src\CAN\CAN.obj
+                                  ffff0524  ffff052b         8
+FILE=.\src\Flash\Flash.obj
+                                  ffff052c  ffff052f         4
+FILE=.\src\Movfr.obj
+                                  ffff0530  ffff053b         c
+FILE=.\src\StarterCodes\sbrk.obj
+                                  ffff053c  ffff053f         4
+FILE=.\src\Timer\Timer.obj
+                                  ffff0540  ffff055b        1c
+
+SECTION=D_1
+FILE=.\src\CAN\CAN.obj
+                                  ffff055c  ffff0573        18
+FILE=.\src\Movfr.obj
+                                  ffff0574  ffff05a4        31
+FILE=.\src\Timer\Timer.obj
+                                  ffff05a5  ffff05a5         1
+
+SECTION=PIntPRG
+FILE=.\src\StarterCodes\interrupt_handlers.obj
+                                  ffff05a6  ffff068f        ea
+  _Excep_SuperVisorInst
+                                  ffff05a6         2   func ,g         1
+  _Excep_AccessInst
+                                  ffff05a8         2   func ,g         1
+  _Excep_UndefinedInst
+                                  ffff05aa         2   func ,g         1
+  _Excep_FloatingPoint
+                                  ffff05ac         2   func ,g         1
+  _NonMaskableInterrupt
+                                  ffff05ae         2   func ,g         1
+  _Dummy
+                                  ffff05b0         2   func ,g        16
+  _Excep_BRK
+                                  ffff05b2         4   func ,g         0
+  _Excep_BSC_BUSERR
+                                  ffff05b6         2   func ,g         0
+  _Excep_FCUIF_FIFERR
+                                  ffff05b8         2   func ,g         0
+  _Excep_FCUIF_FRDYI
+                                  ffff05ba         2   func ,g         0
+  _Excep_ICU_SWINT
+                                  ffff05bc         2   func ,g         0
+  _Excep_CMT1_CMI1
+                                  ffff05be         2   func ,g         0
+  _Excep_CMT2_CMI2
+                                  ffff05c0         2   func ,g         0
+  _Excep_CMT3_CMI3
+                                  ffff05c2         2   func ,g         0
+  _Excep_RSPI0_SPEI0
+                                  ffff05c4         2   func ,g         0
+  _Excep_RSPI0_SPRI0
+                                  ffff05c6         2   func ,g         0
+  _Excep_RSPI0_SPTI0
+                                  ffff05c8         2   func ,g         0
+  _Excep_RSPI0_SPII0
+                                  ffff05ca         2   func ,g         0
+  _Excep_CAN0_ERS0
+                                  ffff05cc         2   func ,g         0
+  _Excep_CAN0_RXF0
+                                  ffff05ce         2   func ,g         0
+  _Excep_CAN0_TXF0
+                                  ffff05d0         2   func ,g         0
+  _Excep_CAN0_RXM0
+                                  ffff05d2         2   func ,g         0
+  _Excep_CAN0_TXM0
+                                  ffff05d4         2   func ,g         0
+  _Excep_ICU_IRQ0
+                                  ffff05d6         2   func ,g         0
+  _Excep_ICU_IRQ1
+                                  ffff05d8         2   func ,g         0
+  _Excep_ICU_IRQ2
+                                  ffff05da         2   func ,g         0
+  _Excep_ICU_IRQ3
+                                  ffff05dc         2   func ,g         0
+  _Excep_ICU_IRQ4
+                                  ffff05de         2   func ,g         0
+  _Excep_ICU_IRQ5
+                                  ffff05e0         2   func ,g         0
+  _Excep_ICU_IRQ6
+                                  ffff05e2         2   func ,g         0
+  _Excep_ICU_IRQ7
+                                  ffff05e4         2   func ,g         0
+  _Excep_WDT_WOVI
+                                  ffff05e6         2   func ,g         0
+  _Excep_AD0_ADI0
+                                  ffff05e8         2   func ,g         0
+  _Excep_S12AD0_S12ADI0
+                                  ffff05ea         2   func ,g         0
+  _Excep_S12AD1_S12ADI1
+                                  ffff05ec         2   func ,g         0
+  _Excep_CMPB_CMPI
+                                  ffff05ee         2   func ,g         0
+  _Excep_MTU0_TGIA0
+                                  ffff05f0         2   func ,g         0
+  _Excep_MTU0_TGIB0
+                                  ffff05f2         2   func ,g         0
+  _Excep_MTU0_TGIC0
+                                  ffff05f4         2   func ,g         0
+  _Excep_MTU0_TGID0
+                                  ffff05f6         2   func ,g         0
+  _Excep_MTU0_TCIV0
+                                  ffff05f8         2   func ,g         0
+  _Excep_MTU0_TGIE0
+                                  ffff05fa         2   func ,g         0
+  _Excep_MTU0_TGIF0
+                                  ffff05fc         2   func ,g         0
+  _Excep_MTU1_TGIA1
+                                  ffff05fe         2   func ,g         0
+  _Excep_MTU1_TGIB1
+                                  ffff0600         2   func ,g         0
+  _Excep_MTU1_TCIV1
+                                  ffff0602         2   func ,g         0
+  _Excep_MTU1_TCIU1
+                                  ffff0604         2   func ,g         0
+  _Excep_MTU2_TGIA2
+                                  ffff0606         2   func ,g         0
+  _Excep_MTU2_TGIB2
+                                  ffff0608         2   func ,g         0
+  _Excep_MTU2_TCIV2
+                                  ffff060a         2   func ,g         0
+  _Excep_MTU2_TCIU2
+                                  ffff060c         2   func ,g         0
+  _Excep_MTU3_TGIA3
+                                  ffff060e         2   func ,g         0
+  _Excep_MTU3_TGIB3
+                                  ffff0610         2   func ,g         0
+  _Excep_MTU3_TGIC3
+                                  ffff0612         2   func ,g         0
+  _Excep_MTU3_TGID3
+                                  ffff0614         2   func ,g         0
+  _Excep_MTU3_TCIV3
+                                  ffff0616         2   func ,g         0
+  _Excep_MTU4_TGIA4
+                                  ffff0618         2   func ,g         0
+  _Excep_MTU4_TGIB4
+                                  ffff061a         2   func ,g         0
+  _Excep_MTU4_TGIC4
+                                  ffff061c         2   func ,g         0
+  _Excep_MTU4_TGID4
+                                  ffff061e         2   func ,g         0
+  _Excep_MTU4_TCIV4
+                                  ffff0620         2   func ,g         0
+  _Excep_MTU5_TGIU5
+                                  ffff0622         2   func ,g         0
+  _Excep_MTU5_TGIV5
+                                  ffff0624         2   func ,g         0
+  _Excep_MTU5_TGIW5
+                                  ffff0626         2   func ,g         0
+  _Excep_MTU6_TGIA6
+                                  ffff0628         2   func ,g         0
+  _Excep_MTU6_TGIB6
+                                  ffff062a         2   func ,g         0
+  _Excep_MTU6_TGIC6
+                                  ffff062c         2   func ,g         0
+  _Excep_MTU6_TGID6
+                                  ffff062e         2   func ,g         0
+  _Excep_MTU6_TCIV6
+                                  ffff0630         2   func ,g         0
+  _Excep_MTU7_TGIA7
+                                  ffff0632         2   func ,g         0
+  _Excep_MTU7_TGIB7
+                                  ffff0634         2   func ,g         0
+  _Excep_MTU7_TGIC7
+                                  ffff0636         2   func ,g         0
+  _Excep_MTU7_TGID7
+                                  ffff0638         2   func ,g         0
+  _Excep_MTU7_TCIV7
+                                  ffff063a         2   func ,g         0
+  _Excep_POE_OEI1
+                                  ffff063c         2   func ,g         0
+  _Excep_POE_OEI2
+                                  ffff063e         2   func ,g         0
+  _Excep_POE_OEI3
+                                  ffff0640         2   func ,g         0
+  _Excep_POE_OEI4
+                                  ffff0642         2   func ,g         0
+  _Excep_GPT0_GTCIA0
+                                  ffff0644         2   func ,g         0
+  _Excep_GPT0_GTCIB0
+                                  ffff0646         2   func ,g         0
+  _Excep_GPT0_GTCIC0
+                                  ffff0648         2   func ,g         0
+  _Excep_GPT0_GTCIE0
+                                  ffff064a         2   func ,g         0
+  _Excep_GPT0_GTCIV0
+                                  ffff064c         2   func ,g         0
+  _Excep_GPT0_LOCO1
+                                  ffff064e         2   func ,g         0
+  _Excep_GPT1_GTCIA1
+                                  ffff0650         2   func ,g         0
+  _Excep_GPT1_GTCIB1
+                                  ffff0652         2   func ,g         0
+  _Excep_GPT1_GTCIC1
+                                  ffff0654         2   func ,g         0
+  _Excep_GPT1_GTCIE1
+                                  ffff0656         2   func ,g         0
+  _Excep_GPT1_GTCIV1
+                                  ffff0658         2   func ,g         0
+  _Excep_GPT2_GTCIA2
+                                  ffff065a         2   func ,g         0
+  _Excep_GPT2_GTCIB2
+                                  ffff065c         2   func ,g         0
+  _Excep_GPT2_GTCIC2
+                                  ffff065e         2   func ,g         0
+  _Excep_GPT2_GTCIE2
+                                  ffff0660         2   func ,g         0
+  _Excep_GPT2_GTCIV2
+                                  ffff0662         2   func ,g         0
+  _Excep_GPT3_GTCIA3
+                                  ffff0664         2   func ,g         0
+  _Excep_GPT3_GTCIB3
+                                  ffff0666         2   func ,g         0
+  _Excep_GPT3_GTCIC3
+                                  ffff0668         2   func ,g         0
+  _Excep_GPT3_GTCIE3
+                                  ffff066a         2   func ,g         0
+  _Excep_GPT3_GTCIV3
+                                  ffff066c         2   func ,g         0
+  _Excep_SCI0_ERI0
+                                  ffff066e         2   func ,g         0
+  _Excep_SCI0_RXI0
+                                  ffff0670         2   func ,g         0
+  _Excep_SCI0_TXI0
+                                  ffff0672         2   func ,g         0
+  _Excep_SCI0_TEI0
+                                  ffff0674         2   func ,g         0
+  _Excep_SCI1_ERI1
+                                  ffff0676         2   func ,g         0
+  _Excep_SCI1_RXI1
+                                  ffff0678         2   func ,g         0
+  _Excep_SCI1_TXI1
+                                  ffff067a         2   func ,g         0
+  _Excep_SCI1_TEI1
+                                  ffff067c         2   func ,g         0
+  _Excep_SCI2_ERI2
+                                  ffff067e         2   func ,g         0
+  _Excep_SCI2_RXI2
+                                  ffff0680         2   func ,g         0
+  _Excep_SCI2_TXI2
+                                  ffff0682         2   func ,g         0
+  _Excep_SCI2_TEI2
+                                  ffff0684         2   func ,g         0
+  _Excep_RIIC0_ICEEI0
+                                  ffff0686         2   func ,g         0
+  _Excep_RIIC0_ICRXI0
+                                  ffff0688         2   func ,g         0
+  _Excep_RIIC0_ICTXI0
+                                  ffff068a         2   func ,g         0
+  _Excep_RIIC0_ICTEI0
+                                  ffff068c         2   func ,g         0
+  _Excep_LIN0_LIN0
+                                  ffff068e         2   func ,g         0
+
+SECTION=P
+FILE=.\src\CAN\CAN.obj
+                                  ffff0690  ffff103d       9ae
+  _SetCAN_ADDR
+                                  ffff0690         9   func ,g         1
+  _Init_CAN
+                                  ffff0699        b6   func ,g         1
+  _Init_CAN_Baud
+                                  ffff074f        4f   func ,g         1
+  _Enable_CAN_Port
+                                  ffff079e        14   func ,g         1
+  _Disable_CAN_Port
+                                  ffff07b2         f   func ,g         0
+  _Config_CTLR_CanRegister
+                                  ffff07c1        30   func ,g         1
+  _ExitSleepMode
+                                  ffff07f1        20   func ,g         1
+  _EnterSleepMode
+                                  ffff0811        20   func ,g         0
+  _EnterResetMode
+                                  ffff0831        28   func ,g         1
+  _EnterHaltMode
+                                  ffff0859        28   func ,g         1
+  _EnterOperationalMode
+                                  ffff0881        2f   func ,g         1
+  _Config_RxMailBox
+                                  ffff08b0        83   func ,g         4
+  _Config_TxMailBox
+                                  ffff0933        48   func ,g         1
+  _PackCan
+                                  ffff097b       11c   func ,g         6
+  _TransmitCan
+                                  ffff0a97        24   func ,g         1
+  _TxDone
+                                  ffff0abb         b   func ,g         1
+  _RecievePacketAvailable
+                                  ffff0ac6        2a   func ,g         1
+  _UnpackCan
+                                  ffff0af0        9c   func ,g         1
+  _CanControl
+                                  ffff0b8c       150   func ,g         1
+  _UpdateDoorStatus
+                                  ffff0cdc        7b   func ,g         1
+  _UpdateInputStatus
+                                  ffff0d57       1c7   func ,g         1
+  _CheckBusErrorState
+                                  ffff0f1e        1c   func ,g         0
+  _TransmitPacket29
+                                  ffff0f3a        7b   func ,g         1
+  _TransmitPacket12
+                                  ffff0fb5        2a   func ,g         1
+  _TransmitPacket1
+                                  ffff0fdf        35   func ,g         1
+  _TransmitPacket14
+                                  ffff1014        2a   func ,g         1
+FILE=.\src\Flash\Flash.obj
+                                  ffff103e  ffff12c3       286
+  _Enter_PE_MODE
+                                  ffff103e        70   func ,l         1
+  _CLearFlashStatus
+                                  ffff10ae        1c   func ,l         2
+  _FlashClockSetup
+                                  ffff10ca        61   func ,l         1
+  _FlashReset
+                                  ffff112b        5b   func ,l         3
+  _Exit_PE_MODE
+                                  ffff1186        57   func ,l         1
+  _WriteToFlash
+                                  ffff11dd        87   func ,g         0
+  _ReadFromFlash
+                                  ffff1264        14   func ,g         0
+  _InitFlash
+                                  ffff1278        4c   func ,g         0
+FILE=.\src\Movfr.obj
+                                  ffff12c4  ffff1996       6d3
+  _main
+                                  ffff12c4        3c   func ,g         1
+  _InitHW
+                                  ffff1300        b3   func ,g         1
+  _HeartBeat
+                                  ffff13b3        a7   func ,g         1
+  _MovfrControl
+                                  ffff145a       1ed   func ,g         1
+  _CheckInput
+                                  ffff1647         a   func ,g         1
+  _InputDebounce
+                                  ffff1651       346   func ,g         1
+FILE=.\src\StarterCodes\sbrk.obj
+                                  ffff1997  ffff19b7        21
+  _sbrk
+                                  ffff1997        21   func ,g         0
+FILE=.\src\Timer\Timer.obj
+                                  ffff19b8  ffff1abb       104
+  _InitTimer
+                                  ffff19b8        4e   func ,g         1
+  _IncTimer
+                                  ffff1a06        95   func ,g         1
+  _TimerInterrupt
+                                  ffff1a9b        21   func ,g         0
+FILE=.\src\WatchDog\WatchDog.obj
+                                  ffff1abc  ffff1ae5        2a
+  _InitWatchDog
+                                  ffff1abc        1e   func ,g         1
+  _PetDog
+                                  ffff1ada         c   func ,g         2
+FILE=__initsct
+                                  ffff1ae6  ffff1b2f        4a
+  __INITSCT
+                                  ffff1ae6         0   none ,g         1
+  loop1
+                                  ffff1af8         0   none ,l         1
+  next_loop1
+                                  ffff1b06         0   none ,l         2
+  loop3
+                                  ffff1b18         0   none ,l         1
+  next_loop3
+                                  ffff1b29         0   none ,l         2
+
+SECTION=FIXEDVECT
+FILE=.\src\StarterCodes\vector_table.obj
+                                  ffffff80  ffffffff        80
+  _Fixed_Vectors
+                                  ffffff80        80   data ,g         0
+
+*** Delete Symbols ***
+
+SYMBOL                                SIZE    INFO

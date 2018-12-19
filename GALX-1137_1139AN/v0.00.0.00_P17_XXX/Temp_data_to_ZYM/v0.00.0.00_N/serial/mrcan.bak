@@ -1,0 +1,4138 @@
+#define d_MRCAN 1
+#include "global.h"
+
+/*
+
+	This protocol is setup with the main CPU of the elevator as the master device and all 
+	other can devices as slave devices.  The identifier consist of a message number and 
+	a device address number.  When a messaged is sent to a slave device, it will include 
+	the address of that particular slave device.  When a slave device responds, the address 
+	is its own address showing where the message is comming from.  In short all data
+	on the bus is being transmitted between master and slave and not from slave to slave.  
+	If a slave device request a message from the master, it will receive its own message 
+	and must detect this condition and discard the request. This condition can be detected
+	by checking the RTR (remote transmission request) bit and the packet address.  Note also 
+	that message data is sent in one direction, for example, message 17 is used to send data 
+	from the TOC (Top of Car) device to the main CPU and not from the CPU to the TOC device. 
+	
+	The baud rate is set to 115200 baud using an 18.432 MHz crystal. Device address assignments
+	and message information is listed below.
+
+		Can Port Device Map
+
+	Device		  Number
+	 Car			1
+#define  c_mrcan_SPB	  5		  // Safety processor board
+#define  c_mrcan_LW		  9		  // Load weigher
+#define  c_mrcan_VS		 10		  // Voltage Sensor
+#define  c_mrcan_PI_LANT 20		  // Serial PI and Lantern (global address for all pi and lantern devices)
+#define	 c_mrcan_SEB_1	 21		  // Serial I/O Expansion board 1	(io brd 7)
+#define	 c_mrcan_SEB_2	 22		  // Serial I/O Expansion board 2	(io brd 8)
+#define	 c_mrcan_SEB_3	 23		  // Serial I/O Expansion board 3	(io brd 9)
+#define	 c_mrcan_SEB_4	 24		  // Serial I/O Expansion board 4	(io brd 10)
+#define	 c_mrcan_SEB_5	 25		  // Serial I/O Expansion board 5	(io brd 11)
+#define	 c_mrcan_SEB_6	 26		  // Serial I/O Expansion board 6	(io brd 12)
+#define	 c_mrcan_SEB_7	 27		  // Serial I/O Expansion board 7	(io brd 13)
+#define  c_mrcan_SEB_8	 28		  // Serial I/O Expansion board 8   (io brd 14)
+#define  c_mrcan_SEB_9	 29		  // Serial I/O Expansion board 9   (io brd 15)
+#define  c_mrcan_SEB_10	 30		  // Serial I/O Expansion board 10  (io brd 16)
+#define  c_mrcan_SEB_11	 31		  // Serial I/O Expansion board 11  (io brd 17)
+#define  c_mrcan_SEB_12	 32		  // Serial I/O Expansion board 12  (io brd 18) 
+#define  c_mrcan_SEB_13	 33		  // Serial I/O Expansion board 13  (io brd 19) 
+#define  c_mrcan_SEB_14	 34		  // Serial I/O Expansion board 14  (io brd 20) 
+#define  c_mrcan_SEB_15	 35		  // Serial I/O Expansion board 15  (io brd 21) 
+#define  c_mrcan_SEB_16	 36		  // Serial I/O Expansion board 16  (io brd 22) 
+#define  c_mrcan_SEB_17	 37		  // Serial I/O Expansion board 17  (io brd 23) 
+#define  c_mrcan_SEB_18	 38		  // Serial I/O Expansion board 18  (io brd 24) 
+#define  c_mrcan_SEB_19	 39		  // Serial I/O Expansion board 19  (io brd 25) 
+#define  c_mrcan_SEB_20	 40		  // Serial I/O Expansion board 20  (io brd 26)
+#define  c_mrcan_SEB_21	 41		  // Serial I/O Expansion board 21  (io brd 27)
+#define  c_mrcan_SEB_22	 42		  // Serial I/O Expansion board 22  (io brd 28)
+#define  c_mrcan_SEB_23	 43		  // Serial I/O Expansion board 23  (io brd 29) 
+#define  c_mrcan_SEB_24	 44		  // Serial I/O Expansion board 24  (io brd 30) 
+#define  c_mrcan_SEB_25	 45		  // Serial I/O Expansion board 25  (io brd 31) 
+#define  c_mrcan_SEB_26	 46		  // Serial I/O Expansion board 26  (io brd 32) 
+#define  c_mrcan_SEB_27	 47		  // Serial I/O Expansion board 27  (io brd 33) 
+#define  c_mrcan_SEB_28	 48		  // Serial I/O Expansion board 28  (io brd 34) 
+#define  c_mrcan_SEB_29	 49		  // Serial I/O Expansion board 29  (io brd 35) 
+#define  c_mrcan_SEB_30	 50		  // Serial I/O Expansion board 30  (io brd 36)
+#define  c_mrcan_SEB_31	 51		  // Serial I/O Expansion board 31  (io brd 37)
+#define  c_mrcan_SEB_32	 52		  // Serial I/O Expansion board 32  (io brd 38)
+#define  c_mrcan_SEB_33	 53		  // Serial I/O Expansion board 33  (io brd 39) 
+#define  c_mrcan_SEB_34	 54		  // Serial I/O Expansion board 34  (io brd 40) 
+#define  c_mrcan_SEB_35	 55		  // Serial I/O Expansion board 35  (io brd 41) 
+#define  c_mrcan_SEB_36	 56		  // Serial I/O Expansion board 36  (io brd 42) 
+#define  c_mrcan_SEB_37	 57		  // Serial I/O Expansion board 37  (io brd 43) 
+#define  c_mrcan_SEB_38	 58		  // Serial I/O Expansion board 38  (io brd 44) 
+#define  c_mrcan_SEB_39	 59		  // Serial I/O Expansion board 39  (io brd 45) 
+#define  c_mrcan_SEB_40	 60		  // Serial I/O Expansion board 40  (io brd 46)
+#define  c_mrcan_END	 60		  // Last can device
+#define  c_mrcan_GLOBAL	255		  // Global can address
+	 
+	 SPB 			5		  Safety Processor Board
+	 TSVS			10		  Temperature Sensor/Voltage Sensor
+	 SEB 1			11		  Serial I/O Expansion board 1	(io brd )
+	 SEB 2			12		  Serial I/O Expansion board 2	(io brd 9,10)
+	 SEB 3			13		  Serial I/O Expansion board 3	(io brd 11,12)
+	 SEB 4			14		  Serial I/O Expansion board 4	(io brd 13,14)
+	 SEB 5			15		  Serial I/O Expansion board 5	(io brd 15,16)
+	 SEB 6			16		  Serial I/O Expansion board 6	(io brd 17,18)
+	 SEB 7			17		  Serial I/O Expansion board 7	(io brd 19,20)
+	 SEB 8			18		  Serial I/O Expansion board 8  (io brd 21,22)
+	 SEB 9			19		  Serial I/O Expansion board 9  (io brd 21,22)	
+	 SEB 10			20		  Serial I/O Expansion board 10  (io brd 27,28)	(Uses special address)
+	 SEB 11			21		  Serial I/O Expansion board 11	(io brd 29,30)
+	 SEB 12			22		  Serial I/O Expansion board 12	(io brd 31,32)
+	 SEB 13			23		  Serial I/O Expansion board 13	(io brd 33,34)
+	 SEB 14			24		  Serial I/O Expansion board 14	(io brd 35,36)
+	 SEB 15			25		  Serial I/O Expansion board 15	(io brd 37,38)
+	 SEB 16			26		  Serial I/O Expansion board 16	(io brd 39,40)
+	 SEB 17			27		  Serial I/O Expansion board 17	(io brd 41,42)
+	 SEB 18			28		  Serial I/O Expansion board 18  (io brd 43,44)
+	 SEB 19			29		  Serial I/O Expansion board 18  (io brd 45,46)
+	 SEB 20			30		  Serial I/O Expansion board 20  (io brd 47,48)
+	 Global		   255		  Global Address
+
+
+	
+	CAN PROTOCOL  (Using extended address bits)
+
+	Frame/Length     
+	Identifier 1  (Message Number:Bits 28-21)	 	(Message number)
+	Identifier 2  (Device Address:Bits 20-13)	 	(TO/FROM ADDRESS)
+	Identifier 3  (Unused:Bits 12-5)	 			
+	Identifier 4  (Unused:Bits 4-0)
+	Data Byte 1
+	Data Byte 2
+	Data Byte 3 
+	Data Byte 4
+	Data Byte 5
+	Data Byte 6
+	Data Byte 7
+	Data Byte 8
+
+	CAN PROTOCOL  (Using standard address bits)
+
+	Frame/Length     
+	Identifier 1 (6bits) (Message Bits: 10-5)	
+	Identifier 2 (5bits) (Device Address:Bits 4-0)	 	
+	Data Byte 1
+	Data Byte 2
+	Data Byte 3 
+	Data Byte 4
+	Data Byte 5
+	Data Byte 6
+	Data Byte 7
+	Data Byte 8
+
+	msg 	 To			From			BYTES
+	1		SPB			CPU				3		Message #1: Reset SPB, TOC or BRK Board
+													master version
+													master revision
+													Control Byte
+														bit 0: Error Flag Reset
+														bit 1: Clear Fault Code Flag
+
+	2		CPU			SPB				8		Message #2: Velocity, Position and service
+													low byte velocity
+													high byte velocity
+													low byte 1 position count
+													low byte 2 position count
+													high byte 1 position count
+													high byte 2 position count
+													service
+													Status flags	 
+														bit 0: SFCO	
+														bit 1: PICEN
+														bit 2: LSCS
+														bit 3: Com Fault
+														bit 4: Velocity Fault
+														bit 5: Position Init
+														bit 6: Active Fault
+														bit 7: Position Updated
+
+	3		CPU			SPB				4		Message #3:	Temperature 
+													low byte external temperature
+													high byte external temperature
+													low byte board temperature
+													high byte board temperature
+													
+	4		CPU			SPB				8		Message #4: Limit Velocity
+													low byte uts velocity
+													high byte uts velocity
+													low byte dts velocity
+													high byte dts velocity
+													low byte ut velocity
+													high byte ut velocity
+													low byte dt velocity
+													high byte dt velocity
+
+	5		CPU			SPB,BRK			2-8		Message #5: Fault Data
+													fault start index/pointer   
+														start index = low nibble
+														pointer = high nibble
+													# of Faults	Transmitted
+													fault[index]
+													fault[index+1]
+													fault[index+2]
+													fault[index+3]
+													fault[index+4]
+													fault[index+(# of Faults - 1)]
+
+	6		CPU			SPB				2-8		Message #6: EEprom Data
+													EEprom Data index
+													# Bytes
+													low byte eep[index]
+													high byte eep[index]
+													low byte eep[index+1]
+													high byte eep[index+1]
+													low byte eep[index (# Bytes - 1)]
+													high byte eep[index (# Bytes - 1)]
+
+	7		SPB			CPU				2-8		Message #7: Set EEprom Data
+													EEprom Data index
+													# Bytes
+													low byte eep[index]
+													high byte eep[index]
+													low byte eep[index+1]
+													high byte eep[index+1]
+													low byte eep[index (# Bytes - 1)]
+													high byte eep[index (# Bytes - 1)]
+
+	8		BRK			CPU				7		Message #8: Brake Control command
+													Byte 0:	Command
+															Bit0: 	0=Off, 1=Fire Brake @ Voltage or Trigger
+															Bit 3,2,1:	Byte 1,2 Select: 
+															    0,0,0	- Current
+															    0,0,1	- Output Voltage
+															    0,1,0 	- Input Voltage
+																0,1,1   - Fault Data
+																1,0,0   - Jumper Setting
+															Bit4:	Unused
+															Bit5:	Unused
+															Bit6:	Unused
+															Bit7:	Unused
+													Byte 1: Low Byte Trigger Time
+													Byte 2: High Byte Trigger Time
+													Byte 3: Low Byte Brake Voltage
+													Byte 4: High Byte Brake Voltage
+													Byte 5: Low Byte Line Voltage
+													Byte 6: High Byte Line Voltage
+
+	9		CPU			BRK				8		Message #9: Brake Data
+													Byte 0: Status
+															Bit0:	0=Okay, 1=Fault
+															Bit 3,2,1:	Byte 1,2 Select: 
+															    0,0,0	- Current
+															    0,0,1	- Output Voltage
+															    0,1,0 	- Input Voltage
+															    0,1,1	- Fault Data
+																1,0,0   - Jumper Setting
+															Bit4:	Brake Switch 1
+															Bit5:	Brake Switch 2
+															Bit6:	Brake Relay Bypass
+															Bit7:	0 = single phase, 1 = 3 phase
+													Byte 1: Low Byte Brake Current,Volt,Freq,Jumper,Fault (determined by Status Bits 3,2,1)
+													Byte 2: High Byte Brake Current,Volt,Freq,Jumper,Fault	(determined by Status Bits 3,2,1)
+													Byte 3: Return Command Byte
+													Byte 4: Return Low Byte Trigger Time
+													Byte 5: Return High Byte Trigger Time
+													Byte 6: Return Low Byte Brake Volage 
+													Byte 7: Return High Byte Brake Voltage
+
+	10		ALL			CPU				1		Message #10: Can device error
+													can error byte
+
+	11		SEB1-40		CPU				5		Message #11: Init data with software version
+													master version
+													master revision
+													call latch mask
+													call latch mask
+													call latch mask
+
+	12		CPU			ALL				2		Message #12: Software version
+													Device version
+													Device revision
+
+	13		SEB1-40		CPU				3-5		Message #13: Set/Clear Output Serial Expansion Board 1-9 (SEB1-9) (bit set for each output)
+												  	Output 1-8
+												  	Output 9-16
+												  	Output 17-24
+													checksum low byte			// Car call color and brightness checksum
+													checksum high byte			
+													checksum low byte			// Label Checksum
+													checksum high byte
+													checksum byte				// Color index checksum
+
+	14		CPU			SEB1-40			3-4		Message #14: Read Input Serial Expansion Board 1-9 (SEB1-9) (bit set for each input)
+												  	Input 1-8
+												  	Input 9-16
+												  	Input 17-24
+													Local Comm Bit0: 1st board
+															   Bit1: 2nd board
+															   Bit2: Altarnate car station 1st board
+															   Bit3: Alternate car station 2nd board
+
+	15		SEB1-7		CPU				3		Message #15: Transmit back of inputs that were sent for verification
+												  	Input 1-8
+												  	Input 9-16
+												  	Input 17-24
+
+	16		CPU			SEB1-7			3		Message #16: Read back each input sent to device for verification
+												  	Output 1-8
+												  	Output 9-16
+												  	Output 17-24
+
+	21		LW			CPU				1		Message #21: Enable Load Weigher Reading
+													Byte 0: Bit0: 1 = Read load, 0 = Disable reading
+													 		Bit1: 1 = Re-calibrate
+															Bit2-7: Unused
+													Byte 1-7: Unused
+
+	22		CPU			LW				2		Message #22: Load value
+													Byte 0: Load weigher low byte
+													Byte 1: Load Weigher high byte
+													Byte 2: Return command byte
+													Byte 3: Error Code
+													Byte 4-7: Unused
+
+	23		SEL,SPB	 	CPU				5		Message #23: Selector Initialization
+													Byte 0: Command
+															Bit 0: 1 = Preset position Count 
+													Byte 1: Low Byte of preset Position
+													Byte 2: Middle Low Byte of preset Position
+													Byte 3: Middle High Byte of presset Position
+													Byte 4: High Byte of preset Position
+													Byte 5-7: Unused
+
+	24 		CPU			SEL				5		Message #24: Selector Position
+													Byte 0: Low Byte of Position
+													Byte 1: Middle Low Byte of Position
+													Byte 2: Middle High Byte of Position
+													Byte 3: High Byte of Position
+													Byte 4: Status
+														Bit0: Hoistway Learned
+														Bit1: In Hw Learn
+														Bit2: Fault
+														Bits3-7: Unused
+													Byte 5-7: Unused
+
+	25		PI			CPU				8	   	Message #25: PI and Lantern Data
+												  	Car position		Binary position
+												  	Ascii PI 0			Ascii Position low byte
+												  	Ascii PI 1			Ascii Position High byte
+
+													Lantern Status		Bit 7: LUP (lantern up)
+																		Bit 6: LDN (lantern down)
+																		Bit 5: RLUP (rear lantern up)
+																		Bit 4: RLDN (rear lantern down)
+																		Bit 3: UDA (up direction arrow)
+																		Bit 2: DDA (down direction arrow)
+																		Bit 1: User Message Bit 1
+																		Bit 0: User Message Bit 0
+
+												  	Motion Status		Bit 7: CULR UPREF (up preference)
+												  						Bit 6: CDLR DNPREF (down preference)
+												  						Bit 5: CUL run (car running)
+												  						Bit 4: CDL leveling (car leveling)
+												  						Bit 3: Out of Service
+																		Bit 2: Inspection
+																		Bit 1: Independent
+																		Bit 0: unused
+
+													Fire Status			Bit 7: PH2 (fire phase 2)
+																		Bit 6: PH1 Complete (fire phase 1 complete)
+																		Bit 5: PH1 Recall Main (fire phase 1 recall active)
+																		Bit 4: EMP Recall (emergency power recall active)
+												  						Bit 3: EMP Recall Complete (emergency power recall complete)
+												  						Bit 2: Power Loss (Normal power is out)
+												  						Bit 1: Imminent Shutdown
+																		Bit 0: PH1 Recall Alternate (fire phase 1 recall active)
+
+													Door Status 		Bits 3,2,1,0
+												  						doorf = 0 doors closed no action
+												  						doorf = 1 doors are opening
+												  						doorf = 2 doors are dwellingse)
+																		doorf = 3 doors are closing
+																		doorf = 4 doors are nudging closed
+
+																		Bits 7,6,5,4
+													  					rdoorf = 0 doors closed no action
+													  					rdoorf = 1 doors are opening
+													  					rdoorf = 2 doors are dwelling
+													  					rdoorf = 3 doors are closing
+													  					rdoorf = 4 doors are nudging closed
+
+													Misc Status			Bit 7: Activate speech
+																		Bit 6: At Lobby (car at lobby floor)
+																		Bit 5: Overload (load overload)
+																		Bit 4: Load Bypass
+																		Bit 3: EMT (Emergency Medical Technician Service)
+																		Bit 2: Code Blue
+																		Bit 1: Seismic
+																		Bit 0: User Message Bit 2 
+
+																		User Message Bits 2,1,0
+																						  0 0 0	No message
+																						  0 0 1 Message 1
+																						  0 1 0 Message 2
+																						  0 1 1 Message 3
+																						  1 0 0 Message 4
+																						  1 0 1 Message 5
+																						  1 1 0 Message 6
+																						  1 1 1 Message 7
+																						   
+
+	32		SPB			CPU				1		Message #32: SPB special command packet
+													Byte 0:	Command
+														Bit 0-1: used in message 23
+														Bit 2: Reset Unintended Motion
+														Bit 3: Set Unintended Motion
+														Bit 4: Test SFC
+														Bit 5: Test GR1
+
+	33		CPU			SPB				1		Message #33: SPC command return
+													Byte 0: Return command from message 32
+
+	43		ALL			CPU				8	   	Message #43: Car Call Light Brightness and Color
+												  	Byte 0:	Location Index = 0 - Brightness/Security   (will cycle 0 through max color index on one request)
+														Byte 1:	Max Color Index	 (Up to OTS = 9)
+														Byte 2: Off Brightness
+														Byte 3: On Brightness
+													  	Byte 4:	Security Red Intensity		 		// Color index 1
+														Byte 5:	Security Green Intensity
+														Byte 6: Security Blue Intensity
+														Byte 7: 0
+												  	Byte 0:	Location Index = 1 - Attendant Up/Down
+														Byte 1:	Attendant Up Red Intensity			// Color index 2
+														Byte 2: Attendant Up Green Intensity
+														Byte 3: Attendant Up Blue Intensity
+													  	Byte 4:	Attendant Down Green Intensity		// Color index 3
+														Byte 5:	Attendant Down Blue Intensity
+														Byte 6: Attendant Down Blue Intensity
+														Byte 7: 0
+												  	Byte 0:	Location Index = 2 - On/Off
+														Byte 1:	Off Red Intensit					// Color index 4
+														Byte 2: Off Green Intensity
+														Byte 3: Off Blue Intensity
+													  	Byte 4:	On Red Intensity					// Color index 5
+														Byte 5:	On Green Intensity
+														Byte 6: On Blue Intensity
+														Byte 7: 0
+												  	Byte 0:	Location Index = 3 - Fire/Medical Service
+														Byte 1:	Fire Red Intensit					// Color index 6
+														Byte 2: Fire Green Intensity
+														Byte 3: Fire Blue Intensity
+													  	Byte 4:	Medical Red Intensit				// Color index 7
+														Byte 5:	Medical Green Intensity
+														Byte 6: Medical Blue Intensity
+														Byte 7: 0
+												  	Byte 0:	Location Index = 4 - Emergency/OTS
+														Byte 1:	Emergency Red Intensity				// Color index 8
+														Byte 2: Emergency Green Intensity
+														Byte 3: Emergency Blue Intensity
+													  	Byte 4:	OTS Red Intensity					// Color index 9
+														Byte 5:	OTS Green Intensity
+														Byte 6: OTS Blue Intensity
+														Byte 7: 0
+
+	44		CPU			TSVS				8		Message #44:	Voltage Input 
+													low byte L1 Voltage
+													high byte L1 Voltage
+													low byte L2 Voltage
+													high byte L2 Voltage
+													low byte L3 Voltage
+													high byte L3 Voltage
+													low byte Door Voltage
+													high byte Door Voltage
+
+	45		CPU			TSVS				4 		Message #45:	Temperature 
+													low byte external temperature
+													high byte external temperature
+
+	46 		CPU			RGBCC				1		Message 46: Request Board I/O Labels
+													Byte 0:  Request flag must be set to 1
+
+	47 		RGBCC		CPU					6		Message 47: Init Board I/O Labels
+													Byte 0: I/O Location Index (0-23) Will cycle throug 0 to 23 on one request.
+													Byte 1: Ascii byte 1 i/o name left to right
+													Byte 2: Ascii byte 2
+													Byte 3: Ascii byte 3
+													Byte 4: Ascii byte 4
+													Byte 5: Ascii byte 5
+													Byte 6: On Color Index		(If zero then i/o has no color association)
+													Byte 7: Off Color Index		
+																Logic:
+																	if zero then i/o turned completely off when off)
+																		On Color Index  then  Off Color Index
+																			0						0
+																			1 Security Color		4 Off Color 
+																			2 Att UP				4
+																			3 Att DN				4
+																			4 Off Color				4
+																			5 On Color				4
+
+																											Backlight On
+																			6 Fire 					fvbklton	bit0: 0 = 0 Full off, 1 = 4 Off Color
+																			7 Medical				fvbklton	bit1: 0 = 0 Full off, 1 = 4 Off Color
+																			8 Emergency				fvbklton	bit2: 0 = 0 Full off, 1 = 4 Off Color 
+																			9 OTS					fvbklton	bit3: 0 = 0 Full off, 1 = 4 Off Color
+																										Special Case for Att Up/Dn Lights
+																			2 or 3 Att Up/Dn		fvbklton	bit4: 0 = 0 Full off, 1 = 4 Off Color
+																			4 Non-CC (on color)		fvbklton	bit5: 0 = 0 Full off, 1 = 4 Off Color
+
+																	
+	48 		CPU			any DEV				2		Message 48: Device error
+													Byte 0: Error Code	(Specific code for device)
+														Fault Code from RGB_CC board:
+															0 = no fault
+															1 = LED short red
+															2 = LED short green
+															3 = LED short blue
+															4 = LED open red
+															5 = LED open green
+															6 = LED open blue
+															7 = FET short red
+															8 = FET short green
+															9 = FET short blue
+															10 = FET open red
+															11 = FET open green
+															12 = FET open blue
+															13 = NO LED board
+															14 = Stuck Button
+
+													Byte 1: Error Data	(Relevant data for this error code)	(local address:1,2,9,10) next address:3,4,11,12
+													Byte 2: Error Data	(Relevant data for this error code)	(io location: 0-11)
+
+	49		any DEV		CPU					1		Message 49: Reset Device Error
+													Byte 0: Control bit 0: 1 = reset error condition
+																	bit 1: 1 = clear error code buffer
+
+
+	52		ALL			CPU				1		Message #52: Time Clock Update
+													Byte 0: Time increment counter
+													Byte 1: fvcansynccnt Can sync count, 0 = no sync
+													Byte 2: Cop Light Status: 1=Attup, 2=Attdn, 4=Sec Off
+
+
+	55		SEB 		CPU				3		Message #55: Set/Clear Security Mask RGB Boards
+												  	Security Call (match car call location)
+												  	Security Call (match car call location)
+												  	Security Call (match car call location)
+
+	56		CPU			SEB1-7			3		Message #56: Return Security Mask RGB Boards
+												  	Security Call (match car call location)
+												  	Security Call (match car call location)
+												  	Security Call (match car call location)
+
+	57 		CPU			RGBCC			1		Message 57: Request Board I/O Color Indexes
+													Byte 0:  Request flag must be set to 1
+
+	58 		RGBCC		CPU				2		Message 58: Color Index for RGB board I/Os
+													Byte 0: I/O Location Index    0   1   2   3     4     5     6     7
+													Byte 1: On Color Index	  i/o 1	  4	  7	  10	13    16    19	  22
+													Byte 2: Off Color Index		  1	  4	  7	  10	13	  16	19	  22
+													Byte 3: On Color Index		  2	  5	  8	  11	14	  17	20	  23
+													Byte 4: Off Color Index		  2	  5	  8	  11	14	  17	20	  23
+													Byte 5: On Color Index		  3	  6	  9	  12	15	  18	21	  24
+													Byte 6: Off Color Index		  3	  6	  9	  12	15	  18	21	  24
+
+*/
+
+#define  c_mrcan_START	  5		  // Can start index
+#define  c_mrcan_SPB	  5		  // Safety processor board
+#define  c_mrcan_LW		  9		  // Load weigher
+#define  c_mrcan_VS		 10		  // Voltage Sensor
+#define  c_mrcan_PI_LANT 20		  // Serial PI and Lantern (global address for all pi and lantern devices)
+#define	 c_mrcan_SEB_1	 21		  // Serial I/O Expansion board 1	(io brd 7)
+#define	 c_mrcan_SEB_2	 22		  // Serial I/O Expansion board 2	(io brd 8)
+#define	 c_mrcan_SEB_3	 23		  // Serial I/O Expansion board 3	(io brd 9)
+#define	 c_mrcan_SEB_4	 24		  // Serial I/O Expansion board 4	(io brd 10)
+#define	 c_mrcan_SEB_5	 25		  // Serial I/O Expansion board 5	(io brd 11)
+#define	 c_mrcan_SEB_6	 26		  // Serial I/O Expansion board 6	(io brd 12)
+#define	 c_mrcan_SEB_7	 27		  // Serial I/O Expansion board 7	(io brd 13)
+#define  c_mrcan_SEB_8	 28		  // Serial I/O Expansion board 8   (io brd 14)
+#define  c_mrcan_SEB_9	 29		  // Serial I/O Expansion board 9   (io brd 15)
+#define  c_mrcan_SEB_10	 30		  // Serial I/O Expansion board 10  (io brd 16)
+#define  c_mrcan_SEB_11	 31		  // Serial I/O Expansion board 11  (io brd 17)
+#define  c_mrcan_SEB_12	 32		  // Serial I/O Expansion board 12  (io brd 18) 
+#define  c_mrcan_SEB_13	 33		  // Serial I/O Expansion board 13  (io brd 19) 
+#define  c_mrcan_SEB_14	 34		  // Serial I/O Expansion board 14  (io brd 20) 
+#define  c_mrcan_SEB_15	 35		  // Serial I/O Expansion board 15  (io brd 21) 
+#define  c_mrcan_SEB_16	 36		  // Serial I/O Expansion board 16  (io brd 22) 
+#define  c_mrcan_SEB_17	 37		  // Serial I/O Expansion board 17  (io brd 23) 
+#define  c_mrcan_SEB_18	 38		  // Serial I/O Expansion board 18  (io brd 24) 
+#define  c_mrcan_SEB_19	 39		  // Serial I/O Expansion board 19  (io brd 25) 
+#define  c_mrcan_SEB_20	 40		  // Serial I/O Expansion board 20  (io brd 26)
+#define  c_mrcan_SEB_21	 41		  // Serial I/O Expansion board 21  (io brd 27)
+#define  c_mrcan_SEB_22	 42		  // Serial I/O Expansion board 22  (io brd 28)
+#define  c_mrcan_SEB_23	 43		  // Serial I/O Expansion board 23  (io brd 29) 
+#define  c_mrcan_SEB_24	 44		  // Serial I/O Expansion board 24  (io brd 30) 
+#define  c_mrcan_SEB_25	 45		  // Serial I/O Expansion board 25  (io brd 31) 
+#define  c_mrcan_SEB_26	 46		  // Serial I/O Expansion board 26  (io brd 32) 
+#define  c_mrcan_SEB_27	 47		  // Serial I/O Expansion board 27  (io brd 33) 
+#define  c_mrcan_SEB_28	 48		  // Serial I/O Expansion board 28  (io brd 34) 
+#define  c_mrcan_SEB_29	 49		  // Serial I/O Expansion board 29  (io brd 35) 
+#define  c_mrcan_SEB_30	 50		  // Serial I/O Expansion board 30  (io brd 36)
+#define  c_mrcan_SEB_31	 51		  // Serial I/O Expansion board 31  (io brd 37)
+#define  c_mrcan_SEB_32	 52		  // Serial I/O Expansion board 32  (io brd 38)
+#define  c_mrcan_SEB_33	 53		  // Serial I/O Expansion board 33  (io brd 39) 
+#define  c_mrcan_SEB_34	 54		  // Serial I/O Expansion board 34  (io brd 40) 
+#define  c_mrcan_SEB_35	 55		  // Serial I/O Expansion board 35  (io brd 41) 
+#define  c_mrcan_SEB_36	 56		  // Serial I/O Expansion board 36  (io brd 42) 
+#define  c_mrcan_SEB_37	 57		  // Serial I/O Expansion board 37  (io brd 43) 
+#define  c_mrcan_SEB_38	 58		  // Serial I/O Expansion board 38  (io brd 44) 
+#define  c_mrcan_SEB_39	 59		  // Serial I/O Expansion board 39  (io brd 45) 
+#define  c_mrcan_SEB_40	 60		  // Serial I/O Expansion board 40  (io brd 46)
+#define  c_mrcan_END	 60		  // Last can device
+#define  c_mrcan_GLOBAL	255		  // Global can address
+
+#define IODATA_ARRAY_START 46		// 47 - 1
+
+#define c_Mode_Reg 0			// Mode Register
+// Control registry values
+#define c_Mode_RR_Bit    	0x01 	// reset mode bit
+#define c_Mode_LOM_Bit   	0x02 	// listen only mode bit
+#define c_Mode_STM_Bit   	0x04 	// self test mode bit
+#define c_Mode_AFM_Bit   	0x08 	// acceptance filter mode bit
+#define c_Mode_SM_Bit    	0x10 	// enter sleep mode bit
+#define c_Freeze_Start		0x01	// put chip in freeze mode
+#define c_Freeze_Stop		0x00	// Takes chip out of freeze mode
+
+#define c_Cmd_Reg 1				// Command Register
+// Command registry values
+#define c_Cmd_TR_Bit  		0x01 	// transmission request bit
+#define c_Cmd_AT_Bit  		0x02 	// abort transmission bit
+#define c_Cmd_RRB_Bit 		0x04 	// release receive buffer bit
+#define c_Cmd_CDO_Bit 		0x08 	// clear data overrun bit
+#define c_Cmd_SRR_Bit 		0x10 	// self reception request bit
+
+#define c_Stat_Reg 2			// Status Register
+// Status registry values
+#define c_Stat_RBS_Bit    	0x01 	// receive buffer status bit
+#define c_Stat_DOS_Bit    	0x02 	// data overrun status bit
+#define c_Stat_TBS_Bit    	0x04 	// transmit buffer status bit
+#define c_Stat_TCS_Bit    	0x08 	// transmission complete status bit
+#define c_Stat_RS_Bit     	0x10 	// receive status bit
+#define c_Stat_TS_Bit     	0x20 	// transmit status bit
+#define c_Stat_ES_Bit     	0x40 	// error c_Status bit
+#define c_Stat_BS_Bit     	0x80 	// bus status bit
+
+#define c_Int_Reg 3				// Interrupt Register
+// Interrupt registry values
+#define c_Int_RI_Bit        0x01 	// receive interrupt bit
+#define c_Int_TI_Bit        0x02 	// transmit interrupt bit
+#define c_Int_EI_Bit        0x04 	// error warning interrupt bit
+#define c_Int_DOI_Bit     	0x08 	// data overrun interrupt bit
+#define c_Int_WUI_Bit     	0x10 	// wake-up interrupt bit
+#define c_Int_EPI_Bit     	0x20 	// error passive interrupt bit
+#define c_Int_ALI_Bit     	0x40 	// arbitration lost interrupt bit
+#define c_Int_BEI_Bit     	0x80 	// bus error interrupt bit
+
+#define c_Int_En_Reg 4			// Interrupt Enable Register
+// InterruptEn registry values
+#define c_IntEn_RIE_Bit   	0x01 	// receive interrupt enable bit
+#define c_IntEn_TIE_Bit   	0x02 	// transmit interrupt enable bit
+#define c_IntEn_EIE_Bit   	0x04 	// error warning interrupt enable bit
+#define c_IntEn_DOIE_Bit  	0x08 	// data overrun interrupt enable bit
+#define c_IntEn_WUIE_Bit  	0x10 	// wake-up interrupt enable bit
+#define c_IntEn_EPIE_Bit  	0x20 	// error passive interrupt enable bit
+#define c_IntEn_ALIE_Bit  	0x40 	// arbitration lost interr. enable bit
+#define c_IntEn_BEIE_Bit  	0x80 	// bus error interrupt enable bit
+
+#define c_Bus_Timing_0_Reg 6
+#define c_Bus_Timing_1_Reg 7
+#define c_SAM_Bit           0x80 	// sample mode bit
+                                 	// 1 == the bus is sampled 3 times
+                        			// 0 == the bus is sampled once
+
+#define c_Output_Ctrl_Reg 8
+// OCMODE1, OCMODE0
+#define c_BiPhaseMode     	0x00 	// bi-phase output mode
+#define c_NormalMode        0x02 	// normal output mode
+#define c_ClkOutMode        0x03 	// clock output mode output pin configuration for TX1
+#define c_OCPOL1_Bit        0x20 	// output polarity control bit
+#define c_Tx1Float          0x00 	// configured as float
+#define c_Tx1PullDn         0x40 	// configured as pull-down
+#define c_Tx1PullUp         0x80 	// configured as pull-up
+#define c_Tx1PshPull        0xC0 	// configured as push/pull output pin configuration for TX0
+#define c_OCPOL0_Bit        0x04 	// output polarity control bit
+#define c_Tx0Float          0x00 	// configured as float
+#define c_Tx0PullDn         0x08 	// configured as pull-down
+#define c_Tx0PullUp         0x10 	// configured as pull-up
+#define c_Tx0PshPull        0x18 	// configured as push/pull
+
+#define c_Arbit_Lost_Cap 11			// Arbitration Lost Capture
+#define c_Error_Code_Cap 12			// Error Code Capture
+#define c_Err_Warn_Lim 13			// Error Warning Limit
+#define c_Rx_Err_Cntr 14			// Receive Error Counter
+#define c_Tx_Err_Cntr 15			// Transmit Error Counter
+#define c_Rx_Frame_Reg 16			// Receive Frame Register
+#define c_Rx_Id_Data 17				// Start of receive ID and data
+#define c_Rx_Id_1 17				// Receive ID
+#define c_Rx_Id_2 18				// Receive ID
+#define c_Rx_Id_3 19				// Receive ID
+#define c_Rx_Id_4 20				// Receive ID
+#define c_Rx_Data_1 21				// Receive Data
+#define c_Rx_Data_2 22				// Receive Data
+#define c_Rx_Data_3 23				// Receive Data
+#define c_Rx_Data_4 24				// Receive Data
+#define c_Rx_Data_5 25				// Receive Data
+#define c_Rx_Data_6 26				// Receive Data
+#define c_Rx_Data_7 27				// Receive Data
+#define c_Rx_Data_8 28				// Receive Data
+#define c_Rx_Msg_Cntr 29			// Receive Message Counter
+#define c_Rx_Buff_St_Addr 30		// Receive Buffer Start Address
+
+#define c_Clock_Div_Reg 31		// Clock Divide Register
+#define c_DivBy1              0x07 	// CLKOUT = oscillator frequency
+#define c_DivBy2              0x00 	// CLKOUT = 1/2 oscillator frequency
+#define c_DivBy10			  0x04	// CLKOUT = 1/10 oscillator frequency
+#define c_ClkOff_Bit          0x08 	// clock off bit, control of the CLK OUT pin
+#define c_RXINTEN_Bit         0x20 	// pin TX1 used for receive interrupt
+#define c_CBP_Bit             0x40 	// CAN comparator bypass control bit
+#define c_CANMode_Bit         0x80 	// CAN mode definition bit
+
+
+// write only addresses
+#define c_Tx_Frame_Reg 16			// Transmit Frame Register
+#define c_Tx_Id_Data 17				// Start of Trasmit id and data
+#define c_Tx_Id_1 17				// Transmit ID
+#define c_Tx_Id_2 18				// Transmit ID
+#define c_Tx_Id_3 19				// Transmit ID
+#define c_Tx_Id_4 20				// Transmit ID
+#define c_Tx_Data_1 21				// Transmit Data
+#define c_Tx_Data_2 22				// Transmit Data
+#define c_Tx_Data_3 23				// Transmit Data
+#define c_Tx_Data_4 24				// Transmit Data
+#define c_Tx_Data_5 25				// Transmit Data
+#define c_Tx_Data_6 26				// Transmit Data
+#define c_Tx_Data_7 27				// Transmit Data
+#define c_Tx_Data_8 28				// Transmit Data
+#define c_EFF 0x80					// Extended Frame Format
+#define c_RTR 0x40					// Remote Transmission Request
+
+#define c_Rx_Fifo 32				// Receive Fifo Start
+#define c_Tx_Buff 96				// Transmit Buffer Start
+#define c_Free_Ram 110				// Free Rame Start
+#define c_Accept_Code_0 16			// Acceptance Code
+#define c_Accept_Code_1 17
+#define c_Accept_Code_2 18
+#define c_Accept_Code_3 19
+#define c_Accept_Mask_0 20			// Acceptance Mask
+#define c_Accept_Mask_1 21
+#define c_Accept_Mask_2 22
+#define c_Accept_Mask_3 23
+
+
+void init_mrcan_bus (void);
+//void write_can (uint8 addr, uint8 data);
+//uint8 read_can (uint8 addr);
+void clr_mrcan_dev_comm_loss (void);
+uint16 calc_ioname_can_cksum (unsigned char devnmb);
+void wrong_mrcan_int (void);
+void mrcan_bus_off_and_warning_int (void);
+void mrcan_error_int (void);
+void mrcan_rcv_int (void);
+void mrcan_rcv_fifo_warning_int (void);
+void mrcan_rcv_fifo_overflow_int (void);
+void mrcan_trm_int_b8 (void);
+void mrcan_trm_int_b9 (void);
+void mrcan_trm_int_b10 (void);
+void mrcan_trm_int_b11 (void);
+void mrcan_control (void);
+void receive_mrcan_in (int16 BufIx);
+void unpack_mrcan_in (void);
+int16 mrcanChipFreezeMode(unsigned char set);
+void calc_mrcan_devices_color_ix_chksum(void);
+void tx_mrcan_msg(int16 TxBufIx);
+void mrcan_transmit (int16 TxBufIx);
+
+
+  #define c_max_mrcan_dev 55	// 55 devices 
+  #define c_max_mrcan_io_brd 40	// Twenty One i/o boards 
+
+#define c_max_mrcan_ser_array (c_max_mrcan_io_brd * 3)
+
+
+int16 spb_can_error = 0;		// Prevent movement of car on automatic when spb com error
+
+union tag_ser_mr {
+
+	union 
+	{
+		uint8 iob[3];
+		struct
+		{
+			uint8 io1:1;
+			uint8 io2:1;
+			uint8 io3:1;
+			uint8 io4:1;
+			uint8 io5:1;
+			uint8 io6:1;
+			uint8 io7:1;
+			uint8 io8:1;
+		}B[3];
+		struct
+		{
+			uint8 nib1:4;
+			uint8 nib2:4;
+		}N[3];
+	} dev [c_max_mrcan_io_brd];	
+	
+	unsigned char brd_io [c_max_mrcan_ser_array];
+}serial_mrc;
+
+struct tag_sync_mr {
+		unsigned char outb[3];
+		unsigned char reflect_data;
+		unsigned char rtx_cnt;
+} sync_dev_mr [c_max_mrcan_io_brd];
+
+
+// Can fault codes from devices
+/*
+#define e_txb2_timeout 1
+#define e_txb1_timeout 2
+#define e_txb0_timeout 3
+#define e_inv_pack 4
+#define e_txb2_inv_len 5
+#define e_txb1_inv_len 6
+#define e_txb0_inv_len 7
+#define e_error_int16 8
+#define e_txb2_int16 9
+#define e_txb1_int16 10
+#define e_txb0_int16 11
+#define e_inv_unpk 12
+#define e_inv_msg 13
+*/
+
+struct tag_dev {
+		unsigned char online;
+		unsigned char online_cnt;
+		unsigned char version;
+		unsigned char revision;
+		unsigned char msg_req;
+		unsigned char can_error;
+		unsigned char can_error_data;
+		unsigned char io_ix;
+		unsigned char label_ix;
+		unsigned char label_req;
+		unsigned char dev_error;
+		unsigned char dev_error_data[2];
+		unsigned char local_dev_comm_loss;
+		unsigned char color_ix;
+		unsigned char color_ix_req;
+		unsigned char io_color_ix_chksum; 
+		uint16 tx_cnt;
+		uint16 rx_cnt;
+		uint16 ioname_chksum;
+} mrcan_dev[c_max_mrcan_dev];
+
+int16 mrcan_dev_req = 0;
+int16 mrcan_msg_req = 0;
+int16 mrcan_msg_cmd = 0;
+int16 mrcan_msg_cnt = 0;
+
+int16 mrcan_color_send_ix = 0;
+
+unsigned char mrcan_dev_list [c_max_mrcan_dev];	// This is the list of can devices used 
+int16 nmb_mrcan_dev;
+int16 mrcan_ram_seq = 0;
+int16 mrcan_init_count = 0;
+int16 mrcan_init_mode_cnt = 0;
+bool mrcan_in_chip_reset = false;
+int32 mrcan_status = 0;
+int16 mrcan_mode = 0;
+int16 mrcan_int_status = 0;
+int16 mrcan_error = 0;
+/*
+	Can Error  
+	Bit			Description
+	00000001	Chip would not come out of reset mode during initialization
+	00000010	Chip would not go into reset mode during initialization
+	00000100	Can Bus off error
+	00001000	Receive Buffer not released
+	00010000	Transmit Buffer not released
+	00100000	Transmit length error
+*/
+int16 mrcan_int_count = 0;
+int16 re_init_mrcan = 0;
+int16 mrcan_rb_lost_cap=0;
+int16 mrcan_err_code_cap=0;
+int16 mrcan_tx_err_cnt=0;
+int16 mrcan_rx_err_cnt = 0;
+int16 mrcan_rcv_fifo_cnt = 0;
+int16 mrcan_rcv_int_fail_cnt = 0;
+int16 mrcan_WCI_cnt=0;	// Wrong can interrupt
+int16 mrcan_BOI_cnt=0;	// Bus Off and tx/rx warning interrupt count
+int16 mrcan_ERI_cnt=0;	// Error Interrupt count
+int16 mrcan_RI_cnt=0;		// Receive fifo interrupt count
+int16 mrcan_FWI_cnt=0;	// Fifo warning interrupt count
+int16 mrcan_FOI_cnt=0;	// Fifo Overflow interrupt count
+int16 mrcan_TI8_cnt=0;	// Transmit buffer 8 interrupt count
+int16 mrcan_TI9_cnt=0;	// Transmit buffer 9 interrupt count
+int16 mrcan_TI10_cnt=0;	// Transmit buffer 10 interrupt count
+int16 mrcan_TI11_cnt=0;	// Transmit buffer 11 interrupt count
+int16 mrcan_ck_error_cnt = 0;
+int16 mrcan_bus_off_cnt = 0;
+int16 mrcan_bus_idle_cnt = 0;
+
+int16 mrcan_tx_B08_fail_cnt = 0;
+int16 mrcan_tx_B09_fail_cnt = 0;
+int16 mrcan_tx_B10_fail_cnt = 0;
+int16 mrcan_tx_B11_fail_cnt = 0;
+
+
+int16 mrcan_data_req = 0;				// Flag to signal that data has been requested by a device
+int16 mrcan_data_req_cnt = 0;
+
+#define c_mrcan_tx_buf_siz 20
+
+struct tag_tx {
+		unsigned char len;
+		unsigned char ex_id;	// flag for extended id mode
+		unsigned char one_tx;	// Transmit one packet (no retransmit)
+		unsigned char rtr;		// Remote Transmission Request
+		unsigned char srr;		// Substitute Remote Request
+		unsigned char msg;		// Message
+		unsigned char addr;		// Address
+		unsigned char id2;
+		unsigned char id3;
+		unsigned char data [8];
+		} mrcan_tx[c_mrcan_tx_buf_siz+1];
+
+int16 mrctpix = 0;					// can transmit buffer put index
+int16 mrctgix = 0;					// can transmit buffer get index
+int16 mrc_availbuf = 0;				// available can transmit buffer
+		
+#define c_mrcan_rx_buf_siz 20
+
+struct tag_rx_mr {
+		unsigned char valid_msg;	// 1 when valid message in buffer
+		unsigned char len;
+		unsigned char ex_id;	// flag for extended id mode
+		unsigned char rtr;		// Remote Transmission Request
+		unsigned char msg;		// Message
+		unsigned char addr;		// Address
+		unsigned char id2;
+		unsigned char id3;
+		unsigned char data [8];
+		uint16 time;
+		} mrcan_rx[c_mrcan_rx_buf_siz + 1];
+		
+int16 mrcrpix = 0;					// can transmit buffer put index
+int16 mrcrgix = 0;					// can transmit buffer get index
+
+
+
+
+static union {
+		uint8 b[4];			// byte: char 0 - 3
+		uint32 dw;			// double word: int
+	}uiu;					// unsigned integer union
+		
+static union {
+		uint8 b[4];			// byte: char 0 - 3
+		uint32 dw;			// double word: int
+	}uiu_2;					// unsigned integer union
+	
+static union {
+		uint8 b[2];			// byte: char 0 - 1
+		uint16 w;			// word: short int
+	}uwu;					// unsigned word union
+		
+	
+// CAN_A Int Base = 127
+// CAN_B Int Base = 157 
+// CAN_C Int Base = 178
+// CAN_D Int Base = 199
+
+#define MR_CAN CAN_B				// Use B to test with
+#define MR_CAN_INT_BASE 178
+
+
+// **************************************************
+// ** Clear can device comm loss for local devices
+// **************************************************
+
+// clear comm loss error latch for RGB Car call driver board local devices
+void clr_mrcan_dev_comm_loss (void)
+{
+	int16 i;
+	for (i = 0;i<=c_max_mrcan_dev; i++)
+	{
+		mrcan_dev[i].local_dev_comm_loss = 0;
+	}
+}
+
+//*******************************************************************
+// Sends the freeze bit to the chip
+// Value of 1 puts the chip in freeze mode
+// Value of 0 takes is out of freeze mode
+// Have to see the freeze mode acknowledge bit gets set
+//*******************************************************************
+int16 mrcan_ChipFreezeMode(unsigned char set)
+{
+	
+	if (mrcan_in_chip_reset == true)
+		return 0;
+
+	mrcan_in_chip_reset = true;
+
+	mrcan_init_mode_cnt = 0;
+
+	MR_CAN.MCR.B.MDIS = 0;			// Enable module after reset
+	MR_CAN.MCR.B.FRZ = 1;			// Set or clear the freeze bit
+	MR_CAN.MCR.B.HALT = set;			// Clear halt mode
+
+	
+	while (init_mode_cnt < 200)
+	{
+		if (MR_CAN.MCR.B.FRZACK == set)
+		{
+			mrcan_in_chip_reset = false;
+			return 1;
+		}
+		mrcan_init_mode_cnt++;
+	}
+	mrcan_in_chip_reset = false;
+	return 0;		// Failed to initialize
+}
+
+
+// *******************************************
+// **** Scan array for a match  **************
+// *******************************************
+
+   								// board #	  1,2,3,4, 5, 6, 7, 8, 9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,
+extern unsigned const char mrcan_addr [40] = {0,0,0,0, 0, 0, 0, 11,11,12,12,13,13,14,14,15,15,16,16,17,17,18,18,19,19,19,
+								// board #	26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52
+											 0,20,20,21,21,22,22,23,23,24,24,25,25,26,26,27,27,28,28,29,29,30,30,31,31,32,32};
+									  // address never 1 but must not return index of 0	from sMR_CANrray()
+unsigned char dev_name_cksum [11] = {1,15,16,17,21,22,28,29,30,0,0};
+
+
+
+// **************************************************
+// ****** Calculate ioname can device checksum ******
+// **************************************************
+
+uint16 calc_ioname_mrcan_cksum (unsigned char devnmb)
+{
+	uint16 chksum = 0;
+	int16 label_ix = 0;
+	int16 h,i,j,k;
+	int16 array_start, io_name_start;
+	int16 iodev_ix = 0;
+
+	if (devnmb >= c_mrcan_SEB_10_io)
+		iodev_ix = (int16)((devnmb + 1) - c_mrcan_SEB_1);			// i/o inputs must line up with board i/o
+	else
+		iodev_ix = (int16)(devnmb-c_mrcan_SEB_1);
+
+	array_start = (int16)((can_dev_to_io_array[iodev_ix] - 3));		
+	for (i=0;i<=2;i++)
+	{
+		for(j=0;j<=7;j++)
+		{
+			if ((io_send_name[array_start+i] & bittbl[j & 0x07]) != 0)
+				k = 0;
+			else if ((io_send_name[array_start+3+i] & bittbl[j & 0x07]) != 0)
+				k = 3;
+			else
+				k = 0;
+			io_name_start = (array_start + k) * 8;
+			for (h=0;h<=4;h++)
+				chksum += ioname[io_name_start + label_ix][h];
+			label_ix++;
+		}
+	}
+	return(chksum);
+}
+// **********************************************************
+// ****** Calculate io color index can device checksum ******
+// **********************************************************
+
+unsigned char calc_mrcan_io_color_ix_cksum (unsigned char devnmb)
+{
+	unsigned char chksum = 0;
+	int16 i,j,k;
+	int16 color_ix = 0;
+	unsigned char color_off_ix = 0;
+	unsigned char color_on_ix = 0;
+	int16 array_start, io_start;
+	int16 iodev_ix = 0;
+
+	iodev_ix = (int16)(devnmb-c_mrcan_SEB_1);
+
+	array_start = (int16)(can_dev_to_io_array[iodev_ix] - 3);		
+	for (i=0;i<=2;i++)
+	{
+		for(j=0;j<=7;j++)
+		{
+			if ((io_send_name[array_start+i] & bittbl[j & 0x07]) != 0)
+				k = 0;
+			else if ((io_send_name[array_start+3+i] & bittbl[j & 0x07]) != 0)
+				k = 3;
+			else
+				k = 0;
+			io_start = (array_start + k) * 8;
+
+			color_on_ix = io_on_color_ix[io_start + color_ix];
+
+			if (color_on_ix == 0)
+				color_off_ix = 0;
+			else
+				color_off_ix = 4;
+
+			if (((color_on_ix == 6) && ((fvars[fvbklton] & 0x01) == 0)) ||
+				((color_on_ix == 7) && ((fvars[fvbklton] & 0x02) == 0)) ||
+				((color_on_ix == 8) && ((fvars[fvbklton] & 0x04) == 0)) ||
+				((color_on_ix == 9) && ((fvars[fvbklton] & 0x08) == 0)) ||
+				((color_on_ix == 2) && ((fvars[fvbklton] & 0x10) == 0)) ||
+				((color_on_ix == 3) && ((fvars[fvbklton] & 0x10) == 0)) ||
+				((color_on_ix == 4) && ((fvars[fvbklton] & 0x20) == 0)))
+				color_off_ix = 0;
+
+			chksum += color_on_ix;
+			chksum += color_off_ix;
+			color_ix++;
+		}
+	}
+	return(chksum);
+}
+
+
+//*****************************************************************
+// ***  Search device list for boards that need checksum updated
+//*****************************************************************
+
+void calc_mrcan_devices_color_ix_chksum(void)
+{
+	int16 i;
+	unsigned char chksum=0;
+
+	if (cons[RGB_CC] == 1) 
+	{
+		for (i=0;i<=nmb_mrcan_dev;i++)
+		{
+			chksum = calc_io_color_ix_cksum(mrcan_dev_list[i]);
+			if (mrcan_dev[mrcan_dev_list[i] - c_mrcan_START].io_color_ix_chksum != chksum)
+			{
+				if (mrcan_dev[mrcan_dev_list[i]-c_mrcan_START].msg_req == 0)
+				{
+					mrcan_dev[mrcan_dev_list[i]-c_mrcan_START].msg_req = 58;
+					mrcan_dev[mrcan_dev_list[i] - c_mrcan_START].color_ix_req = 1;
+				}
+			}
+			mrcan_dev[mrcan_dev_list[i] - c_mrcan_START].io_color_ix_chksum = chksum;	
+		}
+	}
+}
+
+
+// **************************************************
+// ****  Initialize the ECAN 1000 CAN interface Board
+// **************************************************
+
+
+void init_mrcan_bus (void)
+{	 
+	int16 i,j;
+	int16 reset_count;
+	uint8 CD_Value = 0;
+	uint8 OC_Value = 0;
+
+	nmb_mrcan_dev = 0;
+	mrctpix = 0;
+	mrctgix = 0;
+	update_pi_lant = 0;
+
+#if ((Traction == 1) || (Tract_OL == 1))
+	// If a traction car only must comm to the Safety Processor Board for DBR temperature input
+	mrcan_dev_list[nmb_mrcan_dev] = c_mrcan_SPB;		
+	nmb_mrcan_dev++;
+
+	SPB_can.version = 0;
+	SPB_can.revision = 0;
+	SPB_can.command = 0;
+	SPB_can.service = 0;
+	SPB_can.status = 0;
+	
+	timers[tspbupd] = 0;		// send init right away to spb
+
+#endif
+
+
+#if ((Traction == 1) || (Tract_OL == 1))
+
+	if (cons[loadw] == 3)
+	{		
+		mrcan_dev_list[nmb_mrcan_dev] = c_mrcan_LW;		
+		nmb_mrcan_dev++;
+	}
+
+	if (cons[Voltage_Sensor] == 1)
+	{
+		mrcan_dev_list[nmb_mrcan_dev] = c_mrcan_VS;		
+		nmb_mrcan_dev++;
+	}
+
+#endif
+	j = 0;
+	for (i=47;i<=86;i++)			
+	{
+		if (IO_board[cons[carnmb]][i] != 0)
+		{		 // Set device in device list
+			mrcan_dev_list[nmb_mrcan_dev] = c_mrcan_SEB_1 + j;
+			mrcan_dev[(c_mrcan_SEB_1 + j) - c_mrcan_START].ioname_chksum = calc_ioname_mrcan_cksum(mrcan_addr[i]);
+			mrcan_dev[(c_mrcan_SEB_1 + j) - c_mrcan_START].io_color_ix_chksum = calc_mrcan_io_color_ix_cksum(mrcan_addr[i]);
+			nmb_mrcan_dev ++;
+		}
+	}
+ 
+	for (i=0;i<c_max_mrcan_io_brd;i++)
+	{
+		serial_mrc..dev[0].iob[0] = 0;
+		serial_mrc.dev[0].iob[1] = 0xf0;
+		serial_mrc.dev[0].iob[2] = 0xff;
+		j++;
+	}
+		
+	for (i=0;i<c_max_mrcan_dev;i++)
+	{
+		mrcan_dev[i].version = 0;
+		mrcan_dev[i].revision = 0;
+		mrcan_dev[i].online = 0;
+	}
+	// See if the board is there
+	mrcan_init_count++;
+
+	_disable();
+	
+	/*  Can Interrupt vectors
+	
+			CAN_INT_BASE = Can Bus Of and Warning
+			CAN_INT_BASE + 1 = Can Error
+			CAN_INT_BASE + 2 = Can Wake Up
+			CAN_INT_BASE + 3 = Can Buffer 0
+			CAN_INT_BASE + 4 = Can Buffer 1
+			CAN_INT_BASE + 5 = Can Buffer 2
+			CAN_INT_BASE + 6 = Can Buffer 3
+			CAN_INT_BASE + 7 = Can Buffer 4
+			CAN_INT_BASE + 8 = Can Buffer 5
+			CAN_INT_BASE + 9 = Can Buffer 6
+			CAN_INT_BASE + 10 = Can Buffer 7
+			CAN_INT_BASE + 11 = Can Buffer 8
+			CAN_INT_BASE + 12 = Can Buffer 9
+			CAN_INT_BASE + 13 = Can Buffer 10
+			CAN_INT_BASE + 14 = Can Buffer 11
+			CAN_INT_BASE + 15 = Can Buffer 12
+			CAN_INT_BASE + 16 = Can Buffer 13
+			CAN_INT_BASE + 17 = Can Buffer 14
+			CAN_INT_BASE + 18 = Can Buffer 15
+			CAN_INT_BASE + 19 = Can Buffer 16-31
+			CAN_INT_BASE + 20 = Can Buffer 32-63
+			
+	
+	
+	*/
+	
+
+	// Setup up interrupt routine vector
+	INTC_InstallINTCInterruptHandler(mrcan_bus_off_and_warning_int, MR_CAN_INT_BASE, 1);  
+	INTC_InstallINTCInterruptHandler(mrcan_error_int, MR_CAN_INT_BASE+1, 1);  
+	INTC_InstallINTCInterruptHandler(wrong_mrcan_int, MR_CAN_INT_BASE+3, 1);  
+	INTC_InstallINTCInterruptHandler(wrong_mrcan_int, MR_CAN_INT_BASE+4, 1);  
+	INTC_InstallINTCInterruptHandler(wrong_mrcan_int, MR_CAN_INT_BASE+5, 1);  
+	INTC_InstallINTCInterruptHandler(wrong_mrcan_int, MR_CAN_INT_BASE+6, 1);  
+	INTC_InstallINTCInterruptHandler(wrong_mrcan_int, MR_CAN_INT_BASE+7, 1);  
+	INTC_InstallINTCInterruptHandler(mrcan_rcv_int, MR_CAN_INT_BASE+8, 1);  
+	INTC_InstallINTCInterruptHandler(mrcan_rcv_fifo_warning_int, MR_CAN_INT_BASE+9, 1);  
+	INTC_InstallINTCInterruptHandler(mrcan_rcv_fifo_overflow_int, MR_CAN_INT_BASE+10, 1);  
+	INTC_InstallINTCInterruptHandler(mrcan_trm_int_b8, MR_CAN_INT_BASE+11, 1);  
+	INTC_InstallINTCInterruptHandler(mrcan_trm_int_b9, MR_CAN_INT_BASE+12, 1);  
+	INTC_InstallINTCInterruptHandler(mrcan_trm_int_b10, MR_CAN_INT_BASE+13, 1);  
+	INTC_InstallINTCInterruptHandler(mrcan_trm_int_b11, MR_CAN_INT_BASE+14, 1);  
+
+	
+	// Send init to can board
+	if (ChipFreezeMode(c_Freeze_Start) == 1)
+	{
+		mrcan_init_count++;
+		MR_CAN.MCR.B.SOFTRST = 1;		// Soft Reset
+		reset_count = 0;
+		while ((MR_CAN.MCR.B.SOFTRST == 1) && (reset_count < 1000))
+			reset_count++;
+			
+		MR_CAN.MCR.B.MDIS = 0;			// Enable module after reset
+
+	    // Clear of all interrupts
+	    MR_CAN.IFLAG1.R = 0xFFFFFFFF;
+	    MR_CAN.IFLAG2.R = 0xFFFFFFFF;
+	    
+	    // Disable of Interrupts
+		MR_CAN.IMASK1.R = 0;
+		MR_CAN.IMASK2.R = 0;
+		
+		MR_CAN.MCR.B.BCC = 1;			// Allow backward compatibility since all mask will be set to 0xffff
+		MR_CAN.MCR.B.MAXMB = 0x0B;		// Set to 12 (0xC - 1)
+		MR_CAN.MCR.B.WRNEN = 0;			// Warning interrupts
+		MR_CAN.MCR.B.SRXDIS = 1;			// Self Reception disabled
+		MR_CAN.MCR.B.FEN = 1;			// Enable RX fifo
+		MR_CAN.MCR.B.ABTEN = 1;			// Abort enable
+		MR_CAN.MCR.B.LPRIOEN = 0;		// No local priority mode
+		MR_CAN.MCR.B.IDAM = 0;			// ID Acceptance mode (one full id per filter element)
+		
+		
+	    // Configure clock AND baud rate timer for 115200 baud
+	    
+	    /*	
+	    	fTq = Bit Rate * Number of time Quanta = fCANCLK / Prescale Value
+	    	Prescale Value = fCANCLK/(Bit Rate * Number of Time Quanta)
+	    	Prescale Value = 108.75 Mhz / (115200 * 16) = 59.00065
+	    */
+	    
+	    
+	    MR_CAN.CTRL.B.CLKSRC = 1; 		// System Clock 108.75 Mhz
+		if (fvars[fvcanbaud] == 0)	  // Can Baud Rate, 0=115.2K, 1=57.6K
+		    MR_CAN.CTRL.B.PRESDIV = 58;		// Prescale Devision Factor + 1 = Prescale Value for 115200
+		else
+		    MR_CAN.CTRL.B.PRESDIV = 117;		// Prescale Devision Factor + 1 = Prescale Value for 57600
+		
+		MR_CAN.CTRL.B.RJW = 2;			// Resync Jump Width = RJW + 1 = 3
+		// Total Tq = 16
+		MR_CAN.CTRL.B.PSEG1 = 7;			// Phase Segment 1 = (PSEG1 + 1) x Tq = 8 (also sync seg = 1)
+		MR_CAN.CTRL.B.PSEG2 = 5;			// Phase Segment 2 = (PSEG2 + 1) x Tq = 6
+		MR_CAN.CTRL.B.PROPSEG = 0;		// Propagation Segment time = (PROPSEG + 1) x Tq = 1
+		MR_CAN.CTRL.B.SMP = 1;			// Three samples
+		
+		MR_CAN.CTRL.B.BOFFREC = 0;		// Automamtic recovery
+		MR_CAN.CTRL.B.TSYN = 0;			// Timer sync disabled
+		MR_CAN.CTRL.B.LBUF = 1;			// Lowest buffer transmitted first
+		MR_CAN.CTRL.B.LOM = 0;			// Listen only mode disabled
+		
+		MR_CAN.CTRL.B.BOFFMSK = 0;		// Bus off interrup mask: 0 = disabled; 1 = enabled
+		MR_CAN.CTRL.B.ERRMSK = 0;		// Error interrup mask: 0 = disabled; 1 = enabled
+		MR_CAN.CTRL.B.TWRNMSK = 0;		// TX warning interrup mask: 0 = disabled; 1 = enabled
+		MR_CAN.CTRL.B.RWRNMSK = 0;		// RX warning interrup mask: 0 = disabled; 1 = enabled
+
+
+		// Set Acceptance Mask
+		
+		MR_CAN.RXIMR[0].R = 0x00000000;		// Enable all packets
+		MR_CAN.RXIMR[1].R = 0x00000000;		// Enable all packets
+		MR_CAN.RXIMR[2].R = 0x00000000;		// Enable all packets
+		MR_CAN.RXIMR[3].R = 0x00000000;		// Enable all packets
+		MR_CAN.RXIMR[4].R = 0x00000000;		// Enable all packets
+		MR_CAN.RXIMR[5].R = 0x00000000;		// Enable all packets
+		MR_CAN.RXIMR[6].R = 0x00000000;		// Enable all packets
+		MR_CAN.RXIMR[7].R = 0x00000000;		// Enable all packets
+		MR_CAN.RXIMR[8].R = 0x00000000;		// Enable all packets
+		MR_CAN.RXIMR[9].R = 0x00000000;		// Enable all packets
+		MR_CAN.RXIMR[10].R = 0x00000000;		// Enable all packets
+		MR_CAN.RXIMR[11].R = 0x00000000;		// Enable all packets
+		MR_CAN.RXIMR[12].R = 0x00000000;		// Enable all packets
+		MR_CAN.RXIMR[13].R = 0x00000000;		// Enable all packets
+		MR_CAN.RXIMR[14].R = 0x00000000;		// Enable all packets
+		MR_CAN.RXIMR[15].R = 0x00000000;		// Enable all packets
+
+		// Set Receive ID
+		MR_CAN.MB[6].RXIDA[0] = 0xC0000000;		// Allow Remote Request and Extended ID
+		MR_CAN.MB[6].RXIDA[1] = 0xC0000000;		// Allow Remote Request and Extended ID
+		MR_CAN.MB[6].RXIDA[2] = 0xC0000000;		// Allow Remote Request and Extended ID
+		MR_CAN.MB[6].RXIDA[3] = 0xC0000000;		// Allow Remote Request and Extended ID
+		MR_CAN.MB[7].RXIDA[0] = 0xC0000000;		// Allow Remote Request and Extended ID
+		MR_CAN.MB[7].RXIDA[1] = 0xC0000000;		// Allow Remote Request and Extended ID
+		MR_CAN.MB[7].RXIDA[2] = 0xC0000000;		// Allow Remote Request and Extended ID
+		MR_CAN.MB[7].RXIDA[3] = 0xC0000000;		// Allow Remote Request and Extended ID
+
+		if (ChipFreezeMode(c_Freeze_Stop) == 1)
+		{
+			mrcan_init_count++;
+			if (nmb_mrcan_dev != 0)
+			{	// initialize can board
+
+			    // Enable interrupts 
+				MR_CAN.IMASK1.R = 0x00000FE0;	// MB 8-11 for transmit and 5-7 for receive
+				MR_CAN.IMASK2.R = 0x00;		// MB 32-63 NOT Enabled
+				MR_CAN.CTRL.B.BOFFMSK = 0;		// Bus off interrup mask: 0 = disabled; 1 = enabled
+				MR_CAN.CTRL.B.ERRMSK = 0;		// Error interrup mask: 0 = disabled; 1 = enabled
+				MR_CAN.CTRL.B.TWRNMSK = 0;		// TX warning interrup mask: 0 = disabled; 1 = enabled
+				MR_CAN.CTRL.B.RWRNMSK = 0;		// RX warning interrup mask: 0 = disabled; 1 = enabled
+
+			}
+		}
+		else
+		{
+			// Set error code
+			mrcan_error = 0x01;
+		}		
+	}
+	else
+	{
+		// Set error code
+		mrcan_error = 0x02;
+	} 
+	_enable();
+}
+
+// **************************************************
+// ********  Can Board Interrupt Routines  **********
+// **************************************************
+
+void wrong_mrcan_int (void)
+{
+	MR_CAN.IFLAG1.B.BUF00I = 1;
+	MR_CAN.IFLAG1.B.BUF01I = 1;
+	MR_CAN.IFLAG1.B.BUF02I = 1;
+	MR_CAN.IFLAG1.B.BUF03I = 1;
+	MR_CAN.IFLAG1.B.BUF04I = 1;
+	mrcan_WCI_cnt++;
+}
+void mrcan_bus_off_and_warning_int (void)
+{		// Bus off, Transmit count warning, Receive Count warning
+	MR_CAN.ESR.B.BOFFINT = 1;
+	MR_CAN.ESR.B.TWRNINT = 1;
+	MR_CAN.ESR.B.RWRNINT = 1;
+	mrcan_BOI_cnt++;
+}
+
+void mrcan_error_int (void)
+{		// Bit 0, Bit 1, Acknowledge, CRC, Form or Stuffing Errors
+	MR_CAN.ESR.B.ERRINT = 1;
+	mrcan_ERI_cnt++;
+}
+
+void mrcan_rcv_int (void)
+{	// Receive Interrupt (MB5)
+	mrcan_RI_cnt++;
+
+	mrcan_rcv_fifo_cnt = 0;
+	while ((MR_CAN.IFLAG1.B.BUF05I == 1) && (mrcan_rcv_fifo_cnt < 9))
+	{			// Have a can message
+		receive_mrcan_in (0);
+		MR_CAN.IFLAG1.B.BUF05I = 1;				// Clears the bit
+		mrcan_rcv_fifo_cnt++;
+	}
+	if (mrcan_rcv_fifo_cnt > 1)
+		mrcan_debug_5 = mrcan_rcv_fifo_cnt;
+}
+
+void mrcan_rcv_fifo_warning_int (void)
+{	// Receive fifo warning (MB6)
+	MR_CAN.IFLAG1.B.BUF06I = 1;
+	mrcan_FWI_cnt++;
+}
+
+void mrcan_rcv_fifo_overflow_int (void)
+{	// Receive Fifo Overrun Interrupt (MB7)
+	MR_CAN.IFLAG1.B.BUF07I = 1;
+	mrcan_FOI_cnt++;
+}
+
+void mrcan_trm_int_b8 (void)
+{	// Transmit Interrupt
+	mrcan_TI8_cnt++;
+	MR_CAN.IFLAG1.B.BUF08I = 1;
+	mrcan_transmit(8);
+}
+
+void mrcan_trm_int_b9 (void)
+{	// Transmit Interrupt
+	mrcan_TI9_cnt++;
+	MR_CAN.IFLAG1.B.BUF09I = 1;
+	mrcan_transmit(9);
+}
+
+void mrcan_trm_int_b10 (void)
+{	// Transmit Interrupt
+	mrcan_TI10_cnt++;
+	MR_CAN.IFLAG1.B.BUF10I = 1;
+	mrcan_transmit(10);
+}
+
+void mrcan_trm_int_b11 (void)
+{	// Transmit Interrupt
+	mrcan_TI11_cnt++;
+	MR_CAN.IFLAG1.B.BUF11I = 1;
+	mrcan_transmit(11);
+}
+
+//************************************************************
+// Receive the can input
+//************************************************************
+
+void receive_mrcan_in (int16 BufIx)
+{
+	int16 i;
+	int16 read_dly_cnt;
+ 	union {
+		uint8 b[4];			// byte: char 0 - 3
+		uint32 dw;			// double word: int
+	}uiu;					// unsigned integer union
+		
+	union {
+		uint8 b[4];			// byte: char 0 - 3
+		uint32 dw;			// double word: int
+	}uiu_2;					// unsigned integer union
+	
+	read_dly_cnt = 0;
+	while (((MR_CAN.MB[BufIx].MSG.MCS.B.CODE & 0x09) == 0x01) && (read_dly_cnt < 100))
+		read_dly_cnt ++;
+		
+	if (read_dly_cnt > 1)
+		mrcan_debug_6 = read_dly_cnt;
+
+	if ((MR_CAN.MB[BufIx].MSG.MCS.B.CODE & 0x09) != 0x01)
+	{			// read of CS locks the receive buffer
+		if (mrcan_rx[mrcrpix].valid_msg == 0)
+		{
+			mrcan_rx[mrcrpix].ex_id = (uint8)MR_CAN.MB[BufIx].MSG.MCS.B.IDE;
+			mrcan_rx[mrcrpix].len = (uint8)MR_CAN.MB[BufIx].MSG.MCS.B.LENGTH;
+			mrcan_rx[mrcrpix].rtr = (uint8)MR_CAN.MB[BufIx].MSG.MCS.B.RTR;
+
+			if (mrcan_rx[mrcrpix].len > 8)
+				mrcan_rx[mrcrpix].len = 8;
+			if (mrcan_rx[mrcrpix].ex_id == 1)		// Extended frame
+			{
+				uiu.dw = (MR_CAN.MB[BufIx].MSG.MID.R << 3);
+				mrcan_rx[mrcrpix].msg = uiu.b[hb];	// Message
+				mrcan_rx[mrcrpix].addr = uiu.b[mhb];	// Address
+				mrcan_rx[mrcrpix].id2 = uiu.b[mlb];
+				mrcan_rx[mrcrpix].id3 = uiu.b[lb];
+			}
+			else
+			{
+				uiu.dw = ((MR_CAN.MB[BufIx].MSG.MID.R & 0x1FFC0000) << 1) ;
+				uiu_2.dw = ((MR_CAN.MB[BufIx].MSG.MID.R & 0x1FFC0000) >> 2);
+				mrcan_rx[mrcrpix].msg = uiu.b[hb];	// Message
+				mrcan_rx[mrcrpix].addr = uiu_2.b[mhb];    // Address
+			}
+
+			i = 0;
+			while ((i < mrcan_rx[mrcrpix].len) && (i < 8))
+			{
+				mrcan_rx[mrcrpix].data[i] = MR_CAN.MB[BufIx].MSG.MDATA.B[i];
+				i++;
+			}
+			mrcan_rx[mrcrpix].valid_msg = 1;
+		}
+	
+	}
+	else
+	{
+		mrcan_debug_4 = MR_CAN.MB[BufIx].MSG.MCS.B.CODE;
+		mrcan_rcv_int_fail_cnt++;	
+	}
+		
+	mrcan_rx[mrcrpix].time = (uint16)MR_CAN.MB[BufIx].MSG.MCS.B.TIMESTAMP;		// Unlocks the buffer
+
+	mrcrpix++;
+	if (mrcrpix >= c_rx_buf_siz)
+		mrcrpix = 0;
+			
+}
+
+//************************************************************
+// Unpack the can receive buffer
+//************************************************************
+
+void unpack_mrcan_in (void)
+{
+	int16 i,j,k;
+	int16 loop_cnt = 0;
+	int16 iodev_ix = 0;
+
+	while ((loop_cnt <= 4)  && (mrcrgix != mrcrpix))
+	{
+		if (mrcan_rx[mrcrgix].valid_msg == 1)
+		{		
+			if (mrcan_rx[mrcrgix].addr == c_mrcan_SEB_10)
+				mrcan_rx[mrcrgix].addr = c_mrcan_SEB_10_io;			// special io address
+			if (mrcan_rx[mrcrgix].rtr == 0)
+			{		// OK to unpack the data 
+	 			switch (mrcan_rx[mrcrgix].msg)
+				{
+					case 2:		// Safety Processor Velocity, Position, service and status
+						if (mrcan_rx[mrcrgix].addr == c_mrcan_SPB)
+						{
+							uwu.b[lbw] = mrcan_rx[mrcrgix].data[0];
+							uwu.b[hbw] = mrcan_rx[mrcrgix].data[1];
+							if ((uwu.b[hbw] & 0x40) != 0)
+								SPB_can.vel_dir = 1;
+							else if ((uwu.b[hbw] & 0x80) != 0)
+								SPB_can.vel_dir = 2;
+							else
+								SPB_can.vel_dir = 0;
+							
+							uwu.b[hbw] &= 0x3F;
+
+							SPB_can.velocity = uwu.w;
+							uiu.dw = 0;
+							uiu.b[lb] = mrcan_rx[mrcrgix].data[2];
+							uiu.b[mlb] = mrcan_rx[mrcrgix].data[3];
+							uiu.b[mhb] = mrcan_rx[mrcrgix].data[4];
+							uiu.b[hb] = mrcan_rx[mrcrgix].data[5];
+							SPB_can.poscnt = uiu.dw;
+#if (Traction == 1)
+							if ((cons[sel_type] == 1) || (cons[sel_type] == 2))
+								SEL_Count = SPB_can.poscnt;
+#endif
+							SPB_can.service = mrcan_rx[mrcrgix].data[6];
+							SPB_can.status = mrcan_rx[mrcrgix].data[7];	
+#if (Traction == 1)
+							if (((cons[sel_type] == 1) || (cons[sel_type] == 2)) && ((SPB_can.status & 0x20) != 0))
+								SEL_Count_Valid = 1;
+							else
+								SEL_Count_Valid = 0;
+#endif				
+							mrcan_dev[mrcan_rx[mrcrgix].addr-c_mrcan_START].online_cnt = 3;
+							mrcan_dev[mrcan_rx[mrcrgix].addr-c_mrcan_START].rx_cnt++;
+						}
+						break;
+					case 3:		// Temperature sensor data
+						if (mrcan_rx[mrcrgix].addr == c_mrcan_SPB)
+						{
+							uwu.b[lbw] = mrcan_rx[mrcrgix].data[0];
+							uwu.b[hbw] = mrcan_rx[mrcrgix].data[1];
+							SPB_can.ext_temperature = uwu.w;
+#if ((Traction == 1) || (Tract_OL == 1))
+							if ((rdinp(i_P) == 1) && (rdinp(i_MCC) == 0))
+#else
+							if (rdinp(i_MCC) == 0)
+#endif
+								ext_temperature = uwu.w;		// Update only when the car is not moving
+							uwu.b[lbw] = mrcan_rx[mrcrgix].data[2];
+							uwu.b[hbw] = mrcan_rx[mrcrgix].data[3];
+							SPB_can.board_temperature = uwu.w;
+							mrcan_dev[mrcan_rx[mrcrgix].addr-c_mrcan_START].online_cnt = 5;
+							mrcan_dev[mrcan_rx[mrcrgix].addr-c_mrcan_START].rx_cnt++;
+						}
+						break;
+					case 4:		// Safety Processor UTS, DTS, UT and DT Velocities
+						if (mrcan_rx[mrcrgix].addr == c_mrcan_SPB)
+						{
+							uwu.b[lbw] = mrcan_rx[mrcrgix].data[0];
+							uwu.b[hbw] = mrcan_rx[mrcrgix].data[1];
+							SPB_can.uts_vel = uwu.w;
+							uwu.b[lbw] = mrcan_rx[mrcrgix].data[2];
+							uwu.b[hbw] = mrcan_rx[mrcrgix].data[3];
+							SPB_can.dts_vel = uwu.w;
+							uwu.b[lbw] = mrcan_rx[mrcrgix].data[4];
+							uwu.b[hbw] = mrcan_rx[mrcrgix].data[5];
+							SPB_can.ut_vel = uwu.w;
+							uwu.b[lbw] = mrcan_rx[mrcrgix].data[6];
+							uwu.b[hbw] = mrcan_rx[mrcrgix].data[7];
+							SPB_can.dt_vel = uwu.w;
+							mrcan_dev[mrcan_rx[mrcrgix].addr-c_mrcan_START].online_cnt = 3;
+							mrcan_dev[mrcan_rx[mrcrgix].addr-c_mrcan_START].rx_cnt++;
+							SPB_can.vel_rcvd = 1;
+						}
+						break;
+
+					case 5:		// Safety Processor Board Faults
+						if (mrcan_rx[mrcrgix].addr == c_mrcan_SPB)
+						{
+							i = (int16)(mrcan_rx[mrcrgix].data[0] & 0x0f);	  // start index
+							SPB_can.fault_ptr = (mrcan_rx[mrcrgix].data[0] >> 4);
+							j = mrcan_rx[mrcrgix].data[1];	  // number of bytes
+							k = 0;
+							if ((j > 0) && (j <= 8))
+							{
+								while ((i < (int)sizeof(SPB_can.fault)) && (k < j))
+								{
+									SPB_can.fault[i] = mrcan_rx[mrcrgix].data[k+2];
+									k++;
+									SPB_can.fault_cnt[i] = mrcan_rx[mrcrgix].data[k+2];
+									k++;
+									i++;
+								}
+							}
+							if (i >= (int)sizeof(SPB_can.fault))
+								SPB_can.fault_rcvd = 1;
+							mrcan_dev[mrcan_rx[mrcrgix].addr-c_mrcan_START].online_cnt = 3;
+							mrcan_dev[mrcan_rx[mrcrgix].addr-c_mrcan_START].rx_cnt++;
+						}
+						break;
+
+					case 6:		// Safety Processor Board EEProm data
+						if (mrcan_rx[mrcrgix].addr == c_mrcan_SPB)
+						{
+							i = mrcan_rx[mrcrgix].data[0];		// Start index
+							j = mrcan_rx[mrcrgix].data[1];		// Number of bytes
+							k = 0;
+							if ((j > 0) && (j <= 8))
+							{
+								while ((i < (int)(sizeof(SPB_can.eeprom)/2)) && (k < j))
+								{
+									uwu.b[lbw] = mrcan_rx[mrcrgix].data[k+2];
+									k++;
+									uwu.b[hbw] = mrcan_rx[mrcrgix].data[k+2];
+									k++;
+									SPB_can.eeprom[i] = uwu.w;
+									i++;
+								}
+							}
+							if (i >= (int)(sizeof(SPB_can.eeprom)/2))
+								SPB_can.eep_rcvd = 1;
+							mrcan_dev[mrcan_rx[mrcrgix].addr-c_mrcan_START].online_cnt = 3;
+							mrcan_dev[mrcan_rx[mrcrgix].addr-c_mrcan_START].rx_cnt++;
+						}
+						break;
+
+#if ((Traction == 1) || (Tract_OL == 1))
+					case 9:		// Brake Data
+						if (mrcan_rx[mrcrgix].addr == c_mrcan_SPB)
+						{
+							Brk_Stat = mrcan_rx[mrcrgix].data[0];
+							if ((Brk_Stat & 0x0E) == 0)
+							{
+								uwu.b[lbw] = mrcan_rx[mrcrgix].data[1];
+								uwu.b[hbw] = mrcan_rx[mrcrgix].data[2];
+								Brk_Amp = uwu.w;
+							}
+							else if ((Brk_Stat & 0x0E) == 2)
+							{
+								uwu.b[lbw] = mrcan_rx[mrcrgix].data[1];
+								uwu.b[hbw] = mrcan_rx[mrcrgix].data[2];
+								Brk_Volt_Out = uwu.w;
+							}
+							else if ((Brk_Stat & 0x0E) == 4)
+							{
+								uwu.b[lbw] = mrcan_rx[mrcrgix].data[1];
+								uwu.b[hbw] = mrcan_rx[mrcrgix].data[2];
+								Brk_Volt_In = uwu.w;
+							}
+							else if ((Brk_Stat & 0x0E) == 6)
+							{
+								uwu.b[lbw] = mrcan_rx[mrcrgix].data[1];
+								uwu.b[hbw] = mrcan_rx[mrcrgix].data[2];
+								Brk_Fault = uwu.w;
+								if ((Brk_Fault != Prev_Brk_Fault) && (Brk_Fault > 1))
+									record_fault((int16)((Brk_Fault & 0x0f) + 232));
+								Prev_Brk_Fault = Brk_Fault;
+							}
+							else if ((Brk_Stat & 0x0E) == 8)
+							{
+								uwu.b[lbw] = mrcan_rx[mrcrgix].data[1];
+								uwu.b[hbw] = mrcan_rx[mrcrgix].data[2];
+								Brk_Jumpers = uwu.w;
+							}
+							if ((Brk_Stat & 0x10) != 0)
+								misc_io_data |= 1;		// brks1
+							else
+								misc_io_data &= ~1;
+
+							if ((Brk_Stat & 0x20) != 0)
+								misc_io_data |= 2;		// brks1
+							else
+								misc_io_data &= ~2;
+
+							if (cons[brake] == 3)
+							{
+								if ((Brk_Stat & 0x40) != 0)
+									misc_io_data |= 4;		// Brake Pick Enable Switch
+								else
+									misc_io_data &= ~4;
+							}
+							else
+								misc_io_data &= ~4;
+
+							Return_Brk_Ctl = mrcan_rx[mrcrgix].data[3]; 
+							uwu.b[lbw] = mrcan_rx[mrcrgix].data[4];
+							uwu.b[hbw] = mrcan_rx[mrcrgix].data[5];
+							Return_Brk_Trig_Tim = uwu.w;
+							if (cons[brake] == 3)
+							{
+								uwu.b[lbw] = mrcan_rx[mrcrgix].data[6];
+								uwu.b[hbw] = mrcan_rx[mrcrgix].data[7];
+								Return_Brake_Voltage = uwu.w;
+							}
+							else
+								Return_Brake_Voltage = 0;
+
+							mrcan_dev[mrcan_rx[mrcrgix].addr-c_mrcan_START].online_cnt = 3;
+							mrcan_dev[mrcan_rx[mrcrgix].addr-c_mrcan_START].rx_cnt++;
+						}
+						if (mrcan_rx[mrcrgix].addr == c_mrcan_EBRK)
+						{
+							Brk_Stat = mrcan_rx[mrcrgix].data[0];
+							if ((Brk_Stat & 0x0E) == 0)
+							{
+								uwu.b[lbw] = mrcan_rx[mrcrgix].data[1];
+								uwu.b[hbw] = mrcan_rx[mrcrgix].data[2];
+								Em_Brk_Amp = uwu.w;
+							}
+							else if ((Brk_Stat & 0x0E) == 2)
+							{
+								uwu.b[lbw] = mrcan_rx[mrcrgix].data[1];
+								uwu.b[hbw] = mrcan_rx[mrcrgix].data[2];
+								Em_Brk_Volt_Out = uwu.w;
+							}
+							else if ((Brk_Stat & 0x0E) == 4)
+							{
+								uwu.b[lbw] = mrcan_rx[mrcrgix].data[1];
+								uwu.b[hbw] = mrcan_rx[mrcrgix].data[2];
+								Em_Brk_Volt_In = uwu.w;
+							}
+							else if ((Brk_Stat & 0x0E) == 6)
+							{
+								uwu.b[lbw] = mrcan_rx[mrcrgix].data[1];
+								uwu.b[hbw] = mrcan_rx[mrcrgix].data[2];
+								Em_Brk_Fault = uwu.w;
+								if ((Em_Brk_Fault != Prev_Em_Brk_Fault) && (Em_Brk_Fault > 1))
+								{
+									fault_device = c_mrcan_EBRK;
+									record_fault((int16)((Em_Brk_Fault & 0x0f) + 401));
+								}
+								Prev_Em_Brk_Fault = Em_Brk_Fault;
+							}
+							else if ((Brk_Stat & 0x0E) == 8)
+							{
+								uwu.b[lbw] = mrcan_rx[mrcrgix].data[1];
+								uwu.b[hbw] = mrcan_rx[mrcrgix].data[2];
+								Em_Brk_Jumpers = uwu.w;
+							}
+							if ((Brk_Stat & 0x10) != 0)
+								misc_io_data |= 0x08;		// brks1
+							else
+								misc_io_data &= ~0x08;
+
+							if ((Brk_Stat & 0x20) != 0)
+								misc_io_data |= 0x10;		// brks1
+							else
+								misc_io_data &= ~0x10;
+
+							if (cons[brake] == 3)
+							{
+								if ((Brk_Stat & 0x40) != 0)
+									misc_io_data |= 0x20;		// Brake Pick Enable Switch
+								else
+									misc_io_data &= ~0x20;
+							}
+							else
+								misc_io_data &= ~0x20;
+
+							Return_Em_Brk_Ctl = mrcan_rx[mrcrgix].data[3]; 
+							uwu.b[lbw] = mrcan_rx[mrcrgix].data[4];
+							uwu.b[hbw] = mrcan_rx[mrcrgix].data[5];
+							Return_Em_Brk_Trig_Tim = uwu.w;
+							if (cons[brake] == 3)
+							{
+								uwu.b[lbw] = mrcan_rx[mrcrgix].data[6];
+								uwu.b[hbw] = mrcan_rx[mrcrgix].data[7];
+								Return_Em_Brake_Voltage = uwu.w;
+							}
+							else
+								Return_Em_Brake_Voltage = 0;
+
+							mrcan_dev[mrcan_rx[mrcrgix].addr-c_mrcan_START].online_cnt = 3;
+							mrcan_dev[mrcan_rx[mrcrgix].addr-c_mrcan_START].rx_cnt++;
+						}
+						break;
+#endif
+					case 10:	  // Device Can Error Message
+						if ((mrcan_rx[mrcrgix].addr >= c_mrcan_START) && (mrcan_rx[mrcrgix].addr <= c_mrcan_END))
+						{	  // id1 is the address
+							mrcan_dev[mrcan_rx[mrcrgix].addr-c_mrcan_START].mrcan_error = mrcan_rx[mrcrgix].data[0];
+							mrcan_dev[mrcan_rx[mrcrgix].addr-c_mrcan_START].mrcan_error_data = mrcan_rx[mrcrgix].data[1];
+						}
+						break;
+
+					case 11:	// Invalid request for initialization
+						if ((mrcan_rx[mrcrgix].addr >= c_mrcan_START) && (mrcan_rx[mrcrgix].addr <= c_mrcan_END))
+						{	  // id1 is the address
+							if (mrcan_dev[mrcan_rx[mrcrgix].addr-c_mrcan_START].msg_req == 0)
+								mrcan_dev[mrcan_rx[mrcrgix].addr-c_mrcan_START].msg_req = 10;
+						}
+						break;
+
+					case 12:	// message 12: device version and revision
+						if ((mrcan_rx[mrcrgix].addr >= c_mrcan_START) && (mrcan_rx[mrcrgix].addr <= c_mrcan_VS))
+						{	  // id1 is the address
+							if (mrcan_dev[mrcan_rx[mrcrgix].addr-c_mrcan_START].version != 0) 
+							{
+								fault_device = mrcan_rx[mrcrgix].addr;
+								record_fault(f_car_dev_reset);
+							}
+							mrcan_dev[mrcan_rx[mrcrgix].addr-c_mrcan_START].version = mrcan_rx[mrcrgix].data[0];
+							mrcan_dev[mrcan_rx[mrcrgix].addr-c_mrcan_START].revision = mrcan_rx[mrcrgix].data[1];
+							if (mrcan_rx[mrcrgix].addr == c_mrcan_SPB)
+							{
+								SPB_can.version = mrcan_dev[mrcan_rx[mrcrgix].addr-c_mrcan_START].version;
+								SPB_can.revision = mrcan_dev[mrcan_rx[mrcrgix].addr-c_mrcan_START].revision; 
+							}
+							mrcan_dev[mrcan_rx[mrcrgix].addr-c_mrcan_START].online_cnt = 5;
+							mrcan_dev[mrcan_rx[mrcrgix].addr-c_mrcan_START].rx_cnt++;
+						}
+						else if ((mrcan_rx[mrcrgix].addr >= c_mrcan_SEB_1) && (mrcan_rx[mrcrgix].addr <= c_mrcan_END))
+						{	  // id1 is the address
+							if (mrcan_dev[mrcan_rx[mrcrgix].addr-c_mrcan_START].version != 0) 
+							{
+								fault_device = mrcan_rx[mrcrgix].addr;
+								record_fault(f_car_dev_reset);		// Need to change to mrcan device reset error
+							}
+							mrcan_dev[mrcan_rx[mrcrgix].addr-c_mrcan_START].version = mrcan_rx[mrcrgix].data[0];
+							mrcan_dev[mrcan_rx[mrcrgix].addr-c_mrcan_START].revision = mrcan_rx[mrcrgix].data[1];
+							timers[tcanrx + (mrcan_rx[mrcrgix].addr-c_mrcan_SEB_1)] = 0;
+							mrcan_dev[mrcan_rx[mrcrgix].addr-c_mrcan_START].online_cnt = 5;
+							mrcan_dev[mrcan_rx[mrcrgix].addr-c_mrcan_START].rx_cnt++;
+						}
+						break;
+					case 14:	// message 14: device inputs
+						if (((mrcan_rx[mrcrgix].addr >= c_mrcan_SEB_1) && (mrcan_rx[mrcrgix].addr <= c_mrcan_SEB_8)) ||
+							((mrcan_rx[mrcrgix].addr >= c_mrcan_SEB_10_io) && (mrcan_rx[mrcrgix].addr <= c_mrcan_SEB_22)))
+						{	  // id1 is the address
+							if (mrcan_rx[mrcrgix].addr >= c_mrcan_SEB_10_io)
+								iodev_ix = (int16)((mrcan_rx[mrcrgix].addr + 1) - c_mrcan_SEB_1);			// i/o inputs must line up with board i/o
+							else
+								iodev_ix = (int16)(mrcan_rx[mrcrgix].addr-c_mrcan_SEB_1);
+							serial_mrc.dev[iodev_ix].iob[0] = mrcan_rx[mrcrgix].data[0];
+							serial_mrc.dev[iodev_ix].iob[1] = (mrcan_rx[mrcrgix].data[1] & 0x0f);
+//							serial_mrc.dev[iodev_ix].iob[2] = mrcan_rx[mrcrgix].data[2];
+							mrcan_sync_dev[iodev_ix].reflect_data = 1;
+							mrcan_debug_2++;
+							timers[tcanrx + (mrcan_rx[mrcrgix].addr-c_mrcan_SEB_1)] = 0;
+							mrcan_dev[mrcan_rx[mrcrgix].addr-c_mrcan_START].online_cnt = 5;
+							mrcan_dev[mrcan_rx[mrcrgix].addr-c_mrcan_START].rx_cnt++;
+						}
+						break;
+					case 16:	// message 16: return of output data
+						if (((mrcan_rx[mrcrgix].addr >= c_mrcan_SEB_1) && (mrcan_rx[mrcrgix].addr <= c_mrcan_SEB_8)) ||
+							((mrcan_rx[mrcrgix].addr >= c_mrcan_SEB_10_io) && (mrcan_rx[mrcrgix].addr <= c_mrcan_SEB_22)))
+						{	  // id1 is the address
+							if (mrcan_rx[mrcrgix].addr >= c_mrcan_SEB_10_io)
+								iodev_ix = (int16)((mrcan_rx[mrcrgix].addr + 1) - c_mrcan_SEB_1);			// i/o inputs must line up with board i/o
+							else
+								iodev_ix = (int16)(mrcan_rx[mrcrgix].addr-c_mrcan_SEB_1);
+							mrcan_sync_dev[iodev_ix].outb[0] = (uint8)(~mrcan_rx[mrcrgix].data[0]);
+							mrcan_sync_dev[iodev_ix].outb[1] = (uint8)(~mrcan_rx[mrcrgix].data[1]);
+							mrcan_sync_dev[iodev_ix].outb[2] = (uint8)(~mrcan_rx[mrcrgix].data[2]);
+							mrcan_dev[mrcan_rx[mrcrgix].addr-c_mrcan_START].online_cnt = 5;
+							mrcan_dev[mrcan_rx[mrcrgix].addr-c_mrcan_START].rx_cnt++;
+						}
+						break;
+					case 22: // message 22: load weigher data
+						if (mrcan_rx[mrcrgix].addr == c_mrcan_LW)
+						{
+#if ((Traction == 1) || (Tract_OL == 1))
+							uwu.b[lbw] = mrcan_rx[mrcrgix].data[0];
+							uwu.b[hbw] = mrcan_rx[mrcrgix].data[1];
+							lw_data[lw_ix++] = uwu.w;
+							if (lw_ix > 9)
+								lw_ix = 0;
+							for (i=0;i<=9;i++)
+								avg_load += lw_data[i];
+							avg_load /= 10;
+							ret_lw_command = mrcan_rx[mrcrgix].data[2];	// not used
+//							if ((ret_lw_command & c_lw_calibrate) != 0)
+//								lw_command &= ~ c_lw_calibrate;
+							lw_error = mrcan_rx[mrcrgix].data[3];
+//	 					if (lw_error != 0)
+// 							lw_status |= c_lw_error;
+// 						else
+// 							lw_status &= ~c_lw_error;
+
+							mrcan_dev[mrcan_rx[mrcrgix].addr-c_mrcan_START].online_cnt = 6;
+							mrcan_dev[mrcan_rx[mrcrgix].addr-c_mrcan_START].rx_cnt++;
+#endif
+						}
+						break;
+					case 33:		// Safety Processor Board Return Command
+						if (mrcan_rx[mrcrgix].addr == c_mrcan_SPB)
+						{
+							SPB_can.command_ret = mrcan_rx[mrcrgix].data[0];
+							mrcan_dev[mrcan_rx[mrcrgix].addr-c_mrcan_START].rx_cnt++;
+						}
+						break;
+					case 44:		// message 44: Voltage Sensor Input	 (value x 10) = xxx.x Vrms
+						if (mrcan_rx[mrcrgix].addr == c_mrcan_VS)
+						{
+							uwu.b[lbw] = mrcan_rx[mrcrgix].data[0];
+							uwu.b[hbw] = mrcan_rx[mrcrgix].data[1];
+							L1_Voltage = uwu.w;
+							uwu.b[lbw] = mrcan_rx[mrcrgix].data[2];
+							uwu.b[hbw] = mrcan_rx[mrcrgix].data[3];
+							L2_Voltage = uwu.w;
+							uwu.b[lbw] = mrcan_rx[mrcrgix].data[4];
+							uwu.b[hbw] = mrcan_rx[mrcrgix].data[5];
+							L3_Voltage = uwu.w;
+							uwu.b[lbw] = mrcan_rx[mrcrgix].data[6];
+							uwu.b[hbw] = mrcan_rx[mrcrgix].data[7];
+							Door_Voltage = uwu.w;
+							mrcan_dev[mrcan_rx[mrcrgix].addr-c_mrcan_START].online_cnt = 3;
+							mrcan_dev[mrcan_rx[mrcrgix].addr-c_mrcan_START].rx_cnt++;
+						}
+						break;
+					case 46:	// message 46: Request for i/o labels
+						if (((mrcan_rx[mrcrgix].addr >= c_mrcan_SEB_1) && (mrcan_rx[mrcrgix].addr <= c_mrcan_SEB_8)) ||
+							((mrcan_rx[mrcrgix].addr >= c_mrcan_SEB_10_io) && (mrcan_rx[mrcrgix].addr <= c_mrcan_SEB_22)))
+						{	  
+							timers[tcanrx + (mrcan_rx[mrcrgix].addr-c_mrcan_SEB_1)] = 0;
+							mrcan_dev[mrcan_rx[mrcrgix].addr-c_mrcan_START].label_req = mrcan_rx[mrcrgix].data[0];
+							mrcan_dev[mrcan_rx[mrcrgix].addr-c_mrcan_START].label_ix = 0;
+							mrcan_dev[mrcan_rx[mrcrgix].addr-c_mrcan_START].online_cnt = 5;
+							mrcan_dev[mrcan_rx[mrcrgix].addr-c_mrcan_START].rx_cnt++;
+							if (mrcan_dev[mrcan_rx[mrcrgix].addr-c_mrcan_START].msg_req == 0)
+								mrcan_dev[mrcan_rx[mrcrgix].addr-c_mrcan_START].msg_req = 47;
+						}
+						break;
+					case 48:	  // Message 48: Device Error Message
+						if ((mrcan_rx[mrcrgix].addr >= c_mrcan_START) && (mrcan_rx[mrcrgix].addr <= c_mrcan_END))
+						{	  
+							mrcan_dev[mrcan_rx[mrcrgix].addr-c_mrcan_START].dev_error = mrcan_rx[mrcrgix].data[0];
+							mrcan_dev[mrcan_rx[mrcrgix].addr-c_mrcan_START].dev_error_data[0] = mrcan_rx[mrcrgix].data[1];
+							mrcan_dev[mrcan_rx[mrcrgix].addr-c_mrcan_START].dev_error_data[1] = mrcan_rx[mrcrgix].data[2];
+							if ((cons[RGB_CC] == 1) && ((mrcan_rx[mrcrgix].addr >= c_mrcan_SEB_1) && (mrcan_rx[mrcrgix].addr <= c_mrcan_SEB_22)))
+							{
+								if (mrcan_dev[mrcan_rx[mrcrgix].addr-c_mrcan_START].dev_error <  (unsigned char) sizeof(ccb_flt_tbl))
+								{
+									fault_device = mrcan_rx[mrcrgix].addr;				// device address
+									fault_device_2 = mrcan_dev[mrcan_rx[mrcrgix].addr-c_mrcan_START].dev_error_data[0];	  // local address
+									fault_prog_flag1 = mrcan_dev[mrcan_rx[mrcrgix].addr-c_mrcan_START].dev_error_data[1];	  // io number 0-11	
+									record_fault(ccb_flt_tbl[mrcan_dev[mrcan_rx[mrcrgix].addr-c_mrcan_START].dev_error]);
+								}
+							}
+						}
+ 						break;
+					case 56:		// Return Car Call Security data
+						if ((mrcan_rx[mrcrgix].addr >= c_mrcan_SEB_1) && (mrcan_rx[mrcrgix].addr <= c_mrcan_END))
+						{
+
+							if (mrcan_rx[mrcrgix].addr == c_mrcan_SEB_4)
+							{
+								return_master_cc_sec[0] &= 0xfffff000L;
+								uiu.b[lb] = mrcan_rx[mrcrgix].data[0];
+								uiu.b[mlb] = mrcan_rx[mrcrgix].data[1] & 0x0f;
+								uiu.b[mhb] = 0;
+								uiu.b[hb] = 0;
+								return_master_cc_sec[0] |= uiu.dw;
+							}
+							else if (mrcan_rx[mrcrgix].addr == c_mrcan_SEB_5) 
+							{
+								return_master_cc_sec[0] &= 0x00000fffL;
+								return_master_cc_sec[1] &= 0xfffffff0L;
+								uiu.b[lb] = 0;
+								uiu.b[mlb] = mrcan_rx[mrcrgix].data[0];
+								uiu.b[mhb] = mrcan_rx[mrcrgix].data[1];
+								uiu.b[hb] = mrcan_rx[mrcrgix].data[2];
+								return_master_cc_sec[0] |= (uiu.dw << 4);
+	#if (Tract_HR == 1)
+								return_master_cc_sec[1] |= (uiu.b[hb] >> 4);
+	#endif
+							}
+							else if (mrcan_rx[mrcrgix].addr == c_mrcan_SEB_6) 
+							{
+								return_master_rcc_sec[0] &= 0xfffe0000L;
+								uiu.b[lb] = mrcan_rx[mrcrgix].data[0];
+								uiu.b[mlb] = mrcan_rx[mrcrgix].data[1];
+								uiu.b[mhb] = mrcan_rx[mrcrgix].data[2] & 0x01;
+								uiu.b[hb] = 0;
+
+								return_master_cc_sec[0] |= uiu.dw;
+							}
+							else if (mrcan_rx[mrcrgix].addr == c_mrcan_SEB_7)
+							{
+								return_master_rcc_sec[0] &= 0x0001ffffL;
+								return_master_rcc_sec[1] &= 0xfffffe00L;
+								uiu.b[lb] = 0;
+								uiu.b[mlb] = 0;
+								uiu.b[mhb] = mrcan_rx[mrcrgix].data[0];
+								uiu.b[hb] = mrcan_rx[mrcrgix].data[1];
+								return_master_rcc_sec[0] |= (uiu.dw << 1);
+	#if (Tract_HR == 1)
+								uiu.b[lb] = mrcan_rx[mrcrgix].data[1];
+								uiu.b[mlb] = mrcan_rx[mrcrgix].data[2];
+								uiu.b[mhb] = 0;
+								uiu.b[hb] = 0;
+								return_master_rcc_sec[1] |= (uiu.b[hb] >> 7);
+	#endif
+							}
+	#if (Tract_HR == 1)
+							else if (mrcan_rx[mrcrgix].addr == c_mrcan_SEB_11)
+							{
+								return_master_cc_sec[1] &= 0x0000000fL;
+								uiu.b[lb] = mrcan_rx[mrcrgix].data[0];
+								uiu.b[mlb] = mrcan_rx[mrcrgix].data[1];
+								uiu.b[mhb] = mrcan_rx[mrcrgix].data[2];
+								uiu.b[hb] = 0;
+								return_master_cc_sec[1] |= (uiu.dw << 4);
+							}
+							else if (mrcan_rx[mrcrgix].addr == c_mrcan_SEB_12)
+							{
+								return_master_rcc_sec[1] &= 0x000001ffL;
+								uiu.b[lb] = 0;
+								uiu.b[mlb] = mrcan_rx[mrcrgix].data[0];
+								uiu.b[mhb] = mrcan_rx[mrcrgix].data[1];
+								uiu.b[hb] = mrcan_rx[mrcrgix].data[2];
+								return_master_rcc_sec[1] |= (uiu.dw << 1);
+							}
+							else if ((cons[RGB_CC] == 1) && (mrcan_rx[mrcrgix].addr == c_mrcan_SEB_18))
+							{
+								return_master_cc_sec[0] &= 0xfffff000L;
+								uiu.b[lb] = (mrcan_rx[mrcrgix].data[0] & 0x3f) | (mrcan_rx[mrcrgix].data[1] << 2);
+								uiu.b[mlb] = (mrcan_rx[mrcrgix].data[1] >> 6) | ((mrcan_rx[mrcrgix].data[2] & 0x03) << 2);
+								uiu.b[mhb] = 0;
+								uiu.b[hb] = 0;
+								return_master_cc_sec[0] |= uiu.dw;
+							}
+	#endif
+							mrcan_dev[mrcan_rx[mrcrgix].addr-c_mrcan_START].online_cnt = 5;
+							mrcan_dev[mrcan_rx[mrcrgix].addr-c_mrcan_START].rx_cnt++;
+						}
+						break;
+
+					case 57:	// message 57: Request for i/o color indexes
+						if (((mrcan_rx[mrcrgix].addr >= c_mrcan_SEB_1) && (mrcan_rx[mrcrgix].addr <= c_mrcan_SEB_8)) ||
+							((mrcan_rx[mrcrgix].addr >= c_mrcan_SEB_10_io) && (mrcan_rx[mrcrgix].addr <= c_mrcan_SEB_22)))
+						{	  
+							timers[tcanrx + (mrcan_rx[mrcrgix].addr-c_mrcan_SEB_1)] = 0;
+							mrcan_dev[mrcan_rx[mrcrgix].addr-c_mrcan_START].color_ix_req = mrcan_rx[mrcrgix].data[0];
+							mrcan_dev[mrcan_rx[mrcrgix].addr-c_mrcan_START].color_ix = 0;
+							mrcan_dev[mrcan_rx[mrcrgix].addr-c_mrcan_START].online_cnt = 5;
+							mrcan_dev[mrcan_rx[mrcrgix].addr-c_mrcan_START].rx_cnt++;
+							if (mrcan_dev[mrcan_rx[mrcrgix].addr-c_mrcan_START].msg_req == 0)
+								mrcan_dev[mrcan_rx[mrcrgix].addr-c_mrcan_START].msg_req = 58;
+						}
+						break;
+
+					default:
+						break;
+				}
+			}
+			else 
+			{
+				if ((mrcan_rx[mrcrgix].addr >= c_mrcan_START) && (mrcan_rx[mrcrgix].addr <= c_mrcan_END))
+				{
+					if (mrcan_dev[mrcan_rx[mrcrgix].addr-c_mrcan_START].msg_req == 0)
+						mrcan_dev[mrcan_rx[mrcrgix].addr-c_mrcan_START].msg_req = mrcan_rx[mrcrgix].msg;
+				}
+			}
+			mrcan_rx[mrcrgix].valid_msg = 0;
+		}
+		mrcrgix++;
+		if (mrcrgix > c_rx_buf_siz)
+			mrcrgix = 0; 
+		loop_cnt++;
+	}
+}
+
+
+//************************************************************
+//*********  Check to see if the Transmit buffer is full *****
+//************************************************************
+
+int16 IsTxBufFul(void)
+{
+
+	_disable();
+	if (mrctpix == mrctgix)
+		availbuf = c_tx_buf_siz + 1;
+	else if (mrctpix > mrctgix)
+		availbuf = (c_tx_buf_siz - mrctpix) + mrctgix + 1;
+	else 
+		availbuf = mrctgix - mrctpix;
+
+	_enable();
+	if (availbuf > 4)
+		return 0;
+	else
+		return 1;
+}
+
+
+//************************************************************
+//*********  Pack data into the Can Structure ****************
+//************************************************************
+
+
+void pack_mrcan_out(unsigned char msg, unsigned char devnmb,unsigned char tx_req)
+{
+
+	int16 iodev_ix = 0;
+	unsigned char label_ix = 0;
+	unsigned char color_ix = 0;
+	unsigned char color_on_ix = 0;
+	unsigned char color_off_ix = 0;
+	int16 array_start, io_name_start;
+	int16 i, j, k, m;
+
+#if (Traction == 1)
+	int16 t_blind = 0;
+#endif
+
+	_disable();
+	if (mrctpix < c_tx_buf_siz)
+		mrctpix++;
+	else
+		mrctpix = 0;
+	_enable();
+				
+	if (tx_req == 1)
+	{		 // Used to request a packet from a device
+		mrcan_tx[mrctpix].rtr = 1;
+		mrcan_tx[mrctpix].srr = 1;
+		mrcan_tx[mrctpix].len = 0;
+		mrcan_tx[mrctpix].ex_id = 1;		// Extended Id
+		mrcan_tx[mrctpix].one_tx = 0;
+		mrcan_tx[mrctpix].msg = msg;
+		mrcan_tx[mrctpix].addr = devnmb;
+		mrcan_tx[mrctpix].id2 = 0;
+		mrcan_tx[mrctpix].id3 = 0;
+		mrcan_tx[mrctpix].data[0] = 0;
+		mrcan_tx[mrctpix].data[1] = 0;
+		mrcan_tx[mrctpix].data[2] = 0;
+		mrcan_tx[mrctpix].data[3] = 0;
+		mrcan_tx[mrctpix].data[4] = 0;
+		mrcan_tx[mrctpix].data[5] = 0;
+		mrcan_tx[mrctpix].data[6] = 0;
+		mrcan_tx[mrctpix].data[7] = 0;
+		if ((devnmb >= c_mrcan_START) && (devnmb <= c_mrcan_END))
+		 	mrcan_dev[devnmb - c_mrcan_START].tx_cnt++;
+	}
+	else switch (msg)
+	{
+		case 1:			// Init Safety processor Board OR load weigher
+			if ((devnmb == c_mrcan_SPB) || (devnmb == c_mrcan_LW) || (devnmb == c_mrcan_VS))
+			{
+				mrcan_tx[mrctpix].rtr = 0;
+				mrcan_tx[mrctpix].srr = 1;
+				mrcan_tx[mrctpix].len = 3;
+				mrcan_tx[mrctpix].ex_id = 1;		// Extended Id
+				mrcan_tx[mrctpix].one_tx = 0;	   // ok to retransmit 
+				mrcan_tx[mrctpix].msg = msg;
+				mrcan_tx[mrctpix].addr = devnmb;
+				mrcan_tx[mrctpix].id2 = 0;
+				mrcan_tx[mrctpix].id3 = 0;
+				mrcan_tx[mrctpix].data[0] = version;
+				mrcan_tx[mrctpix].data[1] = revision;
+				mrcan_tx[mrctpix].data[2] = 0;	 		// Control byte
+
+				mrcan_tx[mrctpix].data[3] = 0;	 
+				mrcan_tx[mrctpix].data[4] = 0;	 
+				mrcan_tx[mrctpix].data[5] = 0;
+				mrcan_tx[mrctpix].data[6] = 0;
+				mrcan_tx[mrctpix].data[7] = 0;
+				mrcan_dev[devnmb - c_mrcan_START].tx_cnt++;
+			}
+			break;
+
+#if ((Traction == 1) || (Tract_OL == 1))
+		case 8:			// Brake control
+			if (devnmb == c_mrcan_SPB)
+			{
+				mrcan_tx[mrctpix].rtr = 0;
+				mrcan_tx[mrctpix].srr = 1;
+				mrcan_tx[mrctpix].len = 7;
+				mrcan_tx[mrctpix].ex_id = 1;		// Extended Id
+				mrcan_tx[mrctpix].one_tx = 0;	   // ok to retransmit 
+				mrcan_tx[mrctpix].msg = msg;
+				mrcan_tx[mrctpix].addr = devnmb;
+				mrcan_tx[mrctpix].id2 = 0;
+				mrcan_tx[mrctpix].id3 = 0;
+
+				if(cons[brake] == 3)
+				{
+					if (brake_data_req >= 4)
+						brake_data_req = 0;
+					else
+						brake_data_req++;
+				}
+				else
+					brake_data_req = 0;
+														
+				Brk_Ctl &= 0xF1;
+				Brk_Ctl |= ((brake_data_req & 0x07) << 1);
+				mrcan_tx[mrctpix].data[0] = Brk_Ctl;	// Control byte
+				uwu.w = (uint16)Brk_Trig_Tim;
+				mrcan_tx[mrctpix].data[1] = uwu.b[lbw];		// Brake trigger time low byte
+				mrcan_tx[mrctpix].data[2] = uwu.b[hbw];	 	// Brake trigger time high byte	
+				uwu.w = (uint16)Brake_Voltage;
+				mrcan_tx[mrctpix].data[3] = uwu.b[lbw];		// Brake Voltage low byte	 
+				mrcan_tx[mrctpix].data[4] = uwu.b[hbw];	 	// Brake Voltage High byte
+				uwu.w = fvars[fvbkaclv];
+				mrcan_tx[mrctpix].data[5] = uwu.b[lbw];		// Brake Line Voltage
+				mrcan_tx[mrctpix].data[6] = uwu.b[hbw];		// Brake Line Voltage
+				mrcan_tx[mrctpix].data[7] = 0;
+				mrcan_dev[devnmb - c_mrcan_START].tx_cnt++;
+			}
+			if (devnmb == c_mrcan_EBRK)
+			{
+				mrcan_tx[mrctpix].rtr = 0;
+				mrcan_tx[mrctpix].srr = 1;
+				mrcan_tx[mrctpix].len = 7;
+				mrcan_tx[mrctpix].ex_id = 1;		// Extended Id
+				mrcan_tx[mrctpix].one_tx = 0;	   // ok to retransmit 
+				mrcan_tx[mrctpix].msg = msg;
+				mrcan_tx[mrctpix].addr = devnmb;
+				mrcan_tx[mrctpix].id2 = 0;
+				mrcan_tx[mrctpix].id3 = 0;
+
+				if(cons[brake] == 3)
+				{
+					if (em_brake_data_req >= 4)
+						em_brake_data_req = 0;
+					else
+						em_brake_data_req++;
+				}
+				else
+					em_brake_data_req = 0;
+														
+				Em_Brk_Ctl &= 0xF1;
+				Em_Brk_Ctl |= ((em_brake_data_req & 0x07) << 1);
+				mrcan_tx[mrctpix].data[0] = Em_Brk_Ctl;	// Control byte
+				uwu.w = (uint16)Em_Brk_Trig_Tim;
+				mrcan_tx[mrctpix].data[1] = uwu.b[lbw];		// Brake trigger time low byte
+				mrcan_tx[mrctpix].data[2] = uwu.b[hbw];	 	// Brake trigger time high byte	
+				uwu.w = (uint16)Em_Brake_Voltage;
+				mrcan_tx[mrctpix].data[3] = uwu.b[lbw];		// Brake Voltage low byte	 
+				mrcan_tx[mrctpix].data[4] = uwu.b[hbw];	 	// Brake Voltage High byte
+				uwu.w = fvars[fvbkaclv];
+				mrcan_tx[mrctpix].data[5] = uwu.b[lbw];		// Brake Line Voltage
+				mrcan_tx[mrctpix].data[6] = uwu.b[hbw];		// Brake Line Voltage
+				mrcan_tx[mrctpix].data[7] = 0;
+				mrcan_dev[devnmb - c_mrcan_START].tx_cnt++;
+			}
+			break;
+#endif
+		case 11:		// Init data
+			if ((devnmb >= c_mrcan_SEB_1) && (devnmb <= c_mrcan_END))
+			{
+				mrcan_tx[mrctpix].rtr = 0;
+				mrcan_tx[mrctpix].srr = 1;
+				mrcan_tx[mrctpix].len = 5;
+				mrcan_tx[mrctpix].ex_id = 1;		// Extended Id
+				if (mrcan_dev[devnmb - c_mrcan_START].online == 1)
+					mrcan_tx[mrctpix].one_tx = 0;	   // ok to retransmit since device is on line
+				else
+					mrcan_tx[mrctpix].one_tx = 1;
+				mrcan_tx[mrctpix].msg = msg;
+				mrcan_tx[mrctpix].addr = devnmb;
+				mrcan_tx[mrctpix].id2 = 0;
+				mrcan_tx[mrctpix].id3 = 0;
+				mrcan_tx[mrctpix].data[0] = version;
+				mrcan_tx[mrctpix].data[1] = revision;
+				
+				if (cons[housing] == 1) 
+				{
+/*					if (devnmb == c_mrcan_SEB_4)
+					{
+						uiu.dw = cc_mask[0];
+						mrcan_tx[mrctpix].data[2] = uiu.b[lb];	 // Set board call latching mask
+						mrcan_tx[mrctpix].data[3] = (uiu.b[mlb] & 0x0f);	 // Set board call latching mask
+						mrcan_tx[mrctpix].data[4] = 0;	 // Set board call latching mask
+					}
+					else if (devnmb == c_mrcan_SEB_5) 
+					{
+						uiu.dw = cc_mask[0];
+						mrcan_tx[mrctpix].data[2] = ((uiu.b[mlb] >> 4) | (uiu.b[mhb] << 4));	 // Set board call latching mask
+						mrcan_tx[mrctpix].data[3] = ((uiu.b[mhb] >> 4) | (uiu.b[hb] << 4));	 // Set board call latching mask
+#if (Tract_HR == 1)
+						mrcan_tx[mrctpix].data[4] = ((uiu.b[hb] >> 4) & 0x0f);	 // Set board call latching mask
+						uiu.dw = cc_mask[1];
+						mrcan_tx[mrctpix].data[4] |= ((uiu.b[lb] << 4) & 0xf0);	 // Set board call latching mask
+#else
+						mrcan_tx[mrctpix].data[4] = ((uiu.b[hb] >> 4) & 0x01);	 // Set board call latching mask
+#endif
+					}
+					else if (devnmb == c_mrcan_SEB_6) 
+					{
+						uiu.dw = rcc_mask[0];
+						mrcan_tx[mrctpix].data[2] = uiu.b[lb];	 // Set board call latching mask
+						mrcan_tx[mrctpix].data[3] = uiu.b[mlb];	 // Set board call latching mask
+						mrcan_tx[mrctpix].data[4] = uiu.b[mhb] & 0x01;	 // Set board call latching mask
+					}
+				   	else if (devnmb == c_mrcan_SEB_7)
+					{
+						uiu.dw = rcc_mask[0];
+						mrcan_tx[mrctpix].data[2] = ((uiu.b[mhb] >> 1) | (uiu.b[hb] << 7));	 // Set board call latching mask
+#if (Tract_HR == 1)
+						mrcan_tx[mrctpix].data[3] = (uiu.b[hb] >> 1);	 // Set board call latching mask
+						uiu.dw = rcc_mask[1];
+						mrcan_tx[mrctpix].data[3] |= (uiu.b[lb] << 7);	 // Set board call latching mask
+						mrcan_tx[mrctpix].data[4] = (uiu.b[lb] >> 1) | (uiu.b[mlb] << 7);	 // Set board call latching mask
+#else
+						mrcan_tx[mrctpix].data[3] = ((uiu.b[hb] >> 1) & 0x0f);	 // Set board call latching mask
+						mrcan_tx[mrctpix].data[4] = 0;	 // Set board call latching mask
+#endif
+					}
+#if (Tract_HR == 1)
+					else if (devnmb == c_mrcan_SEB_11)
+					{
+						uiu.dw = cc_mask[1];
+						mrcan_tx[mrctpix].data[2] = ((uiu.b[lb] >> 4) | (uiu.b[mlb] << 4));	 // Set board call latching mask
+						mrcan_tx[mrctpix].data[3] = ((uiu.b[mlb] >> 4) | (uiu.b[mhb] << 4));	 // Set board call latching mask
+						mrcan_tx[mrctpix].data[4] = ((uiu.b[mhb] >> 4) | (uiu.b[hb] << 4));	 // Set board call latching mask
+					}
+					else if (devnmb == c_mrcan_SEB_12)
+					{
+						uiu.dw = rcc_mask[1];
+						mrcan_tx[mrctpix].data[2] = ((uiu.b[mlb] >> 1) | (uiu.b[mhb] << 7));	 // Set board call latching mask
+						mrcan_tx[mrctpix].data[3] = ((uiu.b[mhb] >> 1) | (uiu.b[hb] << 7));	 // Set board call latching mask
+						mrcan_tx[mrctpix].data[4] = ((uiu.b[hb] >> 1) & 0x0f);	 // Set board call latching mask
+					}
+#endif
+*/
+				}
+				else
+				{
+					mrcan_tx[mrctpix].data[2] = 0;	 // Set board call latching mask
+					mrcan_tx[mrctpix].data[3] = 0;	 // Set board call latching mask
+					mrcan_tx[mrctpix].data[4] = 0;	 // Set board call latching mask
+				}
+
+				mrcan_tx[mrctpix].data[5] = 0;
+				mrcan_tx[mrctpix].data[6] = 0;
+				mrcan_tx[mrctpix].data[7] = 0;
+				mrcan_dev[devnmb - c_mrcan_START].tx_cnt++;
+			}
+			break;
+		case 13:		// I/O Board outputs
+			if (((devnmb >= c_mrcan_SEB_1) && (devnmb <= c_mrcan_SEB_8)) ||
+				((devnmb >= c_mrcan_SEB_10_io) && (devnmb <= c_mrcan_SEB_22)))
+			{
+				mrcan_tx[mrctpix].rtr = 0;
+				mrcan_tx[mrctpix].srr = 1;
+				if (cons[RGB_CC] == 1)
+					mrcan_tx[mrctpix].len = 8;
+				else
+					mrcan_tx[mrctpix].len = 3;
+				mrcan_tx[mrctpix].ex_id = 1;		// Extended Id
+				if (mrcan_dev[devnmb - c_mrcan_START].online == 1)
+					mrcan_tx[mrctpix].one_tx = 0;	   // ok to retransmit since device is on line
+				else
+					mrcan_tx[mrctpix].one_tx = 1;
+				mrcan_tx[mrctpix].msg = msg;
+				mrcan_tx[mrctpix].addr = devnmb;
+				mrcan_tx[mrctpix].id2 = 0;
+				mrcan_tx[mrctpix].id3 = 0;
+				if (devnmb >= c_mrcan_SEB_10_io)
+					iodev_ix = (int16)((devnmb + 1) - c_mrcan_SEB_1);			// i/o inputs must line up with board i/o
+				else
+					iodev_ix = (int16)(devnmb-c_mrcan_SEB_1);
+				mrcan_tx[mrctpix].data[0] = (uint8)(~serial.dev[iodev_ix].outb[0]);
+				mrcan_tx[mrctpix].data[1] = (uint8)(~serial.dev[iodev_ix].outb[1]);
+				mrcan_tx[mrctpix].data[2] = (uint8)(~serial.dev[iodev_ix].outb[2]);
+				if (cons[RGB_CC] == 1)
+				{
+					uwu.w = CC_ColorOnOffChecksum;
+					mrcan_tx[mrctpix].data[3] = uwu.b[lbw];
+					mrcan_tx[mrctpix].data[4] = uwu.b[hbw];
+					uwu.w = mrcan_dev[devnmb - c_mrcan_START].ioname_chksum;
+					mrcan_tx[mrctpix].data[5] = uwu.b[lbw];
+					mrcan_tx[mrctpix].data[6] = uwu.b[hbw];
+					mrcan_tx[mrctpix].data[7] = mrcan_dev[devnmb - c_mrcan_START].io_color_ix_chksum;
+				}
+				else
+				{
+					mrcan_tx[mrctpix].data[3] = 0;
+					mrcan_tx[mrctpix].data[4] = 0;
+					mrcan_tx[mrctpix].data[5] = 0;
+					mrcan_tx[mrctpix].data[6] = 0;
+					mrcan_tx[mrctpix].data[7] = 0;
+				}
+				mrcan_dev[devnmb - c_mrcan_START].tx_cnt++;
+			}
+			break;
+		case 15:		// I/O Board inputs sent back to the can serial i/o board
+			if (((devnmb >= c_mrcan_SEB_1) && (devnmb <= c_mrcan_END)))
+			{
+				mrcan_tx[mrctpix].rtr = 0;
+				mrcan_tx[mrctpix].srr = 1;
+				mrcan_tx[mrctpix].len = 3;
+				mrcan_tx[mrctpix].ex_id = 1;		// Extended Id
+				if (mrcan_dev[devnmb - c_mrcan_START].online == 1)
+					mrcan_tx[mrctpix].one_tx = 0;	   // ok to retransmit since device is on line
+				else
+					mrcan_tx[mrctpix].one_tx = 1;
+				mrcan_tx[mrctpix].msg = msg;
+				mrcan_tx[mrctpix].addr = devnmb;
+				mrcan_tx[mrctpix].id2 = 0;
+				mrcan_tx[mrctpix].id3 = 0;
+				iodev_ix = (int16)(devnmb-c_mrcan_SEB_1);
+				mrcan_tx[mrctpix].data[0] = serial_mrc.dev[iodev_ix].inpb[0];
+				mrcan_tx[mrctpix].data[1] = serial_mrc.dev[iodev_ix].inpb[1];
+				mrcan_tx[mrctpix].data[2] = serial_mrc.dev[iodev_ix].inpb[2];
+				mrcan_tx[mrctpix].data[3] = 0;
+				mrcan_tx[mrctpix].data[4] = 0;
+				mrcan_tx[mrctpix].data[5] = 0;
+				mrcan_tx[mrctpix].data[6] = 0;
+				mrcan_tx[mrctpix].data[7] = 0;
+				mrcan_dev[devnmb - c_mrcan_START].tx_cnt++;
+			}
+			break;
+		case 21:		// Load weigher command
+			if (devnmb == c_mrcan_LW)
+			{
+#if ((Traction == 1) || (Tract_OL == 1))
+				mrcan_tx[mrctpix].rtr = 0;
+				mrcan_tx[mrctpix].srr = 1;
+				mrcan_tx[mrctpix].len = 1;
+				mrcan_tx[mrctpix].ex_id = 1;		// Extended Id
+				if (mrcan_dev[devnmb - c_mrcan_START].online == 1)
+					mrcan_tx[mrctpix].one_tx = 0;	   // ok to retransmit since device is on line
+				else
+					mrcan_tx[mrctpix].one_tx = 1;
+				mrcan_tx[mrctpix].msg = msg;
+				mrcan_tx[mrctpix].addr = devnmb;
+				mrcan_tx[mrctpix].id2 = 0;
+				mrcan_tx[mrctpix].id3 = 0;
+				mrcan_tx[mrctpix].data[0] = lw_command;
+				mrcan_tx[mrctpix].data[1] = 0;
+				mrcan_tx[mrctpix].data[2] = 0;
+				mrcan_tx[mrctpix].data[3] = 0;
+				mrcan_tx[mrctpix].data[4] = 0;
+				mrcan_tx[mrctpix].data[5] = 0;
+				mrcan_tx[mrctpix].data[6] = 0;
+				mrcan_tx[mrctpix].data[7] = 0;
+				mrcan_dev[devnmb - c_mrcan_START].tx_cnt++;
+#endif
+			}
+			break;
+		case 23:		// Selector/SPB position init command
+#if (Traction == 1) 
+			if ((devnmb == c_mrcan_SPB) || (devnmb == c_mrcan_SEL)) 
+			{
+				mrcan_tx[mrctpix].rtr = 0;
+				mrcan_tx[mrctpix].srr = 1;
+				mrcan_tx[mrctpix].len = 5;
+				mrcan_tx[mrctpix].ex_id = 1;		// Extended Id
+				if (mrcan_dev[devnmb - c_mrcan_START].online == 1)
+					mrcan_tx[mrctpix].one_tx = 0;	   // ok to retransmit since device is on line
+				else
+					mrcan_tx[mrctpix].one_tx = 1;
+				mrcan_tx[mrctpix].msg = msg;
+				mrcan_tx[mrctpix].addr = devnmb;
+				mrcan_tx[mrctpix].id2 = 0;
+				mrcan_tx[mrctpix].id3 = 0;
+				uiu.dw = SEL_Preset_Count;
+				mrcan_tx[mrctpix].data[0] = 1;		// preset count flag
+				mrcan_tx[mrctpix].data[1] = uiu.b[lb];
+				mrcan_tx[mrctpix].data[2] = uiu.b[mlb];
+				mrcan_tx[mrctpix].data[3] = uiu.b[mhb];
+				mrcan_tx[mrctpix].data[4] = uiu.b[hb];
+				mrcan_tx[mrctpix].data[5] = 0;
+				mrcan_tx[mrctpix].data[6] = 0;
+				mrcan_tx[mrctpix].data[7] = 0;
+				mrcan_dev[devnmb - c_mrcan_START].tx_cnt++;
+			}
+#endif
+			break;
+		case 25:		// PI and Lantern message
+			if (devnmb == c_mrcan_PI_LANT)
+			{
+				mrcan_tx[mrctpix].rtr = 0;
+				mrcan_tx[mrctpix].srr = 1;
+				mrcan_tx[mrctpix].len = 8;
+				mrcan_tx[mrctpix].ex_id = 1;		// Extended Id
+				mrcan_tx[mrctpix].one_tx = 0;		
+				mrcan_tx[mrctpix].msg = msg;
+				mrcan_tx[mrctpix].addr = c_mrcan_PI_LANT_id;
+				mrcan_tx[mrctpix].id2 = 0;
+				mrcan_tx[mrctpix].id3 = 0;
+#if (Traction == 1)
+				t_blind = blind();
+#endif
+				if (cons[Xref_PI_Pos] == 1)
+					mrcan_tx[mrctpix].data[0] = xpi_pos[pi_pos];
+#if (Traction == 1)
+				else if (t_blind == 1)
+					mrcan_tx[mrctpix].data[0] = (uint8)(cons[topf] + 1);
+				else if (t_blind == 2)
+					mrcan_tx[mrctpix].data[0] = (uint8)(cons[topf] + 2);
+#endif
+				else
+					mrcan_tx[mrctpix].data[0] = pi_pos;
+
+				if ((servf == 25) && ((fvars[fvsabbdis] & 0x01) != 0))
+				{
+					mrcan_tx[mrctpix].data[1] = 'S';
+					mrcan_tx[mrctpix].data[2] = 'B';
+				}
+				else if (cons[Alt_Ascii_pi] == 1)
+				{
+					if ( ((alt_flmrk[pi_pos][0]) != (flmrk[pi_pos][0])) ||
+						((alt_flmrk[pi_pos][1]) != (flmrk[pi_pos][1])) )
+					{
+						if ((timers[taltpi_on]) > 20)
+						{
+							if ((timers[taltpi_off]) > 20)
+								timers[taltpi_on] = 0;
+							mrcan_tx[mrctpix].data[1] = alt_flmrk[pi_pos][0];
+							mrcan_tx[mrctpix].data[2] = alt_flmrk[pi_pos][1];
+						}
+						else
+						{
+							timers[taltpi_off] = 0;
+							mrcan_tx[mrctpix].data[1] = flmrk[pi_pos][0];
+					  		mrcan_tx[mrctpix].data[2] = flmrk[pi_pos][1];
+						}
+					}
+					else {
+							timers[taltpi_off] = 0;
+							timers[taltpi_on] = 0;
+#if (Traction == 1)
+							if ((t_blind == 1) && (cons[Blind_Floor] != 0))
+							{
+								mrcan_tx[mrctpix].data[1] = Blind_flmrk[0][0];
+								mrcan_tx[mrctpix].data[2] = Blind_flmrk[0][1];
+							}
+							else if ((t_blind == 2) && (cons[Blind_Floor_2] != 0))
+							{
+								mrcan_tx[mrctpix].data[1] = Blind_flmrk[1][0];
+								mrcan_tx[mrctpix].data[2] = Blind_flmrk[1][1];
+							}
+							else
+#endif
+							{
+							
+								mrcan_tx[mrctpix].data[1] = flmrk[pi_pos][0];
+								mrcan_tx[mrctpix].data[2] = flmrk[pi_pos][1];
+							}
+					}
+				}
+				else 
+				{
+#if (Traction == 1)
+					if ((t_blind == 1) && (cons[Blind_Floor] != 0))
+					{
+						mrcan_tx[mrctpix].data[1] = Blind_flmrk[0][0];
+						mrcan_tx[mrctpix].data[2] = Blind_flmrk[0][1];
+					}
+					else if ((t_blind == 2) && (cons[Blind_Floor_2] != 0))
+					{
+						mrcan_tx[mrctpix].data[1] = Blind_flmrk[1][0];
+						mrcan_tx[mrctpix].data[2] = Blind_flmrk[1][1];
+					}
+					else
+#endif
+					{
+						mrcan_tx[mrctpix].data[1] = flmrk[pi_pos][0];
+						mrcan_tx[mrctpix].data[2] = flmrk[pi_pos][1];
+					}
+				}
+				if((alrm_pi_stat == 1) && (timers[tsec] != 0))
+				{
+					mrcan_tx[mrctpix].data[1] = 'A';
+					mrcan_tx[mrctpix].data[2] = 'L';
+				}
+				
+				
+
+				mrcan_tx[mrctpix].data[3] = pi_lant_stat;
+				mrcan_tx[mrctpix].data[4] = pi_motion_stat;
+				mrcan_tx[mrctpix].data[5] = pi_fire_stat;
+				mrcan_tx[mrctpix].data[6] = pi_door_stat;
+				mrcan_tx[mrctpix].data[7] = pi_misc_stat;
+			}
+			break;
+		case 32:		// SPB special command packet
+			if (devnmb == c_mrcan_SPB)
+			{			  // Front Door
+				mrcan_tx[mrctpix].rtr = 0;
+				mrcan_tx[mrctpix].srr = 1;
+				mrcan_tx[mrctpix].len = 1;
+				mrcan_tx[mrctpix].ex_id = 1;		// Extended Id
+				mrcan_tx[mrctpix].one_tx = 0;		
+				mrcan_tx[mrctpix].msg = msg;
+				mrcan_tx[mrctpix].addr = devnmb;
+				mrcan_tx[mrctpix].id2 = 0;
+				mrcan_tx[mrctpix].id3 = 0;
+				mrcan_tx[mrctpix].data[0] = (SPB_can.command & spbc_cmd_mask);
+				mrcan_tx[mrctpix].data[1] = 0;
+				mrcan_tx[mrctpix].data[2] = 0;
+				mrcan_tx[mrctpix].data[3] = 0;
+				mrcan_tx[mrctpix].data[4] = 0;
+				mrcan_tx[mrctpix].data[5] = 0;
+				mrcan_tx[mrctpix].data[6] = 0;
+				mrcan_tx[mrctpix].data[7] = 0;
+				mrcan_dev[devnmb - c_mrcan_START].tx_cnt++;
+			}
+			break;
+		case 35:		// Selector RETURN data
+			if ((devnmb == c_mrcan_SPB) || (devnmb == c_mrcan_SEL)) 
+			{
+				mrcan_tx[mrctpix].rtr = 0;
+				mrcan_tx[mrctpix].srr = 1;
+				mrcan_tx[mrctpix].len = 6;
+				mrcan_tx[mrctpix].ex_id = 1;		// Extended Id
+				if (mrcan_dev[devnmb - c_mrcan_START].online == 1)
+					mrcan_tx[mrctpix].one_tx = 0;	   // ok to retransmit since device is on line
+				else
+					mrcan_tx[mrctpix].one_tx = 1;
+				mrcan_tx[mrctpix].msg = msg;
+				mrcan_tx[mrctpix].addr = devnmb;
+				mrcan_tx[mrctpix].id2 = 0;
+				mrcan_tx[mrctpix].id3 = 0;
+				mrcan_tx[mrctpix].data[0] = SEL_can.status;
+				mrcan_tx[mrctpix].data[1] = SEL_can.position;
+				mrcan_tx[mrctpix].data[2] = SEL_can.doorzone;
+				mrcan_tx[mrctpix].data[3] = SEL_can.up_normal_limits;
+				mrcan_tx[mrctpix].data[4] = SEL_can.dn_normal_limits;
+				mrcan_tx[mrctpix].data[5] = SEL_can.em_terminal_limits;
+				mrcan_tx[mrctpix].data[6] = 0;
+				mrcan_tx[mrctpix].data[7] = 0;
+				mrcan_dev[devnmb - c_mrcan_START].tx_cnt++;
+			}
+			break;
+		case 43:		// Global Car Call Light Brightness and Color	 (any one can request a 43)
+			mrcan_tx[mrctpix].rtr = 0;
+				mrcan_tx[mrctpix].srr = 1;
+			mrcan_tx[mrctpix].len = 8;
+			mrcan_tx[mrctpix].ex_id = 1;		// Extended Id
+			mrcan_tx[mrctpix].one_tx = 0;		
+			mrcan_tx[mrctpix].msg = msg;
+			mrcan_tx[mrctpix].addr = c_mrcan_GLOBAL;
+			mrcan_tx[mrctpix].id2 = 0;
+			mrcan_tx[mrctpix].id3 = 0;
+			mrcan_tx[mrctpix].data[0] =	(uint8)color_send_ix;
+			if (color_send_ix == 0)
+			{
+				mrcan_tx[mrctpix].data[1] = 9;
+				mrcan_tx[mrctpix].data[2] = (uint8)ccOnBright;			// Call On Brightness
+				mrcan_tx[mrctpix].data[3] = (uint8)ccOffBright;		// Call Off Brightness
+				mrcan_tx[mrctpix].data[4] = (uint8)ccSecOnRed;			// Security On Red
+				mrcan_tx[mrctpix].data[5] = (uint8)ccSecOnGreen; 		// Security On Green
+				mrcan_tx[mrctpix].data[6] = (uint8)ccSecOnBlue; 		// Security Blue
+			}
+			else if (color_send_ix == 1)
+			{
+				mrcan_tx[mrctpix].data[1] = (uint8)ccAttUpOnRed;			// Attendant Up On Red
+				mrcan_tx[mrctpix].data[2] = (uint8)ccAttUpOnGreen;			// Attendant Up On Green
+				mrcan_tx[mrctpix].data[3] = (uint8)ccAttUpOnBlue;			// Attendant Up On Blue
+				mrcan_tx[mrctpix].data[4] = (uint8)ccAttDnOnRed;			// Attendant Dn On Red
+				mrcan_tx[mrctpix].data[5] = (uint8)ccAttDnOnGreen; 		// Attendant Dn On Green
+				mrcan_tx[mrctpix].data[6] = (uint8)ccAttDnOnBlue;			// Attendant Dn On Blue
+			}
+			else if (color_send_ix == 2)
+			{
+				mrcan_tx[mrctpix].data[1] = (uint8)ccOffRed;			// Call Off Red
+				mrcan_tx[mrctpix].data[2] = (uint8)ccOffGreen;			// Call Off Green
+				mrcan_tx[mrctpix].data[3] = (uint8)ccOffBlue;			// Call Off Blue
+				mrcan_tx[mrctpix].data[4] = (uint8)ccOnRed;			// Call On Red
+				mrcan_tx[mrctpix].data[5] = (uint8)ccOnGreen;			// Call On Green
+				mrcan_tx[mrctpix].data[6] = (uint8)ccOnBlue;			// Call On Blue
+			}
+			else if (color_send_ix == 3)
+			{
+				mrcan_tx[mrctpix].data[1] = (uint8)copFireOnRed;			// Fire On Red
+				mrcan_tx[mrctpix].data[2] = (uint8)copFireOnGreen;			// Fire On Green
+				mrcan_tx[mrctpix].data[3] = (uint8)copFireOnBlue;			// Fire On Blue
+				mrcan_tx[mrctpix].data[4] = (uint8)copMedOnRed;			// Medical On Red
+				mrcan_tx[mrctpix].data[5] = (uint8)copMedOnGreen; 			// Medical On Green
+				mrcan_tx[mrctpix].data[6] = (uint8)copMedOnBlue;			// Medical On Blue
+			}
+			else if (color_send_ix == 4)
+			{
+				mrcan_tx[mrctpix].data[1] = (uint8)copEmOnRed;				// Emergency On Red
+				mrcan_tx[mrctpix].data[2] = (uint8)copEmOnGreen;			// Emergency On Green
+				mrcan_tx[mrctpix].data[3] = (uint8)copEmOnBlue;			// Emergency On Blue
+				mrcan_tx[mrctpix].data[4] = (uint8)copOTSOnRed;			// OTS On Red
+				mrcan_tx[mrctpix].data[5] = (uint8)copOTSOnGreen; 			// OTS On Green
+				mrcan_tx[mrctpix].data[6] = (uint8)copOTSOnBlue;			// OTS On Blue
+			}
+			mrcan_tx[mrctpix].data[7] =	0;
+			color_send_ix++;
+			if (color_send_ix <= 4)
+			{
+				if (mrcan_dev[devnmb - c_mrcan_START].msg_req == 0)
+					mrcan_dev[devnmb - c_mrcan_START].msg_req = 43;	
+			}
+			else
+				color_send_ix = 0;	
+			break;
+
+		case 47:		// Send I/O Board Label
+			if (((devnmb >= c_mrcan_SEB_1) && (devnmb <= c_mrcan_SEB_8)) ||
+				((devnmb >= c_mrcan_SEB_10_io) && (devnmb <= c_mrcan_SEB_22)))
+			{
+				if (mrcan_dev[devnmb - c_mrcan_START].label_req != 0)
+				{
+					iodev_ix = (int16)(devnmb-c_mrcan_SEB_1);
+					label_ix = mrcan_dev[devnmb - c_mrcan_START].label_ix;
+					array_start = (int16)((IODATA_ARRAY_START + iodev_ix) * 3); 		// input array
+					i = (int16)(label_ix/8);		   // io_ix = 0 to 23
+					j = (int16)(label_ix % 8);
+					if ((io_send_name[array_start+i] & bittbl[j & 0x07]) != 0)
+						k = 0;	   // input label is set
+					else if ((io_send_name[array_start+3+i] & bittbl[j & 0x07]) != 0)
+						k = 3;		// output label is set
+					else
+						k = 0; // default to input label if not set
+
+					mrcan_tx[mrctpix].rtr = 0;
+					mrcan_tx[mrctpix].srr = 1;
+					mrcan_tx[mrctpix].len = 8;
+					mrcan_tx[mrctpix].ex_id = 1;		// Extended Id
+					if (mrcan_dev[devnmb - c_mrcan_START].online == 1)
+						mrcan_tx[mrctpix].one_tx = 0;	   // ok to retransmit since device is on line
+					else
+						mrcan_tx[mrctpix].one_tx = 1;
+					mrcan_tx[mrctpix].msg = msg;
+					mrcan_tx[mrctpix].addr = devnmb;
+					mrcan_tx[mrctpix].id2 = 0;
+					mrcan_tx[mrctpix].id3 = 0;
+					mrcan_tx[mrctpix].data[0] = label_ix;
+					io_name_start = (array_start + k) * 8;
+					mrcan_tx[mrctpix].data[1] = ioname[io_name_start + label_ix][0];
+					mrcan_tx[mrctpix].data[2] = ioname[io_name_start + label_ix][1];
+					mrcan_tx[mrctpix].data[3] = ioname[io_name_start + label_ix][2];
+					mrcan_tx[mrctpix].data[4] = ioname[io_name_start + label_ix][3];
+					mrcan_tx[mrctpix].data[5] = ioname[io_name_start + label_ix][4];
+
+					color_on_ix = io_on_color_ix[io_name_start + label_ix];
+
+					if (color_on_ix == 0)
+						color_off_ix = 0;
+					else
+						color_off_ix = 4;
+
+					if (((color_on_ix == 6) && ((fvars[fvbklton] & 0x01) == 0)) ||
+						((color_on_ix == 7) && ((fvars[fvbklton] & 0x02) == 0)) ||
+						((color_on_ix == 8) && ((fvars[fvbklton] & 0x04) == 0)) ||
+						((color_on_ix == 9) && ((fvars[fvbklton] & 0x08) == 0)) ||
+						((color_on_ix == 2) && ((fvars[fvbklton] & 0x10) == 0)) ||
+						((color_on_ix == 3) && ((fvars[fvbklton] & 0x10) == 0)) ||
+						((color_on_ix == 4) && ((fvars[fvbklton] & 0x20) == 0)))
+						color_off_ix = 0;
+
+					mrcan_tx[mrctpix].data[6] = color_on_ix;		// On State Color
+					mrcan_tx[mrctpix].data[7] = color_off_ix;	    // Off State Color
+
+					label_ix ++;
+					mrcan_dev[devnmb - c_mrcan_START].label_ix = label_ix;
+					if (label_ix <= 23) 
+					{
+						if (mrcan_dev[devnmb - c_mrcan_START].msg_req == 0)
+							mrcan_dev[devnmb - c_mrcan_START].msg_req = 47;	
+					}
+					else
+					{
+						mrcan_dev[devnmb - c_mrcan_START].label_ix = 0;
+						mrcan_dev[devnmb - c_mrcan_START].label_req = 0;
+					}
+					mrcan_dev[devnmb - c_mrcan_START].tx_cnt++;
+				}
+			}
+			break;
+		case 49:			// Message 49: Reset Error Message
+			mrcan_tx[mrctpix].rtr = 0;
+			mrcan_tx[mrctpix].srr = 1;
+			mrcan_tx[mrctpix].len = 1;
+			mrcan_tx[mrctpix].ex_id = 1;		// Extended Id
+			mrcan_tx[mrctpix].one_tx = 0;	   // ok to retransmit 
+			mrcan_tx[mrctpix].msg = msg;
+			mrcan_tx[mrctpix].addr = devnmb;
+			mrcan_tx[mrctpix].id2 = 0;
+			mrcan_tx[mrctpix].id3 = 0;
+			mrcan_tx[mrctpix].data[0] = 0x03;		// Control byte - bit0: reset error , bit 1: clear error buffer
+			mrcan_tx[mrctpix].data[1] = 0;
+			mrcan_tx[mrctpix].data[2] = 0;	 		 
+			mrcan_tx[mrctpix].data[3] = 0;	 
+			mrcan_tx[mrctpix].data[4] = 0;	 
+			mrcan_tx[mrctpix].data[5] = 0;
+			mrcan_tx[mrctpix].data[6] = 0;
+			mrcan_tx[mrctpix].data[7] = 0;
+			mrcan_dev[devnmb - c_mrcan_START].tx_cnt++;
+			break;
+		case 52:			// Message 52: Sync Timer
+			mrcan_tx[mrctpix].rtr = 0;
+			mrcan_tx[mrctpix].srr = 1;
+			mrcan_tx[mrctpix].len = 3;
+			mrcan_tx[mrctpix].ex_id = 1;		// Extended Id
+			mrcan_tx[mrctpix].one_tx = 0;	   // ok to retransmit 
+			mrcan_tx[mrctpix].msg = msg;
+			mrcan_tx[mrctpix].addr = devnmb;
+			mrcan_tx[mrctpix].id2 = 0;
+			mrcan_tx[mrctpix].id3 = 0;
+			if (lt_status_count == 3)
+				cop_lt_status  = 0x04;			// turn off security light
+			else if (lt_status_count == 1)
+				cop_lt_status = 0x01;			// turn on up attendant
+			else if (lt_status_count == 2)
+				cop_lt_status = 0x02;			// turn on down attendant
+			else
+				cop_lt_status = 0;
+
+			if ((fvars[fvccltctl] & 0x02) != 0)
+			{
+				if (((rdinp(i_ATT) == 1) && (cons[att] == 1)) || (cons[att] == 2) || ((cons[Car_Sw] & 1) != 0))
+					cop_lt_status |= 0x80;
+			}
+							
+			mrcan_tx[mrctpix].data[0] = mrcan_sync_count;		
+			mrcan_tx[mrctpix].data[1] = (uint8)fvars[fvcansynccnt];
+			mrcan_tx[mrctpix].data[2] = cop_lt_status;	 		 
+			mrcan_tx[mrctpix].data[3] = 0;	 
+			mrcan_tx[mrctpix].data[4] = 0;	 
+			mrcan_tx[mrctpix].data[5] = 0;
+			mrcan_tx[mrctpix].data[6] = 0;
+			mrcan_tx[mrctpix].data[7] = 0;
+			mrcan_sync_count++;
+			if (mrcan_sync_count > fvars[fvcansynccnt])
+			{
+				mrcan_sync_count = 0;
+				lt_status_count ++;
+				if (((rdinp(i_ATT) == 1) && (cons[att] == 1)) || (cons[att] == 2) ||
+ 					((cons[Car_Sw] & 1) != 0))
+ 				{
+ 			 		if ((g_up_hall_call[0][cons[carnmb]] == 0) && (g_up_hall_call[1][cons[carnmb]] == 0))
+ 					{
+ 						if (lt_status_count == 1)
+ 							lt_status_count++;
+ 					}
+ 			 		if ((g_dn_hall_call[0][cons[carnmb]] == 0) && (g_dn_hall_call[1][cons[carnmb]] == 0))
+ 					{
+ 						if (lt_status_count == 2)
+ 							lt_status_count++;
+ 					}
+					if (lt_status_count > 2)
+						lt_status_count = 0;
+ 				}
+
+ 				else if ((master_cc_sec[0] != 0) || (master_cc_sec[0] != 0))
+				{
+					if ((fvars[fvccltctl] & 0x01) != 0)
+					{
+						if (lt_status_count == 1)
+							lt_status_count = 3;
+
+						if (lt_status_count > 3)
+							lt_status_count = 0;
+					}
+					else
+						lt_status_count = 0;
+				}
+			}
+			
+			break;
+		case 55:		// Send Car Call Security data
+			if ((devnmb >= c_mrcan_SEB_1) && (devnmb <= c_mrcan_END))
+			{
+				mrcan_tx[mrctpix].rtr = 0;
+				mrcan_tx[mrctpix].srr = 1;
+				mrcan_tx[mrctpix].len = 3;
+				mrcan_tx[mrctpix].ex_id = 1;		// Extended Id
+				if (mrcan_dev[devnmb - c_mrcan_START].online == 1)
+					mrcan_tx[mrctpix].one_tx = 0;	   // ok to retransmit since device is on line
+				else
+					mrcan_tx[mrctpix].one_tx = 1;
+				mrcan_tx[mrctpix].msg = msg;
+				mrcan_tx[mrctpix].addr = devnmb;
+				mrcan_tx[mrctpix].id2 = 0;
+				mrcan_tx[mrctpix].id3 = 0;
+
+				if (devnmb == c_mrcan_SEB_4)
+				{
+					uiu.dw = master_cc_sec[0];
+					mrcan_tx[mrctpix].data[0] = uiu.b[lb];	 // Set board call latching mask
+					mrcan_tx[mrctpix].data[1] = (uiu.b[mlb] & 0x0f);	 // Set board call latching mask
+					mrcan_tx[mrctpix].data[2] = 0;	 // Set board call latching mask
+				}
+				else if (devnmb == c_mrcan_SEB_5) 
+				{
+					uiu.dw = master_cc_sec[0];
+					mrcan_tx[mrctpix].data[0] = ((uiu.b[mlb] >> 4) | (uiu.b[mhb] << 4));	 // Set board call latching mask
+					mrcan_tx[mrctpix].data[1] = ((uiu.b[mhb] >> 4) | (uiu.b[hb] << 4));	 // Set board call latching mask
+		
+#if (Tract_HR == 1)
+			   		mrcan_tx[mrctpix].data[2] = ((uiu.b[hb] >> 4) & 0x0f);	 // Set board call latching mask
+
+					uiu.dw = master_cc_sec[0];
+			   		mrcan_tx[mrctpix].data[2] |= ((uiu.b[lb] << 4) & 0xf0);	 // Set board call latching mask
+#else
+					mrcan_tx[mrctpix].data[2] = ((uiu.b[hb] >> 4) & 0x01);	 // Set board call latching mask
+#endif
+				}
+				else if (devnmb == c_mrcan_SEB_6) 
+				{
+					uiu.dw = master_rcc_sec[0];
+					mrcan_tx[mrctpix].data[0] = uiu.b[lb];	 // Set board call latching mask
+					mrcan_tx[mrctpix].data[1] = uiu.b[mlb];	 // Set board call latching mask
+					mrcan_tx[mrctpix].data[2] = uiu.b[mhb] & 0x01;	 // Set board call latching mask
+				}
+				else if (devnmb == c_mrcan_SEB_7)
+				{
+					uiu.dw = master_rcc_sec[0];
+
+					mrcan_tx[mrctpix].data[0] = ((uiu.b[mhb] >> 1) | (uiu.b[hb] << 7));	 // Set board call latching mask
+#if (Tract_HR == 1)
+					mrcan_tx[mrctpix].data[1] = (uiu.b[hb] >> 1);	 // Set board call latching mask
+					uiu.dw = master_rcc_sec[1];
+					mrcan_tx[mrctpix].data[1] |= (uiu.b[lb] << 7);	 // Set board call latching mask
+					mrcan_tx[mrctpix].data[2] = (uiu.b[lb] >> 1) | (uiu.b[mlb] << 7);	 // Set board call latching mask
+#else
+					mrcan_tx[mrctpix].data[1] = ((uiu.b[hb] >> 1) & 0x0f);	 // Set board call latching mask
+					mrcan_tx[mrctpix].data[2] = 0;	 // Set board call latching mask
+#endif
+				}
+#if (Tract_HR == 1)
+				else if (devnmb == c_mrcan_SEB_11)
+				{
+					uiu.dw = master_cc_sec[1];
+					mrcan_tx[mrctpix].data[0] = ((uiu.b[lb] >> 4) | (uiu.b[mlb] << 4));	 // Set board call latching mask
+					mrcan_tx[mrctpix].data[1] = ((uiu.b[mlb] >> 4) | (uiu.b[mhb] << 4));	 // Set board call latching mask
+					mrcan_tx[mrctpix].data[2] = ((uiu.b[mhb] >> 4) | (uiu.b[hb] << 4));	 // Set board call latching mask
+				}
+				else if (devnmb == c_mrcan_SEB_12)
+				{
+					uiu.dw = master_cc_sec[1];
+					mrcan_tx[mrctpix].data[0] = ((uiu.b[mlb] >> 1) | (uiu.b[mhb] << 7));	 // Set board call latching mask
+					mrcan_tx[mrctpix].data[1] = ((uiu.b[mhb] >> 1) | (uiu.b[hb] << 7));	 // Set board call latching mask
+					mrcan_tx[mrctpix].data[2] = ((uiu.b[hb] >> 1) & 0x0f);	 // Set board call latching mask
+				}
+				else if ((cons[RGB_CC] == 1) && (devnmb == c_mrcan_SEB_18))
+				{
+					uiu.dw = master_cc_sec[0];
+					mrcan_tx[mrctpix].data[0] = uiu.b[lb] & 0x3f;	 // Set board call latching mask
+					mrcan_tx[mrctpix].data[1] = ((uiu.b[lb] & 0xc0) >> 2) | (uiu.b[mlb] << 6);	 // Set board call latching mask
+					mrcan_tx[mrctpix].data[2] = (uiu.b[mlb] >> 2) & 0x02;	 // Set board call latching mask
+				}
+#endif
+				mrcan_tx[mrctpix].data[3] = 0;
+				mrcan_tx[mrctpix].data[4] = 0;
+				mrcan_tx[mrctpix].data[5] = 0;
+				mrcan_tx[mrctpix].data[6] = 0;
+				mrcan_tx[mrctpix].data[7] = 0;
+				mrcan_dev[devnmb - c_mrcan_START].tx_cnt++;
+			}
+			break;
+
+		case 58:		// Send I/O Board i/o Color index
+			if ((devnmb >= c_mrcan_SEB_1) && (devnmb <= c_mrcan_END))
+			{
+				if (mrcan_dev[devnmb - c_mrcan_START].color_ix_req != 0)
+				{
+					iodev_ix = (int16)(devnmb-c_mrcan_SEB_1);
+					color_ix = mrcan_dev[devnmb - c_mrcan_START].color_ix;	
+					array_start = (int16)((IODATA_ARRAY_START + iodev_ix) * 3); 		// input array
+					//m = color_ix * 3;
+
+					mrcan_tx[mrctpix].rtr = 0;
+					mrcan_tx[mrctpix].srr = 1;
+					mrcan_tx[mrctpix].len = 7;
+					mrcan_tx[mrctpix].ex_id = 1;		// Extended Id
+					if (mrcan_dev[devnmb - c_mrcan_START].online == 1)
+						mrcan_tx[mrctpix].one_tx = 0;	   // ok to retransmit since device is on line
+					else
+						mrcan_tx[mrctpix].one_tx = 1;
+					mrcan_tx[mrctpix].msg = msg;
+					mrcan_tx[mrctpix].addr = devnmb;
+					mrcan_tx[mrctpix].id2 = 0;
+					mrcan_tx[mrctpix].id3 = 0;
+					mrcan_tx[mrctpix].data[0] = color_ix/3;	 //changed drw
+
+					for(m=0;m<3;m++)
+					{
+						i = (int16)(color_ix/8);		   // io_ix = 0 to 23
+						j = (int16)(color_ix % 8);
+
+						if ((io_send_name[array_start+i] & bittbl[j & 0x07]) != 0)
+							k = 0;	   // input label is set
+						else if ((io_send_name[array_start+3+i] & bittbl[j & 0x07]) != 0)
+							k = 3;		// output label is set
+						else
+							k = 0; // default to input label if not set
+
+						io_name_start = (array_start + k) * 8;
+						//color_on_ix = io_on_color_ix[io_name_start + m];	   //changed drw
+
+						color_on_ix = io_on_color_ix[io_name_start + color_ix];	   //changed drw
+						if (color_on_ix == 0)
+							color_off_ix = 0;
+						else
+							color_off_ix = 4;
+						if (((color_on_ix == 6) && ((fvars[fvbklton] & 0x01) == 0)) ||
+							((color_on_ix == 7) && ((fvars[fvbklton] & 0x02) == 0)) ||
+							((color_on_ix == 8) && ((fvars[fvbklton] & 0x04) == 0)) ||
+							((color_on_ix == 9) && ((fvars[fvbklton] & 0x08) == 0)) ||
+							((color_on_ix == 2) && ((fvars[fvbklton] & 0x10) == 0)) ||
+							((color_on_ix == 3) && ((fvars[fvbklton] & 0x10) == 0)) ||
+							((color_on_ix == 4) && ((fvars[fvbklton] & 0x20) == 0)))
+							color_off_ix = 0;
+
+						mrcan_tx[mrctpix].data[(m*2)+1] = color_on_ix;		// On State Color
+						mrcan_tx[mrctpix].data[(m*2)+2] = color_off_ix;	    // Off State Color
+	 					color_ix++;
+ 					}
+ 					mrcan_dev[devnmb - c_mrcan_START].color_ix = color_ix;
+					if (color_ix <= 23) 
+					{
+						if (mrcan_dev[devnmb - c_mrcan_START].msg_req == 0)
+							mrcan_dev[devnmb - c_mrcan_START].msg_req = 58;	
+					}
+					else
+					{
+						mrcan_dev[devnmb - c_mrcan_START].color_ix = 0;
+						mrcan_dev[devnmb - c_mrcan_START].color_ix_req = 0;
+					}
+					mrcan_dev[devnmb - c_mrcan_START].tx_cnt++;
+				}
+			}
+			break;
+
+   		default:
+			break;
+	}
+}
+
+//************************************************************
+//*********  Transmit Can Message  ***************************
+//************************************************************
+
+void tx_mrcan_msg(int16 TxBufIx)
+{
+	if (mrctgix != mrctpix)
+	{
+		
+		switch (TxBufIx)
+		{
+			
+			case 8:
+				if ((MR_CAN.MB[TxBufIx].MSG.MCS.B.CODE == 0x08) || (MR_CAN.MB[TxBufIx].MSG.MCS.B.CODE == 0x04) || 
+					(MR_CAN.MB[TxBufIx].MSG.MCS.B.CODE == 0x0A) || (MR_CAN.MB[TxBufIx].MSG.MCS.B.CODE == 0x09) ||
+					(MR_CAN.MB[TxBufIx].MSG.MCS.B.CODE == 0x00))
+				{		// The transmitter is not busy
+					transmit(TxBufIx);
+					MR_CAN.IFLAG1.B.BUF08I = 1;		// Reset IF
+					break;
+				}
+				else
+				{
+					mrcan_tx_B08_fail_cnt++;
+					if (tx_B08_fail_cnt > 5)
+					{
+						tx_B08_fail_cnt = 0;
+						MR_CAN.MB[TxBufIx].MSG.MCS.B.CODE = 0x09;		// write abort code
+					}
+					TxBufIx++;		
+				}
+					 
+			case 9:
+				if ((MR_CAN.MB[TxBufIx].MSG.MCS.B.CODE == 0x08) || (MR_CAN.MB[TxBufIx].MSG.MCS.B.CODE == 0x04) || 
+					(MR_CAN.MB[TxBufIx].MSG.MCS.B.CODE == 0x0A) || (MR_CAN.MB[TxBufIx].MSG.MCS.B.CODE == 0x09) ||
+					(MR_CAN.MB[TxBufIx].MSG.MCS.B.CODE == 0x00))
+				{		// The transmitter is not busy
+					mrcan_transmit(TxBufIx);
+					MR_CAN.IFLAG1.B.BUF09I = 1;		// Reset IF
+					break;
+				}
+				else
+				{
+					mrcan_tx_B09_fail_cnt++;
+					if (mrcan_tx_B09_fail_cnt > 5)
+					{
+						mrcan_tx_B09_fail_cnt = 0;
+						MR_CAN.MB[TxBufIx].MSG.MCS.B.CODE = 0x09;		// write abort code
+					}
+					TxBufIx++;		
+				}
+			case 10:
+				if ((MR_CAN.MB[TxBufIx].MSG.MCS.B.CODE == 0x08) || (MR_CAN.MB[TxBufIx].MSG.MCS.B.CODE == 0x04) || 
+					(MR_CAN.MB[TxBufIx].MSG.MCS.B.CODE == 0x0A) || (MR_CAN.MB[TxBufIx].MSG.MCS.B.CODE == 0x09) ||
+					(MR_CAN.MB[TxBufIx].MSG.MCS.B.CODE == 0x00))
+				{		// The transmitter is not busy
+					transmit(TxBufIx);
+					MR_CAN.IFLAG1.B.BUF10I = 1;
+					break;
+				}
+				else
+				{
+					mrcan_tx_B10_fail_cnt++;
+					if (mrcan_tx_B10_fail_cnt > 5)
+					{
+						mrcan_tx_B10_fail_cnt = 0;
+						MR_CAN.MB[TxBufIx].MSG.MCS.B.CODE = 0x09;		// write abort code
+					}
+					TxBufIx++;		
+				}
+			case 11:
+				if ((MR_CAN.MB[TxBufIx].MSG.MCS.B.CODE == 0x08) || (MR_CAN.MB[TxBufIx].MSG.MCS.B.CODE == 0x04) || 
+					(MR_CAN.MB[TxBufIx].MSG.MCS.B.CODE == 0x0A) || (MR_CAN.MB[TxBufIx].MSG.MCS.B.CODE == 0x09) ||
+					(MR_CAN.MB[TxBufIx].MSG.MCS.B.CODE == 0x00))
+				{		// The transmitter is not busy
+					transmit(TxBufIx);
+					MR_CAN.IFLAG1.B.BUF11I = 1;
+					break;
+				}
+				else
+				{
+					mrcan_tx_B11_fail_cnt++;
+					if (mrcan_tx_B11_fail_cnt > 5)
+					{
+						mrcan_tx_B11_fail_cnt = 0;
+						MR_CAN.MB[TxBufIx].MSG.MCS.B.CODE = 0x09;		// write abort code
+					}
+				}
+			default:
+				break;
+		}
+	}
+}
+
+
+//************************************************************
+//*********  Transmit Buffer  ********************************
+//************************************************************
+
+void mrcan_transmit (int16 TxBufIx)
+{
+	int16 i;
+	union {
+		uint8 b[4];			// byte: char 0 - 3
+		uint32 dw;			// double word: int
+	}uiu;					// unsigned integer union
+		
+	if (mrctgix != mrctpix)
+	{		// There is data in the buffer 
+
+		if (mrctgix < c_mrcan_tx_buf_siz)
+			mrctgix++;
+		else
+			mrctgix = 0;
+
+		if (mrcan_tx[mrctgix].len > 8)
+		{
+			mrcan_tx[mrctgix].len = 8;
+			mrcan_error |= 0x40;
+		}
+			
+
+		if (mrcan_tx[mrctgix].ex_id == 1)
+		{
+			uiu.b[hb] = mrcan_tx[mrctgix].msg;		// Message
+			uiu.b[mhb] = mrcan_tx[mrctgix].addr;	// Address
+			uiu.b[mlb] = 0;
+			uiu.b[lb] = 0;
+		 	MR_CAN.MB[TxBufIx].MSG.MID.R = uiu.dw >> 3;		// priority bits get set to zero on shift
+		}
+		else
+		{
+			uiu.b[hb] = (uint8)(mrcan_tx[mrctgix].msg & 0x3F);		// Message
+			uiu.b[mhb] = (uint8)(mrcan_tx[mrctgix].addr << 3);	// Address
+			uiu.b[mlb] = 0;
+			uiu.b[lb] = 0;
+		 	MR_CAN.MB[TxBufIx].MSG.MID.R = uiu.dw >> 3;		// priority bits get set to zero on shift
+		}
+
+
+		i = 0;
+		while ((i<mrcan_tx[mrctgix].len) && (i < 8))
+		{
+		 	MR_CAN.MB[TxBufIx].MSG.MDATA.B[i++] = mrcan_tx[mrctgix].data[i];
+		}
+		
+
+		MR_CAN.MB[TxBufIx].MSG.MCS.B.LENGTH = mrcan_tx[mrctgix].len;
+	 	
+		if (mrcan_tx[mrctgix].rtr == 1)
+			MR_CAN.MB[TxBufIx].MSG.MCS.B.RTR = 1;
+	 	else
+			MR_CAN.MB[TxBufIx].MSG.MCS.B.RTR = 0;
+
+		if (mrcan_tx[mrctgix].ex_id == 1)
+			MR_CAN.MB[TxBufIx].MSG.MCS.B.IDE = 1;
+	 	else
+			MR_CAN.MB[TxBufIx].MSG.MCS.B.IDE = 0;
+
+		if (mrcan_tx[mrctgix].srr == 1)
+			MR_CAN.MB[TxBufIx].MSG.MCS.B.SRR = 1;
+	 	else
+			MR_CAN.MB[TxBufIx].MSG.MCS.B.SRR = 0;
+	 	
+	 	
+		MR_CAN.MB[TxBufIx].MSG.MCS.B.CODE = 0x0C;		// Initiate transmit
+		mrcan_debug_1 = MR_CAN.MB[TxBufIx].MSG.MCS.B.CODE;
+	}
+}
+
+//************************************************************
+//*********  Process the Can Serial Data *********************
+//************************************************************
+
+void mrcan_control (void)
+{
+	static int16 ix;
+	int16 j,i;
+	unsigned char msg_req = 0;
+
+	unsigned char devix,iodevix,devnmb,tdevix;
+
+	if (nmb_mrcan_dev > 0)
+	{
+		unpack_mrcan_in();
+
+		if (re_init_can == 1)
+		{
+			re_init_can = 0;
+			record_fault(f_mrcan_init_error);
+//			init_mrcan_bus();
+		}
+
+		mrcan_status = MR_CAN.ESR.R;
+		if (MR_CAN.ESR.B.ERRINT == 1)
+		{
+			mrcan_status = MR_CAN.ESR.R;
+			MR_CAN.ESR.B.ERRINT = 1;
+		}
+		else
+			mrcan_status = 0;
+		
+		mrcan_tx_err_cnt = (uint8)MR_CAN.ECR.B.TXECNT;
+		mrcan_rx_err_cnt = (uint8)MR_CAN.ECR.B.RXECNT;
+
+		if (MR_CAN.ESR.B.BOFFINT == 1)
+		{		// The CAN bus is off
+			MR_CAN.ESR.B.BOFFINT = 1;
+			mrcan_bus_off_cnt++;
+			mrcan_error |= 0x04;
+			init_mrcan_bus();
+			record_fault(f_mrcan_bus_off);
+		}
+		else if (bus_off_cnt > 0)
+			mrcan_bus_off_cnt--;
+
+#if (Simulator == 0)
+		if ((mrcan_status & 0x00000080) != 0)
+		{		// Bus is idle
+			mrcan_bus_idle_cnt++;
+//			mrcan_error |= 0x08;
+//			record_fault(f_mrcan_bus_idle);		// bus can go idle while car sitting at the floor
+		}
+		else if (bus_idle_cnt > 0)
+			mrcan_bus_idle_cnt--;
+
+		if ((mrcan_status & 0x00002000) != 0)
+		{		// Transmit acknowledge error
+		
+			mrcan_ack_error_cnt++;
+			mrcan_error |= 0x10;
+			record_fault(f_mrcan_ack_err);	
+		}
+		else if (ack_error_cnt > 0)
+			mrcan_ack_error_cnt--;
+#endif
+
+		if (IsTxBufFul() == 0)
+		{	// buffer is not full	  OK to write to buffer
+			set_pi_lant_status();
+			if ((timers[tpilant] > 2) || (update_pi_lant == 1))	// 300 msec
+			{
+				update_pi_lant = 0;
+				pack_mrcan_out(25,c_mrcan_PI_LANT,0);		// Pack the pi and lantern packet 
+				timers[tpilant] = 0;
+			}
+		}
+
+		if (IsTxBufFul() == 0)
+		{	// buffer is not full	  OK to write to buffer
+			if ((mrcan_msg_req != 0) && (mrcan_dev_req != 0) && (mrcan_msg_cmd != 0) && (data_req == 0))
+			{
+				data_req = 1;
+				if ((((mrcan_dev_req >= c_mrcan_START) && (mrcan_dev_req <= c_mrcan_END)) || (mrcan_dev_req == c_mrcan_GLOBAL)) && (mrcan_msg_cmd <= 2))
+				{
+					pack_mrcan_out((uint8)mrcan_msg_req,(uint8)mrcan_dev_req,(uint8)mrcan_msg_cmd-1);		// Pack Message request 
+				}
+				if (mrcan_msg_cnt > 0)
+					mrcan_msg_cnt--;
+				if (mrcan_msg_cnt == 0)
+				{
+					mrcan_msg_req = 0;
+					mrcan_dev_req = 0;
+					mrcan_msg_cmd = 0;
+				}
+			}
+		}	 
+			
+		// Send out can sync timer
+		if (cons[RGB_CC] == 1)
+		{
+			if (IsTxBufFul() == 0)
+			{	// buffer is not full	  OK to write to buffer
+				if (mrcan_sync_timer >= 25)
+				{
+					mrcan_sync_timer = 0;
+					pack_mrcan_out(52,c_mrcan_GLOBAL,0);
+				}
+			}
+		}
+
+		// Communicate with Serial Devices and Expansion I/O boards
+		i = 0;
+		while ((i < nmb_mrcan_dev) && (IsTxBufFul() == 0))
+		{
+			if (ix < (nmb_mrcan_dev-1))
+				ix++;
+			else
+				ix = 0;
+
+			devnmb = mrcan_dev_list[ix];	// get device number from list
+			devix = devnmb - c_mrcan_START;
+
+#if ((Traction == 1) || (Tract_OL == 1))
+			// Communicate with Emergency Brake Device
+			if (((cons[brake] == 2) || (cons[brake] == 3)) && ((cons[EM_BRK] == 6) || (cons[Aux_Brake] == 1) || (cons[EM_BRK] == 7)))
+			{
+				if (devnmb == c_mrcan_EBRK)
+				{
+					if (mrcan_dev[devix].msg_req != 0)
+					{
+						msg_req = mrcan_dev[devix].msg_req;
+						mrcan_dev[devix].msg_req = 0;
+						pack_mrcan_out(msg_req,c_mrcan_EBRK,0);
+					}
+					else if (((Em_Brk_Ctl & 0x01)!= (Prev_Em_Brk_Ctl & 0x01)) || 
+								(Em_Brk_Trig_Tim != Prev_Em_Brk_Trig_Tim) || 
+								(Em_Brake_Voltage != Prev_Em_Brake_Voltage) ||
+							((((Em_Brk_Ctl & 0x01) != (Return_Em_Brk_Ctl & 0x01)) || 
+								((Em_Brk_Trig_Tim != Return_Em_Brk_Trig_Tim) && (cons[brake] == 2)) || 
+								((Em_Brake_Voltage != Return_Em_Brake_Voltage) && (cons[brake] == 3))) 
+										&& (timers[tebrkupd] >= 2)) || 
+							((timers[tebrkupd] >= 10) && (data_req == 0)))
+					{
+						data_req = 1;
+						Prev_Em_Brk_Ctl = Em_Brk_Ctl & 0x01;
+						Prev_Em_Brk_Trig_Tim = Em_Brk_Trig_Tim;
+						Prev_Em_Brake_Voltage = Em_Brake_Voltage;
+						timers[tebrkupd] = 0;
+						if (mrcan_dev[devix].version == 0)
+							pack_mrcan_out(1,c_mrcan_EBRK,0);	// send init packet
+						else
+						{	
+							pack_mrcan_out(8,c_mrcan_EBRK,0);	// Send command packet	
+
+							if (mrcan_dev[devix].online_cnt > 0)
+								mrcan_dev[devix].online_cnt--;
+						}
+						if (mrcan_dev[devix].online_cnt > 0)
+						{
+							ebrk_mrcan_error = 0;
+							statusf2 &= ~sf_EBKCAN;		// BRK can comm error cleared
+							mrcan_dev[devix].online = 1;
+						}
+						else
+						{
+#if (Simulator == 0)
+							misc_io_data &= ~0x70;		// clear io input data
+							ebrk_mrcan_error = 1;		// prevent car from running
+							statusf2 |= sf_EBKCAN;		// BRK can comm error
+							if (mrcan_dev[devix].online == 1)
+								record_fault(f_ebrk_mrcan_error);
+#endif
+							mrcan_dev[devix].online = 0;
+						}
+					}
+#if (Simulator == 1)
+					mrcan_dev[devix].version = 1;
+					Return_Em_Brk_Ctl = Em_Brk_Ctl;
+					Return_Em_Brk_Trig_Tim = Em_Brk_Trig_Tim;
+					Return_Em_Brake_Voltage = Em_Brake_Voltage;
+#endif
+				}
+			}
+			else
+				ebrk_mrcan_error = 0;
+
+			// Communicate with Brake Device
+			if ((cons[brake] == 2) || (cons[brake] == 3))
+			{
+				if (devnmb == c_mrcan_BRK)
+				{
+					if (mrcan_dev[devix].msg_req != 0)
+					{
+						msg_req = mrcan_dev[devix].msg_req;
+						mrcan_dev[devix].msg_req = 0;
+						pack_mrcan_out(msg_req,c_mrcan_BRK,0);
+					}
+					else if (((Brk_Ctl & 0x01)!= (Prev_Brk_Ctl & 0x01)) || 
+								(Brk_Trig_Tim != Prev_Brk_Trig_Tim) || 
+								(Brake_Voltage != Prev_Brake_Voltage) ||
+							((((Brk_Ctl & 0x01) != (Return_Brk_Ctl & 0x01)) || 
+								((Brk_Trig_Tim != Return_Brk_Trig_Tim) && (cons[brake] == 2)) || 
+								((Brake_Voltage != Return_Brake_Voltage) && (cons[brake] == 3))) 
+									&& (timers[tbrkupd] >= 2)) || 
+							((timers[tbrkupd] >= 10) && (data_req == 0)))
+					{
+						data_req = 1;
+						Prev_Brk_Ctl = Brk_Ctl & 0x01;
+						Prev_Brk_Trig_Tim = Brk_Trig_Tim;
+						Prev_Brake_Voltage = Brake_Voltage;
+						timers[tbrkupd] = 0;
+						if (mrcan_dev[devix].version == 0)
+							pack_mrcan_out(1,c_mrcan_BRK,0);	// send init packet
+						else
+						{	
+							pack_mrcan_out(8,c_mrcan_BRK,0);	// Send command packet	
+
+							if (mrcan_dev[devix].online_cnt > 0)
+								mrcan_dev[devix].online_cnt--;
+						}
+						if (mrcan_dev[devix].online_cnt > 0)
+						{
+							brk_mrcan_error = 0;
+							statusf &= ~sf_BKCAN;		// BRK can comm error cleared
+							mrcan_dev[devix].online = 1;
+						}
+						else
+						{
+#if (Simulator == 0)
+							misc_io_data &= ~0x07;		// clear io input data
+							brk_mrcan_error = 1;		// prevent car from running
+							statusf |= sf_BKCAN;		// BRK can comm error
+							if (mrcan_dev[devix].online == 1)
+								record_fault(f_brk_mrcan_error);
+#endif
+							mrcan_dev[devix].online = 0;
+						}
+					}
+#if (Simulator == 1)
+					mrcan_dev[devix].version = 3;
+					Return_Brk_Ctl = Brk_Ctl;
+					Return_Brk_Trig_Tim = Brk_Trig_Tim;
+					Return_Brake_Voltage = Brake_Voltage;
+#endif
+				}
+			}
+			else
+				brk_mrcan_error = 0;
+
+			// Communicate with Safety processor board
+			if (devnmb == c_mrcan_SPB)
+			{
+				if (mrcan_dev[devix].msg_req != 0)
+				{
+					msg_req = mrcan_dev[devix].msg_req;
+					mrcan_dev[devix].msg_req = 0;
+					pack_mrcan_out(msg_req,c_mrcan_SPB,0);
+					timers[tspbupd] = 0;
+					SPB_can.command_cnt = 0;
+				}
+				else if ((SPB_can.version >= 5) && (SPB_can.command_cnt < 1) &&
+						((SPB_can.command & spbc_cmd_mask) != (SPB_can.command_ret & spbc_cmd_mask)))
+				{					  // Send command to SPB
+					SPB_can.command_cnt++;				// if packete is not being returned then must allow status packet
+					pack_mrcan_out(32,c_mrcan_SPB,0);	// send command packet
+				}
+				else if ((cons[sel_type] == 1) && ((SPB_can.command & 0x01) != 0))
+				{					  // Initialize selector count  (not required for GAL encoder selector
+					if ((SPB_can.status & 0x80) != 0)
+						SPB_can.command &= ~0x01;
+					else
+						pack_mrcan_out(23,c_mrcan_SPB,0);	// send init packet
+					SPB_can.command_cnt = 0;
+				}
+				else if (((cons[sel_type] == 1) || (cons[sel_type] == 2)) && ((SPB_can.command & 0x02) != 0))
+				{					// Request immediate update
+					pack_mrcan_out(2,c_mrcan_SPB,1);	// data request for status
+					SPB_can.command &= ~0x02;
+					SPB_can.command_cnt = 0;
+				}
+				else if (timers[tspbupd] >= 5)	
+				{	  // Request Safety processor board	Status
+					SPB_can.command_cnt = 0;
+					if (mrcan_dev[devix].version == 0)
+					{
+						if  (timers[tspbupd] >= 20)
+						{
+							pack_mrcan_out(1,c_mrcan_SPB,0);	// send init packet
+							timers[tspbupd] = 0;
+						}
+					}
+					else if (data_req == 0) 
+					{
+						data_req = 1;
+ 						if (SPB_can.vel_req == 1)
+						{
+							SPB_can.vel_req = 0;
+							SPB_can.vel_rcvd = 0;
+							pack_mrcan_out(4,c_mrcan_SPB,1);	// data request for uts,dts,ut and dt velocities
+						}
+						else if (SPB_can.fault_req == 1)
+						{
+							SPB_can.fault_req = 0;
+							SPB_can.fault_rcvd = 0;
+							pack_mrcan_out(5,c_mrcan_SPB,1);	// data request for faults
+						}
+						else if (SPB_can.eep_req == 1)
+						{
+							SPB_can.eep_req = 0;
+							SPB_can.eep_rcvd = 0;
+							pack_mrcan_out(6,c_mrcan_SPB,1);	// data request for eeprom 
+						}
+						else
+							pack_mrcan_out(2,c_mrcan_SPB,1);	// data request for status
+						timers[tspbupd] = 0;
+					}
+					if (timers[tspbupd] == 0)  // packet was sent because the timer was zeroed
+					{
+						if (mrcan_dev[devix].online_cnt > 0)
+							mrcan_dev[devix].online_cnt--;
+					}
+				}
+
+				if ((SPB_can.command & spbc_cmd_mask) == (SPB_can.command_ret & spbc_cmd_mask))
+					SPB_can.command_cnt = 0;	  // update had been made so clear count
+
+				if ((SPB_can.command_ret & spbc_reset_umotion) != 0)
+					SPB_can.command &= ~spbc_reset_umotion;
+
+				if ((SPB_can.command_ret & spbc_set_umotion) != 0)
+					SPB_can.command &= ~spbc_set_umotion;
+
+//				if ((SPB_can.command_ret & spbc_GR1_pick) != 0)
+//					SPB_can.command &= ~spbc_GR1_pick;
+
+				if ((SPB_can.command_ret & spbc_Car_Spd_menu) != 0)
+					SPB_can.command &= ~spbc_Car_Spd_menu;
+
+				if (mrcan_dev[devix].online_cnt > 0)
+				{
+					spb_mrcan_error = 0;
+					statusf &= ~sf_SPB;		// SPB can comm error cleared
+					mrcan_dev[devix].online = 1;
+				}
+				else
+				{
+#if (Simulator == 0)
+					spb_mrcan_error = 1;		// prevent car from running
+					statusf |= sf_SPB;		// SPB can comm error
+					if (mrcan_dev[devix].online == 1)
+						record_fault(f_spb_mrcan_error);
+#endif
+					mrcan_dev[devix].online = 0;
+				}
+
+				if ((timers[tspbts] >= 20) && (data_req == 0))	
+				{	  // Request temperature from Safety processor board
+					data_req = 1;
+					pack_mrcan_out(3,c_mrcan_SPB,1);	// data request for temperature
+					timers[tspbts] = 0;
+				}
+			} 
+
+
+			if (cons[loadw] == 2)
+			{	// Request load weigher data when at floor and door is open
+				if (devnmb == c_mrcan_LW)
+				{
+					if (mrcan_dev[devix].msg_req != 0)
+					{
+						msg_req = mrcan_dev[devix].msg_req;
+						mrcan_dev[devix].msg_req = 0;
+						pack_mrcan_out(msg_req,c_mrcan_LW,0);
+						timers[tlwupd] = 0;
+					}
+					else if (((timers[tlwupd] >= 2) && (procf >= 14) && (procf <= 16)) ||	// 200 msec at the floor
+							 ((timers[tlwupd] >= 5) && ((procf < 14) || (procf > 16))))		// Every 500 msec not at floor
+					{		
+						timers[tlwupd] = 0;
+
+						if (mrcan_dev[devix].version == 0)
+							pack_mrcan_out(1,c_mrcan_LW,0);	// send init packet
+						else
+							pack_mrcan_out(21,c_mrcan_LW,0);	// request data read from load weigher					
+
+						if (mrcan_dev[devix].online_cnt > 0)
+							mrcan_dev[devix].online_cnt--;
+						if (mrcan_dev[devix].online_cnt > 0)
+							mrcan_dev[devix].online = 1;
+						else
+							mrcan_dev[devix].online = 0;
+					}
+				}
+			}
+				
+#endif
+
+
+			if (cons[Voltage_Sensor] == 1)
+			{
+				if ((timers[tvsupd] >= 30) && (devnmb == c_mrcan_VS)) // every 3 seconds
+				{	  // Request Voltage from voltage board
+					if (mrcan_dev[devix].msg_req != 0)
+					{
+						msg_req = mrcan_dev[devix].msg_req;
+						mrcan_dev[devix].msg_req = 0;
+						pack_mrcan_out(msg_req,c_mrcan_VS,0);
+					}
+					if (mrcan_dev[devix].version == 0)
+						pack_mrcan_out(1,c_mrcan_VS,0);	// send init packet
+					else
+						pack_mrcan_out(44,c_mrcan_VS,1);	// data request controller voltage
+					timers[tvsupd] = 0;;
+
+#if (Simulator == 1)
+					mrcan_dev[devix].online = 1;
+#else
+					if (mrcan_dev[devix].online_cnt > 0)
+						mrcan_dev[devix].online_cnt--;
+					if (mrcan_dev[devix].online_cnt > 0)
+						mrcan_dev[devix].online = 1;
+					else
+						mrcan_dev[devix].online = 0;
+#endif
+				}
+			}
+
+			// I/O Board Data
+
+			if ((devnmb >= c_mrcan_SEB_1) && (devnmb <= c_mrcan_END))
+			{		 // Valid device number
+				iodevix = devnmb-c_mrcan_SEB_1;
+				tdevix = devnmb - c_mrcan_SEB_1;
+				iodataix = (int16)((IODATA_ARRAY_START + iodev_ix) * 3); 		// input array
+
+				// *********************** Output device *********************
+					 
+				if (((iodata[1][iodataix] & ~IO_In_Out[iodataix]) != (serial_mr.dev[iodevix].iob[0] & ~IO_In_Out[iodataix])) ||
+					((iodata[1][iodataix+1] & ~IO_In_Out[iodataix+1]) != (serial_mr.dev[iodevix].iob[1] & ~IO_In_Out[iodataix+1])) ||
+					((iodata[1][iodataix+2] & ~IO_In_Out[iodataix+2]) != (serial_mr.dev[iodevix].iob[2] & ~IO_In_Out[iodataix+2]))) 
+				{		// io data for the output has changed
+					serial_mr.dev[iodevix].iob[0] = (serial_mr.dev[iodevix].iob[0] & IO_In_Out[iodataix]) | (iodata[1][iodataix] & ~IO_In_Out[iodataix]);
+					serial_mr.dev[iodevix].iob[1] = (serial_mr.dev[iodevix+1].iob[1] & IO_In_Out[iodataix+1]) | (iodata[1][iodataix+1] & ~IO_In_Out[iodataix+1]);
+					serial_mr.dev[iodevix].iob[2] = (serial_mr.dev[iodevix+2].iob[2] & IO_In_Out[iodataix+2]) | (iodata[1][iodataix+2] & ~IO_In_Out[iodataix+2]);
+					pack_mrcan_out(13,devnmb,0);	// Data has changed so pack the data
+					timers[tcantx + tdevix] = 0;
+					sync_dev[iodevix].rtx_cnt = 0;
+				}
+				else if ((mrcan_sync_dev[iodevix].iob[0] != serial_mr.dev[iodevix].iob[0]) ||
+					(mrcan_sync_dev[iodevix].iob[1] != serial_mr.dev[iodevix].iob[1]) ||
+					(mrcan_sync_dev[iodevix].iob[2] != serial_mr.dev[iodevix].iob[2]))
+				{		// device has not updated it's outputs yet
+					if (timers[tcantx + tdevix] >= 2)
+					{
+						pack_mrcan_out(13,devnmb,0);	// Data has changed so pack the data
+						timers[tcantx + tdevix] = 0;
+						if (sync_dev[iodevix].rtx_cnt > 10)
+						{
+							sync_dev[iodevix].iob[0] = serial.dev[iodevix].iob[0]; 
+						  	sync_dev[iodevix].iob[1] = serial.dev[iodevix].iob[1];
+						  	sync_dev[iodevix].iob[2] = serial.dev[iodevix].iob[2];
+							sync_dev[iodevix].rtx_cnt = 0;
+						}
+						else
+							sync_dev[iodevix].rtx_cnt++;
+					}
+				}
+				else if (timers[tcantx + tdevix] > 6)
+				{		 // Update outputs
+					serial.dev[iodevix].iob[0] = iodata[1][j] & ~IO_In_Out[ioarrayix];
+					serial.dev[iodevix].iob[1] = iodata[1][j+1];
+					serial.dev[iodevix].iob[2] = iodata[1][j+2];
+					pack_mrcan_out(13,devnmb,0);	// Data has changed so pack the data
+					timers[tcantx + tdevix] = 0;
+					sync_dev[iodevix].rtx_cnt = 0;
+				}
+				
+				// *****************  Input check **********************
+
+				if (sync_dev[iodevix].reflect_data == 1)
+				{		 // Send back what was sent so the device can verify it was sent ok
+					sync_dev[iodevix].reflect_data = 0;	// Must be cleared before data is packed - if new data comes in during
+					mrcan_debug_3++;
+					pack_mrcan_out(15,devnmb,0);			//  the pack, it must be re-sent
+				}
+				else if (mrcan_dev[devix].msg_req != 0)
+				{
+					msg_req = mrcan_dev[devix].msg_req;
+					mrcan_dev[devix].msg_req = 0;
+					pack_mrcan_out(msg_req,devnmb,0);
+				}
+				else if (timers[tcanrx + tdevix] > 3)
+				{
+					if (mrcan_dev[devix].version == 0)
+					{
+						pack_mrcan_out(11,devnmb,0);	// send init packet
+						timers[tcanrx + tdevix] = 0;
+						if (mrcan_dev[devix].online_cnt > 0)
+							mrcan_dev[devix].online_cnt--;
+					}
+					else if (data_req == 0)
+					{
+						data_req = 1;
+						if (devnmb == c_mrcan_TOC)
+							pack_mrcan_out(18,devnmb,1);	// data request
+						else
+							pack_mrcan_out(14,devnmb,1);	// data request
+						timers[tcanrx + tdevix] = 0;
+						if (mrcan_dev[devix].online_cnt > 0)
+							mrcan_dev[devix].online_cnt--;
+					}
+				}
+					
+				if (mrcan_dev[devix].online_cnt > 0)
+				{
+					if (devix == (c_mrcan_TOC - c_mrcan_START))
+					{
+						if (toc_mrcan_error_off_cnt > 4)
+							toc_mrcan_error = 0;
+						statusf &= ~sf_TOC;		// TOC can comm error cleared
+	
+						if (toc_mrcan_error_off_cnt < 10)
+							toc_mrcan_error_off_cnt++;
+					}
+					mrcan_dev[devix].online = 1;
+				}
+				else
+				{
+
+#if (Simulator == 0)
+					if (mrcan_dev[devix].online == 1)
+					{
+						fault_device = devnmb;
+						record_fault(f_seb_mrcan_error);
+					}
+#endif
+					mrcan_dev[devix].online = 0;
+#if (Simulator == 0)
+		 			serial.dev[iodevix].iob[0] &= IO_In_Out[iodataix];	  // clear input data since device is not on-line
+		 			serial.dev[iodevix].iob[1] &= IO_In_Out[iodataix+1];
+		 			serial.dev[iodevix].iob[2] &= IO_In_Out[iodataix+2];
+#endif
+				}
+			}
+			i++;		
+		}
+		_disable();
+		tx_mrcan_msg(8);		// Check if data waiting and transmit
+		_enable();
+		if (data_req == 0)
+			data_req_cnt = 0;
+ #if (TS3300 == 1)
+		else if (data_req_cnt >= 1)
+ #else
+		else if (data_req_cnt >= 4)
+ #endif
+		{						// Cause a delay between sending packet request instead of sending all at once
+			data_req_cnt = 0;
+			data_req = 0;
+		}
+		else
+			data_req_cnt++;
+	}
+}
+
+
+//************************************************************
+//*********  Set the PI and Lantern Status Flags *************
+//************************************************************
+
+
+void set_pi_lant_status (void)
+{
+/*			Packet 25 for PI, Lantern and Speech devices.
+
+	25		PI			CPU				8	   	Message #25: PI and Lantern Data
+												  	Car position		Binary position
+												  	Ascii PI 0			Ascii Position low byte
+												  	Ascii PI 1			Ascii Position High byte
+
+													Lantern Status		Bit 7: LUP (lantern up)
+																		Bit 6: LDN (lantern down)
+																		Bit 5: RLUP (rear lantern up)
+																		Bit 4: RLDN (rear lantern down)
+																		Bit 3: UDA (up direction arrow)
+																		Bit 2: DDA (down direction arrow)
+																		Bit 1: User Message Bit 1
+																		Bit 0: User Message Bit 0
+
+												  	Motion Status		Bit 7: CULR previously UPREF (up preference)
+												  						Bit 6: CDLR previously DNPREF (down preference)
+												  						Bit 5: CUL previously run (car running)
+												  						Bit 4: CDL previously leveling (car leveling)
+												  						Bit 3: Out of Service
+																		Bit 2: Inspection
+																		Bit 1: Independent
+																		Bit 0: unused
+
+													Fire Status			Bit 7: PH2 (fire phase 2)
+																		Bit 6: PH1 Complete (fire phase 1 complete)
+																		Bit 5: PH1 Recall Main (fire phase 1 recall active)
+																		Bit 4: EMP Recall (emergency power recall active)
+												  						Bit 3: EMP Recall Complete (emergency power recall complete)
+												  						Bit 2: Power Loss (Normal power is out)
+												  						Bit 1: Imminent Shutdown
+																		Bit 0: PH1 Recall Alternate (fire phase 1 recall active)
+
+													Door Status 		Bits 3,2,1,0
+												  						doorf = 0 doors closed no action
+												  						doorf = 1 doors are opening
+												  						doorf = 2 doors are dwellingse)
+																		doorf = 3 doors are closing
+																		doorf = 4 doors are nudging closed
+
+																		Bits 7,6,5,4
+													  					rdoorf = 0 doors closed no action
+													  					rdoorf = 1 doors are opening
+													  					rdoorf = 2 doors are dwelling
+													  					rdoorf = 3 doors are closing
+													  					rdoorf = 4 doors are nudging closed
+
+													Misc Status			Bit 7: Activate speech
+																		Bit 6: At Lobby (car at lobby floor)
+																		Bit 5: Overload (load overload)
+																		Bit 4: Load Bypass
+																		Bit 3: EMT (Emergency Medical Technician Service)
+																		Bit 2: Code Blue
+																		Bit 1: Seismic
+																		Bit 0: User Message Bit 2 
+
+																		User Message Bits 2,1,0
+																						  0 0 0	No message
+																						  0 0 1 Message 1
+																						  0 1 0 Message 2
+																						  0 1 1 Message 3
+																						  1 0 0 Message 4
+																						  1 0 1 Message 5
+																						  1 1 0 Message 6
+																						  1 1 1 Message 7
+*/
+
+
+
+	if (position != pi_pos)
+		update_pi_lant = 1;
+	if ((valid_fl[position] != 0) || (fvars[fvhbz_nvfl] == 0))
+		pi_pos = (uint8)position;				// update only when valid posiuwu.won
+
+	lant_stat = 0;
+	if (lant_up == 1)
+		lant_stat |= 0x80;
+	if (lant_dn == 1)
+		lant_stat |= 0x40;
+	if (rlant_up == 1)
+		lant_stat |= 0x20;
+	if (rlant_dn == 1)
+		lant_stat |= 0x10;
+	if (up_dir_arrow == 1)
+		lant_stat |= 0x08;
+	if (dn_dir_arrow == 1)
+		lant_stat |= 0x04;
+
+	if ((cons[loadw] != 1)&&(cons[housing] == 3))
+	{
+		if (rdinp(i_ALRM) == 1)
+		{
+			alrm_pi_stat = 1;
+			timers[talrm_pi] = 0;
+		}
+		else if(timers[talrm_pi] > 200)
+		{
+			alrm_pi_stat = 0;
+		}
+	}
+
+
+	if ((fvars[fvsvcmsg1] != 0) && (servf == fvars[fvsvcmsg1])) 
+		lant_stat |= 0x01;
+	else if ((fvars[fvsvcmsg2] != 0) && (servf == fvars[fvsvcmsg2]))
+		lant_stat |= 0x02;
+	else if ((fvars[fvextdoormsg] == 1) && (extended_door_time == 1))		
+		lant_stat |= 0x02;
+	else if ((fvars[fvsvcmsg3] != 0) && (servf == fvars[fvsvcmsg3]))
+		lant_stat |= 0x03;
+
+	if (pi_lant_stat != lant_stat)
+		update_pi_lant = 1;
+
+	pi_lant_stat = lant_stat;
+
+	door_stat = 0;
+	if (rdoutp(o_NUD) == 1)
+		door_stat = 4;
+	else if (rdoutp(o_DO) == 1)
+		door_stat = 1;
+	else if (rdoutp(o_DC) == 1)
+		door_stat = 3;
+	else if (rdinp(i_DCL) == 0)
+		door_stat = 0;
+	else if (rdinp(i_DOL) == 0)
+		door_stat = 2;
+
+	if (rdoutp(o_NUDR) == 1)
+		door_stat |= 0x40;
+	else if (rdoutp(o_DOR) == 1)
+		door_stat |= 0x10;
+	else if (rdoutp(o_DCR) == 1)
+		door_stat |= 0x30;
+	else if (rdinp(i_DCLR) == 0)
+		door_stat &= 0x0F;
+	else if (rdinp(i_DOLR) == 0)
+		door_stat |= 0x20;
+
+	if (pi_door_stat != door_stat)
+		update_pi_lant = 1;
+
+	pi_door_stat = door_stat;
+
+	fire_stat = 0;
+	if (firef > 3)
+		fire_stat |= 0x80;
+	if ((firef == 1) || (firef == 2) || (rfiref == 1) || (rfiref == 2) || (firef == 3) || (rfiref == 3))
+	{
+		if ((firef == 3) || (rfiref == 3))
+			fire_stat |= 0x40;
+		if ((firef == 1) || (rfiref == 1) || (((firef == 3) || (rfiref == 3)) && (fire_floor == fvars[fvfs1f])))
+			fire_stat = 0x20;
+		if ((firef == 2) || (rfiref == 2) || (((firef == 3) || (rfiref == 3)) && (fire_floor == fvars[fvfs1af])))
+			fire_stat = 0x01;
+	}
+
+	if (empf != 0)
+	{
+		fire_stat |= 0x04;
+		if ((empf == 4) || (empf == 5) || (empf == 3))
+		{
+			fire_stat |= 0x10;				// Recall sequence
+			if ((empf == 4) || (empf == 5))
+				fire_stat |= 0x08;				// Recall complete
+		}
+	}
+
+
+	// Fire stat bit 1 reserved for imminent shutdown
+
+	if (pi_fire_stat != fire_stat)
+		update_pi_lant = 1;
+
+	pi_fire_stat = fire_stat;
+
+
+	// Motion Status
+	motion_stat = 0;
+
+	if (cab_rlant_up == 1)
+		motion_stat |= 0x80;
+	if (cab_rlant_dn == 1)
+		motion_stat |= 0x40;
+	if (cab_lant_up == 1)
+		motion_stat |= 0x20;
+	if (cab_lant_dn == 1)
+		motion_stat |= 0x10;
+/*
+	if (cab_lant_up == 1)
+		motion_stat |= 0x80;
+	if (cab_lant_dn == 1)
+		motion_stat |= 0x40;
+	if (cab_rlant_up == 1)
+		motion_stat |= 0x20;
+	if (cab_rlant_dn == 1)
+		motion_stat |= 0x10;
+
+	if (dpref == 1)
+		motion_stat |= 0x80;
+	else if (dpref == 2)
+		motion_stat |= 0x40;
+
+	if (rdoutp(o_RUN) == 1)
+		motion_stat |= 0x20;
+
+	if (relevel == 1)
+		motion_stat |= 0x10;
+*/
+
+	if (servf == 0)
+		motion_stat |= 0x08; 
+
+	if ((chk_ins() == 1) && (safeties() == 1))
+		motion_stat |= 0x04; 
+
+	if (ind() == 1)
+		motion_stat |= 0x02; 
+
+	if (pi_motion_stat != motion_stat)
+		update_pi_lant = 1;
+
+	pi_motion_stat = motion_stat;
+
+	
+	// Misc. Status Flags
+	misc_stat = 0;
+//	if (position == lobby_fl)
+//		misc_stat |= 0x40;
+
+	
+//change this statement
+//	if (rdinp(i_OLV) == 1)
+// to if(in_overload == 1)
+
+	if(in_overload == 1)
+		misc_stat |= 0x20;
+	if (rdinp(i_LWB) == 1)
+		misc_stat |= 0x10;	
+	if ((medf == 1) || (medf == 2))
+		misc_stat |= 0x08;
+	if ((codebf == 1) || (codebf == 2) || (codebf == 3))
+		misc_stat |= 0x04;
+	if (eqf != 0)
+		misc_stat |= 0x02;
+
+	if (pi_misc_stat != misc_stat)
+		update_pi_lant = 1;
+
+	pi_misc_stat = misc_stat;
+
+}
+
+#if (Traction == 1)
+int16 blind (void)
+{
+
+	int16 blind_shaft = 0;
+	if (cons[Blind_Floor] != 0)
+	{								/* Floor below the Blind Hoistway	*/
+		if ((front_slowdown != 0) || (rear_slowdown != 0)) 
+			blind_shaft = 0;
+		else 
+		{
+			if ( (Velocity >= 100) && (dirf == 1))
+			{
+				if ( (position <= cons[Blind_Floor]) && (DPP_Count > (DPP_Floor_Pos[cons[Blind_Floor]] + (int32)(24.0*Pulses_per_Inch))) )
+					blind_shaft = 1;
+				else if (position > cons[Blind_Floor])
+					blind_shaft = 0;
+			}
+			else if ((Velocity >= 100) && (dirf == 2))
+			{
+				if ( (position > cons[Blind_Floor]) && (DPP_Count < (DPP_Floor_Pos[cons[Blind_Floor] + 1] - (int32)(24.0*Pulses_per_Inch))) )
+					blind_shaft = 1;
+				else if	(position <= cons[Blind_Floor])
+					blind_shaft = 0;
+			}
+		}
+	}
+	else if (cons[Blind_Floor_2] != 0)
+	{								/* Floor below the Blind Hoistway	*/
+		if ((front_slowdown != 0) || (rear_slowdown != 0)) 
+			blind_shaft = 0;
+		else 
+		{
+			if ( (Velocity >= 100) && (dirf == 1))
+			{
+				if ( (position <= cons[Blind_Floor_2]) && (DPP_Count > (DPP_Floor_Pos[cons[Blind_Floor_2]] + (int32)(24.0*Pulses_per_Inch))) )
+					blind_shaft = 2;
+				else if (position > cons[Blind_Floor_2])
+					blind_shaft = 0;
+			}
+			else if ((Velocity >= 100) && (dirf == 2))
+			{
+				if ( (position > cons[Blind_Floor_2]) && (DPP_Count < (DPP_Floor_Pos[cons[Blind_Floor_2] + 1] - (int32)(24.0*Pulses_per_Inch))) )
+					blind_shaft = 2;
+				else if	(position <= cons[Blind_Floor_2])
+					blind_shaft = 0;
+			}
+		}
+	}
+
+	return (blind_shaft);
+}
+#endif
+
+
+
+/* Revision History
+6/21/12 v6.0.9 mhd	1. Created new can bus
+
+*/

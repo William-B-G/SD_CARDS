@@ -1,0 +1,11 @@
+-input="./src/CAN/CAN.obj"
+-input="./src/Flash/Flash.obj"
+-input="./src/Movfr.obj"
+-input="./src/StarterCodes/dbsct.obj"
+-input="./src/StarterCodes/interrupt_handlers.obj"
+-input="./src/StarterCodes/reset_program.obj"
+-input="./src/StarterCodes/sbrk.obj"
+-input="./src/StarterCodes/vector_table.obj"
+-input="./src/Timer/Timer.obj"
+-input="./src/WatchDog/WatchDog.obj"
+-start=SU,SI,B_1,R_1,B_2,R_2,B,R/0,PResetPRG,C_1,C_2,C,C$*,D*,W*,L,PIntPRG,P/0FFFF0000,FIXEDVECT/0FFFFFF80

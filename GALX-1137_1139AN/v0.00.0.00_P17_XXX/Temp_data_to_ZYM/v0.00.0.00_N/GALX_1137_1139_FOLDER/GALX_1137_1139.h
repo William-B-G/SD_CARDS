@@ -1,0 +1,30 @@
+// GALX_1137_1139.h
+
+extern int16 Hall_Station_CAN(int16 cycles);
+extern int16 Hall_Station_CAN_Data(int16 Data);
+extern int16 HALL_Lantern_RS485(int16 dummy);
+extern int16 Get_Srl_Hall_Station_Pkg(int16 dummy);
+extern int16 Unpk_Hall_Station(int16 dummy);
+extern int16 Reset_1137_board(int16 Kase);
+extern int16 Send_Hall_Data(int16 msg);
+extern int16 Send_Hall_Reset(int16 dummy);
+extern int16 DisplayGrpUnpkData(int16 dummy);
+extern int16 Clear_All_Boards(int16 Boards);
+extern int16 Case_16_data;
+extern int16 Case_14_data;
+extern int16 CaseNumber;
+extern int16 Raw_data;
+extern int16 Reset_14_and_16(int16 dummy);
+extern int16 Req_packet_14(int16 msg);
+extern int16 Set_or_Clear_1137_Input(int16 Set_Clear);
+extern int16 Display_channels(int16 command);
+extern int16 Send_Hall_Lantern_Floor(int16 Lantern_Select);
+extern uint8 Hall_Lantern_Select;
+extern uint8 Hall_Lantern_floor_A;
+extern uint8 Hall_Lantern_floor_B;
+extern uint8 Hall_Lantern_Data_A;
+extern uint8 Hall_Lantern_Data_B;
+extern int16 DoNothing(int16 New_LCD_Menu);
+extern int16 Qty_113x_bds(int16 Test_and_Qty);
+extern int16 Set_or_Clear_All(int16 Set_1_or_clear_0);
+extern int16 Use_CT_CAN(int16 dummy);

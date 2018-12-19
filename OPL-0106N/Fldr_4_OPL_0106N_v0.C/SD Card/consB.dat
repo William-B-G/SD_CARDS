@@ -1,0 +1,38 @@
+ +12//Start up menu -- 0=main;1=mymenu;2=B;3=C;4=individual;5=diagnostics
+ +0//Log event min priority
+ +203//Log event max priority 201=FPGA 1; 203=FPGA 2; 205=NTS
+ +0//Log event min Group #
+ +200//Log event max Group #
+ +0//Log event min Group ID #
+ +200//Log event max Group ID #
+ +1//Enable Log event manager
+ +1//Enable event - priority
+ +1//Enable event - Groups
+ +1//Enable event - Group ID's
+ +50//minute
+ +10//hour
+ +13//day
+ +11//month
+ +2017//year
+ +0//GR CAN :  0= do NOT clear LED's; 1= clear LED's at end of test if param = 16
+ +0//MR CAN :  0= do NOT clear LED's; 1= clear LED's at end of test if param = 16
+ +0//CT CAN :  0= do NOT clear LED's; 1= clear LED's at end of test if param = 16
+ +0//SEL CAN : 0= do NOT clear LED's; 1= clear LED's at end of test if param = 16
+ +2//CAN test delay in units of 100ms (valid for 100ms - 2000ms) consB[20]. Default is 5 = 500ms
+ +0//Code descriminator A: 0 thru 127=ZYM; 128 thru 255=WBG { consB[21] } For debuging Hall station CAN
+ +128//  Code descriminator B: 0 thru 127=ZYM; 128 thru 255=WBG { consB[22] } 0000 0000 1000 0000
+ +3//  Code descriminator C: 0 thru 127=ZYM; 128 thru 255=WBG   { consB[23] } hall lantern address (floor).
+ +64//  Code descriminator D: 0 thru 127=ZYM; 128 thru 255=WBG   { consB[24] } hall lantern data. (not found in ver ...P [2018-4-24])
+ +1//  search for consB[25] hall lantern address (not found in ver ...P [2018-4-24])
+ +128//  consB[26]  hall lantern data. (not found in ver ...P [2018-4-24])
+ +256//  1137 & 1139 direction 4 multiple boards. 1137 -> bit 4; 1139 -> bit 0.  0=up direction, 1=down direction. 0x100=CT CAN; 0x000=MR CAN
+ +0//
+ +5//
+ +1//
+ +9//
+ +9//
+ +9//
+ +9//
+ +9//
+ +9//
+ +1//

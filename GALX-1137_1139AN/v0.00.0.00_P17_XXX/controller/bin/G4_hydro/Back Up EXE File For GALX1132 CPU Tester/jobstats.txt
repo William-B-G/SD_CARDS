@@ -1,0 +1,16 @@
+Elevator Statistics
+
+Number of Car Calls 0
+Number of Up Calls 0
+Number of Down Calls 0
+Number of Up Calls Less than 15 seconds = 0
+Number of Up Calls Less than 30 seconds = 0
+Number of Up Calls Less than 45 seconds = 0
+Number of Up Calls Less than 60 seconds = 0
+Number of Up Calls More than 60 seconds = 0
+Number of Down Calls Less than 15 seconds = 0
+Number of Down Calls Less than 30 seconds = 0
+Number of Down Calls Less than 45 seconds = 0
+Number of Down Calls Less than 60 seconds = 0
+Number of Down Calls More than 60 seconds = 0
+
